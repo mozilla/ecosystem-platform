@@ -1,0 +1,47 @@
+{
+  "docs": {
+    "Introduction": [
+      "welcome",
+      "platform-overview"
+    ],
+    "The Process": [
+      "process/integration-with-fxa",
+      "process/integration-with-subscription-platform",
+      "process/becoming-a-sync-client"
+    ],
+    "Platform Features": [
+      "features/features",
+      {
+        "type": "subcategory",
+        "label": "FxA Features",
+        "ids": [
+          "features/fxa-details/fxa-features-overview",
+          "features/fxa-details/feature-detail-example"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Subscription Platform",
+        "ids": [
+          "features/subscription-platform-details/subscription-platform-features"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Sync Client Integration",
+        "ids": [
+          "features/sync-client-integration-details/sync-client-integration-features"
+        ]
+      }
+    ],
+    "Reference": [
+      "reference/best-practices",
+      "reference/glossary",
+      "reference/ecosystem-map"
+    ],
+    "About": [
+      "about/the-teams",
+      "about/history"
+    ]
+  }
+}

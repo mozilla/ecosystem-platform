@@ -1,0 +1,247 @@
+@font-face {
+  font-family: "Inter UI";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("../fonts/Inter/Inter-UI-Regular.woff2") format("woff2"),
+    url("../fonts/Inter/Inter-UI-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Inter UI";
+  font-style: normal;
+  font-weight: 600;
+  src:
+    url("../fonts/Inter/Inter-UI-SemiBold.woff2") format("woff2"),
+    url("../fonts/Inter/Inter-UI-SemiBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Metropolis/Metropolis-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/Metropolis/Metropolis-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/Metropolis/Metropolis-Medium.woff2") format("woff2");
+}
+
+
+
+html,
+body {
+  font-family: "inter";
+  --ink: rgba(32, 18, 58, 1);
+  --inkLight: rgba(227, 225, 230, 1);
+  --lightGrey: rgba(249, 249, 249, 1);
+  --white: #fff;
+  --lightBlue: rgba(0, 144, 237, 1);
+  --blue03: #0060df;
+  --blue04: #0250bb;
+  --blue05: #073072;
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+.button,
+.navItem {
+  font-family: "Metropolis";
+}
+
+.button {
+  font-weight: 700;
+}
+
+.fixedHeaderContainer {
+  margin: 0;
+  padding: 0;
+  background: var(--lightGrey);
+  border-bottom: 1px solid var(--inkLight);
+}
+
+.fixedHeaderContainer header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.fixedHeaderContainer a {
+  height: 40px;
+}
+
+.fixedHeaderContainer a,
+.navigationSlider .slidingNav ul li a {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.headerWrapper.wrapper {
+  max-width: 100%;
+  padding: 0;
+}
+
+.headerTitleWithLogo {
+  font-size: 1.5rem !important;
+}
+
+.navigationSlider .slidingNav {
+  position: relative;
+}
+
+.navigationSlider .slidingNav ul {
+  background: none;
+  margin: 0;
+}
+
+.navigationSlider .slidingNav ul li a:hover,
+.navigationSlider .slidingNav ul li.siteNavItemActive a,
+.navigationSlider .slidingNav ul li.siteNavGroupActive a {
+  background: transparent;
+  color: var(--ink);
+}
+
+.navPusher {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: calc(100vh - 88px);
+  padding-top: 88px;
+}
+
+.navGroups h3,
+.navGroups h4 {
+  font-weight: 700 !important;
+}
+
+.navListItemActive a {
+  text-decoration: underline;
+}
+
+.container.mainContainer > .wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 240px;
+  overflow: auto;
+}
+
+.onPageNav > .toc-headings {
+  position: fixed;
+  border-left: 1px solid var(--lightGrey);
+  font-family: "Metropolis";
+}
+
+.onPageNav .toc-headings > li > a.active {
+  font-weight: 700;
+}
+
+.docsNavContainer > .toc {
+  padding: 0;
+  overflow: auto;
+}
+
+.onPageNav {
+  position: relative;
+  margin: 44px 0 0 ;
+  top: 0;
+}
+
+main {
+  color: var(--ink);
+  flex: 1;
+  padding: 24px;
+}
+
+.index-message {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.container.mainContainer .post a:not(button),
+.index-messåage a:not(.button) {
+  color: var(--blue03);
+}
+
+.post h2 {
+  color: #962BB9;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+  .docsNavContainer {
+    position: fixed;
+    width: 240px;
+    height: calc(100vh - 115px);
+    margin: 16px;
+    overflow: scroll !important;
+    z-index: 1;
+    top: 89px;
+  }
+
+  .docsNavContainer > .toc {
+    margin: 32px 0;
+    top: 90px;
+  }
+
+  .docMainWrapper .container.mainContainer {
+    margin-left: 320px;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .navBreadcrumb wrapper {
+
+  }
+
+
+  .fixedHeaderContainer header {
+    padding: 8px 16px;;
+  }
+
+  .navPusher {
+    min-height: calc(100vh - 88px);
+    padding-top: 67px
+  }
+
+  .mainContainer {
+    padding: 72px 0;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
