@@ -27,6 +27,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'welcome', label: 'Docs'},
+    {href: 'https://github.com/mozilla/ecosystem-platform', label: 'GitHub'}
   ],
 
   // If you have users set above, you add it here:
