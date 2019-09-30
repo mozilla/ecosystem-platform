@@ -43,7 +43,14 @@
       "reference/ecosystem-map"
     ],
     "For FxA Engineers": [
-      "fxa-engineering/release-process"
+      "fxa-engineering/release-process",
+      {
+        "type": "subcategory",
+        "label": "Topic Deep Dives",
+        "ids": [
+          "fxa-engineering/email"
+        ]
+      }
     ],
     "About": [
       "about/the-teams",
