@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  Deploy to GitHub pages:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "08:7d:0c:05:81:94:71:a8:57:03:40:ec:6c:fc:98:cf"
+      - checkout
+      - run:
+          name: Build and publish the docs portal
+          command: |
+            pushd website
+            npm install
+            git config --global user.name "Application Services"
+            git config --global user.email "application-services@mozilla.com"
+            USE_SSH=true npm run publish-gh-pages
+            popd
+
+workflows:
+  version: 2
+  deploy-website:
+    jobs:
+      - Deploy to GitHub pages:
+          filters:
+            branches:
+              only: master
