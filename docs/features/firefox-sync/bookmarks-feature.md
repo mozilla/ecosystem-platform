@@ -11,9 +11,9 @@ sidebar_label: Bookmarks
 
 ### Features
 
-## Fennec Password Management
+## Fennec Bookmark Management
 
-## Mobile Password Management powered by the **Places Component**
+## Mobile Bookmark Management powered by the **Places Component**
 - **Component Owner**: Firefox Sync team.
 - **Component Source**: [mozilla/application-services](https://github.com/mozilla/application-services/tree/master/components/places) repository
 
