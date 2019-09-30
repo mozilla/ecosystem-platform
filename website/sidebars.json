@@ -39,8 +39,8 @@
       "reference/glossary",
       "reference/ecosystem-map"
     ],
-    "Engineering": [
-      "engineering/dev-process"
+    "For FxA Engineers": [
+      "fxa-engineering/dev-process"
     ],
     "About": [
       "about/the-teams",
