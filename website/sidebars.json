@@ -13,7 +13,7 @@
       "features/features",
       {
         "type": "subcategory",
-        "label": "FxA Features",
+        "label": "Firefox Account Management",
         "ids": [
           "features/fxa-details/fxa-features-overview",
           "features/fxa-details/feature-detail-example"
@@ -21,16 +21,19 @@
       },
       {
         "type": "subcategory",
-        "label": "Subscription Platform",
+        "label": "Subscription Management",
         "ids": [
           "features/subscription-platform-details/subscription-platform-features"
         ]
       },
       {
         "type": "subcategory",
-        "label": "Sync Client Integration",
+        "label": "Firefox Sync",
         "ids": [
-          "features/sync-client-integration-details/sync-client-integration-features"
+          "features/firefox-sync/sync-feature",
+          "features/firefox-sync/password-management-feature",
+          "features/firefox-sync/bookmarks-feature",
+          "features/firefox-sync/history-feature"
         ]
       }
     ],
