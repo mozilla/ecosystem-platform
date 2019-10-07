@@ -1,7 +1,7 @@
 ---
-id: dev-process
-title: Development Process
-sidebar_label: Development Process
+id: release-process
+title: Release Process
+sidebar_label: Release Process
 ---
 
 ## Releasing Code
