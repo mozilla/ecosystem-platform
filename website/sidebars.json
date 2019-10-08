@@ -43,6 +43,7 @@
       "reference/ecosystem-map"
     ],
     "For FxA Engineers": [
+      "fxa-engineering/fxa-dev-process",
       "fxa-engineering/release-process",
       {
         "type": "subcategory",
