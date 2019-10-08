@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Development Process · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="We develop and deploy on a two-week cycle. Every two weeks we cut a release &quot;train&quot; that goes through [deployment to stage and into production](/ecosystem-platform/docs/fxa-engineering/release-process)."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Development Process · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="We develop and deploy on a two-week cycle. Every two weeks we cut a release &quot;train&quot; that goes through [deployment to stage and into production](/ecosystem-platform/docs/fxa-engineering/release-process)."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>For FxA Engineers</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/welcome">Welcome</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/platform-overview">Platform Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">The Process</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-fxa">Integration with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-subscription-platform">Integration with Subscription Platform</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/becoming-a-sync-client">Becoming A Sync Client</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Platform Features</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/features">Overview</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Account Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/feature-detail-example">Feature Detail Example</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Subscription Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/subscription-platform-details/subscription-platform-features">Overview</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Sync</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/sync-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/password-management-feature">Password Management and Syncing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/bookmarks-feature">Bookmarks</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/history-feature">History</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/best-practices">Best Practices</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/glossary">Glossary</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/ecosystem-map">reference/ecosystem-map</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For FxA Engineers</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/release-process">Release Process</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Topic Deep Dives</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-email">Processing Email</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/the-teams">The teams</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/history">History</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Development Process</h1></header><article><div><span><p>We develop and deploy on a two-week cycle. Every two weeks we cut a release &quot;train&quot; that goes through <a href="/ecosystem-platform/docs/fxa-engineering/release-process">deployment to stage and into production</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="product-planning"></a><a href="#product-planning" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Product Planning</h2>
+<p>Product-level feature planning is currently managed via <code>Epics</code> in Zenhub.</p>
+<h2><a class="anchor" aria-hidden="true" id="issue-management"></a><a href="#issue-management" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Issue management</h2>
+<p>Most of our work takes place on <a href="https://github.com/mozilla/fxa">GitHub</a>.
+We use labels and milestones to keep things organised.</p>
+<p>Issue status is reflected by the following:</p>
+<ul>
+<li>The milestone indicates <em>when</em> we are working on the issue.</li>
+<li>The issue itself will have updates indicating <em>what</em> the next action is.</li>
+<li>The assignee, if any, indicates <em>who</em> is responsible for that action.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="milestones"></a><a href="#milestones" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Milestones</h3>
+<p>When we start working on a new sprint, we create a corresponding
+<a href="https://github.com/mozilla/fxa/milestones">milestone in github</a> and fill it with issues that
+should be closed in that sprint.</p>
+<h3><a class="anchor" aria-hidden="true" id="labels"></a><a href="#labels" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Labels</h3>
+<p>We use labels to help categorize and identify issues. The label taxonomy is:</p>
+<h5><a class="anchor" aria-hidden="true" id="bug-type-status"></a><a href="#bug-type-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bug Type/Status:</h5>
+<ul>
+<li><strong>status:unconfirmed</strong></li>
+<li><strong>status:bug</strong></li>
+<li><strong>status:enhancement</strong></li>
+<li><strong>status:wontfix</strong></li>
+<li><strong>status:invalid</strong></li>
+<li><strong>status:duplicate</strong></li>
+<li><strong>Status:worksforme</strong></li>
+<li><strong>status:blocker</strong></li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="categories"></a><a href="#categories" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Categories:</h5>
+<ul>
+<li><strong>code quality</strong></li>
+<li><strong>perf</strong></li>
+<li><strong>security</strong></li>
+<li><strong>documentation</strong></li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="contributors"></a><a href="#contributors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contributors:</h5>
+<ul>
+<li><strong>good first issue</strong></li>
+<li><strong>help wanted</strong></li>
+<li><strong>help wanted (taken)</strong> Since you can't assign an issue to someone who isn't in the organization</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="skill-labels-should-accompany-any-good-first-issue-label"></a><a href="#skill-labels-should-accompany-any-good-first-issue-label" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Skill labels should accompany any good first issue label:</h5>
+<ul>
+<li><strong>skill:css</strong></li>
+<li><strong>skill:html</strong></li>
+<li><strong>skill:js</strong></li>
+<li><strong>skill:rust</strong></li>
+<li><strong>skill:database</strong></li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="blocked-on-another-person-team-decision"></a><a href="#blocked-on-another-person-team-decision" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blocked on another person/team/decision:</h5>
+<ul>
+<li><strong>needs:discussion</strong> There is an open question blocking this issue from moving forward</li>
+<li><strong>needs:legal</strong></li>
+<li><strong>needs:ops</strong></li>
+<li><strong>needs:product</strong> Any product questions including missing content or copy</li>
+<li><strong>needs:qa</strong></li>
+<li><strong>needs:security</strong></li>
+<li><strong>needs:visuals</strong>  UI is in place but doesn’t look right</li>
+<li><strong>needs:ux</strong> Questions about flow, or user experience</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="priority-labels-are-based-on-bugzillas-triage-process-bugzilla-triage-process"></a><a href="#priority-labels-are-based-on-bugzillas-triage-process-bugzilla-triage-process" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Priority labels are based on <a href="https://mozilla.github.io/bug-handling/triage-bugzilla">Bugzilla's triage process</a>:</h5>
+<ul>
+<li><strong>p1</strong></li>
+<li><strong>p2</strong></li>
+<li><strong>p3</strong></li>
+<li><strong>p5</strong></li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="project-tracking"></a><a href="#project-tracking" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Project Tracking:</h5>
+<ul>
+<li><strong>Epic</strong> ZenHub uses this to track epics</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="bug-triage"></a><a href="#bug-triage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bug Triage</h3>
+<p>We triage issues at least every week in our meetings.  Depending on the
+size of our backlog, we may schedule other meetings focused solely on triaging.</p>
+<h2><a class="anchor" aria-hidden="true" id="checkin-meetings"></a><a href="#checkin-meetings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Checkin Meetings</h2>
+<p>The team meets regularly to stay in sync about development status and ensure
+nothing is falling through the cracks.  During meetings we take notes and
+afterward we send a summary of each meeting to an appropriate mailing list.</p>
+<p>Please see our <a href="https://www.google.com/calendar/embed?src=mozilla.com_urbkla6jvphpk1t8adi5c12kic%40group.calendar.google.com">project calendar</a> for details.</p>
+<h2><a class="anchor" aria-hidden="true" id="code-review"></a><a href="#code-review" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Code Review</h2>
+<p>This project is production Mozilla code and subject to our <a href="https://developer.mozilla.org/docs/Mozilla/Developer_guide/Committing_Rules_and_Responsibilities">engineering practices and quality standards</a>.  Every patch must be <a href="https://developer.mozilla.org/docs/Code_Review_FAQ">reviewed</a> by an owner or peer of the <a href="https://wiki.mozilla.org/Modules/Other#Firefox_Accounts">Firefox Accounts module</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="review-checklist"></a><a href="#review-checklist" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Review Checklist</h3>
+<p>Here are some handy questions and things to consider when reviewing code for Firefox Accounts:</p>
+<ul>
+<li>How will we tell if this change is successful?
+<ul>
+<li>If it's fixing a bug, have we introduced tests to ensure the bug stays fixed?</li>
+<li>If it's a feature, do we have metrics to tell whether it's providing value?</li>
+<li>Should it be A/B tested to check whether it's a good idea at all?</li>
+</ul></li>
+<li>Did test coverage increase, or at least stay the same?
+<ul>
+<li>We need a pretty good reason to merge code that decreases test coverage...</li>
+<li>If it's hard to answer this question, consider adding a test that tests the test coverage.</li>
+</ul></li>
+<li>Does it introduce new user-facing strings?
+<ul>
+<li>These strings will need to go through our localization process.  Check that the
+templates in which they're defined are covered by our string extraction scripts.</li>
+<li>The code must be merged before the string-extraction date for that development cycle.</li>
+</ul></li>
+<li>Does it store user-provided data?
+<ul>
+<li>The validation rules should be explicit, documented, and clearly enforced before storage.</li>
+</ul></li>
+<li>Does it display user-controlled data?
+<ul>
+<li>It must be appropriately escaped, e.g. htmlescaped before being inserted into web content.</li>
+</ul></li>
+<li>Does it involve a database schema migration?
+<ul>
+<li>The changes must be backwards-compatible with the previous deployed version.  This means
+that you can't do something like <code>ALTER TABLE CHANGE COLUMN</code> in a single deployment, but
+must split it into two: one to add the new column and start using it, and second to
+drop the now-unused old column.</li>
+<li>Does it contain any long-running statements that might lock tables during deployment?</li>
+<li>Can the changes be rolled back without data loss or a service outage?</li>
+<li>Has the canonical db schema been kept in sync with the patch files?</li>
+<li>Once merged, please file an Ops bug to track deployment in stage and production.</li>
+</ul></li>
+<li>Does it alter the public API of a service?
+<ul>
+<li>Ensure that the chage is backwards compatible.</li>
+<li>Ensure that it's documented appropriately in the API description.</li>
+<li>Note whether we should announce it on one or more developer mailing lists.</li>
+</ul></li>
+<li>Does it add new metrics or logging?
+<ul>
+<li>Make sure they're documented for future reference.</li>
+</ul></li>
+<li>Does it conform to the prevailing style of the codebase?
+<ul>
+<li>If it introduces new files, ensure they're covered by the linter.</li>
+<li>If you notice a stylistic issue that was <em>not</em> detected by the linter,
+consider updating the linter.</li>
+</ul></li>
+<li>For fixes that are patching a train,
+has the PR been opened against the correct train branch?
+<ul>
+<li>If the PR is against <code>master</code>,
+it is likely that it will mess up
+our change logs and the git history
+when merged.</li>
+<li>If no appropriate train branch exists,
+one can be created at the appropriate point in history
+and pushed.
+After the patch has been tagged (see below),
+the train branch can then be merged to <code>master</code>.
+Commits should not be cherry-picked
+between train branches and <code>master</code>.</li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="security-issues"></a><a href="#security-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Security issues</h2>
+<p>Since most of our work happens in the open, we need special procedures
+for dealing with security-sensitive issues that must be fixed in production
+before being made visible to the public.</p>
+<p>We use private bugzilla bugs for tracking security-related issues,
+because this allows us to manage visibility for other stakeholders at Mozilla
+while maintaining confidentiality.</p>
+<p>We use private github repos for developing security fixes
+and tagging security-related releases.</p>
+<h3><a class="anchor" aria-hidden="true" id="filing-security-issues"></a><a href="#filing-security-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filing security issues</h3>
+<p>If you believe you have found a security-sensitive issue
+with any part of the Firefox Accounts service,
+please file it as confidential security bug
+in Bugzilla via this link:</p>
+<ul>
+<li><a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&amp;component=Server:%20Firefox%20Accounts&amp;groups=cloud-services-security">File a security-sensitive FxA bug</a></li>
+</ul>
+<p>The Firefox Accounts service is part of Mozilla's <a href="https://www.mozilla.org/security/bug-bounty/">bug bounty program</a>,
+which provides additional guidelines on <a href="https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting">reporting security bugs</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="making-a-private-point-release"></a><a href="#making-a-private-point-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Making a private point-release</h3>
+<p>We maintain the following private github repos
+that can be used for making security-related point-releases</p>
+<ul>
+<li><a href="https://github.com/mozilla/fxa-content-server-private">https://github.com/mozilla/fxa-content-server-private</a></li>
+<li><a href="https://github.com/mozilla/fxa-auth-server-private">https://github.com/mozilla/fxa-auth-server-private</a></li>
+<li><a href="https://github.com/mozilla/fxa-auth-db-mysql-private">https://github.com/mozilla/fxa-auth-db-mysql-private</a></li>
+<li><a href="https://github.com/mozilla/fxa-customs-server-private">https://github.com/mozilla/fxa-customs-server-private</a></li>
+<li><a href="https://github.com/mozilla/fxa-js-client-private">https://github.com/mozilla/fxa-js-client-private</a></li>
+</ul>
+<p>The recommended procedure for doing so is:</p>
+<ul>
+<li>Check out the private repo, independently from your normal working repo:
+<ul>
+<li><code>git clone git@github.com:mozilla/fxa-auth-server-private</code></li>
+<li><code>cd fxa-auth-server-private</code></li>
+<li>N.B: Do not add it
+as a remote on your normal working repo,
+because this increases the risk
+of pushing a private fix to the public repo
+by mistake.</li>
+</ul></li>
+<li>Add the corresponding public repo as a remote named &quot;public&quot;,
+and ensure it's up-to-date:
+<ul>
+<li><code>git remote add public git@github.com:mozilla/fxa-auth-server</code></li>
+<li><code>git fetch public</code></li>
+</ul></li>
+<li>Check out the latest release branch and push it to the private repo:
+<ul>
+<li><code>git checkout public/train-XYZ</code></li>
+<li><code>git push origin train-XYZ</code></li>
+</ul></li>
+<li>Develop your fix against this as a new branch in the private repo:
+<ul>
+<li><code>git checkout -b train-XYZ-my-security-fix</code></li>
+<li><code>git commit -a</code></li>
+<li>git push -u origin train-XYZ-my-security-fix`</li>
+</ul></li>
+<li>Submit and review the fix as a PR in the private repo,
+targetting the <code>train-XYZ</code> branch.</li>
+<li>Tag a point release in the private repo, following the <a href="#tagging-releases">steps above</a>:
+<ul>
+<li><code>git checkout train-XYZ; git pull # ensure we have the merged PR</code></li>
+<li><code>grunt version:patch</code></li>
+<li><code>git push</code></li>
+</ul></li>
+<li>Push the tag in order to trigger a CircleCI build:
+<ul>
+<li><code>git push origin v1.XYZ.N</code></li>
+<li>N.B: Do not use <code>git push --tags</code>
+as this will not correctly trigger
+the CircleCI build.</li>
+</ul></li>
+<li>File an issue on the public repo
+as a reminder to uplift the fix
+once it has been deployed to production.</li>
+</ul>
+<p>Once the fix has been deployed
+and is safe to reveal publicly,
+it can be merged back into the public repo
+by doing the following:</p>
+<ul>
+<li>Push the private train branch to the public repo,
+as a new branch:
+<ul>
+<li><code>git push public train-XYZ:train-XYZ-uplift</code></li>
+</ul></li>
+<li>Open a PR in the public repo,
+targeting the public <code>train-XYZ</code> branch,
+for review and merge.</li>
+<li>Push the tag to the public repo:
+<ul>
+<li><code>git push public v1.XYZ.N</code></li>
+</ul></li>
+<li>Merge the <code>train-XYZ</code> branch to master
+following the <a href="#tagging-releases">usual steps</a>.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/reference/ecosystem-map"><span class="arrow-prev">← </span><span>reference/ecosystem-map</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/release-process"><span>Release Process</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#product-planning">Product Planning</a></li><li><a href="#issue-management">Issue management</a><ul class="toc-headings"><li><a href="#milestones">Milestones</a></li><li><a href="#labels">Labels</a></li><li><a href="#bug-triage">Bug Triage</a></li></ul></li><li><a href="#checkin-meetings">Checkin Meetings</a></li><li><a href="#code-review">Code Review</a><ul class="toc-headings"><li><a href="#review-checklist">Review Checklist</a></li></ul></li><li><a href="#security-issues">Security issues</a><ul class="toc-headings"><li><a href="#filing-security-issues">Filing security issues</a></li><li><a href="#making-a-private-point-release">Making a private point-release</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
