@@ -52,7 +52,8 @@
           "fxa-engineering/fxa-email",
           "fxa-engineering/fxa-metrics"
         ]
-      }
+      },
+      "fxa-engineering/fxa-adr"
     ],
     "About": [
       "about/the-teams",
