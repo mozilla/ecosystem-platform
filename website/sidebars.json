@@ -48,7 +48,7 @@
         "type": "subcategory",
         "label": "Topic Deep Dives",
         "ids": [
-          "fxa-engineering/email"
+          "fxa-engineering/fxa-email"
         ]
       }
     ],
