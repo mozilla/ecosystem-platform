@@ -65,6 +65,37 @@ sidebar_label: Release Process
 #### How are point releases (mid-sprint releases) handled?
 Sometimes we need to push code out of our normal cycle.  These are point releases (eg. If Train 175 was our last release, this would be Train 175.1).  These follow the same process as above except instead of running `release.sh` you'll run `release.sh patch`.  Often the regular train's release bug can be re-used as well.  If you're doing an off-cycle release you should be communicating with the Engineering and Operations teams since it's, by definition, out of the normal flow.
 
+### What if the merge messes up the changelog?
+
+After merging but before pushing, you should check the changelog to make sure
+that the expected versions are listed and they're in the right order.
+If any are missing or the order is wrong, manually edit the changelog
+so that it makes sense, using the commit summaries from `git log --graph --oneline`
+to fill in any blanks as necessary.
+
+Then `git add` those changes and squash them into the preceding merge commit
+using `git commit --amend`. Now you can push and the merged changelog will make sense.
+
+### What if I already pushed a fix to `master` and it needs to be uplifted to an earlier train?
+
+In this case, it's okay to use `git cherry-pick` because that's the only way to get the fix
+into the earlier train. However, after tagging and pushing the earlier release,
+you should still merge the train branch back to `master` so that future changelogs include the new release.
+
+### What if there are two separate train branches containing parallel updates?
+
+In this case, the easiest way to keep the changelogs complete
+and in the appropriate version order, is to:
+
+0. Merge from the earlier train branch into the later one.
+   Fix up the changelog if it needs it and then push the train branch.
+
+0. Now merge from the later train branch into `master`.
+   Again, remember to fix up the changelog before pushing
+   if required.
+
+
+
 [cloudops-deployment]: https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa
 [deployment-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [example-deployment-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=1575233
