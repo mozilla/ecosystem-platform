@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>End-to-end encryption · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Firefox Accounts offers an end-to-end encryption support feature for OAuth reliers by deriving a strong encryption key from user&#x27;s password. Keep in mind that Firefox Accounts does not provide a storage solution, it is up to you to use the generated key and encrypt the data with that key."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="End-to-end encryption · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="Firefox Accounts offers an end-to-end encryption support feature for OAuth reliers by deriving a strong encryption key from user&#x27;s password. Keep in mind that Firefox Accounts does not provide a storage solution, it is up to you to use the generated key and encrypt the data with that key."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>For Relying Parties</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/welcome">Welcome</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/platform-overview">Platform Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">The Process</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-fxa">Integration with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-subscription-platform">Integration with Subscription Platform</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/becoming-a-sync-client">Becoming A Sync Client</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Platform Features</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/features">Overview</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Account Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/feature-detail-example">Feature Detail Example</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Subscription Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/subscription-platform-details/subscription-platform-features">Overview</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Sync</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/sync-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/password-management-feature">Password Management and Syncing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/bookmarks-feature">Bookmarks</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/history-feature">History</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/best-practices">Best Practices</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/glossary">Glossary</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/ecosystem-map">reference/ecosystem-map</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For Relying Parties</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption">End-to-end Encryption</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For FxA Engineers</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/release-process">Release Process</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Topic Deep Dives</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-email">Processing Email</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics">Metrics</a></li></ul></div><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr">Architectural Decision Records</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/the-teams">The teams</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/history">History</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">End-to-end encryption</h1></header><article><div><span><p>Firefox Accounts offers an end-to-end encryption support feature for OAuth reliers by deriving a strong encryption key from user's password. Keep in mind that Firefox Accounts does not provide a storage solution, it is up to you to use the generated key and encrypt the data with that key.</p>
+<h3><a class="anchor" aria-hidden="true" id="webextensions"></a><a href="#webextensions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WebExtensions</h3>
+<p>To use this feature in WebExtensions you need to do the following:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#OAuth_2.0_API">Register an OAuth client</a> and an OAuth app scope with Firefox Accounts</li>
+<li>Install the <a href="https://github.com/mozilla/fxa-crypto-relier">fxa-crypto-relier</a> library into your WebExtension</li>
+<li><a href="https://github.com/mozilla/fxa-crypto-relier/tree/master/docs">Follow the documentation</a> to trigger the Firefox Accounts login screen</li>
+<li>Consume the derived key after the successful login</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<p>You can find an example of this feature in the <a href="https://github.com/mozilla/notes/blob/5be89e52956182e57356b7ba9102d57cdb72be6f/src/background.js#L53-L72">TestPilot Notes source code</a>. Here's a simplified diagram of a scoped key generated for a WebExtension:</p>
+<p><img src="https://www.lucidchart.com/publicSegments/view/53ce9405-4ab6-481f-b8fe-0d47c0d29723/image.jpeg" alt=""></p>
+<p>An example of a key generated by Firefox Accounts:</p>
+<p><img src="https://i.imgur.com/GdXHWVu.jpg" alt=""></p>
+<p>The generated key can be imported using existing WebCrypto APIs:</p>
+<pre><code class="hljs"><span class="hljs-keyword">function</span> shared_key<span class="hljs-built_in">(key</span>) {
+  <span class="hljs-keyword">return</span> crypto.subtle.importKey(
+    <span class="hljs-string">'jwk'</span>,
+    { kty:<span class="hljs-built_in"> key</span>.kty, k:<span class="hljs-built_in"> key</span>.k<span class="hljs-built_in">.replace</span>(/=/, <span class="hljs-string">''</span>) },
+    <span class="hljs-string">'AES-KW'</span>,
+   <span class="hljs-built_in"> true</span>,
+    [<span class="hljs-string">'wrapKey'</span>, <span class="hljs-string">'unwrapKey'</span>]
+  );
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/reference/ecosystem-map"><span class="arrow-prev">← </span><span>reference/ecosystem-map</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process"><span>Development Process</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
