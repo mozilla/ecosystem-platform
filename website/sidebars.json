@@ -42,6 +42,9 @@
       "reference/glossary",
       "reference/ecosystem-map"
     ],
+    "For Relying Parties": [
+      "relying-parties/end-to-end-encryption"
+    ],
     "For FxA Engineers": [
       "fxa-engineering/fxa-dev-process",
       "fxa-engineering/release-process",
