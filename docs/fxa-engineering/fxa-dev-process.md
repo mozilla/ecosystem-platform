@@ -147,6 +147,18 @@ Here are some handy questions and things to consider when reviewing code for Fir
       Commits should not be cherry-picked
       between train branches and `master`.
 
+## Browser Support
+`Last updated: Aug 15, 2019`
+
+Firefox Accounts must work in the following environments:
+
+- Firefox Desktop ESR - 1 (Firefox 60)
+- Firefox for Android ESR - 1 (Firefox 60)
+- Firefox for iOS 17
+- Latest versions of modern browsers (Chrome, Safari, Opera, Edge)
+- iOS 12+ (and iOS WebView for Firefox iOS)
+- Android 7.0 (and Android WebView for Lockbox)
+
 ## Security issues
 
 Since most of our work happens in the open, we need special procedures
