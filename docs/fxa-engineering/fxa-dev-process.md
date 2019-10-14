@@ -159,6 +159,9 @@ Firefox Accounts must work in the following environments:
 - iOS 12+ (and iOS WebView for Firefox iOS)
 - Android 7.0 (and Android WebView for Lockbox)
 
+## Deployment Documentation
+We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**  If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
+
 ## Security issues
 
 Since most of our work happens in the open, we need special procedures
@@ -249,6 +252,7 @@ by doing the following:
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
 [fxa-calendar]: https://www.google.com/calendar/embed?src=mozilla.com_urbkla6jvphpk1t8adi5c12kic%40group.calendar.google.com
+[fxa-deploy-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [fxa-milestones]: https://github.com/mozilla/fxa/milestones
 [fxa-module]: https://wiki.mozilla.org/Modules/Other#Firefox_Accounts
 [fxa-security-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&component=Server:%20Firefox%20Accounts&groups=cloud-services-security
