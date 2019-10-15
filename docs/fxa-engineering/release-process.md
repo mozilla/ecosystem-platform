@@ -6,20 +6,18 @@ sidebar_label: Release Process
 
 ## Releasing Code
 
-1. A release owner is delegated to follow the process below and work with the
-   team to tie up any loose ends.  As of this writing, it's a volunteer chosen in our weekly team meeting.
+1. A release owner is delegated to follow the process below and work with the team to tie up any loose ends.  As of this writing, it's a volunteer chosen in our weekly team meeting.
 
 1. The pre-flight checklist:
 
-    1. Ensure there are no critical patches for this tag that haven't landed
-       yet
-    1. Fill out a new section in the [deployment doc][deployment-doc] for the Train you are tagging
-    1. Ensure you've got appropriate qa signoffs
-    1. Ensure you don't have any modified files or code laying around before
-       you start the tag
+    1. Ensure there are no critical patches for this tag that haven't landed yet
+    1. Update the section in the [deployment doc][deployment-doc] for the Train you are tagging
+    1. Ensure you have appropriate QA signoffs
+    1. Ensure you don't have any modified files or code laying around before you start the tag
 
-1. Run [release.sh][release.sh] from the root of the repository.  Make sure
-   there are no errors in the output.
+The release script expects the git origin to be unchanged from the default.  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
+
+1. Run [release.sh][release.sh] from the root of the repository.  Make sure there are no errors in the output.
 
 1. Do some manual checks to make sure the generated tags are sane:
 
