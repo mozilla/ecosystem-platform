@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>L10n in the content and auth servers · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Current as of `October 17th, 2019`"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="L10n in the content and auth servers · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="Current as of `October 17th, 2019`"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Topic Deep Dives</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/welcome">Welcome</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/platform-overview">Platform Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">The Process</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-fxa">Integration with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-subscription-platform">Integration with Subscription Platform</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/becoming-a-sync-client">Becoming A Sync Client</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Platform Features</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/features">Overview</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Account Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/feature-detail-example">Feature Detail Example</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Subscription Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/subscription-platform-details/subscription-platform-features">Overview</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Sync</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/sync-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/password-management-feature">Password Management and Syncing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/bookmarks-feature">Bookmarks</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/history-feature">History</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/best-practices">Best Practices</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/glossary">Glossary</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/ecosystem-map">reference/ecosystem-map</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For Relying Parties</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption">End-to-end Encryption</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties">Metrics</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For FxA Engineers</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/release-process">Release Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-api">Internal API Documentation</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Topic Deep Dives</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-email">Processing Email</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics">Metrics</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-localization">Localization</a></li></ul></div><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr">Architectural Decision Records</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/the-teams">The teams</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/history">History</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">L10n in the content and auth servers</h1></header><article><div><span><p>Current as of <code>October 17th, 2019</code></p>
+<p>Translations for FxA's content and auth servers are located in the
+<a href="https://github.com/mozilla/fxa-content-server-l10n/">https://github.com/mozilla/fxa-content-server-l10n/</a> repo.</p>
+<p>Within the <a href="https://github.com/mozilla/fxa-content-server-l10n/tree/master/locale">locale/*</a> directories, 2 files exist:</p>
+<ul>
+<li>client.json - for the content server (UI, frontend)</li>
+<li>server.json - for the server side strings (emails, backend templates)</li>
+</ul>
+<p>The l10n infrastructure used by FxA’s content and auth servers
+is based on <a href="https://www.gnu.org/software/gettext/">gettext</a>. When localization was first
+added to FxA, the only l10n format supported by Mozilla’s l10n
+system <a href="https://pontoon.mozilla.org/">Pontoon</a> was gettext as the newer format based
+on <a href="https://projectfluent.org/">Fluent</a> did not yet exist.</p>
+<h2><a class="anchor" aria-hidden="true" id="extraction-process"></a><a href="#extraction-process" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extraction process</h2>
+<ul>
+<li>Timed <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/b54413751c27964c8f6db9bc94904ffe50036c4c/.circleci/config.yml#L60">cron job on Circle</a>, run on Fridays at 08.00 PST.</li>
+<li>Calls <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract-and-pull-request.sh">extract-and-pull-request.sh</a> which extracts strings and creates a branch with a random name.
+<ul>
+<li>In turn calls <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/extract_strings.sh">extract_strings.sh</a></li>
+<li>See <a href="#extraction-process-deep-dive">Extraction process deep dive</a> for more info.</li>
+</ul></li>
+<li>Branch becomes a pull request on the fxa-content-server-l10n repository which must be merged by a developer after doing cursory checks.
+<ul>
+<li>Check to ensure new/changed strings “look right”.</li>
+</ul></li>
+<li>Once merged, <a href="https://pontoon.mozilla.org/projects/firefox-accounts/">Pontoon automatically pulls in string</a> changes and notifies localizers.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="localization-process"></a><a href="#localization-process" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Localization process</h2>
+<ul>
+<li>Localizers are notified that FxA’s strings have changed.</li>
+<li>Localizers open <a href="https://pontoon.mozilla.org/es-AR/firefox-accounts/">Pontoon to their locale's FxA project</a>.</li>
+<li>Localizers make updates, a review request is issued.</li>
+<li>Reviewer accepts changes.</li>
+<li>Changes are pushed back to the <a href="https://github.com/mozilla/fxa-content-server-l10n/">fxa-content-server-l10n</a> repo as a commit to master.
+<ul>
+<li>Every commit to master causes a linting job to be run on Travis.
+<ul>
+<li>The linter checks to ensure:
+<ul>
+<li>All HTML within the translations is well formed, e.g., no unclosed anchor tags.</li>
+<li>No unexpected HTML elements exist.</li>
+<li>No unexpected HTML element attributes exist.</li>
+<li>No unexpected HTML element attribute values exist.</li>
+<li>All named variables in the translations exist in the English strings.</li>
+</ul></li>
+<li>These checks prevent:
+<ul>
+<li>l10n being used as an attack vector since HTML element attributes can contain JavaScript.</li>
+<li>There was at least one case of a translation including unexpected HTML that contained a link to an external site.</li>
+<li>There have been multiple cases of malformed HTML which ended up causing templates to be incorrectly rendered.</li>
+</ul></li>
+<li>If any of the lint checks fail the <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/master/.travis.yml#L19">folks listed here are notified</a> and corrections are made.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="import-to-production-process"></a><a href="#import-to-production-process" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Import to production process</h2>
+<p>Every time a content server or auth server Docker image is created, the latest version of the <a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/scripts/download_l10n.sh">fxa-content-server-l10n repo is downloaded</a> and bundled with the docker image. See <a href="#import-process-deep-dive">Import Process Deep Dive</a> for more info on how this process works.</p>
+<p>The downside to how this process works is that strings are only pulled into production whenever a docker image is created. Any given train is typically cut on a Monday and deployed the following Monday. If the last docker image for the train is created on the first Monday, and deployed on the 2nd Monday, and entire week of translations are not deployed to production. This usually isn’t as much of a problem in reality because we generally create at least 1 point release during that second week before going to production.</p>
+<h2><a class="anchor" aria-hidden="true" id="a-bit-about-gettext"></a><a href="#a-bit-about-gettext" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A bit about gettext</h2>
+<p>While gettext does not have the expressive power of Fluent, it has on the whole been sufficient for our needs. Gettext translations are held in .po (Portable Object) files with a relatively simple format. A simple example from the <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/b54413751c27964c8f6db9bc94904ffe50036c4c/locale/lt/LC_MESSAGES/client.po#L18:L20">current Lithuanian translations</a>:</p>
+<pre><code class="hljs"><span class="hljs-comment">#: .es5/views/confirm_reset_password.js:195</span>
+<span class="hljs-attribute">msgid</span> <span class="hljs-string">"Password reset"</span>
+msgstr <span class="hljs-string">"Slaptažodžio atkūrimas"</span>
+</code></pre>
+<p>The first line (#: .es5…) says where in the source the string is located.
+The second line (msgid) gives the string in English.
+The third line (msgstr) gives the translation.</p>
+<p>If no translation is provided, msgstr is an empty string:</p>
+<pre><code class="hljs"><span class="hljs-comment">#: .es5/views/confirm_reset_password.js:195</span>
+<span class="hljs-attribute">msgid</span> <span class="hljs-string">"Password reset"</span>
+msgstr <span class="hljs-string">""</span>
+</code></pre>
+<p>Basic string interpolation can be done using named variables, another <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/b54413751c27964c8f6db9bc94904ffe50036c4c/locale/lt/LC_MESSAGES/client.po#L72:L74">example from the Lithuation translations</a>:</p>
+<pre><code class="hljs"><span class="hljs-comment">#: .es5/views/ready.js:75</span>
+<span class="hljs-attribute">msgid</span> <span class="hljs-string">"Account notifications will now also be sent to %(secondaryEmailVerified)s."</span>
+msgstr <span class="hljs-string">"Paskyros pranešimai dabar taip pat bus siunčiami adresu %(secondaryEmailVerified)s."</span>
+</code></pre>
+<p>When translated by the content or auth-servers, secondaryEmailVerified will be passed as a variable to the translate function, causing %(secondaryEmailVerified)s to be replaced with the passed in value.</p>
+<p>Within the content and auth server, all strings that are to be translated are wrapped in a <code>t</code> method. <code>t</code> is a signal to the l10n extraction script that the embedded string is meant for translation. Within mustache templates, strings meant for extraction are wrapped in {{#t}}{{/t}} or {{#unsafeTranslate}}{{/unsafeTranslate}} tags.</p>
+<p>Gettext comments can be used to provide extra context to translators to allow them to effectively translate strings that could be vague in different languages. For example, <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/app/scripts/views/sign_in.js#L58:L61">from the sign_in view on the content server</a>:</p>
+<pre><code class="hljs"><span class="hljs-comment">/// submit button</span>
+<span class="hljs-keyword">const</span> buttonSignInText = <span class="hljs-keyword">this</span>.translate(t(<span class="hljs-string">'Sign in'</span>), {
+  msgctxt: <span class="hljs-string">'submit button'</span>,
+});
+</code></pre>
+<p>The triple-slash /// is <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L26">extracted as a gettext comment</a>:</p>
+<pre><code class="hljs">#. <span class="hljs-keyword">submit </span><span class="hljs-keyword">button
+</span><span class="hljs-symbol">msgid</span> <span class="hljs-string">"Sign in"</span>
+<span class="hljs-symbol">msgstr</span> <span class="hljs-string">"Identificarse"</span>
+</code></pre>
+<p>Contrast this with another usage of <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L2483">“Sign in” in the header text</a> which has a different connotation in Spanish:</p>
+<pre><code class="hljs"><span class="hljs-meta">#. msgctxt <span class="hljs-string">"header text"</span></span>
+msgid <span class="hljs-string">"Sign in"</span>
+msgstr <span class="hljs-string">"Iniciar sesión"</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="content-server-gotchas"></a><a href="#content-server-gotchas" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content server gotchas</h3>
+<p>Strings within mustache templates wrapped a {{#t}}{{/t}} tag are HTML escaped by default to prevent unexpected HTML from being written to the DOM. HTML can be written to the DOM from a string that is translated using the {{#unsafeTranslate}}{{/unsafeTranslate}} tag. Within an unsafeTranslate tag, named variables must contain the escaped prefix to remind developers that the variable must be HTML escaped before being written.</p>
+<h2><a class="anchor" aria-hidden="true" id="extraction-process-deep-dive"></a><a href="#extraction-process-deep-dive" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extraction process deep dive</h2>
+<p>Here we go into more detail about the internals of extract-and-pull-request.sh. The call to <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/extract_strings.sh">extract_strings.sh</a> needs the most explanation.</p>
+<p>String extraction on both the content and auth server are facilitated using a grunt task called l10n-extract. The content server is a mixture of JavaScript, TypeScript, JSX, Handlebars, and Mustache, each of these file types may contain translatable strings. The jsx-gettext parser was written by Zach Carter, a former FxA teammate at a time when no generic solution existed to extract strings from a variety of file types. Jsx-gettext is able to handle standard JavaScript, TypeScript, JSX, Handlebars, and Mustache, however it is unable to parse JavaScript extensions such as babel-specific dynamic imports and class properties. The first major step in the string extraction process is to have <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/l10n-extract.js#L21">babel convert JavaScript, TypeScript, and JSX into ES5 Javascript</a>.</p>
+<ul>
+<li>Use <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/l10n-extract.js#L21">babel to convert non-standard JavaScript, JSX, and TypeScript into ES5 JavaScript</a>.</li>
+<li>jsx-gettext parser analyses source files looking for the keywords <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/l10n-extract.js#L54">‘t’, and ‘unsafeTranslate’</a>, saving a list of strings along with source location annotations to <package>/locale/templates/LC_MESSAGES/client.pot and <package>/locale/templates/LC_MESSAGES/server.pot
+<ul>
+<li>The .pot files contain only the current strings that need to be translated.</li>
+</ul></li>
+<li>For <a href="https://github.com/mozilla/fxa-content-server-l10n/tree/master/locale">each locale in the fxa-content-server-l10n repo</a>, the strings from the .pot files are <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/merge_po.sh">merged with existing strings</a> in .po files.
+<ul>
+<li>Translations of strings in the .pot file that are already in the existing .po files are kept.</li>
+<li>New entries are added for strings in the .pot file that have no entries in the existing .po files.</li>
+<li>Any strings in the .po files that no longer have entries in the .pot files are commented out.</li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="import-process-deep-dive"></a><a href="#import-process-deep-dive" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Import process deep dive</h2>
+<p>Here we go into more detail about how strings are imported from the <a href="https://github.com/mozilla/fxa-content-server-l10n/">fxa-content-server-l10n repo</a> into FxA. This section assumes <a href="#localization-process">changes made on Pontoon have already been merged into FxA</a> and the lint tests have passed.</p>
+<p>The major issue here is that translations on Pontoon are held in gettext .po files and the FxA content server needs translations in a format that is understood by JavaScript. We chose a JSON key-&gt;value format, meaning we need to convert .po files to .json.</p>
+<p>A second issue is initial page load speed. Our initial approach was to create .json files that could be loaded via XHR requests once the initial FxA JavaScript bundle was loaded, delaying initial render until the translated strings were loaded. We found this approach delayed initial render significantly, sometimes by several hundred milliseconds. To speed up the initial render, translations are embedded into the initial JavaScript bundle, resulting in one JavaScript bundle for each translation.</p>
+<p>We deploy static resources such as JavaScript to a 3rd party CDN (Amazon), and use <a href="https://developer.mozilla.org/docs/Web/Security/Subresource_Integrity">Subresource Integrity (SRI)</a> to ensure the CDN does not modify those resources. SRI hashes must be declared in the HTML for any scripts included in the HTML, and must be included in the request for any scripts loaded dynamically. To minimize the number of CPU cycles needed to render any given page, we pre-render as much as possible during the build step, resulting in one set of web pages for each translation, each page containing a link to the build JavaScript bundle along with its SRI hash. All this means bundling the translations did improve initial page render at the cost of significant build complexity.</p>
+<ul>
+<li>During a Docker image build, the <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/Dockerfile-build#L19">fxa-content-server-l10n repo is cloned</a> and the build process started.</li>
+<li>The build process starts the <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/l10n-create-json.js">l10n-create-json grunt task</a>.</li>
+<li>The l10n-create-json task copies all of the translated .po files from the fxa-content-server-l10n repo and runs the <a href="https://github.com/rockykitamura/grunt-po2json/">grunt po2json task</a>, once for each of the 2 .po files for each locale, resulting in 2 .json files for each locale.</li>
+<li>A copy of the compiled JavaScript bundles are created for each locale.
+<ul>
+<li>For each locale, client.json is injected into the <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/app/scripts/lib/translator.js#L36">special comment in app/lib/translator.js</a>.</li>
+<li>SRI hashes for any dynamically loaded scripts are padded to the JS]<a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L96">#add-sri-to-js</a>.</li>
+</ul></li>
+<li>A copy of the .html templates are created for each locale in <a href="https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/server/templates/pages">server/templates/pages/dist</a>.
+<ul>
+<li>The SRI hash of that locale’s JavaScript bundle is <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L74">added to the script tag in the HTML</a>.</li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="dates-and-times"></a><a href="#dates-and-times" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dates and Times</h2>
+<p>Dates and times are a special case because dates and times are very locale specific. For example, in Europe it is common for July 10 to be written 10/07 whereas that would read October 10th to North Americans. All of our times and dates are translated using the locale-aware version of MomentJS. Since the locale-aware <a href="https://momentjs.com/">MomentJS</a> is rather large (67kb), dates and times displayed in the <a href="https://accounts.firefox.com/settings/clients">Devices &amp; apps panel</a> of FxA are translated on the auth-server when requesting the devices and apps list.</p>
+<h2><a class="anchor" aria-hidden="true" id="terms-of-service-and-privacy-policy-are-handled-differently"></a><a href="#terms-of-service-and-privacy-policy-are-handled-differently" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Terms of Service and Privacy Policy are handled differently</h2>
+<p>The FxA <a href="https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_ToS">Terms of Service</a> and <a href="https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_PrivacyNotice">Privacy Policy</a> are handled differently to other FxA translations. The most important difference is that these are considered legally binding documents, as such changes are driven by Mozilla’s legal team and source documents are held in the <a href="https://github.com/mozilla/legal-docs/">mozilla/legal-docs repository</a> on Github. Any time either document is updated, paid specialist legal translators make the updates for other languages.</p>
+<p>Unlike the rest of the FxA translations that are held in gettext .po files, the terms of service and privacy policy source documents are full markdown documents to allow the Legal team control over the formatting of the documents. During the FxA docker image build, the head of the legal-docs repo is pulled in and the markdown documents converted to HTML.</p>
+<h2><a class="anchor" aria-hidden="true" id="future-directions-possible-improvements"></a><a href="#future-directions-possible-improvements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Future directions / Possible improvements</h2>
+<ul>
+<li>Send a slack notification or <a href="https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/email-dev-l10n.sh#L3">email</a> whenever strings are extracted.</li>
+<li>Notify a mailing list if l10n-lint fails.</li>
+<li>Back out a commit if l10n-lint fails.</li>
+<li>Extract strings more frequently, even up to every commit?
+<ul>
+<li>Would the l10n team be on board with this? A stated goal was to minimize the number of pings a translator received for any given project to avoid notification burnout.</li>
+</ul></li>
+<li>Strings are only bundled in with the production JS whenever docker images are created. During a normal release, a train is cut and a docker image created on a Monday. The train is then deployed the following Monday. If no new docker images are created in between, then an entire week of translations may not be deployed to production.</li>
+<li>Automate checking Pontoon for newly translated locales. If a locale reaches a certain threshold (we have used 70% in the past), open a PR against the <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-shared/l10n/supportedLanguages.json">supportedLanguages list</a>.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics"><span class="arrow-prev">← </span><span>Metrics</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr"><span>Architectural Decision Records</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#extraction-process">Extraction process</a></li><li><a href="#localization-process">Localization process</a></li><li><a href="#import-to-production-process">Import to production process</a></li><li><a href="#a-bit-about-gettext">A bit about gettext</a><ul class="toc-headings"><li><a href="#content-server-gotchas">Content server gotchas</a></li></ul></li><li><a href="#extraction-process-deep-dive">Extraction process deep dive</a></li><li><a href="#import-process-deep-dive">Import process deep dive</a></li><li><a href="#dates-and-times">Dates and Times</a></li><li><a href="#terms-of-service-and-privacy-policy-are-handled-differently">Terms of Service and Privacy Policy are handled differently</a></li><li><a href="#future-directions-possible-improvements">Future directions / Possible improvements</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>
