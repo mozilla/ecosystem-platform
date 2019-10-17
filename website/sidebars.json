@@ -56,7 +56,8 @@
         "ids": [
           "fxa-engineering/fxa-email",
           "fxa-engineering/fxa-metrics",
-          "fxa-engineering/fxa-localization"
+          "fxa-engineering/fxa-localization",
+          "fxa-engineering/fxa-jwt-access-tokens"
         ]
       },
       "fxa-engineering/fxa-adr"
