@@ -171,4 +171,20 @@
 <li><a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/docs/client-metrics.md">https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/docs/client-metrics.md</a></li>
 <li><a href="https://github.com/mozilla/application-services/blob/master/docs/product-portal/accounts/metrics.md">https://github.com/mozilla/application-services/blob/master/docs/product-portal/accounts/metrics.md</a></li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-email"><span class="arrow-prev">← </span><span>Processing Email</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr"><span>Architectural Decision Records</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#auth-server">Auth server</a></li><li><a href="#content-server">Content server</a></li><li><a href="#redshift">Redshift</a></li><li><a href="#amplitude">Amplitude</a></li><li><a href="#create-a-new-activity-event">...create a new activity event?</a></li><li><a href="#create-a-new-flow-event">...create a new flow event?</a><ul class="toc-headings"><li><a href="#auth-server-1">Auth server</a></li><li><a href="#content-server-1">Content server</a></li></ul></li><li><a href="#create-a-new-email-event">...create a new email event?</a></li><li><a href="#create-a-new-amplitude-event">...create a new Amplitude event?</a><ul class="toc-headings"><li><a href="#auth-server-2">Auth server</a></li><li><a href="#content-server-2">Content server</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-email"><span class="arrow-prev">← </span><span>Processing Email</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr"><span>Architectural Decision Records</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#auth-server">Auth server</a></li><li><a href="#content-server">Content server</a></li><li><a href="#redshift">Redshift</a></li><li><a href="#amplitude">Amplitude</a></li><li><a href="#create-a-new-activity-event">...create a new activity event?</a></li><li><a href="#create-a-new-flow-event">...create a new flow event?</a><ul class="toc-headings"><li><a href="#auth-server-1">Auth server</a></li><li><a href="#content-server-1">Content server</a></li></ul></li><li><a href="#create-a-new-email-event">...create a new email event?</a></li><li><a href="#create-a-new-amplitude-event">...create a new Amplitude event?</a><ul class="toc-headings"><li><a href="#auth-server-2">Auth server</a></li><li><a href="#content-server-2">Content server</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>

@@ -104,4 +104,20 @@
 <li><p>You must have access to the mozilla amplitude account to see the example charts. If you are a Mozilla employee, please contact Leif for information on gaining access to amplitude.</p></li>
 <li><p>Regarding <code>utm_term</code>: note that the current usage of this parameter is different from what is typical. In most scenarios, it is used to track the search terms that led the users to the page. If you would like to use the parameter in this way, please inform the Firefox Accounts team.</p></li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption"><span class="arrow-prev">← </span><span>End-to-end Encryption</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process"><span>Development Process</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#relying-party-hosted-email-form">Relying-Party Hosted Email Form</a></li><li><a href="#metrics-related-query-parameters">Metrics-Related Query Parameters</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption"><span class="arrow-prev">← </span><span>End-to-end Encryption</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process"><span>Development Process</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#relying-party-hosted-email-form">Relying-Party Hosted Email Form</a></li><li><a href="#metrics-related-query-parameters">Metrics-Related Query Parameters</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>

@@ -61,4 +61,20 @@
 <li>of</li>
 <li>categories</li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/process/becoming-a-sync-client"><span class="arrow-prev">← </span><span>Becoming A Sync Client</span></a><a class="docs-next button" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#section">Section</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/process/becoming-a-sync-client"><span class="arrow-prev">← </span><span>Becoming A Sync Client</span></a><a class="docs-next button" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#section">Section</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>

@@ -138,4 +138,20 @@
 <li><a href="https://github.com/mozilla/fxa/issues/439">Rate-limiting</a></li>
 </ul>
 <p>(those are not exhaustive lists btw, there’s other issues that should also be fixed at some point)</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-api"><span class="arrow-prev">← </span><span>Internal API Documentation</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics"><span>Metrics</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#fxa-auth-server">fxa-auth-server</a></li><li><a href="#templates">Templates</a></li><li><a href="#l10n">L10n</a></li><li><a href="#bounces-and-complaints">Bounces and complaints</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#tests">Tests</a></li><li><a href="#selectemailservices">selectEmailServices</a></li><li><a href="#bulk-mailer">Bulk mailer</a></li><li><a href="#how-do-i">How do I…</a><ul class="toc-headings"><li><a href="#change-an-existing-template">...change an existing template?</a></li><li><a href="#add-a-new-template">...add a new template?</a></li><li><a href="#change-an-email-subject">...change an email subject?</a></li><li><a href="#view-rendered-templates-locally">...view rendered templates locally?</a></li></ul></li><li><a href="#fxa-email-service">fxa-email-service</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-api"><span class="arrow-prev">← </span><span>Internal API Documentation</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics"><span>Metrics</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#fxa-auth-server">fxa-auth-server</a></li><li><a href="#templates">Templates</a></li><li><a href="#l10n">L10n</a></li><li><a href="#bounces-and-complaints">Bounces and complaints</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#tests">Tests</a></li><li><a href="#selectemailservices">selectEmailServices</a></li><li><a href="#bulk-mailer">Bulk mailer</a></li><li><a href="#how-do-i">How do I…</a><ul class="toc-headings"><li><a href="#change-an-existing-template">...change an existing template?</a></li><li><a href="#add-a-new-template">...add a new template?</a></li><li><a href="#change-an-email-subject">...change an email subject?</a></li><li><a href="#view-rendered-templates-locally">...view rendered templates locally?</a></li></ul></li><li><a href="#fxa-email-service">fxa-email-service</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>
