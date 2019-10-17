@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>JWT Access Tokens · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Current as of `October 17th, 2019`"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="JWT Access Tokens · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="Current as of `October 17th, 2019`"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Topic Deep Dives</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/welcome">Welcome</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/platform-overview">Platform Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">The Process</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-fxa">Integration with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-subscription-platform">Integration with Subscription Platform</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/becoming-a-sync-client">Becoming A Sync Client</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Platform Features</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/features">Overview</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Account Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/fxa-features-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/fxa-details/feature-detail-example">Feature Detail Example</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Subscription Management</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/subscription-platform-details/subscription-platform-features">Overview</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Sync</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/sync-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/password-management-feature">Password Management and Syncing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/bookmarks-feature">Bookmarks</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/history-feature">History</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/best-practices">Best Practices</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/glossary">Glossary</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/reference/ecosystem-map">reference/ecosystem-map</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For Relying Parties</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption">End-to-end Encryption</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties">Metrics</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For FxA Engineers</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/release-process">Release Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-api">Internal API Documentation</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Topic Deep Dives</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-email">Processing Email</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics">Metrics</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-localization">Localization</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-jwt-access-tokens">JWT Access Tokens</a></li></ul></div><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr">Architectural Decision Records</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/the-teams">The teams</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/about/history">History</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">JWT Access Tokens</h1></header><article><div><span><p>Current as of <code>October 17th, 2019</code></p>
+<p>The <a href="https://tools.ietf.org/html/rfc6749">original OAuth 2.0 spec</a> does not specify a
+format for access tokens, most OAuth implementations use fixed length opaque tokens.</p>
+<p>A service provider (SP) that accepts access tokens must verify the token to determine
+whether the grant associated with the token has sufficient privileges to access a
+protected resource. With opaque tokens, verification involves sending the token to
+the remote authorization server (AS)'s <code>/introspect</code> endpoint. The AS looks up the
+token in a database, verifies the token is still valid, and returns associated
+metadata such as a userid and list of scopes in the grant. Because verification
+involves a request to the AS, verification can introduce unwanted latency.</p>
+<p>The IETF <a href="https://tools.ietf.org/html/draft-bertocci-oauth-access-token-jwt-00">JWT access token draft spec</a>
+solves the latency problem by defining a standard access token format that can be verified
+locally by the SP, eliminating the need to call remote services on every verification.</p>
+<p><a href="https://tools.ietf.org/html/rfc7519">JWTs are signed JSON packets</a> that can contain
+arbitrary information in fields called <code>claims</code> where a claim is a single unit of
+information. JWT access tokens are signed with public/private key pairs, and once the
+SP fetches the correct public key from the AS, no further remote calls are needed.
+JWT access tokens can contain most of the same information as the AS's <code>/introspect</code>
+endpoint.</p>
+<p>At a high level, a SP that wishes to do local verification of JWT access tokens needs
+to verify the header of the token, verify the signature of the token, ensure the token
+is not yet expired, and ensure the access token contains the correct claims necessary
+to access a protected resource. More information can be found in the section titled
+<a href="#local-verification-of-a-jwt-access-token">Local verification of a JWT access token</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="claims-within-an-access-token"></a><a href="#claims-within-an-access-token" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Claims within an access token</h2>
+<p>Firefox Accounts largely follows the IETF JWT access token draft spec's
+<a href="https://tools.ietf.org/html/draft-bertocci-oauth-access-token-jwt-00#section-2.2">Data Structure</a>.</p>
+<ul>
+<li><code>aud</code> - audience. By default the <code>client_id</code> of the Relying Party (RP). If a RP specifies
+a <a href="https://tools.ietf.org/html/draft-ietf-oauth-resource-indicators-08">Resource Indicator</a> when requesting the access token, it will be an array that contains both the client_id and the resource indicator.</li>
+<li><code>client_id</code> - client id of the RP.</li>
+<li><code>iss</code> - issuer. For tokens that come from FxA's production stack this will be <code>https://accounts.firefox.com</code></li>
+<li><code>exp</code> - expiration time after which the access token MUST NOT be accepted for processing, in <em>seconds</em> since Unix epoch.</li>
+<li><code>iat</code> - time at which the token was issued, in <em>seconds</em> since Unix epoch.</li>
+<li><code>jti</code> - JWT id</li>
+<li><code>scope</code> - space separated list of scopes associated with the grant.</li>
+<li><code>sub</code> - subject, user id. Normally the FxA user id for the user. If the RP uses <a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/fxa-oauth-server/docs/pairwise-pseudonymous-identifiers.md">Pairwise Pseudonymous Identifiers (PPID)</a>, will be an identifier that cannot be correlated to either the real FxA userid, or the PPID given out to other RPs.</li>
+<li><code>fxa-subscriptions</code> - space separated list of subscriptions the user has for the RP. Claim is only present if the user has a subscription with the RP.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="local-verification-of-a-jwt-access-token"></a><a href="#local-verification-of-a-jwt-access-token" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Local verification of a JWT access token</h2>
+<p>The following is based on the <a href="https://tools.ietf.org/html/draft-bertocci-oauth-access-token-jwt-00#section-4">section on validation</a> JWT Access Token Draft Spec:</p>
+<ol>
+<li>The resource server MUST verify that the <code>typ</code> header value is
+<code>at+jwt</code> and reject tokens carrying any other value.</li>
+<li>The resource server MUST validate the signature of all incoming
+JWT access token according to <a href="https://tools.ietf.org/html/rfc7515">RFC7515</a> using the algorithm
+specified in the JWT <code>alg</code> Header Parameter. The SP MUST use the keys provided
+at <a href="https://oauth.accounts.firefox.com/v1/jwks">https://oauth.accounts.firefox.com/v1/jwks</a></li>
+<li>The <code>iss</code> claim MUST exactly match <code>https://accounts.firefox.com</code></li>
+<li>The resource server MUST validate that the <code>aud</code> claim contains the
+resource indicator value corresponding to the identifier the
+resource server expects for itself, and should at a minimum contain
+the client_id for the RP. The <code>aud</code> claim MAY contain an
+array with more than one element. The JWT access token MUST be
+rejected if <code>aud</code> does not list the resource indicator of the
+current resource server as a valid audience, or if it contains
+additional audiences that are not known aliases of the resource
+indicator of the current resource server.</li>
+<li>The current time MUST be before the time represented by the <code>exp</code>
+Claim. <code>exp</code> is in <em>seconds</em> since Unix epoch.</li>
+<li>The <code>scope</code> claim must contain the scopes necessary to access a protected resource.</li>
+<li>If the protected resource requires a subscription, check the <code>fxa-subscriptions</code> claim
+for the expected subscription capability. More information on why the <code>fxa-subscriptions</code>
+claim is used instead of adding subscriptions onto the <code>scope</code> claim, please see
+<a href="https://github.com/mozilla/fxa/blob/master/docs/adr/0007-subscription-claim-jwt-access-token.md">this explanation</a>.</li>
+</ol>
+<p>Libraries such as <a href="https://github.com/auth0/node-jsonwebtoken/">node-jsonwebtoken</a>, when properly configured, take
+care of all of this except for the <code>scope</code> and <code>fxa-subscriptions</code> checks.</p>
+<h2><a class="anchor" aria-hidden="true" id="remote-verification-of-a-jwt-access-token"></a><a href="#remote-verification-of-a-jwt-access-token" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Remote verification of a JWT access token</h2>
+<p>A SP is not required to locally verify JWT access tokens, instead it may verify
+these tokens by presenting them to FxA's <a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/fxa-oauth-server/docs/api.md#post-v1introspect">/introspect</a>
+and <a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/fxa-oauth-server/docs/api.md#post-v1verify">/verify</a> endpoints.</p>
+<h2><a class="anchor" aria-hidden="true" id="pitfalls-of-jwt-access-tokens"></a><a href="#pitfalls-of-jwt-access-tokens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pitfalls of JWT access tokens</h2>
+<p>While FxA JWT access tokens allow for local verification, they do have some drawbacks.</p>
+<h3><a class="anchor" aria-hidden="true" id="access-token-size"></a><a href="#access-token-size" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Access token size</h3>
+<p>The most obvious drawback is size, a JWT access token is <a href="https://github.com/mozilla/fxa/issues/1797">requires over 800 bytes</a>
+whereas a normal access token requires 64 bytes. JWT access tokens that are
+sent with every request could add significant overhead.</p>
+<p>JWT access tokens are signed using RSA keys, which generate large signatures. Changing
+to a <a href="https://github.com/mozilla/fxa/pull/1918">different key type</a> would reduce the signature size.</p>
+<h3><a class="anchor" aria-hidden="true" id="revocation-and-cached-tokens"></a><a href="#revocation-and-cached-tokens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Revocation and cached tokens</h3>
+<p>A second, more subtle issue comes with local verification and revocation. When a
+token is verified against FxA servers, FxA is able to look up whether that token has
+been revoked by the user and immediately notify the SP the token is no longer valid.
+SPs that cache and locally verify JWT access tokens have no way of knowing whether
+the token has been revoked, they can only determine whether a token has expired.
+Because tokens expire 24 to 48 hours after they are created (depending on FxA server load),
+an SP could consider a token valid long after it has been revoked by the user.</p>
+<p>Two mechanisms exist to partially mitigate this:</p>
+<ul>
+<li>Perform an occasional remote verification against the <code>/introspect</code> endpoint.</li>
+<li>When trading the code for the token, specify a short <code>ttl</code>. Whenever the refresh token
+is used to fetch a new access token, the <code>/token</code> endpoint will return a 4xx error indicating
+the refresh token has been revoked.</li>
+</ul>
+<p>In the future, FxA may <a href="https://github.com/mozilla/fxa/issues/2246">send notifications to SPs</a> whenever
+an access or refresh token is revoked, but this functionality is not yet built.</p>
+<h2><a class="anchor" aria-hidden="true" id="requesting-use-of-jwt-access-tokens"></a><a href="#requesting-use-of-jwt-access-tokens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requesting use of JWT access tokens</h2>
+<p>JWT access tokens are only enabled for RPs on an opt-in basis. RPs can request JWT access
+tokens when their OAuth credentials are being provisioned.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-localization"><span class="arrow-prev">← </span><span>Localization</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr"><span>Architectural Decision Records</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#claims-within-an-access-token">Claims within an access token</a></li><li><a href="#local-verification-of-a-jwt-access-token">Local verification of a JWT access token</a></li><li><a href="#remote-verification-of-a-jwt-access-token">Remote verification of a JWT access token</a></li><li><a href="#pitfalls-of-jwt-access-tokens">Pitfalls of JWT access tokens</a><ul class="toc-headings"><li><a href="#access-token-size">Access token size</a></li><li><a href="#revocation-and-cached-tokens">Revocation and cached tokens</a></li></ul></li><li><a href="#requesting-use-of-jwt-access-tokens">Requesting use of JWT access tokens</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          // ditch the ugly grey background
+          diagramEl.style.backgroundColor = '#fff';
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>
