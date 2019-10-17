@@ -55,7 +55,8 @@
         "label": "Topic Deep Dives",
         "ids": [
           "fxa-engineering/fxa-email",
-          "fxa-engineering/fxa-metrics"
+          "fxa-engineering/fxa-metrics",
+          "fxa-engineering/fxa-localization"
         ]
       },
       "fxa-engineering/fxa-adr"
