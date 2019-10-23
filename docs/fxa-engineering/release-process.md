@@ -15,7 +15,7 @@ sidebar_label: Release Process
     1. Ensure you have appropriate QA signoffs
     1. Ensure you don't have any modified files or code laying around before you start the tag
 
-The release script expects the git origin to be unchanged from the default.  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
+**The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
 
 1. Run [release.sh][release.sh] from the root of the repository.  Make sure there are no errors in the output.
 
@@ -30,10 +30,9 @@ The release script expects the git origin to be unchanged from the default.  If 
 
 1. The release script will also print some URLs which you can use to open PRs to merge the train branches back to their respective master branches
 
-1. Finally, the release script will also print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]). Remember to include:
+1. Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]). Remember to include:
 
-    1. Notes from the deploy doc, particularly any server side changes that
-       need to happen as part of this deployment.
+    1. Notes from the deploy doc, particularly any server side changes that need to happen as part of this deployment.
     1. Links to the needs:qa labels on GitHub.
     1. Links to the release tags on GitHub.
     1. Links to pertinent changelogs.
@@ -60,37 +59,102 @@ The release script expects the git origin to be unchanged from the default.  If 
 
 ## FAQ
 
-#### How are point releases (mid-sprint releases) handled?
-Sometimes we need to push code out of our normal cycle.  These are point releases (eg. If Train 175 was our last release, this would be Train 175.1).  These follow the same process as above except instead of running `release.sh` you'll run `release.sh patch`.  Often the regular train's release bug can be re-used as well.  If you're doing an off-cycle release you should be communicating with the Engineering and Operations teams since it's, by definition, out of the normal flow.
-
 ### What if the merge messes up the changelog?
 
-After merging but before pushing, you should check the changelog to make sure
-that the expected versions are listed and they're in the right order.
-If any are missing or the order is wrong, manually edit the changelog
-so that it makes sense, using the commit summaries from `git log --graph --oneline`
-to fill in any blanks as necessary.
+After merging but before pushing, you should check the changelog to make sure that the expected versions are listed and they're in the right order. If any are missing or the order is wrong, manually edit the changelog so that it makes sense, using the commit summaries from `git log --graph --oneline` to fill in any blanks as necessary.
 
-Then `git add` those changes and squash them into the preceding merge commit
-using `git commit --amend`. Now you can push and the merged changelog will make sense.
+Then `git add` those changes and squash them into the preceding merge commit using `git commit --amend`. Now you can push and the merged changelog will make sense.
 
-### What if I already pushed a fix to `master` and it needs to be uplifted to an earlier train?
 
-In this case, it's okay to use `git cherry-pick` because that's the only way to get the fix
-into the earlier train. However, after tagging and pushing the earlier release,
-you should still merge the train branch back to `master` so that future changelogs include the new release.
+## Merging and Branching Strategies
 
-### What if there are two separate train branches containing parallel updates?
+### The Simplified Happy Path: A regular release
 
-In this case, the easiest way to keep the changelogs complete
-and in the appropriate version order, is to:
+![A simplified merging diagram](assets/fxa-release1.png)
 
-0. Merge from the earlier train branch into the later one.
-   Fix up the changelog if it needs it and then push the train branch.
+During a regular release, running `release.sh` will create an appropriately named branch, update a few files like the Changelogs, and create a tag.  The Release Owner will push the branch to github and open a pull request back to `master`.
 
-0. Now merge from the later train branch into `master`.
-   Again, remember to fix up the changelog before pushing
-   if required.
+An example of commands to run for a release are:
+```bash
+git checkout master
+git pull
+./release.sh
+# Follow the instructions printed
+```
+
+### The Full Happy Path: A regular release
+
+![The full merging diagram](assets/fxa-release2.png)
+
+The first diagram described a simple release, and it's accurate, but it's not the full picture.  An `fxa-private` repository is also maintained for confidential or security patches.  `release.sh` will create a branch in `fxa-private` for every release, even if there aren't private patches to push.  More often than not, `fxa-private` is unneeded, however, be aware that some things live in `fxa-private` that will never land in the `fxa` repository like the customs server rules and some deployment scripts.
+
+### A Patch Release
+
+![A patch release diagram](assets/fxa-release4.png)
+
+A patch release is used between official releases.  For example, a regression discovered midway through a sprint that can't wait for a normal release cycle would be pushed to production earlier through this process.
+
+In the scenario above, a regular release happened and `v1.100.0` was tagged and pushed to production.  Later, to fix a regression, a patch was landed *directly on the branch* rather than on `master`.  `release.sh patch` was run and `v1.100.1` was tagged.  Four more commits landed on the branch and `release.sh patch` tagged a `v1.100.2`.  In this scenario there were two patch releases in addition to the regular release at the end of the sprint.
+
+It's not in the diagram above, but `release.sh` is also updating the `fxa-private` branches.
+
+An example of commands to run for a patch release are:
+```bash
+git checkout master
+git pull
+git checkout train-100
+# Ensure the pull requests on GitHub have landed before you continue
+git pull
+git log  # Verify it looks like you expect
+./release.sh patch
+# Follow the instructions printed
+```
+
+### Another Option for a Patch Release
+
+![A alternative patch release diagram](assets/fxa-release5.png)
+
+An alternative to the Patch Release described above would be to use an additional branch.  This would allow you to test complex changes without affecting the current release branch.
+
+In the scenario above, a regular release occurs.  Then it's determined that two patches which landed on master earlier in the cycle are critical to be live now.  They are cherry-picked to an uplift branch, tested, and then merged back to the regular release branch.  At that point `release.sh patch` will do the regular updates.
+
+An example of commands to run for this option are:
+```bash
+git checkout master
+git pull
+git checkout train-100
+git pull
+git branch train-100-uplift
+git checkout train-100-uplift
+git cherry-pick <commit1>
+git cherry-pick <commit2>
+(repeat as needed)
+git log  # Verify you picked what you wanted to
+git push origin train-100-uplift
+# On GitHub:
+# 1) make a Pull Request for train-100-uplift to merge into train-100
+# 2) Ask for review
+# 3) Wait for CI to pass ✅
+# 4) Merge the Pull Request
+git checkout train-100
+git pull
+./release.sh patch
+# Follow the instructions printed
+```
+
+Git is a flexible tool and there are other options if other scenarios arise.  Don't hesitate to get in touch with your team to talk through the best courses of action.
+
+### A Security Release
+
+![Diagram showing a security release](assets/fxa-release3.png)
+
+A security release will make use of the `fxa-private` repository.  This diagram illustates a regular release happened as usual, but halfway through the sprint an important security patch needed to be pushed live.  The patch, in red above, lands on the current train branch of `fxa-private`.  Once it's been reviewed and passes tests, `release.sh patch` is run to generate the changelogs as usual.  Operations is involved at this point to deploy to production directly from `fxa-private` so the patch is never seen before it's live.
+
+Once the fix is verified in production, the patch is cherry-picked back for `fxa`.
+
+
+
+
 
 
 
