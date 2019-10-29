@@ -179,7 +179,7 @@ msgstr <span class="hljs-string">"Iniciar sesión"</span>
 <li>A copy of the compiled JavaScript bundles are created for each locale.
 <ul>
 <li>For each locale, client.json is injected into the <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/app/scripts/lib/translator.js#L36">special comment in app/lib/translator.js</a>.</li>
-<li>SRI hashes for any dynamically loaded scripts are padded to the JS]<a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L96">#add-sri-to-js</a>.</li>
+<li>SRI hashes for any dynamically loaded scripts are <a href="https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L96">added to the JS</a>.</li>
 </ul></li>
 <li>A copy of the .html templates are created for each locale in <a href="https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/server/templates/pages">server/templates/pages/dist</a>.
 <ul>
