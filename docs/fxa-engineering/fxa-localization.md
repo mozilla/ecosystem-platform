@@ -139,7 +139,7 @@ We deploy static resources such as JavaScript to a 3rd party CDN (Amazon), and u
 * The l10n-create-json task copies all of the translated .po files from the fxa-content-server-l10n repo and runs the [grunt po2json task][#grunt-po2json-task], once for each of the 2 .po files for each locale, resulting in 2 .json files for each locale.
 * A copy of the compiled JavaScript bundles are created for each locale.
   * For each locale, client.json is injected into the [special comment in app/lib/translator.js][#translator-special-comment].
-  * SRI hashes for any dynamically loaded scripts are padded to the JS][#add-sri-to-js].
+  * SRI hashes for any dynamically loaded scripts are [added to the JS][#add-sri-to-js].
 * A copy of the .html templates are created for each locale in [server/templates/pages/dist][#dist-template-dir].
   * The SRI hash of that locale’s JavaScript bundle is [added to the script tag in the HTML][#add-sri-to-html].
 
