@@ -196,6 +196,39 @@ footer {
   padding: 24px;
 }
 
+.language-mermaid {
+  background-color: #fff;
+}
+
+.language-mermaid.highlight {
+  /* When a diagram is highlighted,
+     allow it to take up the whole screen.
+  */
+  position: fixed;
+  top: 90px;
+  left: 10px;
+  right: 10px;
+  bottom: 0px;
+  z-index: 10000;
+}
+
+.highlight-service .language-mermaid:not(.highlight) {
+  /* hide all other mermaid diagrams so that the vertical
+     scrollbar goes away.
+  */
+  display: none;
+}
+
+.language-mermaid svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.language-mermaid.highlight svg {
+  max-width: none;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 

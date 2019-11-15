@@ -12,23 +12,26 @@ class Footer extends React.Component {
     return (
       <footer>
         <img src='/ecosystem-platform/img/mozilla-logo.png' height='24' />
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.js' type="application/javascript" />
+        <script src='https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js' type="application/javascript" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
         mermaid.initialize({
             startOnReady: true,
-            theme: 'forest'
+            theme: 'forest',
+            themeCSS: '.noteText { font-family: monospace; }'
           });
         // remarkable converts the mermaid diagrams to HTML and injects a bunch
         // of HTML tags the mermaid parser cannot handle. Remove the HTML and
         // run the parser on the original text.
         const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
-        mermaidDiagramEls.forEach(function(diagramEl) {
+        mermaidDiagramEls.forEach(function(diagramEl, index) {
           // strip out any HTML
           diagramEl.innerHTML = diagramEl.innerText;
-          // ditch the ugly grey background
-          diagramEl.style.backgroundColor = '#fff';
+          diagramEl.addEventListener('click', (evt) => {
+            evt.currentTarget.classList.toggle('highlight');
+            document.body.classList.toggle('highlight-service');
+          }, false);
         });
         mermaid.init(undefined, mermaidDiagramEls);
         `,
