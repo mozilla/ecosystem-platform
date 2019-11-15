@@ -24,7 +24,7 @@ Issue status is reflected by the following:
 ### Milestones
 
 When we start working on a new sprint, we create a corresponding
-[milestone in github][fxa-milestones] and fill it with issues that 
+[milestone in github][fxa-milestones] and fill it with issues that
 should be closed in that sprint.
 
 ### Labels
@@ -34,23 +34,29 @@ We use labels to help categorize and identify issues. The label taxonomy is:
 ##### Bug Type/Status:
 * **status:unconfirmed**
 * **status:bug**
+* **status:task**
 * **status:enhancement**
 * **status:wontfix**
 * **status:invalid**
 * **status:duplicate**
 * **Status:worksforme**
+* **Status:verified**
+* **Status:regression**
 * **status:blocker**
+* **status:qa+**  Critical flow or high chance of regression. QA should focus on testing this issue.
+* **status:qa-**  This is not something that should be tested by QA.
 
 ##### Categories:
-* **code quality**
-* **perf**
-* **security**
-* **documentation**
+* **cat:a11y**
+* **cat:code quality**
+* **cat:growth**
+* **cat:metrics**
+* **cat:oauth/oidc**
+* **cat:ux**
 
 ##### Contributors:
 * **good first issue**
 * **help wanted**
-* **help wanted (taken)** Since you can't assign an issue to someone who isn't in the organization
 
 ##### Skill labels should accompany any good first issue label:
 * **skill:css**
@@ -60,6 +66,7 @@ We use labels to help categorize and identify issues. The label taxonomy is:
 * **skill:database**
 
 ##### Blocked on another person/team/decision:
+* **needs:automatedtest**
 * **needs:discussion** There is an open question blocking this issue from moving forward
 * **needs:legal**
 * **needs:ops**
@@ -68,6 +75,7 @@ We use labels to help categorize and identify issues. The label taxonomy is:
 * **needs:security**
 * **needs:visuals**  UI is in place but doesn’t look right
 * **needs:ux** Questions about flow, or user experience
+* **needs:uplift**  Please uplift this before you tag the next train
 
 ##### Priority labels are based on [Bugzilla's triage process][bugzilla-triage-process]:
 * **p1**
@@ -78,9 +86,15 @@ We use labels to help categorize and identify issues. The label taxonomy is:
 ##### Project Tracking:
 * **Epic** ZenHub uses this to track epics
 
+##### Severity:
+* **severity:blocker**
+* **severity:major**
+* **severity:normal**
+* **severity:minor**
+
 ### Bug Triage
 
-We triage issues at least every week in our meetings.  Depending on the 
+We triage issues at least every week in our meetings.  Depending on the
 size of our backlog, we may schedule other meetings focused solely on triaging.
 
 ## Checkin Meetings
