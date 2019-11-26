@@ -4,7 +4,7 @@ title: Metrics
 sidebar_label: Metrics
 ---
 
-Last updated: `October 8th, 2019`
+Last updated: `November 26th, 2019`
 
 # What types of metrics are there?
 The FxA metrics ecosystem is somewhat arcane and esoteric, so a brief history of how we got to where we are may be helpful to understand the landscape.
@@ -55,6 +55,28 @@ Again, flow events and amplitude events in the content server are just mozlog-fo
 The front-end also needs to make sure it has a `flowId` and `flowBeginTime`, either from `data- attributes` on the body element that were set by the back-end, or from data propagated in the resume token. In both cases, the data is loaded by `app/scripts/models/flow.js`.
 
 After they reach the back-end, events are processed by `server/lib/flow-event.js`. And, just like the auth server, there are `EVENTS` and `FUZZY_EVENTS` mappings to control transformations to amplitude events in `server/lib/amplitude.js`.
+
+## Payments server
+
+One thing to keep in mind is that users should not access the pages on Payments directly.  The Content server will redirect them to the Payments server, along with metrics related query params.  Those query params are:
+
+- `flow_id`
+- `flow_begin_time`
+- `device_id`
+
+They are converted to `camelCase` once in Payments.
+
+Since the `flowBeginTime` originated sometime somewhere externally, Payments server generates its own start time in `server/lib/server.js`.  This is the `prefStartTime`.  Its value is incuded in a meta tag for the front end.  (`perfStartTime` was originally created for performance metrics; it became a misnomer when Amplitude metrics also use it.)
+
+The main module on the front end for emitting events is `src/lib/flow-events.ts`.  It exports three functions: `init`, `logAmplitudeEvent`, and `logPerformanceEvent`.  The `init` function is called in `src/App.tsx`, during which the three query params above are passed into the module.
+
+_All_ Amplitude events are emitted from `src/store/amplitude-middleware.ts`.  They are triggered by [Redux actions][redux-actions].
+
+`logPerformanceEvent` are called with `window.load` on each page.
+
+A call to `logAmplitudeEvent` or `logPerformanceEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server.
+
+(Note that unlike Content server, the performance metrics are written to `stdout` instead of `stderr`.  However, they are not processed at this time.)
 
 # How are metrics ingested?
 
@@ -149,3 +171,4 @@ You don’t need to do this, it’s all set up to work automatically.
 
 [amplitude-http-api]: https://help.amplitude.com/hc/en-us/articles/204771828-HTTP-API
 [amplitude-identify-api]: https://help.amplitude.com/hc/en-us/articles/205406617-Identify-API-Modify-User-Properties
+[redux-actions]: https://redux.js.org/basics/actions
