@@ -58,7 +58,9 @@
           "fxa-engineering/fxa-email",
           "fxa-engineering/fxa-metrics",
           "fxa-engineering/fxa-localization",
-          "fxa-engineering/fxa-jwt-access-tokens"
+          "fxa-engineering/fxa-jwt-access-tokens",
+          "fxa-engineering/fxa-webchannel-protocol",
+          "fxa-engineering/fxa-oauth-webchannel-protocol"
         ]
       },
       "fxa-engineering/fxa-adr"
