@@ -4,7 +4,7 @@ title: Metrics for Relying Parties
 sidebar_label: Metrics
 ---
 
-Last updated: `October 10th, 2019`
+Last updated: `December 3rd, 2019`
 
 ## Relying-Party Hosted Email Form
 
@@ -26,6 +26,22 @@ In the first case, when the email entry form is hosted by the relying party, the
 0. The response from `metrics-flow` will be a JSON object that contains the fields `flowId` and `flowBeginTime`. These values will need to be propagated to FxA as query parameters, which can be done using hidden form fields with the names `flow_id` and `flow_begin_time`. You can see an example of how the [about:welcome][about:welcome] page does this by looking [here][param-example].
 
 Following these instructions will provide FxA and the relying party with the data needed to ensure a healthy user flow.
+
+## Relying-Party "Engage" Events
+
+_Note: this is a limited, temporary solution for cross-product metrics that is due to be replaced in early 2020. Please contact the FxA team if you think you need access._
+
+The metrics that the Firefox Accounts platform sends to Amplitude reflect mainly direct interactions with FxA. These are mostly authentication events (registering, logging in, etc) or events related to account management (e.g. changes to a user’s account settings). This means that interaction events within “relying” products of FxA (such as Firefox Monitor) that do not involve authentication are not logged to the FxA amplitude metrics system. To address this shortcoming, FxA-relying products can log metrics about product usage directly via the FxA metrics system. FxA has not previously allowed for the direct logging of these types of metrics by relying products, but we feel that this change is necessary to ensure that company-level metrics accurately reflect product usage.
+
+Only one event is allowed per RP, and the required query parameters are different from other requests:
+
+0. When the event of interest occurs, the RP server (not the user's browser) should submit a GET request to `https://accounts.firefox.com/metrics-flow` with the `Origin` header set to the RP's registered FxA OAuth domain.
+0. Include the following query parameters in the request:
+  * `event_type` - the static string “engage” - this ping tells us that a user engaged with a service in some way that we’ve defined out of band
+  * `service` - the oauth client identifier for the RP, this is an opaque 8-byte hex string that isn’t private
+  * `uid` - the Firefox Accounts user id - this is an opaque hex string that identifies the user across all FxA relying parties. Here, it’s the user who has engaged with the service in some way. (In the future, we plan to replace this with an anonymous / pseudonymous identifier supplied by ecosystem telemetry)
+
+Note that the RP's domain needs to be manually  added to the FxA `allowed_metrics_flow_origins` list before these events will be accepted. Otherwise, they will be silently dropped.
 
 ## Metrics-Related Query Parameters
 
