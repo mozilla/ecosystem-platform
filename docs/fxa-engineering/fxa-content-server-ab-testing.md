@@ -223,21 +223,26 @@ Cocktail.extend(
 );
 ```
 
-### Get the experiment group, create the experiment
+### Get the experiment group, report the choice to Amplitude
 
-This is the most common form as well as the most flexible.
+This is the most common form as well as the most flexible because
+it does everything necessary to report to Amplitude.
 
 ```js
-const experimentGroup = this.getExperimentGroup('experiment-2');
-if (experimentGroup) {
-  // Ensures experiment metrics are reported. Without this,
-  // experiment selection will not be recorded.
-  this.createExperiment('experiment-2', experimentGroup);
-}
+const experimentGroup = this.getAndReportExperimentGroup('experiment-2');
 if (experimentGroup === 'treatment') {
     // do something awesome here.
 }
 ```
+
+### Get the experiment group without reporting choice to Amplitude
+```js
+const experimentGroup = this.getExperimentGroup('experiment-2');
+if (experimentGroup === 'treatment') {
+    // do something awesome here.
+}
+```
+
 
 ### Is user in an experiment?
 ```js
