@@ -1,9 +1,6 @@
 {
   "docs": {
-    "Introduction": [
-      "welcome",
-      "platform-overview"
-    ],
+    "Introduction": ["welcome", "platform-overview"],
     "The Process": [
       "process/integration-with-fxa",
       "process/integration-with-subscription-platform",
@@ -51,6 +48,7 @@
       "fxa-engineering/release-process",
       "fxa-engineering/fxa-api",
       "fxa-engineering/fxa-system-diagrams",
+      "fxa-engineering/fxa-logging",
       {
         "type": "subcategory",
         "label": "Topic Deep Dives",
@@ -66,9 +64,6 @@
       },
       "fxa-engineering/fxa-adr"
     ],
-    "About": [
-      "about/the-teams",
-      "about/history"
-    ]
+    "About": ["about/the-teams", "about/history"]
   }
 }
