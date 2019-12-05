@@ -61,7 +61,8 @@
           "fxa-engineering/fxa-oauth-webchannel-protocol",
           "fxa-engineering/fxa-content-server-ab-testing",
           "fxa-engineering/fxa-tests-circleci",
-          "fxa-engineering/functional-testing"
+          "fxa-engineering/functional-testing",
+          "fxa-engineering/fxa-content-server-architecture"
         ]
       },
       "fxa-engineering/fxa-adr"
