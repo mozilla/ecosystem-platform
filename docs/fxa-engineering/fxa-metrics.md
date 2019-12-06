@@ -66,17 +66,11 @@ One thing to keep in mind is that users should not access the pages on Payments 
 
 They are converted to `camelCase` once in Payments.
 
-Since the `flowBeginTime` originated sometime somewhere externally, Payments server generates its own start time in `server/lib/server.js`.  This is the `prefStartTime`.  Its value is incuded in a meta tag for the front end.  (`perfStartTime` was originally created for performance metrics; it became a misnomer when Amplitude metrics also use it.)
-
-The main module on the front end for emitting events is `src/lib/flow-events.ts`.  It exports three functions: `init`, `logAmplitudeEvent`, and `logPerformanceEvent`.  The `init` function is called in `src/App.tsx`, during which the three query params above are passed into the module.
+The main module on the front end for emitting events is `src/lib/flow-events.ts`.  Its `init` function is called in `src/App.tsx`, during which the three query params above are passed into the module.
 
 _All_ Amplitude events are emitted from `src/store/amplitude-middleware.ts`.  They are triggered by [Redux actions][redux-actions].
 
-`logPerformanceEvent` are called with `window.load` on each page.
-
-A call to `logAmplitudeEvent` or `logPerformanceEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server.
-
-(Note that unlike Content server, the performance metrics are written to `stdout` instead of `stderr`.  However, they are not processed at this time.)
+A call to `logAmplitudeEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server.
 
 # How are metrics ingested?
 
