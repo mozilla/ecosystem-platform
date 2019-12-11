@@ -59,7 +59,8 @@
           "fxa-engineering/fxa-jwt-access-tokens",
           "fxa-engineering/fxa-webchannel-protocol",
           "fxa-engineering/fxa-oauth-webchannel-protocol",
-          "fxa-engineering/fxa-content-server-ab-testing"
+          "fxa-engineering/fxa-content-server-ab-testing",
+          "fxa-engineering/fxa-tests-circleci"
         ]
       },
       "fxa-engineering/fxa-adr"
