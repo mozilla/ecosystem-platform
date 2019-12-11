@@ -41,7 +41,6 @@
 
 html,
 body {
-  font-family: "inter";
   --ink: rgba(32, 18, 58, 1);
   --inkLight: rgba(227, 225, 230, 1);
   --lightGrey: rgba(249, 249, 249, 1);
@@ -50,7 +49,10 @@ body {
   --blue03: #0060df;
   --blue04: #0250bb;
   --blue05: #073072;
+  --contentFontFamily: "Inter UI", "inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --headerFontFamily: "Metropolis", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: var(--ink);
+  font-family: var(--contentFontFamily);
 }
 
 h1,
@@ -62,7 +64,7 @@ h6,
 button,
 .button,
 .navItem {
-  font-family: "Metropolis";
+  font-family: var(--headerFontFamily);
 }
 
 .button {
@@ -147,7 +149,7 @@ button,
 .onPageNav > .toc-headings {
   position: fixed;
   border-left: 1px solid var(--lightGrey);
-  font-family: "Metropolis";
+  font-family: var(--headerFontFamily);
 }
 
 .onPageNav .toc-headings > li > a.active {
