@@ -55,58 +55,76 @@
               }
             });
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Integration with FxA</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
-<p>Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a>, OpenID Connect, and <a href="https://en.wikipedia.org/wiki/Webhook">webhooks</a> for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a <a href="https://en.wikipedia.org/wiki/Relying_party"><strong>Relying Party (RP)</strong></a>.</p>
+<p>Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a>, <a href="https://openid.net/connect/">OpenID Connect</a>, and <a href="https://en.wikipedia.org/wiki/Webhook">webhooks</a> for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a <a href="https://en.wikipedia.org/wiki/Relying_party"><strong>Relying Party (RP)</strong></a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="pre-development"></a><a href="#pre-development" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pre-Development</h2>
-<p>Before getting started, request a short RRA-style meeting with the Firefox Accounts team. This meeting will cover the integration topics listed below:</p>
+<p>Before starting integration, please send a request to fxa-staff[at]mozilla.com to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the email:</p>
 <ol>
-<li>Type of integration (web site vs native app vs extension vs in browser)</li>
-<li>Do you know how to implement OAuth?</li>
-<li>Will you need access to a <a href="https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user">user’s profile data</a>?
-<ul>
-<li>If yes, will you need to write to a user’s profile data?</li>
-</ul></li>
-<li>Will you need to access Sync data?</li>
-<li>Will you need encryption keys to encrypt user data?</li>
-<li>Will you need ongoing access to either a user’s profile or Sync data?</li>
-<li>Will your application display its own “enter your email” form?</li>
-<li>Who are the stakeholders?</li>
-<li>Who can be contacted for important updates, e.g., API changes?</li>
-<li>What are the QA dates?</li>
-<li>What is the target release date?</li>
-<li>Is your integration going to provide a subscription service?
-<ul>
-<li>If yes, what products will your integration provide service for?</li>
-</ul></li>
-<li>Is your integration going to include subscription lead pages?</li>
+<li><p><strong>What type of Relying Party are you integrating?</strong>
+Examples would be, a web site, a native app, a browser, or an extension in
+the browser.</p></li>
+<li><p><strong>Do you know how to implement OAuth?</strong></p></li>
+<li><p><strong>Will you need read access to a user’s profile data?</strong>
+See <a href="#profile-data">available profile data</a>.</p></li>
+<li><p><strong>Will you need <em>ongoing</em> read access to a user’s profile data?</strong>
+If necessary, a relying party can use a <em>refresh token</em> to query
+for a user's profile data, whether or not that user is logged in to the
+relying party.  For example, if a user changes their email address and
+the relying party wants to update their local database with the changes.</p>
+<p>A refresh token is given out if <code>access_type=offline</code> when making the
+authorization request.</p></li>
+<li><p><strong>Will you need <em>write</em> access to a user’s profile data?</strong>
+Only the <code>avatar</code> and <code>displayname</code> can be changed remotely.  See the <a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-profile-server/docs/API.md#api-endpoints">API
+documentation</a>.</p></li>
+<li><p><strong>Will you need to access Sync data?</strong>
+This is likely only needed for browser integrations.  Most relying parties
+will not need this.</p></li>
+<li><p><strong>Will you need encryption keys to encrypt user data?</strong>
+Optionally, when a relying party gets their access token they can also get
+a stable encryption key back (this is a <em>scoped key</em>).  This key is derived
+from the user's password and <strong>if the user changes or forgets their
+password this key will change</strong>.</p></li>
+<li><p><strong>Will your application display its own “enter your email” form?</strong>
+Providing your own form can give users a tight knit experience, but you'll
+need to send your own <a href="#self-hosted-email-first-flow">top of funnel
+metrics</a> if you do.</p></li>
+<li><p><strong>Who are the stakeholders?</strong></p></li>
+<li><p><strong>Who can be contacted for important updates, e.g., API changes?</strong></p></li>
+<li><p><strong>What is the schedule and key dates?</strong>
+At a minimum, when will QA start, when do you want to be live?</p></li>
+<li><p><strong>Roughly, what amount of traffic do you expect?</strong></p></li>
+<li><p><strong>Will your integration provide a subscription service?</strong>
+If it will, please describe the products your integration will provide
+service for.</p></li>
+<li><p><strong>Will your integration include subscription lead pages?</strong>
+These are generally marketing pages that include a link to start the
+subscription flow.</p></li>
 </ol>
-<p>The meeting request should be sent to fxa-staff[at]mozilla.com. Please be prepared to discuss these integration topics with the FxA team.</p>
 <h2><a class="anchor" aria-hidden="true" id="oauth-integration"></a><a href="#oauth-integration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>OAuth Integration</h2>
 <h3><a class="anchor" aria-hidden="true" id="development"></a><a href="#development" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Development</h3>
 <ol>
-<li>A basic understanding of <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a> is required.</li>
-<li>Register for OAuth client credentials at <a href="https://oauth-stable.dev.lcip.org/console/login">https://oauth-stable.dev.lcip.org/console/login</a>. See <a href="#oauth-credentials">OAuth credentials</a>.</li>
-<li>Development servers point to: <a href="https://stable.dev.lcip.org">https://stable.dev.lcip.org</a></li>
-<li>User authentication follows the <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a> protocol.</li>
+<li>Review the <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a> documentation.</li>
+<li>Register for OAuth client credentials at <code>https://oauth-stable.dev.lcip.org/console/login</code>.  See <a href="#oauth-credentials">OAuth credentials</a>.</li>
+<li>Your development servers should point to: <code>https://stable.dev.lcip.org</code>.  0. User authentication follows the <a href="https://auth0.com/docs/protocols/oauth2">OAuth 2.0</a> protocol.</li>
 <li><a href="#authorization-query-parameters">Query parameters</a> are set and validate when redirecting to Firefox Accounts.</li>
-<li><a href="#self-hosted-email-first-flow">Self hosted email-first</a> flows initialize and propagate top of funnel metrics.</li>
-<li><a href="#user-data-hygiene-gdpr">User data and account notifications are properly</a> handled and GDPR compliant.</li>
-<li>An icon suitable to display in FxA’s <a href="https://accounts.firefox.com/settings/clients">Devices &amp; apps</a> list has been sent to FxA devs.</li>
-<li>If multiple <a href="https://www.oauth.com/oauth2-servers/the-resource-server/">Resource Servers</a> are accessed, create a distinct token for communicating with each server, limited to only the scopes required by that server.</li>
+<li>If you are <a href="#self-hosted-email-first-flow">hosting your own login form</a> initialize and propagate the top of funnel metrics.</li>
+<li><a href="#user-data-hygiene">User data and account notifications are properly</a> handled and compliant with Firefox Account requirements.</li>
+<li>An icon suitable to display in Firefox Account’s <a href="https://accounts.firefox.com/settings/clients">Devices &amp; apps</a> list has been sent to Firefox Account developers.  Please confirm with Firefox Accounts what the current requirements are.</li>
+<li>If multiple <a href="https://www.oauth.com/oauth2-servers/the-resource-server/">Resource Servers</a> are accessed, create a distinct token for communicating with each server, limited to only the scopes required by that server.  This may mean dropping your initial access token and using a refresh token to get additional, less privileged access tokens.</li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="preparing-for-production"></a><a href="#preparing-for-production" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Preparing for Production</h3>
 <ol>
 <li>Register for a production OAuth credentials by filing a <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;bug_ignored=0&amp;bug_severity=normal&amp;bug_status=NEW&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_status_firefox65=---&amp;cf_status_firefox66=---&amp;cf_status_firefox67=---&amp;cf_status_firefox_esr60=---&amp;cf_tracking_firefox65=---&amp;cf_tracking_firefox66=---&amp;cf_tracking_firefox67=---&amp;cf_tracking_firefox_esr60=---&amp;cf_tracking_firefox_relnote=---&amp;component=Operations%3A%20Deployment%20Requests&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;flag_type-37=X&amp;flag_type-5=X&amp;flag_type-607=X&amp;flag_type-708=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-748=X&amp;flag_type-787=X&amp;flag_type-800=X&amp;flag_type-803=X&amp;flag_type-846=X&amp;flag_type-864=X&amp;flag_type-929=X&amp;flag_type-935=X&amp;form_name=enter_bug&amp;groups=mozilla-employee-confidential&amp;maketemplate=Remember%20values%20as%20bookmarkable%20template&amp;op_sys=Unspecified&amp;priority=--&amp;product=Cloud%20Services&amp;rep_platform=Unspecified&amp;target_milestone=---&amp;version=unspecified">deployment bug</a>. See <a href="#oauth-credentials">OAuth credentials</a>.</li>
-<li>Production servers point to <code>https://oauth.accounts.firefox.com/</code>. Additional endpoints can be discovered dynamically at <a href="https://accounts.firefox.com/.well-known/openid-configuration">https://accounts.firefox.com/.well-known/openid-configuration</a>.</li>
+<li>Production servers point to <code>https://oauth.accounts.firefox.com/</code>.  Additional endpoints can be discovered dynamically at <code>https://accounts.firefox.com/.well-known/openid-configuration</code>.</li>
 <li>Someone from the FxA team has reviewed the integration code and tested the flow.</li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="user-authentication-with-oauth-20-openid-connect-in-a-nutshell"></a><a href="#user-authentication-with-oauth-20-openid-connect-in-a-nutshell" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Authentication with OAuth 2.0 / OpenID Connect in a nutshell</h3>
 <ol>
-<li>Create a state token (randomly generated and unguessable), associate it with a local session.</li>
+<li>Create a state token (randomly generated and unguessable) and associate it with a local session.</li>
 <li>Send <a href="#authorization-query-parameters">/authentication request</a> to Firefox Accounts. Upon completion, Firefox Accounts redirects back to your app with state and code.</li>
-<li>Confirm returned state token by comparing it with state token associated with the local session.</li>
-<li>Exchange code for an access token and possibly a refresh token (for clients that request offline use).</li>
-<li>Fetch user profile information with access token from the FxA Profile Server.</li>
-<li>Associate profile information with local session and create an account in the local application database as needed.</li>
+<li>Confirm the returned state token by comparing it with the state token associated with the local session.</li>
+<li>Exchange the code for an access token and possibly a refresh token.</li>
+<li>If you asked for <code>scope=profile</code> you can fetch user profile information, using the access token, from the FxA Profile Server.</li>
+<li>Associate the profile information with the local session and create an account in the local application database as needed.</li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="oauth-credentials"></a><a href="#oauth-credentials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>OAuth Credentials</h3>
 <ol>
@@ -116,48 +134,58 @@
 <h3><a class="anchor" aria-hidden="true" id="self-hosted-email-first-flow"></a><a href="#self-hosted-email-first-flow" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Self Hosted Email-first Flow</h3>
 <ol>
 <li>Initialize top of funnel metrics by calling <a href="https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow">/metrics-flow request</a> with the required query parameters:
-a. entrypoint
-b. form_type (must be the string ‘email’)
-c. utm_source
-d. utm_campaign</li>
-<li>Propagate email, flow_id and flow_begin_time query parameters to /authentication request that are returned from the <a href="https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow">/metrics-flow request</a>.</li>
+<ol>
+<li><code>entrypoint</code> This is a string identifying the source of the request and
+should be agreed upon by the Firefox Accounts team.</li>
+<li><code>form_type</code> This is either <code>email</code> or <code>button</code> depending on if you're
+<a href="#self-hosted-email-first-flow">self hosted email-first flow</a></li>
+<li><code>utm_source</code></li>
+<li><code>utm_campaign</code></li>
+</ol></li>
+<li>Propagate the <code>email</code>, <code>flow_id</code> and <code>flow_begin_time</code> query parameters, which are returned from the <a href="https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow">/metrics-flow request</a>, in the request to <code>/authentication</code>.</li>
 </ol>
-<p>To test without CORS errors using <a href="https://stable.dev.lcip.org/">https://stable.dev.lcip.org/</a>, your test application must have one of the following URLs:</p>
+<p>To test without CORS errors using <code>https://stable.dev.lcip.org/</code>, your test application must have one of the following URLs:</p>
 <ul>
 <li><a href="http://127.0.0.1:8001">http://127.0.0.1:8001</a></li>
 <li><a href="http://localhost:8000">http://localhost:8000</a></li>
 <li><a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></li>
-<li><a href="https://www.mozilla.org">https://www.mozilla.org</a></li>
-<li><a href="https://www.allizom.org">https://www.allizom.org</a></li>
-<li><a href="https://www-demo5.allizom.org">https://www-demo5.allizom.org</a></li>
-<li><a href="https://www-demo4.allizom.org">https://www-demo4.allizom.org</a></li>
-<li><a href="https://www-demo3.allizom.org">https://www-demo3.allizom.org</a></li>
-<li><a href="https://www-dev.allizom.org">https://www-dev.allizom.org</a></li>
+<li>Or be in the <a href="https://github.com/mozilla/fxa-dev/blob/docker/roles/content/tasks/main.yml#L56"><code>ALLOWED_METRICS_FLOW_ORIGINS</code> list</a></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="profile-data"></a><a href="#profile-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Profile Data</h3>
+<p>Firefox Accounts only stores core identity data and associated profile information about users. Firefox Accounts does not store user data specific to relying services. Core identity data stored in Firefox Accounts includes:</p>
+<ul>
+<li>a stable user identifier (uid)</li>
+<li>the user provided email address</li>
+<li>the user's locale provided by the browser during account creation</li>
+<li>an optional display name</li>
+<li>an optional profile image</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="authorization-query-parameters"></a><a href="#authorization-query-parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>/authorization query parameters</h3>
 <ol>
-<li>client_id (required)</li>
-<li><a href="#scopes">scope</a> (required)</li>
-<li>state (required)</li>
-<li>entrypoint (required)</li>
-<li>email (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
-<li>flow_begin_time (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
-<li>flow_id (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
-<li>code_challenge (required for PKCE)</li>
-<li>code_challenge_method (required for PKCE)</li>
-<li>action (suggested, should be the string ‘email’)</li>
-<li>access_type (suggested)</li>
-<li>utm_campaign (suggested)</li>
-<li>utm_source (suggested)</li>
-<li>utm_medium (optional)</li>
-<li>utm_term (optional)</li>
+<li><code>client_id</code> (required)</li>
+<li><code>scope</code> (required). This is a space separated string. Review the list of <a href="#scopes">scopes</a>.</li>
+<li><code>state</code> (required).  This must be a randomly generated unguessable string.</li>
+<li><code>entrypoint</code> (required).  This is for metrics purposes and should represent
+the service making the request.  This should be agreed upon by the Firefox
+Accounts team.</li>
+<li><code>email</code> (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
+<li><code>flow_begin_time</code> (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
+<li><code>flow_id</code> (required for <a href="#self-hosted-email-first-flow">self hosted email-first flow</a>)</li>
+<li><code>code_challenge</code> (required for PKCE) This is a hash of a randomly generated
+string.</li>
+<li><code>code_challenge_method</code> (required for PKCE) As of this writing only <code>s256</code>
+is supported.</li>
+<li><code>action</code> (suggested).  This should be either <code>email</code> or <code>force_auth</code>.</li>
+<li><code>access_type</code> (suggested).  This should be either <code>online</code> or <code>offline</code>.</li>
+<li><code>utm_campaign</code> (suggested)</li>
+<li><code>utm_source</code> (suggested)</li>
+<li><code>utm_medium</code> (optional)</li>
+<li><code>utm_term</code> (optional)</li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="scopes"></a><a href="#scopes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scopes</h3>
-<ol>
-<li>Sync data</li>
-<li>Profile data</li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="user-data-hygiene-gdpr"></a><a href="#user-data-hygiene-gdpr" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Data Hygiene / GDPR</h3>
+<p>This will probably just be <code>scope=profile</code> for most relying parties, but there is
+<a href="https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/docs/oauth/scopes.md">further documentation</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="user-data-hygiene"></a><a href="#user-data-hygiene" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Data Hygiene</h3>
 <ol>
 <li>Accounts should use uid rather than email address as the primary key. An account’s primary email address can change.</li>
 <li><a href="https://github.com/mozilla/fxa-auth-server/blob/master/docs/service_notifications.md#change-of-primary-email-address-event">Primary email changed notifications</a> should update the contact email stored with the account.</li>
@@ -167,7 +195,7 @@ d. utm_campaign</li>
 <li><a href="https://github.com/mozilla/fxa-auth-server/blob/master/fxa-oauth-server/docs/api.md#post-v1destroy">Destroy any outstanding access tokens and refresh tokens</a> whenever a user signals their session or account should be terminated, e.g., the user signs out of your site, closes their account on your site, or unsubscribes from all functionality.</li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="webhook-events"></a><a href="#webhook-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Webhook Events</h3>
-<p>If your integration includes an application service that stores profile information, you should create a <a href="https://en.wikipedia.org/wiki/Webhook">webhook</a> URL handler to handle <a href="https://tools.ietf.org/html/rfc8417">Security Event Tokens (SET)</a> for <a href="https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#relying-party-event-format">Relying Party events</a>. These events will need to be verified using the FxA JWT keys that can be found from following the <code>jwks_uri</code> in the FxA well-known open-id configuration. For production, this URL is <a href="https://accounts.firefox.com/.well-known/openid-configuration">https://accounts.firefox.com/.well-known/openid-configuration</a>.</p>
+<p>If your integration includes an application service that stores profile information, you should create a <a href="https://en.wikipedia.org/wiki/Webhook">webhook</a> URL handler to handle <a href="https://tools.ietf.org/html/rfc8417">Security Event Tokens (SET)</a> for <a href="https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#relying-party-event-format">Relying Party events</a>. These events will need to be verified using the FxA JWT keys that can be found from following the <code>jwks_uri</code> in the FxA well-known open-id configuration. For production, this URL is <code>https://accounts.firefox.com/.well-known/openid-configuration</code>.</p>
 <p>The FxA JWT public keys should be retrieved from this URL at start-up, and used to verify the webhook JWT. The <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html">documentation on verifying a JWT</a> for Step 1/2 are applicable to FxA JWT events.</p>
 <p>If you're using TypeScript, an example of verifying a JWT is shown here:</p>
 <pre><code class="hljs css language-typescript"><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
@@ -218,7 +246,33 @@ d. utm_campaign</li>
     <span class="hljs-keyword">return</span> decoded;
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/platform-overview"><span class="arrow-prev">← </span><span>Platform Overview</span></a><a class="docs-next button" href="/ecosystem-platform/docs/process/integration-with-subscription-platform"><span>Integration with Subscription Platform</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#overview">Overview</a></li><li><a href="#pre-development">Pre-Development</a></li><li><a href="#oauth-integration">OAuth Integration</a><ul class="toc-headings"><li><a href="#development">Development</a></li><li><a href="#preparing-for-production">Preparing for Production</a></li><li><a href="#user-authentication-with-oauth-20-openid-connect-in-a-nutshell">User Authentication with OAuth 2.0 / OpenID Connect in a nutshell</a></li><li><a href="#oauth-credentials">OAuth Credentials</a></li><li><a href="#self-hosted-email-first-flow">Self Hosted Email-first Flow</a></li><li><a href="#authorization-query-parameters">/authorization query parameters</a></li><li><a href="#scopes">Scopes</a></li><li><a href="#user-data-hygiene-gdpr">User Data Hygiene / GDPR</a></li><li><a href="#webhook-events">Webhook Events</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+<h2><a class="anchor" aria-hidden="true" id="some-flow-diagrams"></a><a href="#some-flow-diagrams" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Some flow diagrams</h2>
+<h3><a class="anchor" aria-hidden="true" id="a-full-oauth-flow"></a><a href="#a-full-oauth-flow" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A full oauth flow</h3>
+<pre><code class="hljs css language-mermaid">sequenceDiagram
+participant UA as User-Agent<span class="hljs-variable">&lt;br&gt;</span>(Browser)
+participant FxA as Firefox Accounts
+participant RP as Relying Party
+
+UA-&gt;&gt;RP: User visits site
+RP-&gt;&gt;UA: Display UI
+UA-&gt;&gt;RP: User clicks login
+RP--&gt;&gt;RP: Generate <span class="hljs-keyword">state</span> token
+RP-&gt;&gt;UA: Set cookie with <span class="hljs-keyword">state</span> token, initiate redirect <span class="hljs-keyword">to</span> FxA
+UA-&gt;&gt;FxA: Redirect <span class="hljs-keyword">to</span> FxA w/ <span class="hljs-keyword">state</span> token
+FxA-&gt;&gt;UA: Display UI
+UA-&gt;&gt;UA: Authenticate, authorize
+UA-&gt;&gt;FxA: Send authorization
+FxA--&gt;&gt;FxA: Generate OAuth credentials
+FxA-&gt;&gt;UA: Initiate redirect <span class="hljs-keyword">to</span> RP w/ OAuth credentials, <span class="hljs-keyword">state</span> token
+UA-&gt;&gt;RP: Redirect <span class="hljs-keyword">to</span> RP w/ OAuth credentials, <span class="hljs-keyword">state</span> token, cookie
+RP--&gt;&gt;RP: Compare <span class="hljs-keyword">state</span> token <span class="hljs-keyword">in</span> URL w/ <span class="hljs-keyword">state</span> token <span class="hljs-keyword">in</span> cookie
+alt <span class="hljs-keyword">state</span> token <span class="hljs-built_in">match</span>
+  RP-&gt;&gt;FxA: Use OAuth credentials
+else <span class="hljs-keyword">state</span> token mismatch
+  RP-&gt;&gt;UA: Inform <span class="hljs-keyword">user</span> an error occurred
+end
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/platform-overview"><span class="arrow-prev">← </span><span>Platform Overview</span></a><a class="docs-next button" href="/ecosystem-platform/docs/process/integration-with-subscription-platform"><span>Integration with Subscription Platform</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#overview">Overview</a></li><li><a href="#pre-development">Pre-Development</a></li><li><a href="#oauth-integration">OAuth Integration</a><ul class="toc-headings"><li><a href="#development">Development</a></li><li><a href="#preparing-for-production">Preparing for Production</a></li><li><a href="#user-authentication-with-oauth-20-openid-connect-in-a-nutshell">User Authentication with OAuth 2.0 / OpenID Connect in a nutshell</a></li><li><a href="#oauth-credentials">OAuth Credentials</a></li><li><a href="#self-hosted-email-first-flow">Self Hosted Email-first Flow</a></li><li><a href="#profile-data">Profile Data</a></li><li><a href="#authorization-query-parameters">/authorization query parameters</a></li><li><a href="#scopes">Scopes</a></li><li><a href="#user-data-hygiene">User Data Hygiene</a></li><li><a href="#webhook-events">Webhook Events</a></li></ul></li><li><a href="#some-flow-diagrams">Some flow diagrams</a><ul class="toc-headings"><li><a href="#a-full-oauth-flow">A full oauth flow</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
         mermaid.initialize({
             startOnReady: true,
             theme: 'forest',
