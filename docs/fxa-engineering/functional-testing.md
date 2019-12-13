@@ -220,6 +220,24 @@ const email = createEmail();
 ### Submit a form
 See [Click on an element](#click-on-an-element).
 
+### Test A/B tests
+
+To avoid test failures due to random selections, by default all A/B tests are disabled within functional tests.
+So that A/B tests can be tested, it is possible to force a single experiment and experiment group using URL query
+parameters.
+
+When opening your page, specify the `forceExperiment` and `forceExperimentGroup` query parameters:
+
+```js
+...
+.then(openPage(ENTER_EMAIL_URL, selectors.ENTER_EMAIL.HEADER, {
+  query: {
+    forceExperiment: 'my-new-experiment-name',
+    forceExperimentGroup: 'treatment'
+  }
+}))
+```
+
 ### Simulate interaction with the browser, e.g., WebChannels
 Browser based integrations all require FxA to communicate with the browser. See [WebChannels in Desktop and Fennec](./fxa-webchannel-protocol) and [WebChannels in Fenix](./fxa-oauth-webchannel-protocol) for background information.
 
@@ -262,6 +280,30 @@ message to the browser using the [storeWebChannelMessageData](https://github.com
 .then(messageData => {
   assert.equal(messageData.email, 'testuser@testuser.com');
 })
+...
+```
+
+### Emulate a specific user-agent
+
+By default, all functional tests run with the [user-agent string](https://github.com/mozilla/fxa/blob/a86e324a6a2d72684bcd7a632e22d5ab5aa005cd/packages/fxa-content-server/tests/tools/firefox_profile_creator.js#L6)
+
+> Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0 FxATester/1.0
+
+That's right, Firefox 40 - Firefox 40 was the first version that supported WebChannels.
+
+If your code relies on parsing the user agent string for a particular version number, use the `forceUA` query parameter
+of `openPage` to specify a UA string override.
+
+A list of pre-defined user-agent strings is found in [ua-strings.js](https://github.com/mozilla/fxa/blob/a86e324a6a2d72684bcd7a632e22d5ab5aa005cd/packages/fxa-content-server/tests/functional/lib/ua-strings.js).
+
+```js
+const uaStrings = require('./lib/ua-strings');
+
+...
+  openPage(ENTER_EMAIL_URL, selectors.ENTER_EMAIL.HEADER, {
+    query: {
+      forceUA: uaStrings['desktop_firefox_71']
+    },
 ...
 ```
 
