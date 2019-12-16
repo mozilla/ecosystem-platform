@@ -87,7 +87,7 @@ customizations can be made without interfering with other brokers.
 Brokers are made up of a list of capabilities, methods, and behaviors.
 
 - [capabilities](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L539:L602) can be thought of as feature flags, e.g., ["does this integration support signup?"](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L539:L602)  (some versions of Firefox for iOS do not)
-- methods are invoked by views before and after certain events happen, e.g., [`afterSignIn`](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L270:L279) is called after a user signs in and can e used to notify the RP. Methods usually return a "behavior", i.e., "what to do next".
+- methods are invoked by views before and after certain events happen, e.g., [`afterSignIn`](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L270:L279) is called after a user signs in and can be used to notify the RP. Methods usually return a "behavior", i.e., "what to do next".
 - behaviors define "what to do next" after a method has completed. For example, `afterSignIn` by default [sends the user to the /signin_confirmed screen](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L106).
 
 Brokers communicate with RPs via the URL or a [Channel](#channels).
