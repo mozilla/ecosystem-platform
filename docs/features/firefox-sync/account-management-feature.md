@@ -8,6 +8,8 @@ At the beginning of the user journey users are often asked to login to their Fir
 
 The image below is a more visual illustration how FxA works with other applications. The complete diagram can be found on this [Miro board](https://miro.com/app/board/o9J_kwmB_No=/).
 
+![FxA Client Diagram](/docs/assets/fxa-client-diagram.png)
+
 In summary, prior to providing FxA relying parties with encryption keys, which are responsible for encrypting and decrypting users account data, the component is responsible for:
 
 1.  Get Authentication from the user
