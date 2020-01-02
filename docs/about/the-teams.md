@@ -1,7 +1,7 @@
 ---
 id: the-teams
 title: The Teams
-sidebar_label: The teams
+sidebar_label: The Teams
 ---
 
 ## Section
