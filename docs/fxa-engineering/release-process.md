@@ -6,25 +6,29 @@ sidebar_label: Release Process
 
 ## Releasing Code
 
-1. A release owner is delegated to follow the process below and work with the team to tie up any loose ends.  As of this writing, it's a volunteer chosen in our weekly team meeting.
+1. A release owner is delegated to follow the process below and work with the team to tie up any loose ends. At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc]. Ownership is confirmed during the sprint kick-off team meeting.
 
 1. The pre-flight checklist:
 
     1. Ensure there are no critical patches for this tag that haven't landed yet
+    1. Ensure any previous point releases have been merged back into `master`
     1. Update the section in the [deployment doc][deployment-doc] for the Train you are tagging
     1. Ensure you have appropriate QA signoffs
+       * Not applicable for `master` -> stage
     1. Ensure you don't have any modified files or code laying around before you start the tag
 
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
 
+**If you're tagging in a newly cloned repo, ensure your commits will be GPG signed.** Run `git config --list` and verify you see `commit.gpgsign=true`. If this is not already set globally, run `git config --global commit.gpgsign true`.
+
 1. Run [release.sh][release.sh] from the root of the repository.  Make sure there are no errors in the output.
 
-1. Do some manual checks to make sure the generated tags are sane:
+1. Do some manual checks in the new train branch to make sure the generated tags are sane:
 
     1. Do the changelogs match expectations from `git log`?
     1. Have all the version strings been updated?
     1. Does the diff from `origin/master` (or `origin/train-xxx` if it’s a point release) look correct?
-    1. Does the diff between the public and private tags look correct?
+    1. Does the diff between the public and private tags look correct (`git diff private/master origin/master`)?
 
 1. The release script will print some commands to run to push the public and private train branches to the remotes.  **It's best to copy and paste these so you don't mix them up.**
 
@@ -65,6 +69,19 @@ After merging but before pushing, you should check the changelog to make sure th
 
 Then `git add` those changes and squash them into the preceding merge commit using `git commit --amend`. Now you can push and the merged changelog will make sense.
 
+### What happens if there are merge conflicts (train-xxx => master)?
+Conflicts are most likely from a recently landed issue in `master`. Typically we create a new branch, resolve conflicts there, and then merge that branch into `master`.
+
+Merge conflicts in a `train-xxx -> master` pull request are most likely the result of a recent patch into `master` branch. The easiest way to resolve this is to:
+
+1. Create a new merge branch branch from `train-xxx`, such as `train-xxx-merge-master`
+1. Merge the current `origin/master` into `train-xxx-merge-master`
+1. Resolve the conflicts that occur in the merge
+1. Commit changes and push to origin
+1. Create a new PR, `train-xxx-merge-master -> master`
+1. Wait for Circle tests to pass and then merge when ready
+
+You can then close the `train-xxx -> master` PR.
 
 ## Merging and Branching Strategies
 
