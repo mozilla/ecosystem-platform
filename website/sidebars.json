@@ -4,7 +4,9 @@
     "The Process": [
       "process/integration-with-fxa",
       "process/integration-with-subscription-platform",
-      "process/becoming-a-sync-client"
+      "process/becoming-a-sync-client",
+      "process/sync-testing",
+      "process/using-the-staging-environment"
     ],
     "Platform Features": [
       "features/features",
@@ -30,6 +32,7 @@
           "features/firefox-sync/sync-feature",
           "features/firefox-sync/password-management-feature",
           "features/firefox-sync/bookmarks-feature",
+          "features/firefox-sync/storage-feature",
           "features/firefox-sync/history-feature"
         ]
       }
