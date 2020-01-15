@@ -4,98 +4,131 @@ title: Development Process
 sidebar_label: Development Process
 ---
 
-We develop and deploy on a two-week cycle. Every two weeks we cut a release "train" that goes through [deployment to stage and into production](release-process.md).
+We develop and deploy on a one-week cycle. Every Thursday we cut a release
+"Train" (ie. a Sprint) that goes through [deployment to stage and into
+production](release-process.md).
+
+## Our weekly process
+
+![A visual map of our weekly process](assets/fxa-release1.png)
+
+Above is a diagram illustrating the high level FxA development process.  It
+does not represent all the work each group does, nor does it show every group
+that is critical to shipping Firefox Accounts.  It's intention is to give a
+good idea of timeframes:
+* On Mondays, the Engineering team commits to a new set of work for the week.
+  The Operations team pushes last week's train live, and the QA team verifies
+  that there were no regressions.
+* QA and Engineering continue on Tuesday and Wednesday
+* On Thursday, the Engineering team tags the train (which pushes that point in
+  time to the Staging server).  QA now verifies the code on the Staging server,
+  and L10n is notified of new strings.
+* It's important to note that fixing regressions of the train on Stage is a
+  higher priority than fixing new Issues in the current train.  Depending on
+  the regression's severity it may be picked to Stage, picked to Production, or
+  just ride the train the following week.
 
 ## Product Planning
 
-Product-level feature planning is currently managed via `Epics` in Zenhub.
+Product-level feature planning is currently managed via Epics in Jira.  Each
+feature goes through a comprehensive series of steps from defining and
+designing, to building and QA, to measuring changes and results, and finally
+closing the Epic.
 
 ## Issue management
 
-Most of our work takes place on [GitHub][fxa-repository].
-We use labels and milestones to keep things organised.
+Most of our work takes place on [GitHub][fxa-repository] and [Jira][fxa-jira].
 
 Issue status is reflected by the following:
 
-* The milestone indicates *when* we are working on the issue.
 * The issue itself will have updates indicating *what* the next action is.
 * The assignee, if any, indicates *who* is responsible for that action.
+* The Sprint (in Jira) indicates *when* we are working on the issue.
 
-### Milestones
+Issues, labels, and assignee are synchronized automatically between GitHub and
+Jira (a delay of a minute or two).
 
-When we start working on a new sprint, we create a corresponding
-[milestone in github][fxa-milestones] and fill it with issues that
-should be closed in that sprint.
+We also have two relevant components in Bugzilla:
+* [Firefox :: Firefox Accounts][bugzilla-fxa]
+* [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server]
 
-### Labels
+These components are used to help coordinate between other projects using
+Bugzilla and for issues relating to security.  Some issues are synchronized to
+GitHub.  To force a GitHub bug from Bugzilla, put `[fxa]` in the whiteboard.
+To force not filing a Github bug, put `[fxa-waffle-ignore]` in the whiteboard.
 
-We use labels to help categorize and identify issues. The label taxonomy is:
+If you're wondering where to file a bug, unless it's a security bug, please
+file in Jira.
 
-##### Bug Type/Status:
-* **status:unconfirmed**
-* **status:bug**
-* **status:task**
-* **status:enhancement**
-* **status:wontfix**
-* **status:invalid**
-* **status:duplicate**
-* **Status:worksforme**
-* **Status:verified**
-* **Status:regression**
-* **status:blocker**
-* **status:qa+**  Critical flow or high chance of regression. QA should focus on testing this issue.
-* **status:qa-**  This is not something that should be tested by QA.
+### New Features
 
-##### Categories:
-* **cat:a11y**
-* **cat:code quality**
-* **cat:growth**
-* **cat:metrics**
-* **cat:oauth/oidc**
-* **cat:ux**
+New features are expected to be described in an Epic with supporting User
+Stories (including acceptance criteria) and then have tasks under each User
+Story.
 
-##### Contributors:
-* **good first issue**
-* **help wanted**
+```mermaid
+graph TD
+A[Epic] --> B(User Story)
+A --> C(User Story)
+B --> D[Sub-task]
+B --> E[Sub-task]
+C --> F[Sub-task]
+```
+Generally, we can expect Epics and User Stories to be written by the Product
+team.  Sub-tasks will probably be written by the engineering team.  For some
+reason sub-tasks are special cased in Jira and are created under the `More...`
+menu.  See [the Jira sub-task documentation][jira-subtasks].
 
-##### Skill labels should accompany any good first issue label:
-* **skill:css**
-* **skill:html**
-* **skill:js**
-* **skill:rust**
-* **skill:database**
+Bugs and defects generally won't use Epics.
 
-##### Blocked on another person/team/decision:
-* **needs:automatedtest**
-* **needs:discussion** There is an open question blocking this issue from moving forward
-* **needs:legal**
-* **needs:ops**
-* **needs:product** Any product questions including missing content or copy
-* **needs:qa**
-* **needs:security**
-* **needs:visuals**  UI is in place but doesn’t look right
-* **needs:ux** Questions about flow, or user experience
-* **needs:uplift**  Please uplift this before you tag the next train
+### Sprints
 
-##### Priority labels are based on [Bugzilla's triage process][bugzilla-triage-process]:
-* **p1**
-* **p2**
-* **p3**
-* **p5**
-
-##### Project Tracking:
-* **Epic** ZenHub uses this to track epics
-
-##### Severity:
-* **severity:blocker**
-* **severity:major**
-* **severity:normal**
-* **severity:minor**
+Sprints are tracked in Jira.  There is a [dashboard for our current
+sprint][fxa-jira-dashboard] and a [detailed view of our current
+sprint][fxa-jira-sprint].
 
 ### Bug Triage
 
 We triage issues at least every week in our meetings.  Depending on the
 size of our backlog, we may schedule other meetings focused solely on triaging.
+
+Triage is done [from the backlog in Jira][fxa-jira-backlog].
+
+![A screenshot of the backlog when this documentation was written](assets/fxa-backlog.png)
+
+Clicking the link should show you a page similar to the screenshot above.  Some
+notable parts:
+
+* At the top of the page is a section called *QUICK FILTERS*.  These will
+  filter the list of Issues below.
+* You can see two collapsed sections in the middle of the page, one for *FxA
+  Train 155* and one for *FxA Train 156*.  The former is `ACTIVE`.  This is the
+  current train we're working on and the next train and if you click the arrow
+  in the top left next to the title, the section will expand and show you what
+  tasks are in each train.
+* Clicking the *Create Sprint* button will create a new Sprint and add it to
+  this page.
+* The Backlog on the bottom half of the screen has many issues in it.  You can
+  drag items from it into the Sprints or right-click on items and send them to
+  Sprints.  If you're going to do much with the tasks, it's likely more
+  effecient to use other views in Jira (with Filters) as the size of the FxA
+  backlog is unwieldy.
+* In vertical text on the left of the page is *VERSIONS* and *EPICS*.  Clicking
+  on *EPICS* will expand and show all the current epics (and allow
+  dragging/dropping to them).
+
+Roughly, our triage flow is:
+
+0. Load the [Jira Backlog][fxa-jira-backlog].
+0. Click the *Un-triaged* quick filter.  The list of issues at the bottom of
+   the screen will change to only show issues that haven't been marked as
+   triaged.
+0. Click on the first issue in the Backlog.  A short preview will appear on the
+   right.  As appropriate, fill in as many fields as you know.  For a more
+   complete editing interface, press `e`.
+0. Once all the fields are set correctly, change the `Fix Version/s` field to
+   *Triaged*.  That's the flag that will take it out of the quick filter after
+   you save it.
 
 ## Checkin Meetings
 
@@ -166,8 +199,8 @@ Here are some handy questions and things to consider when reviewing code for Fir
 
 Firefox Accounts must work in the following environments:
 
-- Firefox Desktop ESR - 1 (Firefox 60)
-- Firefox for Android ESR - 1 (Firefox 60)
+- Firefox Desktop ESR - 1
+- Firefox for Android ESR - 1
 - Firefox for iOS 17
 - Latest versions of modern browsers (Chrome, Safari, Opera, Edge)
 - iOS 12+ (and iOS WebView for Firefox iOS)
@@ -265,12 +298,19 @@ by doing the following:
   following the [usual steps](#tagging-releases).
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
+[bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15068002&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=Firefox%3A%3AFirefoxAccounts&query_format=advanced&component=Firefox%20Accounts&product=Firefox&known_name=Firefox%3A%3AFirefoxAccounts
+[bugzilla-fxa-server]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15067999&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=CloudServices%3A%3AServer%3AFirefoxAccounts&query_format=advanced&component=Server%3A%20Firefox%20Accounts&product=Cloud%20Services&known_name=CloudServices%3A%3AServer%3AFirefoxAccounts
 [fxa-calendar]: https://www.google.com/calendar/embed?src=mozilla.com_urbkla6jvphpk1t8adi5c12kic%40group.calendar.google.com
 [fxa-deploy-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [fxa-milestones]: https://github.com/mozilla/fxa/milestones
 [fxa-module]: https://wiki.mozilla.org/Modules/Other#Firefox_Accounts
 [fxa-security-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&component=Server:%20Firefox%20Accounts&groups=cloud-services-security
 [fxa-repository]: https://github.com/mozilla/fxa
+[fxa-jira]: https://jira.mozilla.com/projects/FXA/issues/
+[fxa-jira-dashboard]: https://jira.mozilla.com/secure/Dashboard.jspa?selectPageId=11006
+[fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
+[fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA&view=planning.nodetail
+[jira-subtasks]: https://confluence.atlassian.com/jirasoftwareserver0713/creating-issues-and-sub-tasks-965543054.html#Creatingissuesandsub-tasks-CreateSubtaskCreatingasub-task
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
 [moz-code-review]: https://developer.mozilla.org/docs/Code_Review_FAQ
 [moz-sec-bugs]: https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting
