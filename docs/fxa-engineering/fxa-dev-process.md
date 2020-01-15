@@ -10,7 +10,7 @@ production](release-process.md).
 
 ## Our weekly process
 
-![A visual map of our weekly process](assets/fxa-release1.png)
+![A visual map of our weekly process](assets/fxa-schedule.png)
 
 Above is a diagram illustrating the high level FxA development process.  It
 does not represent all the work each group does, nor does it show every group
