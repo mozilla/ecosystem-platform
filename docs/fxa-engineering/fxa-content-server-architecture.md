@@ -4,7 +4,7 @@ title: Content-server architecture
 sidebar_label: Content-server architecture
 ---
 
-Current as of `December 5th, 2019`
+Current as of `Jan 20th, 2020`
 
 ## Document purpose
 
@@ -65,7 +65,7 @@ The content server is comprised of a server and client side components.
 The server side is responsible for serving static content and ingesting metrics and error
 reports.
 
-The client side is a Backbone based Single Page Application (SPA) and responsible for screen rendering,
+The client side is a [Backbone](https://backbonejs.org/) based Single Page Application (SPA) and responsible for screen rendering,
 handling user input, communicating with various FxA backend services, and communicating with RPs or browsers.
 The client app runs in modern Web capable systems, see [supported browsers](fxa-dev-process#browser-support) for up to date tier 1 support.
 
@@ -76,15 +76,16 @@ will be a journey of tears. [Only attempt such a task piece by piece](#convertin
 
 ## High Level Web Client Components
 
-### Brokers
-[Brokers](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/auth_brokers) have two primary responsibilities:
+### Auth-Brokers
+[Auth-Brokers](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/auth_brokers) have two primary responsibilities:
 1. Mediate communication between Firefox Accounts and the RP
 2. Screen->screen state machine
 
 To minimize the complexity, each integration type has its own broker so that
 customizations can be made without interfering with other brokers.
 
-Brokers are made up of a list of capabilities, methods, and behaviors.
+Brokers are made up of a list of capabilities, methods, and behaviors. Brokers can extend exisiting brokers and overwrite
+any of these properites to meet the specification of that integration.
 
 - [capabilities](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L539:L602) can be thought of as feature flags, e.g., ["does this integration support signup?"](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L539:L602)  (some versions of Firefox for iOS do not)
 - methods are invoked by views before and after certain events happen, e.g., [`afterSignIn`](https://github.com/mozilla/fxa/blob/5c527d8007c416b2f6122d8081f7756f8bc6733b/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L270:L279) is called after a user signs in and can be used to notify the RP. Methods usually return a "behavior", i.e., "what to do next".
@@ -92,12 +93,31 @@ Brokers are made up of a list of capabilities, methods, and behaviors.
 
 Brokers communicate with RPs via the URL or a [Channel](#channels).
 
-**NOTE**: While placing screen->screen transition logic in auth_brokers might seem like an odd choice, this resulted
+**NOTE️** While placing screen->screen transition logic in auth_brokers might seem like an odd choice, this resulted
 in a huge simplification over when complex transition logic was embedded in views. Some screen->screen transitions
 depend on the integration type, and embedding this logic within the Views resulted in an unmaintainable
 mess. The work to completely remove transition logic from views was never completed, and we have since
 made many transitions more universal and it may be that we could move some of this logic back into views.
 It may also be that distinct state machines outside of brokers would have been a better choice.
+
+#### Auth Broker implementations
+
+| Broker        | Description   |
+| ------------- |:-------------:|
+|[base](https://github.com/mozilla/fxa/blob/88f6119cc75ae75bd26f87cf5e42dc71e95411d4/packages/fxa-content-server/app/scripts/models/auth_brokers/base.js#L6)| Base broker that other brokers inhiert from. |
+|[fx-desktop-v3](https://github.com/mozilla/fxa/blob/9a26577ee493fca55c4fe752fa940bac0286d066/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-desktop-v3.js#L6)|v3 of the Fx Desktop authentication broker, it allows the uid of a user to change if the user's account has been deleted.|
+|[fx-fennec-v1](https://github.com/mozilla/fxa/blob/2d5efe1264157e72ccd1ddbfc60d4bb6361a4d7b/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-fennec-v1.js#L15)|Interfaces with Firefox for Android when authenticating for Sync, it communicates with the browser using WebChannels.|
+|[fx-ios-v1](https://github.com/mozilla/fxa/blob/a4f406cddc24478683ef6b8335dfe5423e21a62b/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-ios-v1.js#L7)|Interfaces with Sync on Fx for iOS. Uses the same custom protocol as fx-desktop-v1.|
+|[fx-sync](https://github.com/mozilla/fxa/blob/16e58737d95214abe27337bd7ad3bbe07b4da8d2/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-sync.js#L6)|Generic broker used to integrate into Sync. This is used as a base class.|
+|[fx-sync-channel](https://github.com/mozilla/fxa/blob/2d5efe1264157e72ccd1ddbfc60d4bb6361a4d7b/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-sync-channel.js#L6)|Base broker that communicates with the Firefox browser.|
+|[fx-sync-web-channel](https://github.com/mozilla/fxa/blob/25f33db4437b980f479911eea36ace35728c00df/packages/fxa-content-server/app/scripts/models/auth_brokers/fx-sync-web-channel.js#L6)|Variant of Sync broker that communicates via webchannels.|
+|[oauth-redirect](https://github.com/mozilla/fxa/blob/14543fdcd73d300946b7155c275391072d96e247/packages/fxa-content-server/app/scripts/models/auth_brokers/oauth-redirect.js#L5)|Oauth broker that finishes oauth flow by redirecting the current window.|
+|[oauth-redirect-chrome-android](https://github.com/mozilla/fxa/blob/8701348cdd79dbdc9879b2b4a55a23a135a32bc1/packages/fxa-content-server/app/scripts/models/auth_brokers/oauth-redirect-chrome-android.js#L12)|Created because Chrome for Android will not allow the page to redirect unless its the result of a user action such as a click.|
+|[oauth-webchannel-v1](https://github.com/mozilla/fxa/blob/a4f406cddc24478683ef6b8335dfe5423e21a62b/packages/fxa-content-server/app/scripts/models/auth_brokers/oauth-webchannel-v1.js#L6)|WebChannel OAuth broker that speaks 'v1' of the protocol.|
+|[web](https://github.com/mozilla/fxa/blob/3173773c00c9d777b9c82d76be10f120e79af7b2/packages/fxa-content-server/app/scripts/models/auth_brokers/web.js#L6)|Auth broker to handle users who browse directly to the site.|
+|[pairing/authority](https://github.com/mozilla/fxa/blob/8701348cdd79dbdc9879b2b4a55a23a135a32bc1/packages/fxa-content-server/app/scripts/models/auth_brokers/pairing/authority.js#L5)|Manages the OAuth flow by WebChannel messages to the browser to help with a pairing-based flow.|
+|[pairing/supplicant](https://github.com/mozilla/fxa/blob/fa545b9bc089c15cba6549a3277df45254fc7527/packages/fxa-content-server/app/scripts/models/auth_brokers/pairing/supplicant.js#L11)|SupplicantBroker extends OAuthRedirectBroker to provide a redirect behaviour as an OAuth flow.|
+|[pairing/supplicant-webchannel](https://github.com/mozilla/fxa/blob/25f33db4437b980f479911eea36ace35728c00df/packages/fxa-content-server/app/scripts/models/auth_brokers/pairing/supplicant-webchannel.js#L10)|SupplicantWebChannelBroker extends OAuthWebChannelBroker to provide a WebChannel flow.|
 
 ### Channels
 
