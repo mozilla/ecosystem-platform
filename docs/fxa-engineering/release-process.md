@@ -61,6 +61,18 @@ sidebar_label: Release Process
 
 1. Initial deployment bug is closed
 
+### Special Cases
+
+#### Releasing Icons 
+
+All product icons live in a dedicated directory in the fxa repo - `assets/product-icons`.
+
+This directory is independent of individual packages in the monorepo because it doesn't need to be wrapped up in any particular container, and these icons may be used across different servers.
+
+In order to update icons in production, we need to push the updates manually to our CDN. The script is in `_scripts/upload_assets_to_cdn.sh`. It semi-automates pushing the icons to the CDN, assuming the user has the correct credentials / env vars set in their terminal session.
+
+Whenever icons need deploying, ask ops to run the upload.sh script. Ideally, just add this request to the [deployment doc][deployment-doc].
+
 ## FAQ
 
 ### What if the merge messes up the changelog?
