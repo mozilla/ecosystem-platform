@@ -63,15 +63,19 @@ sidebar_label: Release Process
 
 ### Special Cases
 
-#### Releasing Icons 
+#### Releasing Icons
 
-All product icons live in a dedicated directory in the fxa repo - `assets/product-icons`.
+All product icons live in a dedicated `assets` directory in the fxa repo. This directory is independent of individual packages in the monorepo because it doesn't need to be wrapped up in any particular container, and these icons may be used across different servers.
 
-This directory is independent of individual packages in the monorepo because it doesn't need to be wrapped up in any particular container, and these icons may be used across different servers.
+The `assets` directory is uploaded manually to the FxA CDN at https://accounts-static.cdn.mozilla.net as part of the release process. Subdirectories map directly to paths under the CDN domain: content in `assets/foo` maps to https://accounts-static.cdn.mozilla.net/foo.
 
-In order to update icons in production, we need to push the updates manually to our CDN. The script is in `_scripts/upload_assets_to_cdn.sh`. It semi-automates pushing the icons to the CDN, assuming the user has the correct credentials / env vars set in their terminal session.
+The Stripe product icons live in `assets/product-icons`.
 
-Whenever icons need deploying, ask ops to run the upload.sh script. Ideally, just add this request to the [deployment doc][deployment-doc].
+It's fine to create other subdirectories for new collections of assets as needed.
+
+The release script for static assets is `_scripts/upload_assets_to_cdn.sh`. It semi-automates pushing the icons to the CDN, assuming the user has the correct credentials / env vars set in their terminal session.
+
+Icons and other assets are normally deployed with every release. If icons need to be deployed outside the regular release process, just ask ops to run the upload script.
 
 ## FAQ
 
