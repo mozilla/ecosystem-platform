@@ -14,15 +14,12 @@ production](release-process.md).
 
 Above is a diagram illustrating the high level FxA development process.  It
 does not represent all the work each group does, nor does it show every group
-that is critical to shipping Firefox Accounts.  It's intention is to give a
-good idea of timeframes:
-* On Mondays, the Engineering team commits to a new set of work for the week.
-  The Operations team pushes last week's train live, and the QA team verifies
-  that there were no regressions.
-* QA and Engineering continue on Tuesday and Wednesday
-* On Thursday, the Engineering team tags the train (which pushes that point in
-  time to the Staging server).  QA now verifies the code on the Staging server,
-  and L10n is notified of new strings.
+that is critical to shipping Firefox Accounts.  It's intention is to give an
+idea of timeframes:
+* On Tuesday, after sign off from QA, the train is pushed to production
+* On Thursday, the Engineering team tags the current train and commits to a new
+  set of work for the next train.  The operations team pushes the newly tagged
+  train to our staging environment and the QA team starts to test it.
 * It's important to note that fixing regressions of the train on Stage is a
   higher priority than fixing new Issues in the current train.  Depending on
   the regression's severity it may be picked to Stage, picked to Production, or
@@ -63,23 +60,21 @@ file in Jira.
 ### New Features
 
 New features are expected to be described in an Epic with supporting User
-Stories (including acceptance criteria) and then have tasks under each User
-Story.
+Stories (including acceptance criteria).
 
 ```mermaid
 graph TD
 A[Epic] --> B(User Story)
 A --> C(User Story)
-B --> D[Sub-task]
-B --> E[Sub-task]
-C --> F[Sub-task]
+A --> D(Task)
+A --> E(Bug)
 ```
-Generally, we can expect Epics and User Stories to be written by the Product
-team.  Sub-tasks will probably be written by the engineering team.  For some
-reason sub-tasks are special cased in Jira and are created under the `More...`
-menu.  See [the Jira sub-task documentation][jira-subtasks].
+Generally, we can expect Epics to be written by the Product team.  User Stories
+will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit
+inside of a sprint.  [Learn more about user stories][moz-user-stories].
 
-Bugs and defects generally won't use Epics.
+As Tasks and Bugs pop up, they should be associated with open Epics as
+appropriate.
 
 ### Sprints
 
@@ -310,8 +305,8 @@ by doing the following:
 [fxa-jira-dashboard]: https://jira.mozilla.com/secure/Dashboard.jspa?selectPageId=11006
 [fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
 [fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA&view=planning.nodetail
-[jira-subtasks]: https://confluence.atlassian.com/jirasoftwareserver0713/creating-issues-and-sub-tasks-965543054.html#Creatingissuesandsub-tasks-CreateSubtaskCreatingasub-task
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
 [moz-code-review]: https://developer.mozilla.org/docs/Code_Review_FAQ
 [moz-sec-bugs]: https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting
 [moz-standards]: https://developer.mozilla.org/docs/Mozilla/Developer_guide/Committing_Rules_and_Responsibilities
+[moz-user-stories]: https://docs.google.com/presentation/d/1zepsrOiHINBMS3TJ8nFDJ4gf8u6kRONe1hdMDnlyZvI/edit
