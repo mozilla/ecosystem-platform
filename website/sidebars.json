@@ -52,7 +52,8 @@
       "fxa-engineering/fxa-api",
       "fxa-engineering/fxa-system-diagrams",
       "fxa-engineering/fxa-logging",
-      "fxa-engineering/vscode-development"
+      "fxa-engineering/vscode-development",
+      "fxa-engineering/fxa-sub-platform",
       {
         "type": "subcategory",
         "label": "Topic Deep Dives",
