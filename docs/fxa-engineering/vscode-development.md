@@ -12,14 +12,14 @@ section of the VS Code docs so you're familiar with the UI terminology.
 ## Extensions
 
 Opening the FxA repository will result in VS Code prompting (in the lower right
-of your VS Code Window) to install the projects "Recommended Extensions". These include
-all the common extensions that will help in working with the FxA projects
+of your VS Code Window) to install the project's "Recommended Extensions". These include
+all the common extensions that will help in working with the FxA project's
 packages.
 
 ## Multi-Root Workspaces
 
-In VS code, you typically opens up a folder and the `.vscode` directory inside
-is used for the projects debugging/task configurations and settings. Since the
+In VS code, you typically open up a folder and the `.vscode` directory inside
+is used for the project's debugging/task configurations and settings. Since the
 FxA repository is a mono-repo containing many individual packages, a single
 global `.vscode` in the root directory is used for monorepo-wide settings and
 to recommend extensions. However, there are `.vscode` directories within the
@@ -46,9 +46,9 @@ from the [command palette][].
 The recommended extensions for FxA install the [LiveShare Extension Pack][liveshare-ext-pack]
 which includes the [LiveShare extension][introducing-liveshare]. Using this extension
 you can share your editing and debugging environment including local terminals and the
-debug sessino with invited developers.
+debug session with invited developers.
 
-VS Code has [document common use-cases for Live Share][liveshare-use-cases] that provides
+VS Code has [documented common use-cases for Live Share][liveshare-use-cases] that provide
 useful tips for setting up collaborative coding sessions. A good jumping off point to
 learn more features available is the [Liveshare feature overview][liveshare-feature-overview].
 
@@ -58,10 +58,10 @@ When working collaboratively, the final commit should reflect all the collaborat
 worked on it. [Github properly displays commits written with the `Co-Authored-by`][github-coauthor]
 line appended to the commit message.
 
-## Remote Development
+## Remote Development via SSH
 
 [Remote developement][remote-dev] allows you to run the VS Code user interface on your
-local machine while a core VS code instance is run on a remote machine either via SSH,
+local machine while a core VS Code instance is run on a remote machine either via SSH,
 WSL, docker Containers, or VS Online Azure instances. These instructions are tips for
 setting up VS Code to work with a remote instance via SSH, and **should be run on the
 remote instance**.
@@ -210,7 +210,7 @@ RemoteForward /run/user/1000/gnupg/S.gpg-agent /c/Users/USERNAME/AppData/Roaming
 
 Note that the remote agent-socket is first, followed by the local agent extra socket. On
 Windows systems the `C:\...` path should be translated as shown in the above example.
-If you have use gpg on the remote system already, you may need to delete the gpg-agent
+If you use gpg on the remote system already, you may need to delete the gpg-agent
 file that already exists.
 
 ### Using SSH/GPG Keys on the Remote Server
@@ -260,4 +260,4 @@ randomly generated password you keep in a password manager.
 [introducing-liveshare]: https://code.visualstudio.com/blogs/2017/11/15/live-share
 [liveshare-use-cases]: https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/use-cases
 [liveshare-feature-overview]: https://docs.microsoft.com/en-us/visualstudio/liveshare/overview/features
-[remote dev]: https://code.visualstudio.com/docs/remote/remote-overview
+[remote-dev]: https://code.visualstudio.com/docs/remote/remote-overview
