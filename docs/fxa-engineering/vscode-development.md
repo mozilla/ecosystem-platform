@@ -36,10 +36,20 @@ note that the first time you add a folder it will create a new Unnamed Workspace
 can save the workspace as a file to easily resume the chosen open package folders
 for future use as well.
 
+## Using the VS Code Debugger
+
 Once you have added a folder to your workspace, the additional debug/task settings
 will be available in the [Debug View][debug-view]. If you don't see any after adding
 a package folder with a `.vscode` directory, you may need to run 'Developer: Reload Window'
 from the [command palette][].
+
+The following videos show how to run test tasks and the FxA Auth Server with the debugger.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g5b-3XSSqdU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br />
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jyqrV3NcLfc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Collaborative Coding / Review
 
@@ -216,7 +226,8 @@ file that already exists.
 ### Using SSH/GPG Keys on the Remote Server
 
 This is a less secure method as the remote server has your ssh/gpg keys that could be
-compromised. This remains for legacy reasons as SSH/GPG agent forwarding should be used.
+compromised. This method should only be used if you are unable to get GPG agent forwarding
+working, which can occasionally occur between some client and SSH host OS's.
 
 #### GnuPG (Commit signing)
 
