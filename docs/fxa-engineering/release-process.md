@@ -14,7 +14,7 @@ sidebar_label: Release Process
     1. Ensure any previous point releases have been merged back into `master`
     1. Update the section in the [deployment doc][deployment-doc] for the Train you are tagging
     1. Ensure you have appropriate QA signoffs
-       * Not applicable for `master` -> stage
+       * Not applicable for `master` -> `stage`
     1. Ensure you don't have any modified files or code laying around before you start the tag
 
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
@@ -28,19 +28,17 @@ sidebar_label: Release Process
     1. Do the changelogs match expectations from `git log`?
     1. Have all the version strings been updated?
     1. Does the diff from `origin/master` (or `origin/train-xxx` if it’s a point release) look correct?
-    1. Does the diff between the public and private tags look correct (`git diff private/master origin/master`)?
 
-1. The release script will print some commands to run to push the public and private train branches to the remotes.  **It's best to copy and paste these so you don't mix them up.**
+1. The release script will print some commands to run to push the train branch to the server.  **It's best to copy and paste these so you don't mix them up.**
 
-1. The release script will also print some URLs which you can use to open PRs to merge the train branches back to their respective master branches
+1. The release script will also print a URL which you can use to open a PR to merge the train branch back into the master branch
 
 1. Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]). Remember to include:
 
     1. Notes from the deploy doc, particularly any server side changes that need to happen as part of this deployment.
-    1. Links to the needs:qa labels on GitHub.
-    1. Links to the release tags on GitHub.
+    1. Links to the needs:qa label on GitHub.
+    1. Links to the release tag on GitHub.
     1. Links to pertinent changelogs.
-    1. Links to Circle builds that push to DockerHub.
 
 #### Operations staff will take it from there…
 1. Ensure that any configuration changes noted in the deployment bug land in [cloudops-deployment][cloudops-deployment].
@@ -51,7 +49,7 @@ sidebar_label: Release Process
 
 1. Ensure that TeamCity tests are passing
 
-1. Request QA on stage
+1. Request QA on stage (by posting in the bug)
 
     1. If major issues are found, a new patch is made and we’re back to step 3, running `release.sh patch`
 
@@ -101,7 +99,7 @@ You can then close the `train-xxx -> master` PR.
 
 ## Merging and Branching Strategies
 
-### The Simplified Happy Path: A regular release
+### The Happy Path: A regular release
 
 ![A simplified merging diagram](assets/fxa-release1.png)
 
@@ -115,12 +113,6 @@ git pull
 # Follow the instructions printed
 ```
 
-### The Full Happy Path: A regular release
-
-![The full merging diagram](assets/fxa-release2.png)
-
-The first diagram described a simple release, and it's accurate, but it's not the full picture.  An `fxa-private` repository is also maintained for confidential or security patches.  `release.sh` will create a branch in `fxa-private` for every release, even if there aren't private patches to push.  More often than not, `fxa-private` is unneeded, however, be aware that some things live in `fxa-private` that will never land in the `fxa` repository like the customs server rules and some deployment scripts.
-
 ### A Patch Release
 
 ![A patch release diagram](assets/fxa-release4.png)
@@ -128,8 +120,6 @@ The first diagram described a simple release, and it's accurate, but it's not th
 A patch release is used between official releases.  For example, a regression discovered midway through a sprint that can't wait for a normal release cycle would be pushed to production earlier through this process.
 
 In the scenario above, a regular release happened and `v1.100.0` was tagged and pushed to production.  Later, to fix a regression, a patch was landed *directly on the branch* rather than on `master`.  `release.sh patch` was run and `v1.100.1` was tagged.  Four more commits landed on the branch and `release.sh patch` tagged a `v1.100.2`.  In this scenario there were two patch releases in addition to the regular release at the end of the sprint.
-
-It's not in the diagram above, but `release.sh` is also updating the `fxa-private` branches.
 
 An example of commands to run for a patch release are:
 ```bash
@@ -181,11 +171,21 @@ Git is a flexible tool and there are other options if other scenarios arise.  Do
 
 ![Diagram showing a security release](assets/fxa-release3.png)
 
-A security release will make use of the `fxa-private` repository.  This diagram illustates a regular release happened as usual, but halfway through the sprint an important security patch needed to be pushed live.  The patch, in red above, lands on the current train branch of `fxa-private`.  Once it's been reviewed and passes tests, `release.sh patch` is run to generate the changelogs as usual.  Operations is involved at this point to deploy to production directly from `fxa-private` so the patch is never seen before it's live.
+A security release will make use of the `fxa-private` repository.  This diagram illustates an important security patch being pushed live midway through sprint 100.  Firstly, we need to bring `fxa-private` up to speed since it probably hasn't been used in a while.
 
-Once the fix is verified in production, the patch is cherry-picked back for `fxa`.
+```bash
+git clone git@github.com:mozilla/fxa-private.git
+cd fxa-private
+git remote add fxa https://github.com/mozilla/fxa.git
+git fetch fxa --tags
+git merge v0.100.0   # Replace this with whatever tag is currently live
+```
 
+Next, make a patch for whatever needs fixing and pull request against `fxa-private`.  The patch is reviewed as normal and lands on `fxa-private`.
 
+Operations is involved at this point to deploy to production directly from `fxa-private` so the patch is never seen before it's live.
+
+Once the fix is verified in production, the patch is cherry-picked or merged back to `fxa`.
 
 
 
