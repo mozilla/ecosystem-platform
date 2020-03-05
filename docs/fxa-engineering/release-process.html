@@ -64,7 +64,7 @@
 <li>Update the section in the <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">deployment doc</a> for the Train you are tagging</li>
 <li>Ensure you have appropriate QA signoffs
 <ul>
-<li>Not applicable for <code>master</code> -&gt; stage</li>
+<li>Not applicable for <code>master</code> -&gt; <code>stage</code></li>
 </ul></li>
 <li>Ensure you don't have any modified files or code laying around before you start the tag</li>
 </ol></li>
@@ -78,17 +78,15 @@
 <li>Do the changelogs match expectations from <code>git log</code>?</li>
 <li>Have all the version strings been updated?</li>
 <li>Does the diff from <code>origin/master</code> (or <code>origin/train-xxx</code> if it’s a point release) look correct?</li>
-<li>Does the diff between the public and private tags look correct (<code>git diff private/master origin/master</code>)?</li>
 </ol></li>
-<li><p>The release script will print some commands to run to push the public and private train branches to the remotes.  <strong>It's best to copy and paste these so you don't mix them up.</strong></p></li>
-<li><p>The release script will also print some URLs which you can use to open PRs to merge the train branches back to their respective master branches</p></li>
+<li><p>The release script will print some commands to run to push the train branch to the server.  <strong>It's best to copy and paste these so you don't mix them up.</strong></p></li>
+<li><p>The release script will also print a URL which you can use to open a PR to merge the train branch back into the master branch</p></li>
 <li><p>Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under <code>Cloud Services :: Operations: Deployment Requests</code> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1575233">example</a>). Remember to include:</p>
 <ol>
 <li>Notes from the deploy doc, particularly any server side changes that need to happen as part of this deployment.</li>
-<li>Links to the needs:qa labels on GitHub.</li>
-<li>Links to the release tags on GitHub.</li>
+<li>Links to the needs:qa label on GitHub.</li>
+<li>Links to the release tag on GitHub.</li>
 <li>Links to pertinent changelogs.</li>
-<li>Links to Circle builds that push to DockerHub.</li>
 </ol></li>
 </ol>
 <h4><a class="anchor" aria-hidden="true" id="operations-staff-will-take-it-from-there"></a><a href="#operations-staff-will-take-it-from-there" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operations staff will take it from there…</h4>
@@ -97,7 +95,7 @@
 <li><p>Run any outstanding database migrations.  These are applied automatically for <code>dev</code> and <code>stage</code> but are reviewed manually for production since we may need to take care with the changes to avoid slow queries.  The migrations should be included in the <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">deployment doc</a>.</p></li>
 <li><p>Build fxa-auth, fxa-content, fxa-oauth, fxa-profile, fxa-verifier in stage on Jenkins using git commit from cloudops-deployment PR and docker images referenced in deploy bug</p></li>
 <li><p>Ensure that TeamCity tests are passing</p></li>
-<li><p>Request QA on stage</p>
+<li><p>Request QA on stage (by posting in the bug)</p>
 <ol>
 <li><p>If major issues are found, a new patch is made and we’re back to step 3, running <code>release.sh patch</code></p>
 <ol>
@@ -132,7 +130,7 @@
 </ol>
 <p>You can then close the <code>train-xxx -&gt; master</code> PR.</p>
 <h2><a class="anchor" aria-hidden="true" id="merging-and-branching-strategies"></a><a href="#merging-and-branching-strategies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Merging and Branching Strategies</h2>
-<h3><a class="anchor" aria-hidden="true" id="the-simplified-happy-path-a-regular-release"></a><a href="#the-simplified-happy-path-a-regular-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Simplified Happy Path: A regular release</h3>
+<h3><a class="anchor" aria-hidden="true" id="the-happy-path-a-regular-release"></a><a href="#the-happy-path-a-regular-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Happy Path: A regular release</h3>
 <p><img src="/ecosystem-platform/docs/assets/fxa-release1.png" alt="A simplified merging diagram"></p>
 <p>During a regular release, running <code>release.sh</code> will create an appropriately named branch, update a few files like the Changelogs, and create a tag.  The Release Owner will push the branch to github and open a pull request back to <code>master</code>.</p>
 <p>An example of commands to run for a release are:</p>
@@ -141,14 +139,10 @@ git pull
 ./release.sh
 <span class="hljs-comment"># Follow the instructions printed</span>
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="the-full-happy-path-a-regular-release"></a><a href="#the-full-happy-path-a-regular-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Full Happy Path: A regular release</h3>
-<p><img src="/ecosystem-platform/docs/assets/fxa-release2.png" alt="The full merging diagram"></p>
-<p>The first diagram described a simple release, and it's accurate, but it's not the full picture.  An <code>fxa-private</code> repository is also maintained for confidential or security patches.  <code>release.sh</code> will create a branch in <code>fxa-private</code> for every release, even if there aren't private patches to push.  More often than not, <code>fxa-private</code> is unneeded, however, be aware that some things live in <code>fxa-private</code> that will never land in the <code>fxa</code> repository like the customs server rules and some deployment scripts.</p>
 <h3><a class="anchor" aria-hidden="true" id="a-patch-release"></a><a href="#a-patch-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A Patch Release</h3>
 <p><img src="/ecosystem-platform/docs/assets/fxa-release4.png" alt="A patch release diagram"></p>
 <p>A patch release is used between official releases.  For example, a regression discovered midway through a sprint that can't wait for a normal release cycle would be pushed to production earlier through this process.</p>
 <p>In the scenario above, a regular release happened and <code>v1.100.0</code> was tagged and pushed to production.  Later, to fix a regression, a patch was landed <em>directly on the branch</em> rather than on <code>master</code>.  <code>release.sh patch</code> was run and <code>v1.100.1</code> was tagged.  Four more commits landed on the branch and <code>release.sh patch</code> tagged a <code>v1.100.2</code>.  In this scenario there were two patch releases in addition to the regular release at the end of the sprint.</p>
-<p>It's not in the diagram above, but <code>release.sh</code> is also updating the <code>fxa-private</code> branches.</p>
 <p>An example of commands to run for a patch release are:</p>
 <pre><code class="hljs css language-bash">git checkout master
 git pull
@@ -188,9 +182,17 @@ git pull
 <p>Git is a flexible tool and there are other options if other scenarios arise.  Don't hesitate to get in touch with your team to talk through the best courses of action.</p>
 <h3><a class="anchor" aria-hidden="true" id="a-security-release"></a><a href="#a-security-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A Security Release</h3>
 <p><img src="/ecosystem-platform/docs/assets/fxa-release3.png" alt="Diagram showing a security release"></p>
-<p>A security release will make use of the <code>fxa-private</code> repository.  This diagram illustates a regular release happened as usual, but halfway through the sprint an important security patch needed to be pushed live.  The patch, in red above, lands on the current train branch of <code>fxa-private</code>.  Once it's been reviewed and passes tests, <code>release.sh patch</code> is run to generate the changelogs as usual.  Operations is involved at this point to deploy to production directly from <code>fxa-private</code> so the patch is never seen before it's live.</p>
-<p>Once the fix is verified in production, the patch is cherry-picked back for <code>fxa</code>.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process"><span class="arrow-prev">← </span><span>Development Process</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-api"><span>Internal API Documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#releasing-code">Releasing Code</a><ul class="toc-headings"><li><a href="#special-cases">Special Cases</a></li></ul></li><li><a href="#faq">FAQ</a><ul class="toc-headings"><li><a href="#what-if-the-merge-messes-up-the-changelog">What if the merge messes up the changelog?</a></li><li><a href="#what-happens-if-there-are-merge-conflicts-train-xxx-gt-master">What happens if there are merge conflicts (train-xxx =&gt; master)?</a></li></ul></li><li><a href="#merging-and-branching-strategies">Merging and Branching Strategies</a><ul class="toc-headings"><li><a href="#the-simplified-happy-path-a-regular-release">The Simplified Happy Path: A regular release</a></li><li><a href="#the-full-happy-path-a-regular-release">The Full Happy Path: A regular release</a></li><li><a href="#a-patch-release">A Patch Release</a></li><li><a href="#another-option-for-a-patch-release">Another Option for a Patch Release</a></li><li><a href="#a-security-release">A Security Release</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+<p>A security release will make use of the <code>fxa-private</code> repository.  This diagram illustates an important security patch being pushed live midway through sprint 100.  Firstly, we need to bring <code>fxa-private</code> up to speed since it probably hasn't been used in a while.</p>
+<pre><code class="hljs css language-bash">git <span class="hljs-built_in">clone</span> git@github.com:mozilla/fxa-private.git
+<span class="hljs-built_in">cd</span> fxa-private
+git remote add fxa https://github.com/mozilla/fxa.git
+git fetch fxa --tags
+git merge v0.100.0   <span class="hljs-comment"># Replace this with whatever tag is currently live</span>
+</code></pre>
+<p>Next, make a patch for whatever needs fixing and pull request against <code>fxa-private</code>.  The patch is reviewed as normal and lands on <code>fxa-private</code>.</p>
+<p>Operations is involved at this point to deploy to production directly from <code>fxa-private</code> so the patch is never seen before it's live.</p>
+<p>Once the fix is verified in production, the patch is cherry-picked or merged back to <code>fxa</code>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process"><span class="arrow-prev">← </span><span>Development Process</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-api"><span>Internal API Documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#releasing-code">Releasing Code</a><ul class="toc-headings"><li><a href="#special-cases">Special Cases</a></li></ul></li><li><a href="#faq">FAQ</a><ul class="toc-headings"><li><a href="#what-if-the-merge-messes-up-the-changelog">What if the merge messes up the changelog?</a></li><li><a href="#what-happens-if-there-are-merge-conflicts-train-xxx-gt-master">What happens if there are merge conflicts (train-xxx =&gt; master)?</a></li></ul></li><li><a href="#merging-and-branching-strategies">Merging and Branching Strategies</a><ul class="toc-headings"><li><a href="#the-happy-path-a-regular-release">The Happy Path: A regular release</a></li><li><a href="#a-patch-release">A Patch Release</a></li><li><a href="#another-option-for-a-patch-release">Another Option for a Patch Release</a></li><li><a href="#a-security-release">A Security Release</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
         mermaid.initialize({
             startOnReady: true,
             theme: 'forest',
