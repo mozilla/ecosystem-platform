@@ -6,32 +6,43 @@ sidebar_label: Subscription Platform
 
 ## Getting Started
 
+Current as of `March 10, 2020`.
+
 ### Pre-Development
 
 To begin working on the subscription platform in the FxA codebase, you will need access to a Stripe account for private and public API developer keys.
 
-If you're a Mozilla employee, you can request a private key from the FxA Subscription Platform team. Otherwise, you can create your own Stripe account to use for testing that is not linked to any bank account information. These keys should be taken from Stripe's test environment.
+If you're a Mozilla employee, you can request access to the Stripe dev (and/or stage) account, created for the FxA Subscription Platform team to easily connect with fake products and plans. Otherwise, you can create your own Stripe account to use for testing that is not linked to any bank account information with your own products and plans. These keys should be taken from Stripe's test environment which you can verify by checking that the key includes the word `test`.
 
-The `fxa-payments-server` needs the Stripe public key and communicates with the `fxa-auth-server` that requires a Stripe private key. Configuration details can be found below.
+The `fxa-payments-server` needs the Stripe public key (`pk`) and communicates with the `fxa-auth-server` that requires a Stripe private or secret key (`sk`).¹ These can be found in the Stripe Dashboard, and configuration details can be found below.
+
+¹ We have, in the past, given out restricted keys for use (`rk`). We may choose to do this again in the future or even use them in our dev environment.
 
 ### Configuration
 
-You will need to add a `subscriptions.stripeApiKey` field in `fxa/packages/fxa-auth-server/config/dev.json` with the value of your private stripe API key. Ensure the key begins with `pk_test` to guarantee are testing in the correct environment.
+You will need to add a `subscriptions.stripeApiKey` field in `fxa/packages/fxa-auth-server/config/dev.json` with the value of your private stripe API key. Ensure the key begins with `sk_test` to guarantee you are using the secret key and testing in the correct environment.
 
 Ex:
 
 ```
   "subscriptions": {
     "enabled": true,
-    "stripeApiKey": "pk_test_####"
+    "stripeApiKey": "sk_test_####"
     ...
 ```
 
-If you are testing with your own Stripe account, you will need to update the `stripe.apiKey.default` public key set in `fxa/packages/fxa-payments-server/server/config/index.js` to reflect your own. The payments development server _should_ have a default Mozilla public API key in place already but it doesn't hurt to double check.
+By default, the `stripe.apiKey.default` public key set in `fxa/packages/fxa-payments-server/server/config/index.js` contains the Mozilla public API key. For local or stage testing, you will need to update this key to reflect your own public key:
+
+```
+  stripe: {
+    apiKey: {
+      default: 'pk_test_####',
+
+```
 
 #### Stripe Product/Plans
 
-To see the available products in the Stripe dashboard, navigate to Billing > Products and click into one of the products to see information including the product name, product ID, plan name, plan ID, metadata, logs, and events.
+To see the available products or create a new one in the Stripe dashboard, navigate to Billing > Products and click into one of the products to see information including the product name, product ID, plan name, plan ID, metadata, logs, and events.
 
 If you are using a new Stripe account, you will need to setup a product and its plan. The product should have additional metadata configured as needed.
 
@@ -65,7 +76,9 @@ Reference the [workflow](https://github.com/mozilla/fxa#workflow) section of the
 http://127.0.0.1:3030/subscriptions/products/{productId}?plan={planId}
 ```
 
-The`productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional. Enter any name, valid expiration date, CVC number, and any card number from the [Stripe test cards docs](https://stripe.com/docs/testing#cards) to successfully create a test subscription.
+The `productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional. If you are running the entire FxA stack and are using the keys from the Stripe FxA dev account, you can navigate to `123done` on port `:8080` to click on the link beginning with "Subscribe" to reach the form with a prepopulated product.
+
+Enter any name, valid expiration date, CVC number, and any card number from the [Stripe test cards docs](https://stripe.com/docs/testing#cards) to successfully create a test subscription.
 
 Navigate back to `http://127.0.0.1:3031/subscriptions` to manage your subscriptions.
 
