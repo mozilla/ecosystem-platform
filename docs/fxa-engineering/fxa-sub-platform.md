@@ -46,6 +46,8 @@ To see the available products or create a new one in the Stripe dashboard, navig
 
 If you are using a new Stripe account, you will need to setup a product and its plan. The product should have additional metadata configured as needed.
 
+**Please note:** Product Names are the canonical displayed name shown in Sub Plat UI. In some cases these may be paired with a plan's billing interval. Plan names are not displayed to users.
+
 ##### Product Metadata
 
 | Key                     | Value                                                                                                                                                                                           |
