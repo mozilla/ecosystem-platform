@@ -50,17 +50,16 @@ We also have two relevant components in Bugzilla:
 * [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server]
 
 These components are used to help coordinate between other projects using
-Bugzilla and for issues relating to security.  Some issues are synchronized to
-GitHub.  To force a GitHub bug from Bugzilla, put `[fxa]` in the whiteboard.
-To force not filing a Github bug, put `[fxa-waffle-ignore]` in the whiteboard.
+Bugzilla and for issues relating to security.  To automatically file a GitHub
+bug from Bugzilla, put `[fxa]` in the whiteboard.
 
 If you're wondering where to file a bug, unless it's a security bug, please
 file in Jira.
 
 ### New Features
 
-New features are expected to be described in an Epic with supporting User
-Stories (including acceptance criteria).
+New features are expected to be described in an Epic with supporting Tasks and
+User Stories (including acceptance criteria).
 
 ```mermaid
 graph TD
@@ -69,9 +68,10 @@ A --> C(User Story)
 A --> D(Task)
 A --> E(Bug)
 ```
-Generally, we can expect Epics to be written by the Product team.  User Stories
-will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit
-inside of a sprint.  [Learn more about user stories][moz-user-stories].
+Generally, we can expect Epics to be written by the Product team.  Tasks and
+User Stories will likely be written by the Product and Engineering teams as
+they need to be broken down small enough to fit inside of a sprint.  [Learn
+more about user stories][moz-user-stories].
 
 As Tasks and Bugs pop up, they should be associated with open Epics as
 appropriate.
@@ -219,10 +219,9 @@ and tagging security-related releases.
 
 ### Filing security issues
 
-If you believe you have found a security-sensitive issue
-with any part of the Firefox Accounts service,
-please file it as confidential security bug
-in Bugzilla via this link:
+If you believe you have found a security-sensitive issue with any part of the
+Firefox Accounts service, please file it as confidential security bug in
+Bugzilla via this link:
 
 * [File a security-sensitive FxA bug][fxa-security-bug]
 
@@ -231,20 +230,16 @@ which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
 
 ### Making a private point-release
 
-We maintain the following private github repos
-that can be used for making security-related point-releases
+We maintain the following private github repo that can be used for making
+security-related point-releases
 
-* https://github.com/mozilla/fxa-content-server-private
-* https://github.com/mozilla/fxa-auth-server-private
-* https://github.com/mozilla/fxa-auth-db-mysql-private
-* https://github.com/mozilla/fxa-customs-server-private
-* https://github.com/mozilla/fxa-js-client-private
+* https://github.com/mozilla/fxa-private
 
 The recommended procedure for doing so is:
 
 * Check out the private repo, independently from your normal working repo:
-  * `git clone git@github.com:mozilla/fxa-auth-server-private`
-  * `cd fxa-auth-server-private`
+  * `git clone git@github.com:mozilla/fxa-private`
+  * `cd fxa-private`
   * N.B: Do not add it
     as a remote on your normal working repo,
     because this increases the risk
@@ -252,7 +247,7 @@ The recommended procedure for doing so is:
     by mistake.
 * Add the corresponding public repo as a remote named "public",
   and ensure it's up-to-date:
-  * `git remote add public git@github.com:mozilla/fxa-auth-server`
+  * `git remote add public git@github.com:mozilla/fxa`
   * `git fetch public`
 * Check out the latest release branch and push it to the private repo:
   * `git checkout public/train-XYZ`
@@ -263,7 +258,7 @@ The recommended procedure for doing so is:
   * git push -u origin train-XYZ-my-security-fix`
 * Submit and review the fix as a PR in the private repo,
   targetting the `train-XYZ` branch.
-* Tag a point release in the private repo, following the [steps above](#tagging-releases):
+* Tag a point release in the private repo, following the release steps
   * `git checkout train-XYZ; git pull  # ensure we have the merged PR`
   * `grunt version:patch`
   * `git push`
@@ -276,10 +271,8 @@ The recommended procedure for doing so is:
   as a reminder to uplift the fix
   once it has been deployed to production.
 
-Once the fix has been deployed
-and is safe to reveal publicly,
-it can be merged back into the public repo
-by doing the following:
+Once the fix has been deployed and is safe to reveal publicly, it can be merged
+back into the public repo by doing the following:
 
 * Push the private train branch to the public repo,
   as a new branch:
@@ -290,7 +283,7 @@ by doing the following:
 * Push the tag to the public repo:
   * `git push public v1.XYZ.N`
 * Merge the `train-XYZ` branch to master
-  following the [usual steps](#tagging-releases).
+  following the usual steps to release
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
 [bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15068002&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=Firefox%3A%3AFirefoxAccounts&query_format=advanced&component=Firefox%20Accounts&product=Firefox&known_name=Firefox%3A%3AFirefoxAccounts
