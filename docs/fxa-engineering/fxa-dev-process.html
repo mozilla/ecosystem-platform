@@ -94,23 +94,23 @@ Jira (a delay of a minute or two).</p>
 <li><a href="https://bugzilla.mozilla.org/buglist.cgi?list_id=15067999&amp;resolution=---&amp;classification=Client%20Software&amp;classification=Developer%20Infrastructure&amp;classification=Components&amp;classification=Server%20Software&amp;classification=Other&amp;query_based_on=CloudServices%3A%3AServer%3AFirefoxAccounts&amp;query_format=advanced&amp;component=Server%3A%20Firefox%20Accounts&amp;product=Cloud%20Services&amp;known_name=CloudServices%3A%3AServer%3AFirefoxAccounts">Cloud Services :: Server: Firefox Accounts</a></li>
 </ul>
 <p>These components are used to help coordinate between other projects using
-Bugzilla and for issues relating to security.  Some issues are synchronized to
-GitHub.  To force a GitHub bug from Bugzilla, put <code>[fxa]</code> in the whiteboard.
-To force not filing a Github bug, put <code>[fxa-waffle-ignore]</code> in the whiteboard.</p>
+Bugzilla and for issues relating to security.  To automatically file a GitHub
+bug from Bugzilla, put <code>[fxa]</code> in the whiteboard.</p>
 <p>If you're wondering where to file a bug, unless it's a security bug, please
 file in Jira.</p>
 <h3><a class="anchor" aria-hidden="true" id="new-features"></a><a href="#new-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Features</h3>
-<p>New features are expected to be described in an Epic with supporting User
-Stories (including acceptance criteria).</p>
+<p>New features are expected to be described in an Epic with supporting Tasks and
+User Stories (including acceptance criteria).</p>
 <pre><code class="hljs css language-mermaid"><span class="hljs-variable">graph</span> <span class="hljs-variable">TD</span>
 <span class="hljs-variable">A</span>[<span class="hljs-variable">Epic</span>] --&gt; <span class="hljs-function"><span class="hljs-title">B</span>(<span class="hljs-variable">User</span> <span class="hljs-variable">Story</span>)</span>
 <span class="hljs-variable">A</span> --&gt; <span class="hljs-function"><span class="hljs-title">C</span>(<span class="hljs-variable">User</span> <span class="hljs-variable">Story</span>)</span>
 <span class="hljs-variable">A</span> --&gt; <span class="hljs-function"><span class="hljs-title">D</span>(<span class="hljs-variable">Task</span>)</span>
 <span class="hljs-variable">A</span> --&gt; <span class="hljs-function"><span class="hljs-title">E</span>(<span class="hljs-variable">Bug</span>)</span>
 </code></pre>
-<p>Generally, we can expect Epics to be written by the Product team.  User Stories
-will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit
-inside of a sprint.  <a href="https://docs.google.com/presentation/d/1zepsrOiHINBMS3TJ8nFDJ4gf8u6kRONe1hdMDnlyZvI/edit">Learn more about user stories</a>.</p>
+<p>Generally, we can expect Epics to be written by the Product team.  Tasks and
+User Stories will likely be written by the Product and Engineering teams as
+they need to be broken down small enough to fit inside of a sprint.  <a href="https://docs.google.com/presentation/d/1zepsrOiHINBMS3TJ8nFDJ4gf8u6kRONe1hdMDnlyZvI/edit">Learn
+more about user stories</a>.</p>
 <p>As Tasks and Bugs pop up, they should be associated with open Epics as
 appropriate.</p>
 <h3><a class="anchor" aria-hidden="true" id="sprints"></a><a href="#sprints" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sprints</h3>
@@ -257,31 +257,26 @@ while maintaining confidentiality.</p>
 <p>We use private github repos for developing security fixes
 and tagging security-related releases.</p>
 <h3><a class="anchor" aria-hidden="true" id="filing-security-issues"></a><a href="#filing-security-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filing security issues</h3>
-<p>If you believe you have found a security-sensitive issue
-with any part of the Firefox Accounts service,
-please file it as confidential security bug
-in Bugzilla via this link:</p>
+<p>If you believe you have found a security-sensitive issue with any part of the
+Firefox Accounts service, please file it as confidential security bug in
+Bugzilla via this link:</p>
 <ul>
 <li><a href="https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&amp;component=Server:%20Firefox%20Accounts&amp;groups=cloud-services-security">File a security-sensitive FxA bug</a></li>
 </ul>
 <p>The Firefox Accounts service is part of Mozilla's <a href="https://www.mozilla.org/security/bug-bounty/">bug bounty program</a>,
 which provides additional guidelines on <a href="https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting">reporting security bugs</a>.</p>
 <h3><a class="anchor" aria-hidden="true" id="making-a-private-point-release"></a><a href="#making-a-private-point-release" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Making a private point-release</h3>
-<p>We maintain the following private github repos
-that can be used for making security-related point-releases</p>
+<p>We maintain the following private github repo that can be used for making
+security-related point-releases</p>
 <ul>
-<li><a href="https://github.com/mozilla/fxa-content-server-private">https://github.com/mozilla/fxa-content-server-private</a></li>
-<li><a href="https://github.com/mozilla/fxa-auth-server-private">https://github.com/mozilla/fxa-auth-server-private</a></li>
-<li><a href="https://github.com/mozilla/fxa-auth-db-mysql-private">https://github.com/mozilla/fxa-auth-db-mysql-private</a></li>
-<li><a href="https://github.com/mozilla/fxa-customs-server-private">https://github.com/mozilla/fxa-customs-server-private</a></li>
-<li><a href="https://github.com/mozilla/fxa-js-client-private">https://github.com/mozilla/fxa-js-client-private</a></li>
+<li><a href="https://github.com/mozilla/fxa-private">https://github.com/mozilla/fxa-private</a></li>
 </ul>
 <p>The recommended procedure for doing so is:</p>
 <ul>
 <li>Check out the private repo, independently from your normal working repo:
 <ul>
-<li><code>git clone git@github.com:mozilla/fxa-auth-server-private</code></li>
-<li><code>cd fxa-auth-server-private</code></li>
+<li><code>git clone git@github.com:mozilla/fxa-private</code></li>
+<li><code>cd fxa-private</code></li>
 <li>N.B: Do not add it
 as a remote on your normal working repo,
 because this increases the risk
@@ -291,7 +286,7 @@ by mistake.</li>
 <li>Add the corresponding public repo as a remote named &quot;public&quot;,
 and ensure it's up-to-date:
 <ul>
-<li><code>git remote add public git@github.com:mozilla/fxa-auth-server</code></li>
+<li><code>git remote add public git@github.com:mozilla/fxa</code></li>
 <li><code>git fetch public</code></li>
 </ul></li>
 <li>Check out the latest release branch and push it to the private repo:
@@ -307,7 +302,7 @@ and ensure it's up-to-date:
 </ul></li>
 <li>Submit and review the fix as a PR in the private repo,
 targetting the <code>train-XYZ</code> branch.</li>
-<li>Tag a point release in the private repo, following the <a href="#tagging-releases">steps above</a>:
+<li>Tag a point release in the private repo, following the release steps
 <ul>
 <li><code>git checkout train-XYZ; git pull # ensure we have the merged PR</code></li>
 <li><code>grunt version:patch</code></li>
@@ -324,10 +319,8 @@ the CircleCI build.</li>
 as a reminder to uplift the fix
 once it has been deployed to production.</li>
 </ul>
-<p>Once the fix has been deployed
-and is safe to reveal publicly,
-it can be merged back into the public repo
-by doing the following:</p>
+<p>Once the fix has been deployed and is safe to reveal publicly, it can be merged
+back into the public repo by doing the following:</p>
 <ul>
 <li>Push the private train branch to the public repo,
 as a new branch:
@@ -342,7 +335,7 @@ for review and merge.</li>
 <li><code>git push public v1.XYZ.N</code></li>
 </ul></li>
 <li>Merge the <code>train-XYZ</code> branch to master
-following the <a href="#tagging-releases">usual steps</a>.</li>
+following the usual steps to release</li>
 </ul>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties"><span class="arrow-prev">← </span><span>Metrics</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/release-process"><span>Release Process</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#our-weekly-process">Our weekly process</a></li><li><a href="#product-planning">Product Planning</a></li><li><a href="#issue-management">Issue management</a><ul class="toc-headings"><li><a href="#new-features">New Features</a></li><li><a href="#sprints">Sprints</a></li><li><a href="#bug-triage">Bug Triage</a></li></ul></li><li><a href="#checkin-meetings">Checkin Meetings</a></li><li><a href="#code-review">Code Review</a><ul class="toc-headings"><li><a href="#review-checklist">Review Checklist</a></li></ul></li><li><a href="#browser-support">Browser Support</a></li><li><a href="#deployment-documentation">Deployment Documentation</a></li><li><a href="#security-issues">Security issues</a><ul class="toc-headings"><li><a href="#filing-security-issues">Filing security issues</a></li><li><a href="#making-a-private-point-release">Making a private point-release</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
         mermaid.initialize({
