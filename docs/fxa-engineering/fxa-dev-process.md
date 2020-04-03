@@ -82,6 +82,23 @@ Sprints are tracked in Jira.  There is a [dashboard for our current
 sprint][fxa-jira-dashboard] and a [detailed view of our current
 sprint][fxa-jira-sprint].
 
+The amount of work we can accomplish in a sprint depends on how many people are
+on the team, how much time those people can devote to the work, and what type
+of work it is.  Our [historical velocity is tracked][fxa-jira-velocity], but
+past performance is no guarantee of future results.
+
+When considering what you can accomplish in a sprint, remember:
+* FxA is a complex project with a lot of moving parts.  If you're not familiar
+  with the area, sometimes a simple patch can lead to a rabbit hole that soaks
+  up your time.
+* All patches are reviewed by another team member who also has their own
+  obligations that sprint.  Leave room in your schedule to review patches and
+  consider that others might not get to your patch immediately.
+* Some patches may require additional review from, for example, the operations,
+  security, localization, or data steward teams.  If that's the case it's
+  likely it won't land in the same sprint it's written in since our sprints are
+  pretty short.
+
 ### Bug Triage
 
 We triage issues at least every week in our meetings.  Depending on the
@@ -132,6 +149,22 @@ nothing is falling through the cracks.  During meetings we take notes and
 afterward we send a summary of each meeting to an appropriate mailing list.
 
 Please see our [project calendar][fxa-calendar] for details.
+
+## Developing on a long running branch
+
+If a branch will survive beyond a couple of days its important to have a bit of
+strategy so as to avoid merging frustrations for yourself and your team.  If
+possible you should use other options like feature flags, but sometimes a
+branch is the best way to go.  Ask your team if you're unsure.  If you need to
+use a branch, please keep in mind:
+* Your team won't be keeping up with what is landing on the branch.  Regular
+  communication and/or demos of where you are at and where you are going can
+  help keep your changes in peoples' minds.
+* You should rebase against master often to avoid a giant headache when you
+  eventually merge
+* Consider creating new components instead of editing old ones if you have
+  extensive enough changes.  This way it's a very small change to flip from one
+  to the other instead of trying to merge.
 
 ## Code Review
 
@@ -298,6 +331,7 @@ back into the public repo by doing the following:
 [fxa-jira-dashboard]: https://jira.mozilla.com/secure/Dashboard.jspa?selectPageId=11006
 [fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
 [fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA&view=planning.nodetail
+[fxa-jira-velocity]: https://jira.mozilla.com/secure/RapidBoard.jspa?projectKey=FXA&rapidView=359&view=reporting&chart=velocityChart
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
 [moz-code-review]: https://developer.mozilla.org/docs/Code_Review_FAQ
 [moz-sec-bugs]: https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting
