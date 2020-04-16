@@ -1,3 +1,9 @@
+---
+id: account-management-feature
+title: Account Management feature
+sidebar_label: Account Management
+---
+
 # Overview of FxA Client - Rust Component
 
 The FxA Client rust component, is a key ingredient for Firefox Account relying parties. At a high level, the FxA component is responsible for enabling users to login to their account and manage their account.  From a technical standpoint, the user should login to a Mozilla service, so that host party can attain authenticatication keys to decrypt the user data.
