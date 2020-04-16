@@ -4,7 +4,7 @@ title: Metrics
 sidebar_label: Metrics
 ---
 
-Last updated: `November 26th, 2019`
+Last updated: `March 11th, 2020`
 
 # What types of metrics are there?
 The FxA metrics ecosystem is somewhat arcane and esoteric, so a brief history of how we got to where we are may be helpful to understand the landscape.
@@ -36,6 +36,11 @@ The event schema was designed in advance, so it would be less confusing to under
 
 But the limited event schema we have in Amplitude means there are some things we can’t see there, so the stuff in Redshift+Redash remains a useful resource, especially for devs.
 
+In Fall of 2019, FxA started sending [StatsD][statsd-origin] metrics to Mozilla's [InfluxDB][influxdb-mana] stack.  These are performance metrics.  They powered our dashboards in [Grafana][grafana-dashboards].  At the time of writing, the FxA packages that use StatsD include:
+ - fxa-auth-server
+ - fxa-event-broker
+ - fxa-payments-server
+
 # How are metrics emitted?
 
 ## Auth server
@@ -48,6 +53,8 @@ Flow events have their properties set automatically too, either from the request
 
 Amplitude events are not explicitly emitted, because they can all be mapped to from previously-existing activity or flow events. Those mappings are defined by structures called `EVENTS` and `FUZZY_EVENTS` in `lib/metrics/amplitude.js`. Any event matching a string key from `EVENTS` or a regex key from `FUZZY_EVENTS` gets transformed into the corresponding event by common code in the `fxa-shared` package (it’s also used by the content server). Most of the properties on those events are set automatically, although there are still some cases where data must be set explicitly at the call site.
 
+StatsD is used to capture latency performance metrics on SQS calls, SNS calls, Stripe calls, and any HTTP API requests handled by `lib/backendService.js` (e.g. requests to our customs server).  It is also used to time the server's request handling on all routes.
+
 ## Content server
 
 Again, flow events and amplitude events in the content server are just mozlog-format log lines. But before they can be logged on the back-end, the front-end has to submit them to the endpoint POST `/metrics` first. This is handled by the module `app/scripts/lib/metrics.js`.
@@ -55,6 +62,10 @@ Again, flow events and amplitude events in the content server are just mozlog-fo
 The front-end also needs to make sure it has a `flowId` and `flowBeginTime`, either from `data- attributes` on the body element that were set by the back-end, or from data propagated in the resume token. In both cases, the data is loaded by `app/scripts/models/flow.js`.
 
 After they reach the back-end, events are processed by `server/lib/flow-event.js`. And, just like the auth server, there are `EVENTS` and `FUZZY_EVENTS` mappings to control transformations to amplitude events in `server/lib/amplitude.js`.
+
+## Event Broker
+
+StatsD is used to collect SQS processing latency metrics and message type counts.  Details are on [the package's README][event-broker-readme].
 
 ## Payments server
 
@@ -71,6 +82,8 @@ The main module on the front end for emitting events is `src/lib/flow-events.ts`
 _All_ Amplitude events are emitted from `src/store/amplitude-middleware.ts`.  They are triggered by [Redux actions][redux-actions].
 
 A call to `logAmplitudeEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server.
+
+The Payments frontend reports the timing data surfaced by [Navigation Timing Level 2][navigation-timing-2] back to the server side, which then sends the calculated performance metrics to our statsD server.  One major difference between these performance metrics and those in Redshift for Content Server is that these do not have a flow id to connect the timings into a performance overview for a particular request.
 
 # How are metrics ingested?
 
@@ -120,6 +133,10 @@ We manage to avoid any of the complicated batching logic recommended by some of 
 
 We do split some of the Amplitude metrics out to the [Identify API][amplitude-identify-api] so we can use its $append syntax. But most stuff just goes in to the plain [HTTP API][amplitude-http-api].
 
+## InfluxDB
+
+The statsD metrics are sent to Telegraf, which then batch writes to InfluxDB.  The FxA team does not manage any part of the InfluxDB stack.
+
 # How do I...
 
 ## ...create a new activity event?
@@ -166,3 +183,8 @@ You don’t need to do this, it’s all set up to work automatically.
 [amplitude-http-api]: https://help.amplitude.com/hc/en-us/articles/204771828-HTTP-API
 [amplitude-identify-api]: https://help.amplitude.com/hc/en-us/articles/205406617-Identify-API-Modify-User-Properties
 [redux-actions]: https://redux.js.org/basics/actions
+[statsd-origin]: https://codeascraft.com/2011/02/15/measure-anything-measure-everything/
+[influxdb-mana]: https://mana.mozilla.org/wiki/pages/viewpage.action?spaceKey=SVCOPS&title=InfluxDB
+[grafana-dashboards]: https://earthangel-b40313e5.influxcloud.net/dashboards/f/Q6zOs-JZk/firefox-accounts-fxa
+[event-broker-readme]: https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#metrics
+[navigation-timing-2]: https://www.w3.org/TR/navigation-timing-2/
