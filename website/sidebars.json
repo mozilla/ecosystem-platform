@@ -33,7 +33,8 @@
           "features/firefox-sync/password-management-feature",
           "features/firefox-sync/bookmarks-feature",
           "features/firefox-sync/storage-feature",
-          "features/firefox-sync/history-feature"
+          "features/firefox-sync/history-feature",
+          "features/firefox-sync/account-management-feature"
         ]
       }
     ],
