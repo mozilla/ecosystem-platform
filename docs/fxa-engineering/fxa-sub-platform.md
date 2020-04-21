@@ -20,25 +20,29 @@ The `fxa-payments-server` needs the Stripe public key (`pk`) and communicates wi
 
 ### Configuration
 
-You will need to add a `subscriptions.stripeApiKey` field in `fxa/packages/fxa-auth-server/config/dev.json` with the value of your private stripe API key. Ensure the key begins with `sk_test` to guarantee you are using the secret key and testing in the correct environment.
+You will need to create the file `fxa/packages/fxa-auth-server/config/secrets.json` and specify `subscriptions.stripeApiKey` with the value of your private Stripe API key. Ensure the key begins with `sk_test` to guarantee you are using the secret key and testing in the correct environment.
 
 Ex:
 
 ```
+{
   "subscriptions": {
-    "enabled": true,
     "stripeApiKey": "sk_test_####"
-    ...
+  }
+}
 ```
 
-By default, the `stripe.apiKey.default` public key set in `fxa/packages/fxa-payments-server/server/config/index.js` contains the Mozilla public API key. For local or stage testing, you will need to update this key to reflect your own public key:
+Additionally create the file `fxa/packages/fxa-payments-server/server/config/secrets.json` and specify `stripe.apiKey` to override the default Mozilla Stripe public API key with your own public key:
 
 ```
-  stripe: {
-    apiKey: {
-      default: 'pk_test_####',
-
+{
+  "stripe": {
+    "apiKey": "pk_test_####"
+  }
+}
 ```
+
+Note that neither `secrets.json` files are tracked in Git, and they take precedence over each server's default configurations, should you need to make any additional local-only modifications.
 
 #### Stripe Product/Plans
 
