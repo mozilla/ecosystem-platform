@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Design, API&#x27;s, Error Codes · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="From [the WebPush"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Design, API&#x27;s, Error Codes · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="From [the WebPush"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Design, API&#x27;s, Error Codes</h1></header><article><div><span><p>From <a href="https://tools.ietf.org/html/draft-ietf-webpush-protocol-01#section-2">the WebPush
+specification</a>:</p>
+<blockquote>
+<p>A general model for push services includes three basic actors: a user agent, a
+push service, and an application (server).</p>
+</blockquote>
+<pre><code class="hljs">    +-------+           +--------------+       +-------------+
+    |  UA   |           | Push Service |       | Application |
+    +-------+           +--------------+       +-------------+
+        |                      |                      |
+        |      Subscribe       |                      |
+        |---------------------&gt;|                      |
+        |       Monitor        |                      |
+        |&lt;====================&gt;|                      |
+        |                      |                      |
+        |          Distribute Push Resource           |
+        |--------------------------------------------&gt;|
+        |                      |                      |
+        :                      :                      :
+        |                      |     Push Message     |
+        |    Push Message      |&lt;---------------------|
+        |&lt;---------------------|                      |
+        |                      |                      |
+</code></pre>
+<p>In WebPush, the Push Message is used to wake UA code.</p>
+<p>Currently the Mozilla Push Service supports a proprietary protocol
+using a websocket between the UA and the Push Service.</p>
+<h2><a class="anchor" aria-hidden="true" id="bridge-api"></a><a href="#bridge-api" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bridge API</h2>
+<p>Push allows for remote devices to perform some functions using an HTTP
+interface. This allows remote devices on Android, iOS, and Amazon to receive
+WebPush compatible messages using WebPush endpoints.</p>
+<p>See <a href="../../api/push_bridge.html">Push Bridge API Documentation</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="webpush-proprietary-protocol"></a><a href="#webpush-proprietary-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WebPush Proprietary Protocol</h2>
+<p>This documents the current Push Service Protocol used between the UA and
+the Push Service.</p>
+<p>The protocol uses a websocket that carries JSON messages in a mostly
+request/response style format. The only exception is that after the <strong>Hello</strong>
+response the Push Server will send any stored notifications as well as new
+notifications when they arrive.</p>
+<p>All websocket connections are secured with TLS (wss://). The Push Server
+maintains a list of all previously seen UAID's and notifications for UA's that
+came in while the UA was disconnected. There is no authentication for a given
+UAID when reconnecting.</p>
+<p>It is <strong>required</strong> that ChannelID's and UAID's be UUID's.</p>
+<h3><a class="anchor" aria-hidden="true" id="messages"></a><a href="#messages" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Messages</h3>
+<p>All messages are encoded as JSON. All messages MUST have the following fields:</p>
+<p>messageType string
+: Defines the message type</p>
+<h3><a class="anchor" aria-hidden="true" id="handshake"></a><a href="#handshake" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handshake</h3>
+<p>After the WebSocket is established, the UserAgent begins communication by
+sending a hello message. The hello message contains the UAID if the UserAgent
+has one, either generated by the UserAgent for the first handshake or returned
+by the server from an earlier handshake. The UserAgent also transmits the
+channelIDs it knows so the server may synchronize its state and optionally the
+Megaphone broadcastIDs it's subscribed to (if any).</p>
+<p>The server MAY respect this UAID, but it is at liberty to ask the UserAgent to
+change its UAID in the response.</p>
+<p>If the UserAgent receives a new UAID, it MUST delete all existing channelIDs and
+their associated versions. It MAY then wake up all registered applications
+immediately or at a later date by sending them a push-register message.</p>
+<p>A repeated hello message on an established channel may result in the server
+disconnecting the client for bad behavior.</p>
+<p>The handshake is considered complete, once the UserAgent has received a reply.</p>
+<p>An UserAgent MUST transmit a hello message only once on its WebSocket. If the
+handshake is not completed in the first try, it MUST disconnect the WebSocket
+and begin a new connection.</p>
+<p><strong>NOTE</strong>: Applications may request registrations or unregistrations from the
+UserAgent, before or when the handshake is in progress. The UserAgent MAY buffer
+these or report errors to the application. But it MUST NOT send these requests
+to the PushServer until the handshake is completed.</p>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver"></a><a href="#useragent-pushserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<dl>
+    <dt>messageType = "hello"</dt>
+    <dd></dd>
+    <dt>uaid string REQUIRED</dt>
+    <dd>If the UserAgent has a previously assigned UAID, it should send it. Otherwise
+  send an empty string.</dd>
+    <dt>channelIDs list of strings REQUIRED</dt>
+    <dd>If the UserAgent has a list of channelIDs it wants to be notified of, it must
+  pass these, otherwise an empty list.</dd>
+    <dt>use_webpush bool OPTIONAL</dt>
+    <dd>If the UserAgent wants the WebPush data support for notifications it
+  may include this field with a value of *true*. This field may appear for legacy reasons.</dd>
+    <dt>broadcasts object OPTIONAL</dt>
+    <dd>If the UserAgent wants to subscribe to specific megaphone broadcasts, it may
+  include this field: an object consisting of broadcastIDs mapped to the
+  UserAgent's current broadcast versions.</dt>
+</dl>
+<p>Extra fields: The UserAgent MAY pass any extra JSON data to the PushServer. This
+data may include information required to wake up the UserAgent out-of-band. The
+PushServer MAY ignore this data.</p>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"hello"</span>,
+  <span class="hljs-attr">"uaid"</span>: <span class="hljs-string">"fd52438f-1c49-41e0-a2e4-98e49833cc9c"</span>,
+  <span class="hljs-attr">"broadcasts"</span>: {
+    <span class="hljs-attr">"test/broadcast1"</span>: <span class="hljs-string">"v3"</span>,
+    <span class="hljs-attr">"test/broadcast2"</span>: <span class="hljs-string">"v0"</span>
+  }
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent"></a><a href="#pushserver-useragent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<dl>
+    <dt>messageType = "hello"</dt>
+    <dd></dd>
+    <dt>uaid string REQUIRED</dt>
+    <dd>The UserAgent's provided UAID OR a new UAID.</dd>
+    <dt>status number REQUIRED</dt>
+    <dd>Used to indicate success/failure. MUST be one of:
+<ul>
+<li><p>200 - OK. Successful handshake.</p></li>
+<li><p>503 - Service Unavailable. Database out of space or offline. Disk space
+full or whatever other reason due to which the PushServer could not grant
+this registration. UserAgent SHOULD avoid retrying immediately.</dd>
+<dt>use_webpush bool OPTIONAL</dt>
+<dd>Must match sent value</dd>
+<dt>broadcasts object OPTIONAL</dt>
+<dd><em>Only</em> broadcasts the UserAgent has requested subscriptions to whose version
+values differ from the UserAgent's provided values. It may be empty if the
+UserAgent is up to date.</dd></p></li>
+</ul>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"hello"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"uaid"</span>: <span class="hljs-string">"fd52438f-1c49-41e0-a2e4-98e49833cc9c"</span>,
+  <span class="hljs-attr">"broadcasts"</span>: {
+    <span class="hljs-attr">"test/broadcast2"</span>: <span class="hljs-string">"v1"</span>
+  }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="register"></a><a href="#register" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Register</h3>
+<p>The Register message is used by the UserAgent to request that the PushServer
+notify it when a channel changes. Since channelIDs are associated with only one
+UAID, this effectively creates the channel, while unregister destroys the
+channel.</p>
+<p>The channelID is chosen by the UserAgent because it also acts like a nonce for
+the Register message itself. Because of this PushServers MAY respond out of
+order to multiple register messages or messages may be lost without compromising
+correctness of the protocol.</p>
+<p>The request is considered successful only after a response is received with a
+status code of 200. On success the UserAgent MUST:</p>
+<ul>
+<li>Update its persistent storage based on the response</li>
+<li>Notify the application of a successful registration.</li>
+<li>On error, the UserAgent MUST notify the application as soon as possible.</li>
+</ul>
+<p><strong>NOTE</strong>: The register call is made by the UserAgent on behalf of an
+application. The UserAgent SHOULD have reasonable timeouts in place so that
+the application is not kept waiting for too long if the server does not
+respond or the UserAgent has to retry the connection.</p>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver-1"></a><a href="#useragent-pushserver-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<dl>
+    <dt>messageType = "register"</dt>
+    <dd></dd>
+    <dt>channelID string REQUIRED</dt>
+    <dd>A unique identifier generated by the UserAgent, distinct from any existing
+  channelIDs it has registered. It is RECOMMENDED that this is a UUIDv4 token.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"register"</span>,
+    <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"d9b74644-4f97-46aa-b8fa-9393985cd6cd"</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent-1"></a><a href="#pushserver-useragent-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<dl>
+    <dt>messageType = "register"</dt>
+    <dd></dd>
+    <dt>channelID string REQUIRED</dt>
+    <dd>This MUST be the same as the channelID sent by the UserAgent in the register
+  request that this message is a response to.</dd>
+    <dt>status number REQUIRED</dt>
+    <dd>Used to indicate success/failure. MUST be one of:
+<ul>
+<li><p>200 - OK. Success. Idempotent: If the PushServer receives a register for the
+same channelID from a UserAgent which already has a registration for the
+channelID, it should still respond with success.</p></li>
+<li><p>409 - Conflict. The chosen ChannelID is already in use and NOT associated
+with this UserAgent. UserAgent SHOULD retry with a new ChannelID as soon as
+possible.</p></li>
+<li><p>500 - Internal server error. Database out of space or offline. Disk space
+full or whatever other reason due to which the PushServer could not grant
+this registration. UserAgent SHOULD avoid retrying immediately.</dd>
+<dt>pushEndpoint string REQUIRED</dt>
+<dd>Should be the URL sent to the application by the UserAgent. AppServers will
+contact the PushServer at this URL to update the version of the channel
+identified by channelID.</dd></p></li>
+</ul>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json"> {
+   <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"register"</span>,
+   <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"d9b74644-4f97-46aa-b8fa-9393985cd6cd"</span>,
+   <span class="hljs-attr">"status"</span>: <span class="hljs-number">200</span>,
+   <span class="hljs-attr">"pushEndpoint"</span>: <span class="hljs-string">"http://pushserver.example.org/d9b74644"</span>
+ }
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="unregister"></a><a href="#unregister" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unregister</h3>
+<p>Unregistration is <strong>required</strong> for the WebPush.</p>
+<p>PushServers MUST support it. UserAgents SHOULD support it.</p>
+<p>The unregister is required only between the App and the UserAgent, so that the
+UserAgent stops notifying the App when the App is no longer interested in a
+pushEndpoint.</p>
+<p>The unregister is also useful to the AppServer, because it should stop sending
+notifications to an endpoint the App is no longer monitoring. Even then, it is
+really an optimization so that the AppServer need not have some sort of garbage
+collection mechanism to clean up endpoints at intervals of time.</p>
+<p>The PushServer MUST implement unregister, but need not rely on it. Well behaved
+AppServers will stop notifying it of unregistered endpoints automatically. Well
+behaved UserAgents won't notify their apps of unregistered updates either. So
+the PushServer can continue to process notifications and pass them on to
+UserAgents, when it has not been told about the unregistration.</p>
+<p>When an App calls unregister(endpoint) it is RECOMMENDED that the UserAgent
+follow these steps:</p>
+<ol>
+<li>Remove its local registration first, for example from the database.
+This will allow it to immediately start ignoring updates.</li>
+<li>Notify the App that unregistration succeeded.</li>
+<li>Fire off an unregister message to the PushServer</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver-2"></a><a href="#useragent-pushserver-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<dl>
+    <dt>messageType = "unregister"</dt>
+    <dd></dd>
+    <dt>channelID string REQUIRED</dt>
+    <dd>ChannelID that should be unregistered.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"unregister"</span>,
+    <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"d9b74644-4f97-46aa-b8fa-9393985cd6cd"</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent-2"></a><a href="#pushserver-useragent-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<dl>
+    <dt>messageType = "unregister"</dt>
+    <dd></dd>
+    <dt>channelID string REQUIRED</dt>
+    <dd>This MUST be the same as the channelID sent by the UserAgent in the
+  unregister request that this message is a response to.</dd>
+    <dt>status number REQUIRED</dt>
+    <dd>Used to indicate success/failure. MUST be one of:
+<ul>
+<li><p>200 - OK. Success. Idempotent: If the PushServer receives a unregister for a
+non-existent channelID it should respond with success. If the channelID is
+associated with a DIFFERENT UAID, it MUST NOT delete the channelID, but
+still MUST respond with success to this UserAgent.</p></li>
+<li><p>500 - Internal server error. Database offline or whatever other reason due
+to which the PushServer could not grant this unregistration. UserAgent
+SHOULD avoid retrying immediately.</dd></p></li>
+</ul>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"unregister"</span>,
+    <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"d9b74644-4f97-46aa-b8fa-9393985cd6cd"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-number">200</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="ping"></a><a href="#ping" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ping</h3>
+<p>The connection to the Push Server may be lost due to network issues. When the
+UserAgent detects loss of network, it should reconnect. There are situations in
+which the TCP connection dies without either end discovering it immediately. The
+UserAgent MAY send a ping approximately every 30 minutes and expect a reply
+from the server in a reasonable time (The Mozilla UserAgent uses 10 seconds). If
+no data is received, the connection should be presumed closed and a new
+connection started.</p>
+<p>A UserAgent MUST NOT send a Ping more frequently than once a minute or its
+connection MAY be dropped.</p>
+<p>The UserAgent should consider normal communications as an indication that the
+socket is working properly. It SHOULD send the ping packet only if no activity
+has occurred in the past 30 minutes.</p>
+<p><strong>Note</strong>: This section is included for relevant historical purposes as the
+current implementation sends WebSocket Ping frames every 5 minutes which is
+sufficient to keep the connection alive. As such, client-sent Ping's are no
+longer needed.</p>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver-3"></a><a href="#useragent-pushserver-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<p>The 2-character string {} is sent. This is a valid JSON object that requires no
+alternative processing on the server, while keeping transmission size small.</p>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent-3"></a><a href="#pushserver-useragent-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<p>The PushServer may reply with any data. The UserAgent is only concerned about
+the state of the connection. The PushServer may deliver pending notifications or
+other information. If there is no pending information to be sent, it is
+RECOMMENDED that the PushServer also reply with the string {}.</p>
+<h3><a class="anchor" aria-hidden="true" id="notification"></a><a href="#notification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notification</h3>
+<h4><a class="anchor" aria-hidden="true" id="appserver-pushserver"></a><a href="#appserver-pushserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AppServer -&gt; PushServer</h4>
+<p>The AppServer MUST make a HTTP PUT request to the Endpoint received from the
+App, or a HTTP POST if using the WebPush extension.</p>
+<p>If no request body is present, the server MAY presume the version to be the
+current server UTC.</p>
+<p>If the request body is present, the request MUST contain the string &quot;version=N&quot;
+and the Content-Type MUST be application/x-www-form-urlencoded.</p>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-appserver"></a><a href="#pushserver-appserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; AppServer</h4>
+<p>The HTTP response status code indicates if the request was successful.</p>
+<ul>
+<li><p>200 - OK. The PushServer will attempt to deliver a notification to the
+associated UserAgent.</p></li>
+<li><p>500 - Something went wrong with the server. Rare, but the AppServer should try
+again.</p></li>
+</ul>
+<p>The HTTP response body SHOULD be empty.</p>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent-4"></a><a href="#pushserver-useragent-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<p>Notifications are acknowledged by the UserAgent. PushServers should retry unacknowledged notifications every 60 seconds. If the version of an unacknowledged notification is updated, the PushServer MAY queue up a new notification for this channelID and the new version, and remove the old notification from the pending queue.</p>
+<dl>
+    <dt>messageType = "notification"</dt>
+    <dd></dd>
+</dl>
+<p>The following attributes are present
+in each notification. A
+notification message is sent for every stored notification individually, as well
+as new notifications.</p>
+<dl>
+    <dt>channelID string REQUIRED</dt>
+    <dd>ChannelID of the notification</dd>
+    <dt>version string REQUIRED</dt>
+    <dd>Version of the notification sent</dd>
+    <dt>headers map OPTIONAL</dt>
+    <dd>Encryption headers sent along with the data. Present only if data was sent.</dd>
+    <dt>data string OPTIONAL</dt>
+    <dd>Data payload, if included. This string is Base64 URL-encoded.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"notification"</span>,
+    <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"431b4391-c78f-429a-a134-f890b5adc0bb"</span>,
+    <span class="hljs-attr">"version"</span>: <span class="hljs-string">"a7695fa0-9623-4890-9c08-cce0231e4b36:d9b74644-4f97-46aa-b8fa-9393985cd6cd"</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver-4"></a><a href="#useragent-pushserver-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<p>It is RECOMMENDED that the UserAgent try to batch all pending acknowledgements
+into fewer messages if bandwidth is a concern. The ack MUST be sent as soon as
+the message has been processed, otherwise the
+Push Server MAY cease sending notifications to avoid holding excessive client
+state.</p>
+<dl>
+    <dt>messageType = "ack"</dt>
+    <dd></dd>
+    <dt>updates list</dt>
+    <dd>The list contains one or more {"channelID": channelID, "version": N} pairs.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"ack"</span>,
+    <span class="hljs-attr">"updates"</span>: [{ <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"431b4391-c78f-429a-a134-f890b5adc0bb"</span>, <span class="hljs-attr">"version"</span>: <span class="hljs-number">23</span> }, { <span class="hljs-attr">"channelID"</span>: <span class="hljs-string">"a7695fa0-9623-4890-9c08-cce0231e4b36"</span>, <span class="hljs-attr">"version"</span>: <span class="hljs-number">42</span> } ]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="broadcast"></a><a href="#broadcast" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Broadcast</h3>
+<p>When a UserAgent's subscribed broadcasts are updated, PushServers send
+broadcast messages with no expected reply.</p>
+<h4><a class="anchor" aria-hidden="true" id="pushserver-useragent-5"></a><a href="#pushserver-useragent-5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PushServer -&gt; UserAgent</h4>
+<dl>
+    <dt>messageType = "broadcast"</dt>
+    <dd></dd>
+    <dt>broadcasts object OPTIONAL</dt>
+    <dd>*Only* broadcasts the UserAgent has requested subscriptions to whose new
+version values differ from the UserAgent's provided values.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"broadcast"</span>,
+  <span class="hljs-attr">"broadcasts"</span>: {
+    <span class="hljs-attr">"test/broadcast1"</span>: <span class="hljs-string">"v4"</span>
+  }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="broadcast-subscribe"></a><a href="#broadcast-subscribe" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Broadcast Subscribe</h3>
+<p>UserAgents subscribe to broadcasts during the hello handshake but may also
+subscribe to additional broadcasts afterwards. There is no expected reply to
+this message.</p>
+<h4><a class="anchor" aria-hidden="true" id="useragent-pushserver-5"></a><a href="#useragent-pushserver-5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UserAgent -&gt; PushServer</h4>
+<dl>
+    <dt>messageType = "broadcast_subscribe"</dt>
+    <dd></dd>
+    <dt>broadcasts object REQUIRED</dt>
+    <dd>New broadcasts the UserAgent is requesting subscriptions to and their current
+broadcast versions.</dd>
+</dl>
+<p><strong>Example</strong></p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"messageType"</span>: <span class="hljs-string">"broadcast_subscribe"</span>,
+  <span class="hljs-attr">"broadcasts"</span>: {
+    <span class="hljs-attr">"test/new-broadcast22"</span>: <span class="hljs-string">"v8"</span>
+  }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="error-codes"></a><a href="#error-codes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Codes</h2>
+<p>The Mozilla Push Service may return a variety of error codes depending on what
+went wrong in the request.</p>
+<p>Autopush uses error codes based on <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP response codes</a>.
+An error response will contain a JSON body including an additional error information.</p>
+<p>Unless otherwise specified, all calls return one the following error statuses:</p>
+<ul>
+<li><p>20x - <strong>Success</strong> - The message was accepted for transmission to the client. Please note that the message may still be rejected by the User Agent if there is an error with the message's encryption.</p></li>
+<li><p>301 - <strong>Moved + <code>Location:</code></strong> if <code>{client_token}</code> is invalid (Bridge API Only) - Bridged services (ones that run over third party services like GCM and APNS), may require a new URL be used. Please stop using the old URL immediately and instead use the new URL provided.</p></li>
+<li><p>400 - <strong>Bad Parameters</strong> -- One or more of the parameters specified is invalid. See the following sub-errors indicated by <code>errno</code></p>
+<ul>
+<li><p>errno 101 - Missing necessary crypto keys - One or more required crypto key elements are missing from this transaction. Refer to the <a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-encryption-encoding/">appropriate specification</a> for the requested content-type.</p></li>
+<li><p>errno 108 - Router type is invalid - The URL contains an invalid router type, which may be from URL corruption or an unsupported bridge. Refer to <a href="../../api/push_bridge.html">bridge API</a>.</p></li>
+<li><p>errno 110 - Invalid crypto keys specified - One or more of the crytpo key elements are invalid. Refer to the <a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-encryption-encoding/">appropriate specification</a> for the requested content-type.</p></li>
+<li><p>errno 111 - Missing Required Header - A required crypto element header is missing. Refer to the <a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-encryption-encoding/">appropriate specification</a> for the requested content-type.</p>
+<ul>
+<li>Missing TTL Header - Include the Time To Live header (<a href="https://tools.ietf.org/html/draft-ietf-webpush-protocol#section-6.2">IETF WebPush protocol §6.2</a>)</li>
+<li>Missing Crypto Headers - Include the appropriate encryption headers (<a href="https://webpush-wg.github.io/webpush-encryption/#rfc.section.3.2">WebPush Encryption §3.2</a> and <a href="https://tools.ietf.org/html/draft-ietf-webpush-vapid-02#section-4">WebPush VAPID §4</a>)</li>
+</ul></li>
+<li><p>errno 112 - Invalid TTL header value - The Time To Live &quot;TTL&quot; header contains an invalid or unreadable value. Please change to a number of seconds that this message should live, between 0 (message should be dropped immediately if user is unavailable) and 2592000 (hold for delivery within the next approximately 30 days).</p></li>
+<li><p>errno 113 - Invalid Topic header value - The Topic header contains an invalid or unreadable value. Please use only ASCII alphanumeric values [A-Za-z0-9] and a maximum length of 32 bytes..</p></li>
+</ul></li>
+<li><p>401 - <strong>Bad Authorization</strong> - <code>Authorization</code> header is invalid or missing. See the <a href="https://datatracker.ietf.org/doc/draft-ietf-webpush-vapid/">VAPID specification</a>.</p>
+<ul>
+<li>errno 109 - Invalid authentication</li>
+</ul></li>
+<li><p>404 - <strong>Endpoint Not Found</strong> - The URL specified is invalid and should not be used again.</p>
+<ul>
+<li>errno 102 - Invalid URL endpoint</li>
+</ul></li>
+<li><p>410 - <strong>Endpoint Not Valid</strong> - The URL specified is no longer valid and should no longer be used. A User has become permanently unavailable at this URL.</p>
+<ul>
+<li>errno 103 - Expired URL endpoint</li>
+<li>errno 105 - Endpoint became unavailable during request</li>
+<li>errno 106 - Invalid subscription</li>
+</ul></li>
+<li><p>413 - <strong>Payload too large</strong> - The body of the message to send is too large. The max data that can be sent is 4028 characters. Please reduce the size of the message.</p>
+<ul>
+<li>errno 104 - Data payload too large</li>
+</ul></li>
+<li><p>500 - <strong>Unknown server error</strong> - An internal error occurred within the Push Server.</p>
+<ul>
+<li>errno 999 - Unknown error</li>
+</ul></li>
+<li><p>502 - <strong>Bad Gateway</strong> - The Push Service received an invalid response from an upstream Bridge service.</p>
+<ul>
+<li>errno 900 - Internal Bridge misconfiguration</li>
+<li>errno 901 - Invalid authentication</li>
+<li>errno 902 - An error occurred while establishing a connection</li>
+<li>errno 903 - The request timed out</li>
+</ul></li>
+<li><p>503 - <strong>Server temporarily unavailable.</strong> - The Push Service is currently unavailable. See the error number &quot;errno&quot; value to see if retries are available.</p>
+<ul>
+<li>errno 201 - Use exponential back-off for retries</li>
+<li>errno 202 - Immediate retry ok</li>
+</ul></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#bridge-api">Bridge API</a></li><li><a href="#webpush-proprietary-protocol">WebPush Proprietary Protocol</a><ul class="toc-headings"><li><a href="#messages">Messages</a></li><li><a href="#handshake">Handshake</a></li><li><a href="#register">Register</a></li><li><a href="#unregister">Unregister</a></li><li><a href="#ping">Ping</a></li><li><a href="#notification">Notification</a></li><li><a href="#broadcast">Broadcast</a></li><li><a href="#broadcast-subscribe">Broadcast Subscribe</a></li></ul></li><li><a href="#error-codes">Error Codes</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest',
+            themeCSS: '.noteText { font-family: monospace; }'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl, index) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          diagramEl.addEventListener('click', (evt) => {
+            evt.currentTarget.classList.toggle('highlight');
+            document.body.classList.toggle('highlight-service');
+          }, false);
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>
