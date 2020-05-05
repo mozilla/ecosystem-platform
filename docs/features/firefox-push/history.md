@@ -1,5 +1,5 @@
 ---
-id: history
+id: push-history
 title: History
 sidebar_label: History
 ---
