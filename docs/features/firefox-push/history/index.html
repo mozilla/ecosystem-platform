@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>History · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The Push Service was originally developed in Go, utilizing a websocket"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="History · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="The Push Service was originally developed in Go, utilizing a websocket"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">History</h1></header><article><div><span><p>The Push Service was originally developed in Go, utilizing a websocket
+connection from <a href="https://www.mozilla.org/en-US/firefox/os/">Firefox OS</a> to the Push service. It was
+deployed in 2013
+with the legacy <a href="https://developer.mozilla.org/en-US/docs/Web/API/Simple_Push_API">SimplePush DOM
+API</a> that runs
+under <a href="https://www.mozilla.org/en-US/firefox/os/">Firefox OS</a>. This API only supported incrementing version numbers,
+to wake a device so that it could check with an Application Server to determine
+what to display.</p>
+<p>In 2015 the Push Service was rewritten in Python, and added preliminary
+<a href="https://webpush-wg.github.io/webpush-protocol/">WebPush</a> support for carrying data in push messages. The underlying
+protocol used between <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a> and the Push Service is an extended
+<a href="design.md#simplepush-protocol">SimplePush Protocol</a> utilizing a websocket protocol that will eventually be
+deprecated in favor of a specification compliant <a href="https://webpush-wg.github.io/webpush-protocol/">WebPush</a> HTTP 2.0
+protocol.</p>
+<p>With the release of <a href="https://tools.ietf.org/html/rfc8030">RFC 8030</a>, Simplepush support was deprecated.</p>
+<p>In 2017, a prototype of the Push connection node was written in Rust with bindings
+to a Python extraction of the logic. By early 2018 the connection node logic was
+ported entirely to Rust and a <a href="https://github.com/mozilla-services/autopush-rs">Rust connection node</a> was put into production
+service. The Rust port drastically lowered CPU usage, and reduced the per-client
+memory consumption to slightly less than 10Kb.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest',
+            themeCSS: '.noteText { font-family: monospace; }'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl, index) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          diagramEl.addEventListener('click', (evt) => {
+            evt.currentTarget.classList.toggle('highlight');
+            document.body.classList.toggle('highlight-service');
+          }, false);
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div></body></html>
