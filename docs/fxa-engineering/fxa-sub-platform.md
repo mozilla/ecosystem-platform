@@ -65,7 +65,7 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | downloadURL             | The download URL for the product.                                                                                                                                                               |
 | emailIconURL            | Image URL for product icon in email content.                                                                                                                                                    |
 
-##### Plan Metadata
+##### Subscription Metadata
 
 | Key              | Value                                                                |
 | ---------------- | -------------------------------------------------------------------- |
