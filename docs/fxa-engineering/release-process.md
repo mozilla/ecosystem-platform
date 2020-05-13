@@ -4,9 +4,27 @@ title: Release Process
 sidebar_label: Release Process
 ---
 
+## Release Owner
+### What is a Release Owner?
+The main purpose of the release owner is to follow the "Releasing Code" process below.  The release owner should work with the rest of the team to ensure a smooth close-out of the current sprint.
+
+### How is a Release Owner selected?
+ At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc]. 
+
+### I am the Release Owner: How should I plan my Sprint? 
+If you are the designated Release owner, consider the following suggestions to managing your work and the release:
+
+* When taking on work for the sprint, allocate at least half of your time to release management duties.
+* Take some time a day or two before tagging is scheduled to reach out to individual team members to check-in on in-progress or to-do work items. This might result in you taking on additional work performing reviews or reaching out to the appropriate people.
+    * Things to consider asking:
+        * Are there any tasks that need to be in the train? Are any of them in jeopardy?
+        * Is there anything I can do to help keep things moving?
+
+
+
 ## Releasing Code
 
-1. A release owner is delegated to follow the process below and work with the team to tie up any loose ends. At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc]. Ownership is confirmed during the sprint kick-off team meeting.
+1. Release ownership is confirmed during the sprint kick-off team meeting.
 
 1. The pre-flight checklist:
 
