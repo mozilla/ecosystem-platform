@@ -64,6 +64,10 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | upgradeCTA              | HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 | downloadURL             | The download URL for the product.                                                                                                                                                               |
 | emailIconURL            | Image URL for product icon in email content.                                                                                                                                                    |
+| product:subtitle | A subtitle for the product, usually displayed beneath the name in UI |
+| product:subtitle:{locale} | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
+| product:details:{n} | Bullet-point feature details for the product, where {n} is a number or ordering the points |
+| product:details:{n}:{locale} | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
 
 ##### Subscription Metadata
 
@@ -71,6 +75,7 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | ---------------- | -------------------------------------------------------------------- |
 | previous_plan_id | The value of the previous plan that the user had been subscribed to. |
 | plan_change_date | Unix timestamp of the date the plan was changed.                     |
+| cancelled_for_customer_at | Unix timestamp of the date when the subscription was cancelled for the customer through FxA UI |
 
 ## Navigating the Payment Flow
 
