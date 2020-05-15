@@ -32,7 +32,19 @@ You will need up to three defined strings to develop a subscription platform int
 - Product id, one for each environment (If building a lead page)
 - Plan id, one for each environment (If building a lead page)
 
-If your integration includes an application service, it will need a [webhook] handler to recieve [relying party events] from the FxA Event Broker.
+If your integration includes an application service, it will need a [webhook] handler to receive [relying party events] from the FxA Event Broker.
+
+### Tiers and Upgrades
+
+If your product consists of multiple different subscription tiers (Foo Silver, Foo Gold, Foo Platinum), different capabilities can be assigned for each level as needed. The Accounts team can configure metadata for each tier in Stripe so that users can upgrade between tiers without needing to re-enter CC information.
+
+### Billing Cycle Durations
+
+Sub Plat currently supports subscription billing cycles of one month, six months and one year. These will be represented as a set of `planID`s associated with a single `productId`. An accounts team member can help you configure each plan as needed.
+
+### Demoing Subscription Flows
+
+The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various Sub Plat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of Sub Plat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
 
 ## Development
 
@@ -67,3 +79,4 @@ When integrated with the FxA stage or development environments, subscription sig
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
 [webhook]: https://en.wikipedia.org/wiki/Webhook
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user
+[config]: /docs/fxa-engineering/fxa-sub-platform#configuration
