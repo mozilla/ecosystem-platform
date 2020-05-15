@@ -66,6 +66,8 @@ Valid hostnames for the FxA environments:
 
 Note that valid values for `productId` and `planId` will vary with environment as a different Stripe account is associated with each.
 
+Additionally, if your product has multiple associated plans in any environment, you will need to ensure that you are routing users correctly.
+
 ### Webhook Events
 
 If your integration includes an application service, [subscription state notifications] will also be sent via [webhook] to your registered [webhook] URL.
@@ -79,4 +81,4 @@ When integrated with the FxA stage or development environments, subscription sig
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
 [webhook]: https://en.wikipedia.org/wiki/Webhook
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user
-[config]: /docs/fxa-engineering/fxa-sub-platform#configuration
+[config]: /ecosystem-platform/docs/fxa-engineering/fxa-sub-platform#configuration
