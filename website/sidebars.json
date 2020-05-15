@@ -9,20 +9,11 @@
       "process/using-the-staging-environment"
     ],
     "Platform Features": [
-      "features/features",
       {
         "type": "subcategory",
-        "label": "Firefox Account Management",
+        "label": "Subscription Platform",
         "ids": [
-          "features/fxa-details/fxa-features-overview",
-          "features/fxa-details/feature-detail-example"
-        ]
-      },
-      {
-        "type": "subcategory",
-        "label": "Subscription Management",
-        "ids": [
-          "features/subscription-platform-details/subscription-platform-features"
+          "features/sub-plat/sub-plat-features"
         ]
       },
       {
@@ -72,7 +63,6 @@
         ]
       },
       "fxa-engineering/fxa-adr"
-    ],
-    "About": ["about/the-teams", "about/history"]
+    ]
   }
 }

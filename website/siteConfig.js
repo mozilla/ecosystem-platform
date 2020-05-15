@@ -10,7 +10,7 @@
 
 const siteConfig = {
   title: 'Firefox Ecosystem Platform', // Title for your website.
-  tagline: 'Documentation for Firefox Acconts, Sync and more',
+  tagline: 'Documentation for Firefox Accounts, Sync and more',
   url: 'https://mozilla.github.io', // Your website URL
   baseUrl: '/ecosystem-platform/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
