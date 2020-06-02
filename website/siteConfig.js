@@ -9,6 +9,10 @@
 // site configuration options.
 
 const siteConfig = {
+  algolia: {
+    apiKey: 'bf6d9655ef3d5789d97465aff250ee76',
+    indexName: 'mozilla_ecosystem-platform',
+  },
   title: 'Firefox Ecosystem Platform', // Title for your website.
   tagline: 'Documentation for Firefox Accounts, Sync and more',
   url: 'https://mozilla.github.io', // Your website URL
