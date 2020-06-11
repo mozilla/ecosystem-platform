@@ -16,6 +16,7 @@ sidebar_label: Release Process
     1. Ensure you have appropriate QA signoffs
        * Not applicable for `master` -> `stage`
     1. Ensure you don't have any modified files or code laying around before you start the tag
+    1. Ensure you have the latest from `master`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`. 
 
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
 
