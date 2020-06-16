@@ -6,7 +6,8 @@
       "process/integration-with-subscription-platform",
       "process/becoming-a-sync-client",
       "process/sync-testing",
-      "process/using-the-staging-environment"
+      "process/using-the-staging-environment",
+      "process/interruptive-surveys"
     ],
     "Platform Features": [
       {
