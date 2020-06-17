@@ -102,6 +102,10 @@ FxA's Stripe account is configured to not allow subscriptions to become `unpaid`
 
 The last 4 states are `active`, `trialing`, `past_due`, and `cancelled`. The first three of these are considered active for the purposes of allowing the user access to the capabilities provided by the subscription, while `cancelled` subscriptions grant none.
 
+### Stripe Radar and Payment Blocking
+
+We use [Stripe Radar](https://stripe.com/docs/radar/rules) to block payments from both potentially abusive sources as well as from potential subscribers in currently unsupported regions. Our production radar rules are [documented in Mana](https://mana.mozilla.org/wiki/display/FIREFOX/Stripe+Radar+Rules).
+
 ## Interactions with Stripe
 
 ### Payments Server
