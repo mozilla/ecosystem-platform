@@ -85,6 +85,7 @@
 <li>Not applicable for <code>master</code> -&gt; <code>stage</code></li>
 </ul></li>
 <li>Ensure you don't have any modified files or code laying around before you start the tag</li>
+<li>Ensure you have the latest from <code>master</code>, including tags. If <code>git fetch [remote]</code> doesn't reflect the latest tag, run <code>git fetch [remote] --tags</code>.</li>
 </ol></li>
 </ol>
 <p><strong>The release script expects the git origin to be unchanged from the default.</strong>  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. <code>git clone git@github.com:mozilla/fxa.git fxa.tagging</code> and do all your tagging there.</p>
