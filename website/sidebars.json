@@ -1,20 +1,36 @@
 {
   "docs": {
-    "Introduction": ["welcome", "platform-overview"],
-    "The Process": [
-      "process/integration-with-fxa",
-      "process/integration-with-subscription-platform",
-      "process/becoming-a-sync-client",
-      "process/sync-testing",
-      "process/using-the-staging-environment",
-      "process/interruptive-surveys"
-    ],
-    "Platform Features": [
+    "Introduction": ["welcome"],
+    "Platform": [
+      {
+        "type": "subcategory",
+        "label": "Firefox Accounts",
+        "ids": [
+          "features/firefox-accounts/fxa-overview",
+          "process/integration-with-fxa",
+          "relying-parties/end-to-end-encryption",
+          "relying-parties/metrics-for-relying-parties"
+
+        ]
+      },
       {
         "type": "subcategory",
         "label": "Subscription Platform",
         "ids": [
-          "features/sub-plat/sub-plat-features"
+          "features/sub-plat/sub-plat-overview",
+          "features/sub-plat/sub-plat-features",
+          "process/integration-with-subscription-platform"
+
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Firefox Push",
+        "ids": [
+          "features/firefox-push/push-feature",
+          "features/firefox-push/push-design",
+          "features/firefox-push/push-development",
+          "features/firefox-push/push-history"
         ]
       },
       {
@@ -26,18 +42,12 @@
           "features/firefox-sync/bookmarks-feature",
           "features/firefox-sync/storage-feature",
           "features/firefox-sync/history-feature",
-          "features/firefox-sync/account-management-feature"
+          "features/firefox-sync/account-management-feature",
+          "process/becoming-a-sync-client",
+          "process/sync-testing",
+          "process/using-the-staging-environment"
         ]
       }
-    ],
-    "Reference": [
-      "reference/best-practices",
-      "reference/glossary",
-      "reference/ecosystem-map"
-    ],
-    "For Relying Parties": [
-      "relying-parties/end-to-end-encryption",
-      "relying-parties/metrics-for-relying-parties"
     ],
     "For FxA Engineers": [
       "fxa-engineering/fxa-dev-process",
@@ -60,7 +70,8 @@
           "fxa-engineering/fxa-content-server-ab-testing",
           "fxa-engineering/fxa-tests-circleci",
           "fxa-engineering/functional-testing",
-          "fxa-engineering/fxa-content-server-architecture"
+          "fxa-engineering/fxa-content-server-architecture",
+          "process/interruptive-surveys"
         ]
       },
       "fxa-engineering/fxa-adr"

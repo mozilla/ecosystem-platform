@@ -119,7 +119,7 @@ When a subscription page is loaded, the React application served by the payment
 server:
 
 1. Loads the Stripe Javascript SDK (for tokenizing credit cards)
-2. Makes direct OAuth authenticated API calls to [account](https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/docs/api.md#account)/[subscription endpoints][]
+2. Makes direct OAuth authenticated API calls to [account](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#account)/[subscription endpoints][]
    on the Auth Server as needed
 
 The payments server handles the payment flow as well as serving pages for managing
@@ -131,4 +131,4 @@ FxA's Auth Server makes Stripe API calls for authenticated FxA users via its [su
 endpoints][]. Stripe updates are sent back to the Auth Server via Stripe webhooks when a
 users subscription has been created/updated/deleted.
 
-[subscription endpoints]: https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/docs/api.md#subscriptions
+[subscription endpoints]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#subscriptions

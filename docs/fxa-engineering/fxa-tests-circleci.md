@@ -24,7 +24,7 @@ Though there are exceptions on a per-package basis, the following things tend to
 
 * Each package can provide a `Dockerfile` or `Dockerfile-build` file. This will be used to build a Docker image for deployment to Docker Hub. It should be very similar to `Dockerfile-test` - but it can omit steps & dependencies used only for testing.
 
-* Commits to `master` branch result in image deployments to Docker Hub for each package, using the `latest` tag.
+* Commits to `main` branch result in image deployments to Docker Hub for each package, using the `latest` tag.
 
 * Commits to branches prefixed with `feature` or `dockerpush` also result in images pushed to Docker Hub - in this case, the branch name is used as the Docker tag.
 
@@ -44,7 +44,7 @@ This workflow gets run on all commits for all pull requests, branches, and tags.
 
 All steps in the workflow depends on [the `install` job](#install), so that gets run first.
 
-After `install`, [the `build-module` job](#build-module) is run in parallel for most packages - [check `.circleci/config.yml` for an up-to-date list](https://github.com/mozilla/fxa/blob/master/.circleci/config.yml#L257). This shared job handles the work of building Docker containers with `Dockerfile-test` & `Dockerfile-build`, running tests, and deploying images.
+After `install`, [the `build-module` job](#build-module) is run in parallel for most packages - [check `.circleci/config.yml` for an up-to-date list](https://github.com/mozilla/fxa/blob/main/.circleci/config.yml#L257). This shared job handles the work of building Docker containers with `Dockerfile-test` & `Dockerfile-build`, running tests, and deploying images.
 
 Some packages do not use `build-module` - these each use customized jobs:
 
@@ -64,7 +64,7 @@ The jobs specified in this workflow only run for tags.
 
 All steps in the workflow depends on [the `install` job](#install), so that gets run first.
 
-Then, [the shared `deploy-module` job](#deploy-module) is run in parallel for most packages - [check `.circleci/config.yml` for an up-to-date list](https://github.com/mozilla/fxa/blob/master/.circleci/config.yml#L355).
+Then, [the shared `deploy-module` job](#deploy-module) is run in parallel for most packages - [check `.circleci/config.yml` for an up-to-date list](https://github.com/mozilla/fxa/blob/main/.circleci/config.yml#L355).
 
 There are also some package-specific jobs here:
 
@@ -121,7 +121,7 @@ Each container is prepared with [`.circleci/install-content-server.sh`](#circlec
 
 Since [the `fxa-content-server` job](#fxa-content-server) uses a custom parallel scheme to run tests, building a Docker container image is not useful for many runs like pull requests.
 
-So, we split those tasks into the `build-and-deploy-content-server` job, which is only executed for `master` branch and branch names prefixed by `feature.` and `dockerpush.`
+So, we split those tasks into the `build-and-deploy-content-server` job, which is only executed for `main` branch and branch names prefixed by `feature.` and `dockerpush.`
 
 This is done by running [`.circleci/install-content-server.sh`](#circleci-install-content-serversh), followed by [`.circleci/build.sh fxa-content-server`](#circleci-buildsh) and [`.circleci/deploy.sh fxa-content-server`](#circleci-deploysh).
 
@@ -153,7 +153,7 @@ Custom task for fxa-email-service package. Since this package is Rust based, it 
 
 ### docs
 
-Custom task for building and publishing documentation. Runs `_scripts/gh-pages.sh` - but only on master branch in the main project repo.
+Custom task for building and publishing documentation. Runs `_scripts/gh-pages.sh` - but only on main branch in the main project repo.
 
 This requires SSH keys that enable CircleCI to commit to the `gh-page` on the main repo, so the script will be skipped if those keys are unavailable.
 
@@ -182,7 +182,7 @@ Contains general configuration, job definitions, and workflows orchestrating all
 
 Running all tests across all modules / packages in FxA can be time-comsuming. Time can be saved by skipping tests that we know are unrelated to changes in some given commit. Applying that logic, this script outputs a name of individual packages that should be tested - or `all` if it decides that everything needs to be run.
 
-For master branch and other non-PR commits, the output is always `all`.
+For main branch and other non-PR commits, the output is always `all`.
 
 For pull requests, the script fetches and parses the diff for the current PR. The URL for the diff is constructed from CircleCI env vars.
 
@@ -250,7 +250,7 @@ These images are deployed to Mozilla's Docker Hub account. So, for example, many
 
 The rest of the tag name depends on a few other conditions:
 
-If the build is on `master` branch, then the tag will be `{MODULE}:latest`.
+If the build is on `main` branch, then the tag will be `{MODULE}:latest`.
 
 If a build is tagged in Git, then that Git tag is used - i.e. `{MODULE}:{GIT_TAG_NAME}`.
 

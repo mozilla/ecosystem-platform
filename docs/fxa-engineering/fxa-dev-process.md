@@ -202,7 +202,7 @@ use a branch, please keep in mind:
 * Your team won't be keeping up with what is landing on the branch.  Regular
   communication and/or demos of where you are at and where you are going can
   help keep your changes in peoples' minds.
-* You should rebase against master often to avoid a giant headache when you
+* You should rebase against main often to avoid a giant headache when you
   eventually merge
 * Consider creating new components instead of editing old ones if you have
   extensive enough changes.  This way it's a very small change to flip from one
@@ -252,7 +252,7 @@ Here are some handy questions and things to consider when reviewing code for Fir
       consider updating the linter.
 * For fixes that are patching a train,
   has the PR been opened against the correct train branch?
-    * If the PR is against `master`,
+    * If the PR is against `main`,
       it is likely that it will mess up
       our change logs and the git history
       when merged.
@@ -260,9 +260,9 @@ Here are some handy questions and things to consider when reviewing code for Fir
       one can be created at the appropriate point in history
       and pushed.
       After the patch has been tagged (see below),
-      the train branch can then be merged to `master`.
+      the train branch can then be merged to `main`.
       Commits should not be cherry-picked
-      between train branches and `master`.
+      between train branches and `main`.
 
 ## Browser Support
 `Last updated: Aug 15, 2019`
@@ -357,7 +357,7 @@ back into the public repo by doing the following:
   for review and merge.
 * Push the tag to the public repo:
   * `git push public v1.XYZ.N`
-* Merge the `train-XYZ` branch to master
+* Merge the `train-XYZ` branch to main
   following the usual steps to release
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
