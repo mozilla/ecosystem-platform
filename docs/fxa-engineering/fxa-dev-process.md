@@ -100,6 +100,26 @@ When considering what you can accomplish in a sprint, remember:
   likely it won't land in the same sprint it's written in since our sprints are
   pretty short.
 
+#### How do we decide what to work on?
+
+We take input from many sources including our Product Management, our QA team, our customers (both relying parties and end users), and ourselves.  Usually this input is in the form of tickets filed in Jira.  We triage this input (described in [Bug Triage](#bug-triage)) to determine what is the most important thing to work on in the next sprint.  There are often special cases and reasons to work on things which may find their way into a sprint but for the most part in each Sprint we aim to close, in priority order:
+
+* Blocking bugs that have been found in our production site
+* Blocking bugs found in our staging site
+* Any high priority work that we didn't finish in the previous sprint (including helping a team member finish their work)
+* Any in-progress Epics
+* Starting on the next Epic (Epics are in priority order in Jira)
+
+In the midst of that workflow bugs will be reported and found.  If they are important we'll add them to the Sprint.  If they are part of an Epic we're actively working on, we'll add them to that Epic (and thus, they will be closed in short order).  If they aren't a high priority, they'll be put in the backlog.  Occasionally we may take a sprint and work on only bugs to help reduce our backlog.
+
+As of late, we've split into two groups of people working on two Epics in parallel.  This is a good balance between throughput and working as a team.  Having more people work on fewer things means:
+
+* It's easier to find a reviewer for code you write (and less context switching for everyone involved)
+* It's easier to find someone with enough context to work through hard questions like architecture design
+* More people will have experience with more areas of the code
+* Epics will be closed out faster
+
+
 ### Bug Triage
 
 We triage issues at least every week in our meetings.  Depending on the
