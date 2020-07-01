@@ -68,6 +68,10 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | product:subtitle:{locale} | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
 | product:details:{n} | Bullet-point feature details for the product, where {n} is a number or ordering the points |
 | product:details:{n}:{locale} | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
+|product:termsOfServiceURL | The URL for the webpage containing the Terms of Service for the product offering|
+|product:termsOfServiceURL:{locale} | Localized override URL for the webpage containing the Terms of Service for the product offering|
+|product:privacyNoticeURL | The URL for the webpage containing the Privacy Notice for the product offering|
+|product:privacyNoticeURL:{locale} | Localized override URL for the webpage containing the Privacy Notice for the product offering|
 
 ##### Subscription Metadata
 
