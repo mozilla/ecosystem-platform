@@ -29,12 +29,12 @@ If you are the designated Release owner, consider the following suggestions to m
 1. The pre-flight checklist:
 
     1. Ensure there are no critical patches for this tag that haven't landed yet
-    1. Ensure any previous point releases have been merged back into `master`
+    1. Ensure any previous point releases have been merged back into `main`
     1. Update the section in the [deployment doc][deployment-doc] for the Train you are tagging
     1. Ensure you have appropriate QA signoffs
-       * Not applicable for `master` -> `stage`
+       * Not applicable for `main` -> `stage`
     1. Ensure you don't have any modified files or code laying around before you start the tag
-    1. Ensure you have the latest from `master`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`. 
+    1. Ensure you have the latest from `main`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`. 
 
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
 
@@ -46,11 +46,11 @@ If you are the designated Release owner, consider the following suggestions to m
 
     1. Do the changelogs match expectations from `git log`?
     1. Have all the version strings been updated?
-    1. Does the diff from `origin/master` (or `origin/train-xxx` if it’s a point release) look correct?
+    1. Does the diff from `origin/main` (or `origin/train-xxx` if it’s a point release) look correct?
 
 1. The release script will print some commands to run to push the train branch to the server.  **It's best to copy and paste these so you don't mix them up.**
 
-1. The release script will also print a URL which you can use to open a PR to merge the train branch back into the master branch
+1. The release script will also print a URL which you can use to open a PR to merge the train branch back into the main branch
 
 1. Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]). Remember to include:
 
@@ -102,19 +102,19 @@ After merging but before pushing, you should check the changelog to make sure th
 
 Then `git add` those changes and squash them into the preceding merge commit using `git commit --amend`. Now you can push and the merged changelog will make sense.
 
-### What happens if there are merge conflicts (train-xxx => master)?
-Conflicts are most likely from a recently landed issue in `master`. Typically we create a new branch, resolve conflicts there, and then merge that branch into `master`.
+### What happens if there are merge conflicts (train-xxx => main)?
+Conflicts are most likely from a recently landed issue in `main`. Typically we create a new branch, resolve conflicts there, and then merge that branch into `main`.
 
-Merge conflicts in a `train-xxx -> master` pull request are most likely the result of a recent patch into `master` branch. The easiest way to resolve this is to:
+Merge conflicts in a `train-xxx -> main` pull request are most likely the result of a recent patch into `main` branch. The easiest way to resolve this is to:
 
-1. Create a new merge branch branch from `train-xxx`, such as `train-xxx-merge-master`
-1. Merge the current `origin/master` into `train-xxx-merge-master`
+1. Create a new merge branch branch from `train-xxx`, such as `train-xxx-merge-main`
+1. Merge the current `origin/main` into `train-xxx-merge-main`
 1. Resolve the conflicts that occur in the merge
 1. Commit changes and push to origin
-1. Create a new PR, `train-xxx-merge-master -> master`
+1. Create a new PR, `train-xxx-merge-main -> main`
 1. Wait for Circle tests to pass and then merge when ready
 
-You can then close the `train-xxx -> master` PR.
+You can then close the `train-xxx -> main` PR.
 
 ## Merging and Branching Strategies
 
@@ -122,11 +122,11 @@ You can then close the `train-xxx -> master` PR.
 
 ![A simplified merging diagram](assets/fxa-release1.png)
 
-During a regular release, running `release.sh` will create an appropriately named branch, update a few files like the Changelogs, and create a tag.  The Release Owner will push the branch to github and open a pull request back to `master`.
+During a regular release, running `release.sh` will create an appropriately named branch, update a few files like the Changelogs, and create a tag.  The Release Owner will push the branch to github and open a pull request back to `main`.
 
 An example of commands to run for a release are:
 ```bash
-git checkout master
+git checkout main
 git pull
 ./release.sh
 # Follow the instructions printed
@@ -138,11 +138,11 @@ git pull
 
 A patch release is used between official releases.  For example, a regression discovered midway through a sprint that can't wait for a normal release cycle would be pushed to production earlier through this process.
 
-In the scenario above, a regular release happened and `v1.100.0` was tagged and pushed to production.  Later, to fix a regression, a patch was landed *directly on the branch* rather than on `master`.  `release.sh patch` was run and `v1.100.1` was tagged.  Four more commits landed on the branch and `release.sh patch` tagged a `v1.100.2`.  In this scenario there were two patch releases in addition to the regular release at the end of the sprint.
+In the scenario above, a regular release happened and `v1.100.0` was tagged and pushed to production.  Later, to fix a regression, a patch was landed *directly on the branch* rather than on `main`.  `release.sh patch` was run and `v1.100.1` was tagged.  Four more commits landed on the branch and `release.sh patch` tagged a `v1.100.2`.  In this scenario there were two patch releases in addition to the regular release at the end of the sprint.
 
 An example of commands to run for a patch release are:
 ```bash
-git checkout master
+git checkout main
 git pull
 git checkout train-100
 # Ensure the pull requests on GitHub have landed before you continue
@@ -158,11 +158,11 @@ git log  # Verify it looks like you expect
 
 An alternative to the Patch Release described above would be to use an additional branch.  This would allow you to test complex changes without affecting the current release branch.
 
-In the scenario above, a regular release occurs.  Then it's determined that two patches which landed on master earlier in the cycle are critical to be live now.  They are cherry-picked to an uplift branch, tested, and then merged back to the regular release branch.  At that point `release.sh patch` will do the regular updates.
+In the scenario above, a regular release occurs.  Then it's determined that two patches which landed on main earlier in the cycle are critical to be live now.  They are cherry-picked to an uplift branch, tested, and then merged back to the regular release branch.  At that point `release.sh patch` will do the regular updates.
 
 An example of commands to run for this option are:
 ```bash
-git checkout master
+git checkout main
 git pull
 git checkout train-100
 git pull
@@ -213,4 +213,4 @@ Once the fix is verified in production, the patch is cherry-picked or merged bac
 [cloudops-deployment]: https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa
 [deployment-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [example-deployment-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=1575233
-[release.sh]: https://github.com/mozilla/fxa/blob/master/release.sh
+[release.sh]: https://github.com/mozilla/fxa/blob/main/release.sh

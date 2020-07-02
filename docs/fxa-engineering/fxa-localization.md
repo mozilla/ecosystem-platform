@@ -163,9 +163,9 @@ Unlike the rest of the FxA translations that are held in gettext .po files, the 
 [#add-sri-to-html]: https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L74
 [#add-sri-to-js]: https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/grunttasks/sriify.js#L96
 [#devices-and-apps-panel]: https://accounts.firefox.com/settings/clients
-[#dist-template-dir]: https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/server/templates/pages
+[#dist-template-dir]: https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/server/templates/pages
 [#docker-l10n-clone]: https://github.com/mozilla/fxa/blob/dfc7a258402840e35139fd918c7bc93bc39ca9b7/packages/fxa-content-server/Dockerfile-build#L19
-[#download-l10n-script]: https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/scripts/download_l10n.sh
+[#download-l10n-script]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/scripts/download_l10n.sh
 [#email-on-extraction]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/email-dev-l10n.sh#L3
 [#extract-and-pull-request]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract-and-pull-request.sh
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/extract_strings.sh

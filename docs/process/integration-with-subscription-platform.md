@@ -76,8 +76,8 @@ If your integration includes an application service, [subscription state notific
 
 When integrated with the FxA stage or development environments, subscription sign-up's can be tested using [Stripe test cards](https://stripe.com/docs/testing#cards).
 
-[relying party events]: https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#relying-party-event-format
-[subscription state notifications]: https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#subscription-state-change
+[relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
+[subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
 [webhook]: https://en.wikipedia.org/wiki/Webhook
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user

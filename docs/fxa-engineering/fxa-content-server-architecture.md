@@ -77,7 +77,7 @@ will be a journey of tears. [Only attempt such a task piece by piece](#convertin
 ## High Level Web Client Components
 
 ### Auth-Brokers
-[Auth-Brokers](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/auth_brokers) have two primary responsibilities:
+[Auth-Brokers](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/auth_brokers) have two primary responsibilities:
 1. Mediate communication between Firefox Accounts and the RP
 2. Screen->screen state machine
 
@@ -121,7 +121,7 @@ It may also be that distinct state machines outside of brokers would have been a
 
 ### Channels
 
-A [channel](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/channels) is a two way communication mechanism between a RP and Firefox Accounts. The method of communication is channel specific.
+A [channel](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/channels) is a two way communication mechanism between a RP and Firefox Accounts. The method of communication is channel specific.
 
 There are channels to:
 
@@ -131,7 +131,7 @@ There are channels to:
 
 ### Reliers
 
-A [Relier](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/reliers) fetches and holds data about the current RP. A Relier is created on startup and is
+A [Relier](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/reliers) fetches and holds data about the current RP. A Relier is created on startup and is
 a central place to ensure data coming into and out of FxA is safe and well-formed.
 
 Three primary types of Relier models exist:
@@ -153,7 +153,7 @@ logic was moved to the server.
 
 ### User
 
-A [User](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/user.js) holds and persists data about one or more Accounts as well as keeping track of the currently signed in user.
+A [User](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/user.js) holds and persists data about one or more Accounts as well as keeping track of the currently signed in user.
 
 **NOTE**: The user model was a premature solution to allow us to have an "account chooser" where a user visiting
 a new RP would be able to choose from any of their signed in Accounts. We never implemented this, and the User
@@ -162,22 +162,22 @@ responsibilities elsewhere and simplify the overall architecture.
 
 ### Account
 
-An [Account](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/models/account.js) holds data about a given account and provides an API for making updates to the account. The account
+An [Account](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/account.js) holds data about a given account and provides an API for making updates to the account. The account
 model uses the fxa-js-client, fxa-oauth-client, and fxa-profile-client to operate on the account in any way.
 
 ### Router
 
-The [Router](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/router.js) is responsible for reacting to URL changes and displaying the Views.
+The [Router](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/router.js) is responsible for reacting to URL changes and displaying the Views.
 
 ### Views
 
-[Views](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/views) represent either an entire screen or a portion of a screen. Views react to user input, and often call
+[Views](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/views) represent either an entire screen or a portion of a screen. Views react to user input, and often call
 [Broker](#brokers) methods to determine where the user should be sent after a successful form submission. Screen
-level views are rendered by the [AppView](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/views/app.js). See [View Deepdive](#view-deepdive) for more info.
+level views are rendered by the [AppView](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/views/app.js). See [View Deepdive](#view-deepdive) for more info.
 
 ### Templates
 
-A [template](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/templates) is a serialized HTML representation of a View. A view renders a template using data available to it and writes the rendered template to the DOM. Templates use the [mustache](http://mustache.github.io/) template library.
+A [template](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/templates) is a serialized HTML representation of a View. A view renders a template using data available to it and writes the rendered template to the DOM. Templates use the [mustache](http://mustache.github.io/) template library.
 
 ### Clients
 
@@ -185,19 +185,19 @@ Communication with external servers are done via client libraries.
 
 #### fxa-js-client
 
-The [fxa-js-client](https://github.com/mozilla/fxa/tree/master/packages/fxa-js-client) communicates with the Firefox Accounts [Auth Server](https://github.com/mozilla/fxa/tree/master/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
+The [fxa-js-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-js-client) communicates with the Firefox Accounts [Auth Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
 
 #### oauth-client
 
-The [oauth-client](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/oauth-client.js) used to communicate with the Firefox Accounts OAuth Server and now communicates with the OAuth endpoints on the Auth server. The OAuth client is used to fetch OAuth codes and tokens to send to the RP.
+The [oauth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/oauth-client.js) used to communicate with the Firefox Accounts OAuth Server and now communicates with the OAuth endpoints on the Auth server. The OAuth client is used to fetch OAuth codes and tokens to send to the RP.
 
-#### [profile-client](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/profile-client.js)
+#### [profile-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/profile-client.js)
 
-The profile-client communicates with the Firefox Accounts [Profile Server](https://github.com/mozilla/fxa/tree/master/packages/fxa-profile-server/). This client allows a user to interact with their profile data.
+The profile-client communicates with the Firefox Accounts [Profile Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-profile-server/). This client allows a user to interact with their profile data.
 
 ## Application lifecycle
 
-When the application starts, [app-start.js](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/app-start.js) takes care of setting up system-wide dependencies. app-start immediately determines the integration type and creates the appropriate [Broker](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L234) and [Relier](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L199). The broker is queried to check support of the current integration. If the integration is supported, other models and the [router](https://github.com/mozilla/qfxa/tree/master/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L315) are created. The router takes over and determines the initial View to display based on the browser's URL. The router creates the View, which in turn writes a template to the DOM. The user interacts with the View, either by filling out a form or clicking on links and buttons. A view can communicate with external servers using clients or via an Account model. Views usually invoke broker methods to determine next steps, which could be to redirect to another view, display a status message, or stop. Upon successful authentication with Firefox Accounts, the broker is notified, which in turn notifies a RP. The RP is responsible for the final fate of the Firefox Accounts tab. In the case of OAuth redirect, FxA redirects to the RP. In the case of Sync or a WebExtension, the tab may be closed automatically, or the user may have to close the tab themselves.
+When the application starts, [app-start.js](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/app-start.js) takes care of setting up system-wide dependencies. app-start immediately determines the integration type and creates the appropriate [Broker](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L234) and [Relier](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L199). The broker is queried to check support of the current integration. If the integration is supported, other models and the [router](https://github.com/mozilla/qfxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L315) are created. The router takes over and determines the initial View to display based on the browser's URL. The router creates the View, which in turn writes a template to the DOM. The user interacts with the View, either by filling out a form or clicking on links and buttons. A view can communicate with external servers using clients or via an Account model. Views usually invoke broker methods to determine next steps, which could be to redirect to another view, display a status message, or stop. Upon successful authentication with Firefox Accounts, the broker is notified, which in turn notifies a RP. The RP is responsible for the final fate of the Firefox Accounts tab. In the case of OAuth redirect, FxA redirects to the RP. In the case of Sync or a WebExtension, the tab may be closed automatically, or the user may have to close the tab themselves.
 
 ## View Deepdive
 
@@ -213,7 +213,7 @@ for [rendering](#render-lifecycle-metohds) and [form submission](#submit-lifecyc
 
 ### BaseView
 
-[BaseView](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/views/base.js) is the parent of all Views. BaseView is responsible for rendering deciding whether to render a view, and if so, for rendering. BaseView also takes care of status messages, hooking up DOM events, [l10n](#l10n), and logging. BaseView does *not* take care of any form handling, for that, see [FormView](#formview).
+[BaseView](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/views/base.js) is the parent of all Views. BaseView is responsible for rendering deciding whether to render a view, and if so, for rendering. BaseView also takes care of status messages, hooking up DOM events, [l10n](#l10n), and logging. BaseView does *not* take care of any form handling, for that, see [FormView](#formview).
 
 ### Rendering templates
 
@@ -321,7 +321,7 @@ A common problem is setting `navigator.location.href = url` from within view cod
 flushing metrics. Instead of setting `location.href`, call `this.navigateAway` which will ensure
 A common problem is setting `navigator.location.href = url` from within view code.
 metrics are flushed. `href`s from anchor elements are automatically handled by the
-[ExternalLinksMixin](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/views/mixins/external-links-mixin.js).
+[ExternalLinksMixin](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/views/mixins/external-links-mixin.js).
 
 ### User data stored on device
 

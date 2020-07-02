@@ -72,5 +72,5 @@ Other Notes:
 [amplitude-regform]: https://analytics.amplitude.com/mozilla-corp/chart/f5sz7kt
 [about:welcome]: about:welcome
 [param-example]: https://github.com/mozilla/activity-stream/blob/06aeeb331e9dd497e4d115d0e6cba51b9b25b36c/content-src/asrouter/templates/StartupOverlay/StartupOverlay.jsx#L30
-[flow-events]: https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/server/lib/flow-event.js
-[query-params]: https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/docs/query-params.md
+[flow-events]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/server/lib/flow-event.js
+[query-params]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/query-params.md

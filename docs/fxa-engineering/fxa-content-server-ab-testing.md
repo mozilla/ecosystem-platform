@@ -18,18 +18,18 @@ the rule the metadata is called `subject`.
 
 ### Creating a new rule
 
-1. Copy [TEMPLATE.js](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/lib/experiments/grouping-rules/TEMPLATE.js) to a new grouping rule file.
+1. Copy [TEMPLATE.js](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/lib/experiments/grouping-rules/TEMPLATE.js) to a new grouping rule file.
 2. Change `ChangeMeGroupingRule` class name to another name.
 3. Change `this.name` from `CHANGE_ME` in the constructor.
 4. Fill in the `choose` function. See [`choose` recipes](#choose-recipes) for guidance on different experiment types.
-5. Include the new grouping rule file in [index.js](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/experiments/grouping-rules/index.js).
-6. Add experiment name to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/experiment.js) to ensure test name/group are reported to Amplitude.
+5. Include the new grouping rule file in [index.js](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/experiments/grouping-rules/index.js).
+6. Add experiment name to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/experiment.js) to ensure test name/group are reported to Amplitude.
 7. Access in views, see [View recipes](#view-recipes).
 
 ## Determining choice within a view
 
 Once a grouping rule has been created, a view can make choices depending
-on whether the user is in the experiment, and if so which group. [ExperimentMixin](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/views/mixins/experiment-mixin.js) *must* be mixed in to the view for the view to have experiment capabilities.
+on whether the user is in the experiment, and if so which group. [ExperimentMixin](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/views/mixins/experiment-mixin.js) *must* be mixed in to the view for the view to have experiment capabilities.
 
 See also: [View recipes](#view-recipes).
 
@@ -64,7 +64,7 @@ In the URL bar, open:
 
 ## Amplitude Metrics
 
-As long as the experiment name is added to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/experiment.js), the experiment name and group are reported to Amplitude and added to the user's `experiments` user property. The Amplitude experiment name is in the form:
+As long as the experiment name is added to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/experiment.js), the experiment name and group are reported to Amplitude and added to the user's `experiments` user property. The Amplitude experiment name is in the form:
 
 ```
 amplitudeExperimentName = ${snake_case(experimentName)}_${snake_case(groupName)}`
@@ -78,7 +78,7 @@ The `subject` parameter contains data used to determine the value returned from 
 
 | Field | Description |
 |-------|---------|
-|`account` | [Account model](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/app/scripts/models/account.js#L1) for the user. |
+|`account` | [Account model](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/app/scripts/models/account.js#L1) for the user. |
 | `experimentGroupingRules` | A reference to *all* grouping rules. Used to recursively choose experiments |
 | `forceExperiment` | the value of the `forceExperiment` query parameter. Used in functional/manual tests to force a particular experiment. |
 | `forceExperimentGroup` | the value of the `forceExperimentGroup` query parameter. Used in functional/manual tests to force a particular experiment group. |
@@ -274,6 +274,6 @@ if (experimentGroup === 'treatment') {
 ## Ensuring experiment metrics are reported to Amplitude
 
 As noted in [Creating a new rule](#creating-a-new-rule), the experiment name
-*must* be added to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/app/scripts/lib/experiment.js) to ensure experiment metrics are reported to Amplitude.
+*must* be added to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/experiment.js) to ensure experiment metrics are reported to Amplitude.
 
 Within a view, if the user is part of an experiment, `this.createExperiment(experimentName, groupName)` must be called.

@@ -174,8 +174,8 @@ You don’t need to do this, it’s all set up to work automatically.
 0. Add a new test case for the new event to `tests/server/amplitude.js`. Every event should have its own test case in that module.
 
 # What other docs are there?
-* https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/docs/metrics-events.md
-* https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/docs/client-metrics.md
+* https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/metrics-events.md
+* https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/client-metrics.md
 * https://github.com/mozilla/application-services/blob/master/docs/product-portal/accounts/metrics.md
 
 
@@ -186,5 +186,5 @@ You don’t need to do this, it’s all set up to work automatically.
 [statsd-origin]: https://codeascraft.com/2011/02/15/measure-anything-measure-everything/
 [influxdb-mana]: https://mana.mozilla.org/wiki/pages/viewpage.action?spaceKey=SVCOPS&title=InfluxDB
 [grafana-dashboards]: https://earthangel-b40313e5.influxcloud.net/dashboards/f/Q6zOs-JZk/firefox-accounts-fxa
-[event-broker-readme]: https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#metrics
+[event-broker-readme]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#metrics
 [navigation-timing-2]: https://www.w3.org/TR/navigation-timing-2/

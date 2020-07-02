@@ -253,16 +253,16 @@ end
 
 
 [allowed-metrics-flow-origins]: https://github.com/mozilla/fxa-dev/blob/docker/roles/content/tasks/main.yml#L56
-[api-docs]: https://github.com/mozilla/fxa/blob/master/packages/fxa-profile-server/docs/API.md#api-endpoints
+[api-docs]: https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#api-endpoints
 [deployment-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&bug_ignored=0&bug_severity=normal&bug_status=NEW&cf_fx_iteration=---&cf_fx_points=---&cf_status_firefox65=---&cf_status_firefox66=---&cf_status_firefox67=---&cf_status_firefox_esr60=---&cf_tracking_firefox65=---&cf_tracking_firefox66=---&cf_tracking_firefox67=---&cf_tracking_firefox_esr60=---&cf_tracking_firefox_relnote=---&component=Operations%3A%20Deployment%20Requests&contenttypemethod=list&contenttypeselection=text%2Fplain&defined_groups=1&flag_type-37=X&flag_type-5=X&flag_type-607=X&flag_type-708=X&flag_type-721=X&flag_type-737=X&flag_type-748=X&flag_type-787=X&flag_type-800=X&flag_type-803=X&flag_type-846=X&flag_type-864=X&flag_type-929=X&flag_type-935=X&form_name=enter_bug&groups=mozilla-employee-confidential&maketemplate=Remember%20values%20as%20bookmarkable%20template&op_sys=Unspecified&priority=--&product=Cloud%20Services&rep_platform=Unspecified&target_milestone=---&version=unspecified
 [devices-and-apps]: https://accounts.firefox.com/settings/clients
-[fxa-scope-documentation]: https://github.com/mozilla/fxa/blob/master/packages/fxa-auth-server/docs/oauth/scopes.md
+[fxa-scope-documentation]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/scopes.md
 [metrics-flow-request]: https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow
 [oauth]: https://auth0.com/docs/protocols/oauth2
 [openidconnect]: https://openid.net/connect/
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user
 [resource server]: https://www.oauth.com/oauth2-servers/the-resource-server/
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
-[rp events]: https://github.com/mozilla/fxa/tree/master/packages/fxa-event-broker#relying-party-event-format
+[rp events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [set]: https://tools.ietf.org/html/rfc8417
 [webhook]: https://en.wikipedia.org/wiki/Webhook

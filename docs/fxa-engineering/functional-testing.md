@@ -6,13 +6,13 @@ sidebar_label: Functional/Selenium Tests
 
 Current as of `December 12th, 2019`
 
-End to end testing of the entire FxA ecosystem is provided by a [comprehensive suite of Selenium tests](https://github.com/mozilla/fxa/tree/master/packages/fxa-content-server/tests/functional) in the fxa-content-server package. Tests can be run by going to the content-server package directory and typing:
+End to end testing of the entire FxA ecosystem is provided by a [comprehensive suite of Selenium tests](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional) in the fxa-content-server package. Tests can be run by going to the content-server package directory and typing:
 
 ```bash
 $ npm run test-functional
 ```
 
-The full set of functional tests is run on [CircleCI on every checkin](./fxa-tests-circleci) and on [TeamCity](https://tc-test.dev.lcip.org/) every time a pull request is merged to master.
+The full set of functional tests is run on [CircleCI on every checkin](./fxa-tests-circleci) and on [TeamCity](https://tc-test.dev.lcip.org/) every time a pull request is merged to main.
 
 [The Intern](https://theintern.io/) library is used to run the tests, which itself is a wrapper around the [Leadfoot](https://theintern.io/docs.html#Leadfoot/2/api/Command) WebDriver library.
 
@@ -53,9 +53,9 @@ $ npm run test-functional -- --grep="<name of test here>"
 $ touch tests/functional/<name_of_file>.js
 ```
 
-#### Add the file to the master list
+#### Add the file to the list
 
-Edit [tests/functional.js](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/tests/functional.js) and add the name of the file
+Edit [tests/functional.js](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/tests/functional.js) and add the name of the file
 to the list.
 
 #### Fill in the test file
@@ -66,7 +66,7 @@ See [Example test suite](#example-test-suite).
 As seen in [Example test suite](#example-test-suite) Selenium tests interact with the
 DOM and require element selectors to be able to perform actions like typing or testing
 whether an element exists. Instead of embedding selectors within the tests, use selectors
-from the [selectors.js](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/tests/functional/lib/selectors.js) file. Selectors are namespaced
+from the [selectors.js](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/tests/functional/lib/selectors.js) file. Selectors are namespaced
 by their screen name. If a selector or screen namespace is not available, feel free to add it.
 
 Adding selectors to selectors.js makes it much easier to update tests if an element's selector changes. Instead of search/replace on the selector everywhere, update it in selectors.js and leave the tests be.
@@ -143,7 +143,7 @@ registerSuite('privacy policy', {
 });
 ```
 
-Very few low level [Leadfood commands](https://theintern.io/docs.html#Leadfoot/2/api/Command) are used directly, instead we prefer to use [higher level helpers](https://github.com/mozilla/fxa/blob/master/packages/fxa-content-server/tests/functional/lib/helpers.js). Leadfoot commands are often *too* low level and end up requiring a lot
+Very few low level [Leadfood commands](https://theintern.io/docs.html#Leadfoot/2/api/Command) are used directly, instead we prefer to use [higher level helpers](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/tests/functional/lib/helpers.js). Leadfoot commands are often *too* low level and end up requiring a lot
 of code to do simple actions. Our high level helpers usually require less code and
 often provide extra functionality, e.g., ensuring an element is visible before attempting
 to type into it.
