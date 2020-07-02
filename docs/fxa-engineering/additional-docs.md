@@ -1,5 +1,5 @@
 ---
-id: additional-docs
+id: fxa-additional-docs
 title: Additional Docs
 sidebar_label: Additional Docs
 ---

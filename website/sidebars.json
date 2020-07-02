@@ -74,7 +74,8 @@
           "process/interruptive-surveys"
         ]
       },
-      "fxa-engineering/fxa-adr"
+      "fxa-engineering/fxa-adr",
+      "fxa-engineering/fxa-additional-docs"
     ]
   }
 }
