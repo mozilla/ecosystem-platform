@@ -68,10 +68,37 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | product:subtitle:{locale} | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
 | product:details:{n} | Bullet-point feature details for the product, where {n} is a number or ordering the points |
 | product:details:{n}:{locale} | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
-|product:termsOfServiceURL | The URL for the webpage containing the Terms of Service for the product offering|
-|product:termsOfServiceURL:{locale} | Localized override URL for the webpage containing the Terms of Service for the product offering|
-|product:privacyNoticeURL | The URL for the webpage containing the Privacy Notice for the product offering|
-|product:privacyNoticeURL:{locale} | Localized override URL for the webpage containing the Privacy Notice for the product offering|
+| product:termsOfServiceURL | The URL for the webpage containing the Terms of Service for the product offering|
+| product:termsOfServiceURL:{locale} | Localized override URL for the webpage containing the Terms of Service for the product offering|
+| product:termsOfServiceDownloadURL | The URL for a downloadable version of the Terms of Service for the product offering, used in emails |
+| product:termsOfServiceDownloadURL:{locale} | Localized override URL for a downloadable version of the Terms of Service for the product offering, used in emails|
+| product:privacyNoticeURL | The URL for the webpage containing the Privacy Notice for the product offering|
+| product:privacyNoticeURL:{locale} | Localized override URL for the webpage containing the Privacy Notice for the product offering|
+| product:privacyNoticeDownloadURL | The URL for a downloadable version of the Privacy Notice for the product offering|
+| product:privacyNoticeDownloadURL:{locale} | Localized override URL a downloadable version of the Privacy Notice for the product offering|
+
+###### Product Metadata defaults
+
+Some of the metadata properties listed above [have defaults][product-details-defaults] that are used when they're not defined in Stripe:
+
+```
+  subtitle: 'Full-device VPN',
+  details: [
+    'Device-level encryption',
+    'Servers in 30+ countries',
+    'Connect 5 devices with one subscription',
+    'Available for Windows, iOS and Android',
+  ],
+  termsOfServiceURL:
+    'https://www.mozilla.org/about/legal/terms/firefox-private-network',
+  termsOfServiceDownloadURL:
+    'https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf',
+  privacyNoticeURL: 'https://www.mozilla.org/privacy/firefox-private-network',
+  privacyNoticeDownloadURL:
+    'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_privacy_notice/en-US.pdf',
+```
+
+[product-details-defaults]: https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/subscriptions/metadata.ts#L14
 
 ##### Subscription Metadata
 
