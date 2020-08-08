@@ -55,15 +55,93 @@
               }
             });
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Account Ecosystem Telemetry</h1></header><article><div><span><p>Last updated: <code>August 4th, 2020</code></p>
-<p>Account Ecosystem Telemetry is a way for different products in the Firefox Accounts
-ecosystem to submit usage telemetry, in such a way that we can learn useful information
-about actions performed by the same user in different products, while respecting user
-privacy.</p>
-<p>It is currently in development and is described in more detail in
-<a href="https://docs.google.com/document/d/1rR3uJG8sVtow4plYu6M5Jp5e5zOSrLzdkUx8BdO8kOM/">this Google Doc</a>.
-Public-facing documention will be moved from that doc onto this webpage
-once the system is ready to ship.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties"><span class="arrow-prev">← </span><span>Metrics</span></a><a class="docs-next button" href="/ecosystem-platform/docs/features/sub-plat/sub-plat-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+<h2><a class="anchor" aria-hidden="true" id="motivation"></a><a href="#motivation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Motivation</h2>
+<p>When users sign in with their Firefox Account, they expect a seamless experience across different
+devices and products. To help us deliver on that experience, Mozilla's Product Managers need
+to be able to gather usage and interaction metrics from across those different products and analyze a
+user's experience of the product ecosystem as a whole. Account Ecosystem Telemetry lets us do that
+in a way that puts user privacy first and aligns with our lean data practices.</p>
+<p>A simple (and <em>highly discouraged!</em>) way to gather cross-product telemetry would be for each product to submit telemetry
+pings that directly include the user's Firefox Account identifier, and then join metrics from different
+products by matching on the user id.</p>
+<p>It is <strong>not recommended</strong> for FxA relying parties to include the uid directly in metrics pings in this way.
+We believe that such a setup exposes users to unnecessary privacy risks in the event of
+a data breach or other unauthorized access to the metrics data, since the pings are easily linked
+back to the user's personal information in their Firefox Account.</p>
+<p>Instead, FxA relying parties should log a <em>pseudonym</em> in their metrics pings, an opaque identifier
+that is unique to a particular account but is hard to correlate back to a specific user.
+FxA provides access to an &quot;ecosystem anonymized id&quot; that can be used for this purpose.</p>
+<p>Some details on how this pseudonym is calculated and managed are given below.
+Mozilla employees can read more background and details in the
+<a href="https://docs.google.com/document/d/1rR3uJG8sVtow4plYu6M5Jp5e5zOSrLzdkUx8BdO8kOM/">internal technical planning document</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="submitting-pings-via-account-ecosystem-telemetry"></a><a href="#submitting-pings-via-account-ecosystem-telemetry" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Submitting Pings via Account Ecosystem Telemetry</h2>
+<p>To submit metrics pings via Account Ecosystem Telemetry, an RP should first coordinate with Mozilla's
+<a href="https://docs.telemetry.mozilla.org/">data pipeline team</a> to define a schema for
+the pings and an appropriate ingestion endpoint to which they can be submitted.</p>
+<p>When a user signs in to the RP with their Firefox Account, the RP should request
+access to the user's account profile data and obtain the
+<a href="https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#get-v1ecosystem_anon_id"><code>ecosystemAnonId</code> field</a>.
+Access to this field is currently limited to Mozilla-owned RPs and requires the <code>profile:ecosystem_anon_id</code> scope.
+The value of this field can be included in metrics pings to indicate that the contained events
+came from that particular user.</p>
+<p>If the RP is client-side software of which the user may be running multiple instances (that is, if it is
+an OAuth &quot;public client&quot;) then it should also generate a random UUID on first run and include this in its
+metrics pings as the <code>ecosystemClientId</code> field. This helps identify metrics pings that were submitted by
+the same instance of the software (similar to the <code>client_id</code> field used by main Firefox telemetry pings).</p>
+<p>In addition to <code>ecosystemAnonId</code> and <code>ecosystemClientId</code>, the ping should include any usage or interaction metrics
+that are relevant to the particular application (bearing in mind that this should all be <a href="https://wiki.mozilla.org/Firefox/Data_Collection">Category 1 or
+Category 2 data</a>).</p>
+<p>For an example of a fully-formed Account Ecosystem Telemetry ping, please see the
+<a href="https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/data/sync-ping.html"><code>account-ecosystem</code> ping</a>
+submitted by Firefox Desktop.</p>
+<h2><a class="anchor" aria-hidden="true" id="ecosystem-telemetry-identifiers"></a><a href="#ecosystem-telemetry-identifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ecosystem Telemetry Identifiers</h2>
+<h3><a class="anchor" aria-hidden="true" id="ecosystemuserid"></a><a href="#ecosystemuserid" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ecosystemUserId</h3>
+<p>To create a unique pseudonym for each account, we rely on Firefox Accounts' support for
+<a href="../../relying-parties/end-to-end-encryption">managing encryption keys</a> and define a new
+<a href="https://docs.google.com/document/d/1IvQJFEBFz0PnL4uVlIvt8fBS_IPwSK-avK0BRIHucxQ/">scoped key</a> for use
+by the telemetry system. The scoped key identifier for this secret is the string &quot;<a href="https://identity.mozilla.com/ids/ecosystem_telemetry">https://identity.mozilla.com/ids/ecosystem_telemetry</a>&quot;.</p>
+<p>More concretely: when a user signs in, the FxA login page uses their password to
+<a href="https://github.com/mozilla/fxa-auth-server/wiki/onepw-protocol">obtain the root key material</a>
+for their account (<code>kB</code>) and then derive a secret value <code>ecosystemUserId</code> according to:</p>
+<pre><code class="hljs"><span class="hljs-comment">// This value can change if we ever need to rotate these identifiers.</span>
+keyRotationSecret = <span class="hljs-number">0</span><span class="hljs-string">x"0000000000000000000000000000000000000000000000000000000000000000"</span>
+
+<span class="hljs-comment">// This derives a purpose-specific secret from the root key material kB</span>
+ecosystemUserId = HKDF-SHA256(
+  ikm = kB + keyRotationSecret,
+  size = <span class="hljs-number">48</span>,
+  salt = uid,
+  context = <span class="hljs-string">"identity.mozilla.com/picl/v1/scoped_key\nhttps://identity.mozilla.com/ids/ecosystem_telemetry"</span>
+)[<span class="hljs-number">16</span>:<span class="hljs-number">48</span>]
+</code></pre>
+<p>This value is what will ultimately be used to identify that user's account when analyzing metrics.
+Since it is derived from their root key material <code>kB</code>, the <code>ecosystemUserId</code> is unique to that users
+account but cannot be directly linked back to it account.</p>
+<p>However, this means that we cannot directly store this identifier in the user's account profile data
+or share it with any server-side applications, because the whole point is that it's supposed to
+be hard to correlate it back to a particular account! Before it can be stored as part of the user's
+account, it must be encrypted it so that only the data pipeline can access the underlying value.</p>
+<h3><a class="anchor" aria-hidden="true" id="ecosystemanonid"></a><a href="#ecosystemanonid" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ecosystemAnonId</h3>
+<p>The telemetry data pipeline manages a cryptographic key-pair and advertises the public
+portion of the key as a <a href="https://tools.ietf.org/html/rfc7517">JWK</a>. After calculating <code>ecosystemUserId</code>,
+the FxA login page uses this key to encrypt that secret value into a <a href="https://tools.ietf.org/html/rfc7516">JWE</a>.
+We call the resulting encrypted value an <code>ecosystemAnonId</code> and it is stored on the FxA server as
+part of the user's account profile data.</p>
+<p>When the user signs in to an RP, that RP can read the <code>ecosystemAnonId</code> from the user's profile
+and include it in metics pings. When those metrics pings are received by the data pipeline, it
+will decrypt the <code>ecosystemAnonId</code> into the underlying <code>ecosystemUserId</code>. The resulting data set
+can be grouped and analyzed by <code>ecosystemUserId</code> in order to understand usage and interaction data
+from the same account across multiple different products.</p>
+<h3><a class="anchor" aria-hidden="true" id="ecosystemclientid"></a><a href="#ecosystemclientid" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ecosystemClientId</h3>
+<p>For client-side applications, it is useful to also group and analyze metrics pings that came from
+the same instance of that client. To achieve this, each application maintains a random UUID that is
+created on first run and persists until uninstall, and submits this in ecosystem telemetry pings
+as the <code>ecosystemClientId</code> field.</p>
+<p>It is important that the <code>ecosystemClientId</code> is never shared with other server-side software, and
+particularly that it is not stored on any servers in a way that would tie it back to the user's
+FxA user id. If it were, then this value could be used to defeat the separation between the
+metrics pseudonym <code>ecosystemUserId</code> and the user's real account data.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties"><span class="arrow-prev">← </span><span>Metrics</span></a><a class="docs-next button" href="/ecosystem-platform/docs/features/sub-plat/sub-plat-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#motivation">Motivation</a></li><li><a href="#submitting-pings-via-account-ecosystem-telemetry">Submitting Pings via Account Ecosystem Telemetry</a></li><li><a href="#ecosystem-telemetry-identifiers">Ecosystem Telemetry Identifiers</a><ul class="toc-headings"><li><a href="#ecosystemuserid">ecosystemUserId</a></li><li><a href="#ecosystemanonid">ecosystemAnonId</a></li><li><a href="#ecosystemclientid">ecosystemClientId</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
         mermaid.initialize({
             startOnReady: true,
             theme: 'forest',
