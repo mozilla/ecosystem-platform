@@ -23,10 +23,11 @@ The first thing you'll need to do is create a Firefox account while pointed at t
 ### iOS
 
 1. First, delete and then re-install the Firefox iOS app to ensure you're using a fresh profile.
-2. Before logging in, go to Accounts Menu > Settings. Scroll to the bottom, and tap the version number 5 times. You should now see some hidden menu options appear.
-3. Scroll back up to the top of the Settings screen, and select `Debug: use stage servers`.
-4. Then, `Sign in to Sync`. Make sure you're using either an existing staging account, or create a fresh one now that you're pointed to staging.
-5. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
+2. Before logging in, go to App Menu > Settings. Scroll to the bottom, and tap the version number 5 times. You should now see some hidden menu options appear.
+3. Scroll back up to the top of the Settings screen, and click `Advanced Sync Settings`.
+4. Enable `Use stage servers`.
+5. Then, `Sign in to Sync`. Make sure you're using either an existing staging account, or create a fresh one now that you're pointed to staging.
+6. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
 
 ### Android
 
