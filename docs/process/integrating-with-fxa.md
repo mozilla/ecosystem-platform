@@ -71,8 +71,9 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
 ### Development
 
 0. Review the [OAuth 2.0][oauth] documentation.
-0. Register for OAuth client credentials at `https://oauth-stable.dev.lcip.org/console/login`.  See [OAuth credentials](#oauth-credentials).
-0. Your development servers should point to: `https://stable.dev.lcip.org`.  0. User authentication follows the [OAuth 2.0][oauth] protocol.
+0. Register for staging OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
+0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
+0. User authentication follows the [OAuth 2.0][oauth] protocol.
 0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Firefox Accounts.
 0. If you are [hosting your own login form](#self-hosted-email-first-flow) initialize and propagate the top of funnel metrics.
 0. [User data and account notifications are properly](#user-data-hygiene) handled and compliant with Firefox Account requirements.
@@ -81,7 +82,7 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
 
 ### Preparing for Production
 
-0. Register for a production OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
+0. Update your deployment bug asking for production OAuth credentials
 0. Production servers point to `https://oauth.accounts.firefox.com/`.  Additional endpoints can be discovered dynamically at `https://accounts.firefox.com/.well-known/openid-configuration`.
 0. Someone from the FxA team has reviewed the integration code and tested the flow.
 
