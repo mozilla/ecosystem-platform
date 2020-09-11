@@ -31,9 +31,11 @@ The first thing you'll need to do is create a Firefox account while pointed at t
 
 ### Android
 
-1. First, delete and then re-install the Firefox iOS app to ensure you're using a fresh profile.
+1. First, delete and then re-install the Firefox Android app to ensure you're using a fresh profile.
 1. Before logging in, go to App Menu > Settings > About Firefox. Click the logo 5 times. You should see a "debug menu enabled" notification.
-1. Go to App Menu > Settings > Secret Settings.
+1. Now, return to App Menu > Settings. Scroll to the very top. You'll see an option for `Custom Firefox Account server`. Set this value to `https://accounts.stage.mozaws.net`. Changing this value will cause Firefox to close.
+1. Re-open Firefox, and either login to an existing staging Firefox account, OR create a new Firefox account now that you're pointed to staging. Pairing doesn't work against staging, so you'll need to use an email address if you're signing into an existing staging account.
+1. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
 
 ## How do I...
 
