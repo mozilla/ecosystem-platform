@@ -15,25 +15,27 @@ The first thing you'll need to do is create a Firefox account while pointed at t
 ### Desktop
 
 1. First, make sure you are [using a new profile](/ecosystem-platform/docs/process/using-the-staging-environment#create-a-new-firefox-profile).
-2. Now, in `about:config`, set `identity.fxaccounts.autoconfig.uri` to `https://accounts.stage.mozaws.net`.
-3. Restart Firefox. Make sure to use the same profile you setup in step #1.
-4. Now, either login to an existing staging Firefox account, OR create a new Firefox account now that you're pointed to staging.
-5. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
+1. Now, in `about:config`, set `identity.fxaccounts.autoconfig.uri` to `https://accounts.stage.mozaws.net`.
+1. Restart Firefox. Make sure to use the same profile you setup in step #1.
+1. Now, either login to an existing staging Firefox account, OR create a new Firefox account now that you're pointed to staging.
+1. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
 
 ### iOS
 
 1. First, delete and then re-install the Firefox iOS app to ensure you're using a fresh profile.
-2. Before logging in, go to App Menu > Settings. Scroll to the bottom, and tap the version number 5 times. You should now see some hidden menu options appear.
-3. Scroll back up to the top of the Settings screen, and click `Advanced Sync Settings`.
-4. Enable `Use stage servers`.
-5. Then, `Sign in to Sync`. Make sure you're using either an existing staging account, or create a fresh one now that you're pointed to staging.
-6. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
+1. Before logging in, go to App Menu > Settings. Scroll to the bottom, and tap the version number 5 times. You should now see some hidden menu options appear.
+1. Scroll back up to the top of the Settings screen, and click `Advanced Sync Settings`.
+1. Enable `Use stage servers`.
+1. Then, `Sign in to Sync`. Make sure you're using either an existing staging account, or create a fresh one now that you're pointed to staging.
+1. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
 
 ### Android
 
-#### Fenix
-
-At the time of this writing, Fenix is the codename for the upcoming Firefox for Android client. On Google's Play Store, it's called [Firefox Preview](https://play.google.com/store/apps/details?id=org.mozilla.fenix&hl=en_US). It's not currently possible to test Fenix against staging FxA servers, however there is an issue open to implement this [here](https://github.com/mozilla-mobile/android-components/issues/3729).
+1. First, delete and then re-install the Firefox Android app to ensure you're using a fresh profile.
+1. Before logging in, go to App Menu > Settings > About Firefox. Click the logo 5 times. You should see a "debug menu enabled" notification.
+1. Now, return to App Menu > Settings. Scroll to the very top. You'll see an option for `Custom Firefox Account server`. Set this value to `https://accounts.stage.mozaws.net`. Changing this value will cause Firefox to close.
+1. Re-open Firefox, and either login to an existing staging Firefox account, OR create a new Firefox account now that you're pointed to staging. Pairing doesn't work against staging, so you'll need to use an email address if you're signing into an existing staging account.
+1. Once you're logged into your Firefox account, verify that you're actually pointed to staging by [testing a manual Sync](/ecosystem-platform/docs/process/sync-testing#verify-ive-set-things-up-correctly).
 
 ## How do I...
 
