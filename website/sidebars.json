@@ -29,12 +29,30 @@
         "type": "subcategory",
         "label": "Firefox Sync",
         "ids": [
+          "features/firefox-sync/welcome",
           "features/firefox-sync/sync-feature",
           "features/firefox-sync/password-management-feature",
           "features/firefox-sync/bookmarks-feature",
           "features/firefox-sync/storage-feature",
           "features/firefox-sync/history-feature",
-          "features/firefox-sync/account-management-feature"
+          "features/firefox-sync/account-management-feature",
+          "features/firefox-sync/canned-bug-responses",
+          "features/firefox-sync/extension-storage",
+          "features/firefox-sync/faq",
+          "features/firefox-sync/file-desktop-bug",
+          "features/firefox-sync/redash",
+          "features/firefox-sync/state-machines",
+          "features/firefox-sync/tps"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Firefox Push",
+        "ids": [
+          "features/firefox-push/welcome",
+          "features/firefox-push/development",
+          "features/firefox-push/design",
+          "features/firefox-push/history"
         ]
       }
     ],
