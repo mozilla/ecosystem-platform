@@ -216,19 +216,13 @@ This project is production Mozilla code and subject to our [engineering practice
 
 Here are some handy questions and things to consider when reviewing code for Firefox Accounts:
 
-* How will we tell if this change is successful?
-    * If it's fixing a bug, have we introduced tests to ensure the bug stays fixed?
-    * If it's a feature, do we have metrics to tell whether it's providing value?
-    * Should it be A/B tested to check whether it's a good idea at all?
 * Did test coverage increase, or at least stay the same?
-    * We need a pretty good reason to merge code that decreases test coverage...
-    * If it's hard to answer this question, consider adding a test that tests the test coverage.
 * Does it introduce new user-facing strings?
-    * These strings will need to go through our localization process.  Check that the
-      templates in which they're defined are covered by our string extraction scripts.
-    * The code must be merged before the string-extraction date for that development cycle.
+  * Ensure the strings are finalized and approved.  Double check for any typos.  It's hard to change strings once they get localized.
+  * Ensure they will be extracted by being consistent with the code in the package you're working on.
 * Does it store user-provided data?
     * The validation rules should be explicit, documented, and clearly enforced before storage.
+    * Ensure new stored data has been approved by a data steward.
 * Does it display user-controlled data?
     * It must be appropriately escaped, e.g. htmlescaped before being inserted into web content.
 * Does it involve a database schema migration?
@@ -239,42 +233,26 @@ Here are some handy questions and things to consider when reviewing code for Fir
     * Does it contain any long-running statements that might lock tables during deployment?
     * Can the changes be rolled back without data loss or a service outage?
     * Has the canonical db schema been kept in sync with the patch files?
-    * Once merged, please file an Ops bug to track deployment in stage and production.
+    * Once merged, please update the [deployment doc][fxa-deploy-doc] with details.
 * Does it alter the public API of a service?
-    * Ensure that the chage is backwards compatible.
+    * Ensure that the change is backwards compatible.
     * Ensure that it's documented appropriately in the API description.
+    * Ensure validation functions are tested thoroughly.
     * Note whether we should announce it on one or more developer mailing lists.
-* Does it add new metrics or logging?
-    * Make sure they're documented for future reference.
-* Does it conform to the prevailing style of the codebase?
-    * If it introduces new files, ensure they're covered by the linter.
-    * If you notice a stylistic issue that was *not* detected by the linter,
-      consider updating the linter.
-* For fixes that are patching a train,
-  has the PR been opened against the correct train branch?
-    * If the PR is against `main`,
-      it is likely that it will mess up
-      our change logs and the git history
-      when merged.
-    * If no appropriate train branch exists,
-      one can be created at the appropriate point in history
-      and pushed.
-      After the patch has been tagged (see below),
-      the train branch can then be merged to `main`.
-      Commits should not be cherry-picked
-      between train branches and `main`.
+* Does it add appropriate new metrics or logging?
+* Does it consider accessibility?
 
 ## Browser Support
-`Last updated: Aug 15, 2019`
+`Last updated: Sep 18, 2020`
 
 Firefox Accounts must work in the following environments:
 
 - Firefox Desktop ESR - 1
 - Firefox for Android ESR - 1
-- Firefox for iOS 17
+- Firefox for iOS Current Version
 - Latest versions of modern browsers (Chrome, Safari, Opera, Edge)
-- iOS 12+ (and iOS WebView for Firefox iOS)
-- Android 7.0 (and Android WebView for Lockbox)
+- iOS Current Version (iOS WebView)
+- Android Current Version (Android WebView)
 
 ## Deployment Documentation
 We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**  If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
