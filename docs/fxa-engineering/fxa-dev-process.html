@@ -239,26 +239,16 @@ to the other instead of trying to merge.</li>
 <h3><a class="anchor" aria-hidden="true" id="review-checklist"></a><a href="#review-checklist" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Review Checklist</h3>
 <p>Here are some handy questions and things to consider when reviewing code for Firefox Accounts:</p>
 <ul>
-<li>How will we tell if this change is successful?
-<ul>
-<li>If it's fixing a bug, have we introduced tests to ensure the bug stays fixed?</li>
-<li>If it's a feature, do we have metrics to tell whether it's providing value?</li>
-<li>Should it be A/B tested to check whether it's a good idea at all?</li>
-</ul></li>
-<li>Did test coverage increase, or at least stay the same?
-<ul>
-<li>We need a pretty good reason to merge code that decreases test coverage...</li>
-<li>If it's hard to answer this question, consider adding a test that tests the test coverage.</li>
-</ul></li>
+<li>Did test coverage increase, or at least stay the same?</li>
 <li>Does it introduce new user-facing strings?
 <ul>
-<li>These strings will need to go through our localization process.  Check that the
-templates in which they're defined are covered by our string extraction scripts.</li>
-<li>The code must be merged before the string-extraction date for that development cycle.</li>
+<li>Ensure the strings are finalized and approved.  Double check for any typos.  It's hard to change strings once they get localized.</li>
+<li>Ensure they will be extracted by being consistent with the code in the package you're working on.</li>
 </ul></li>
 <li>Does it store user-provided data?
 <ul>
 <li>The validation rules should be explicit, documented, and clearly enforced before storage.</li>
+<li>Ensure new stored data has been approved by a data steward.</li>
 </ul></li>
 <li>Does it display user-controlled data?
 <ul>
@@ -273,50 +263,28 @@ drop the now-unused old column.</li>
 <li>Does it contain any long-running statements that might lock tables during deployment?</li>
 <li>Can the changes be rolled back without data loss or a service outage?</li>
 <li>Has the canonical db schema been kept in sync with the patch files?</li>
-<li>Once merged, please file an Ops bug to track deployment in stage and production.</li>
+<li>Once merged, please update the <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">deployment doc</a> with details.</li>
 </ul></li>
 <li>Does it alter the public API of a service?
 <ul>
-<li>Ensure that the chage is backwards compatible.</li>
+<li>Ensure that the change is backwards compatible.</li>
 <li>Ensure that it's documented appropriately in the API description.</li>
+<li>Ensure validation functions are tested thoroughly.</li>
 <li>Note whether we should announce it on one or more developer mailing lists.</li>
 </ul></li>
-<li>Does it add new metrics or logging?
-<ul>
-<li>Make sure they're documented for future reference.</li>
-</ul></li>
-<li>Does it conform to the prevailing style of the codebase?
-<ul>
-<li>If it introduces new files, ensure they're covered by the linter.</li>
-<li>If you notice a stylistic issue that was <em>not</em> detected by the linter,
-consider updating the linter.</li>
-</ul></li>
-<li>For fixes that are patching a train,
-has the PR been opened against the correct train branch?
-<ul>
-<li>If the PR is against <code>main</code>,
-it is likely that it will mess up
-our change logs and the git history
-when merged.</li>
-<li>If no appropriate train branch exists,
-one can be created at the appropriate point in history
-and pushed.
-After the patch has been tagged (see below),
-the train branch can then be merged to <code>main</code>.
-Commits should not be cherry-picked
-between train branches and <code>main</code>.</li>
-</ul></li>
+<li>Does it add appropriate new metrics or logging?</li>
+<li>Does it consider accessibility?</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="browser-support"></a><a href="#browser-support" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Browser Support</h2>
-<p><code>Last updated: Aug 15, 2019</code></p>
+<p><code>Last updated: Sep 18, 2020</code></p>
 <p>Firefox Accounts must work in the following environments:</p>
 <ul>
 <li>Firefox Desktop ESR - 1</li>
 <li>Firefox for Android ESR - 1</li>
-<li>Firefox for iOS 17</li>
+<li>Firefox for iOS Current Version</li>
 <li>Latest versions of modern browsers (Chrome, Safari, Opera, Edge)</li>
-<li>iOS 12+ (and iOS WebView for Firefox iOS)</li>
-<li>Android 7.0 (and Android WebView for Lockbox)</li>
+<li>iOS Current Version (iOS WebView)</li>
+<li>Android Current Version (Android WebView)</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="deployment-documentation"></a><a href="#deployment-documentation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deployment Documentation</h2>
 <p>We maintain a <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">private deployment document</a> to keep track of any configuration changes, any database changes, etc.  <strong>Anything that needs to be done aside from deploying updated code should be tracked in this document.</strong>  If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.</p>
