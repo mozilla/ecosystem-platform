@@ -4,27 +4,37 @@ title: Subscription Features
 sidebar_label: Subscription Features
 ---
 
-## If you want to become a subscription product
+Before reading this page, it will be useful to have a grounding in Sub Plat terminology. Please see the Subscription Platform Overview for more information.
 
-Ask in `#subscription-platform` on slack
+## Payment Methods
 
-## How subscriptions work
+The Subscription Platform currently supports payments with major credit cards.
 
-Subscriptions are just metadata that attach to an user's Firefox Account. Once a user has subscribed to your product, their FxA profile reflects their subscribed state and your product can respond accordingly.
+## Staffed Support
 
-Importantly, subscriptions are not locked to any one FxA-attached product by default, so if a user is subscribed to Firefox Foo, Firefox Bar can optionally see the subscription metadata as well. In this way, we can create subscription bundles that can span multiple different products or services.
+Subscription Platform integrates with ZenDesk to provide staffed support. The FxA team partners with the Support Team to manage ZenDesk. The Support team is directly responsible for provisioning resourcing for support and setting up SLAs for your subscription offerings.
 
-If a user cancels their subscription, this metadata goes away and your product can go back to treating them as a non-subscribed user.
+## Data Reporting
 
-### Payment methods & geography
+Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ticket data in addition to any telemetry you collect in your offering. Please see this document to understand access and status for all of these endpoints.
 
-The Subscription Platform currently supports payments with major US credit cards.
+## Geo-Restrictions
 
-Importantly, the Subscription Platform does not implement any geo-restrictions. Instead, we rely on Stripe to reject non-US credit cards. This means that if you're building a lead page to market a subscription product, you will be responsible for geo-restricting access to the Subscription Platform.
+ **The Subscription Platform does not implement any geo-restrictions**. Instead, we rely on Stripe to reject credit cards from countries that our legal team has not given us permission to ship in. This means that if you're building a lead page to market a subscription product, you will be responsible for geo-restricting access to the Subscription Platform.
+
+## Currency & Market Support
+
+The Subscription Platform supports a number of currencies including USD, CAD, NZD, Singapore Dollars, Euros, Great British Pounds, and Malaysian Ringgit. Practically speaking, any currency supported by Stripe is available through Sub Plat. Please be aware that if you wish to ship a product in a currency other than the ones listed above, you may wish to run QA on our staging environment.
+
+Importantly, If you wish to offer your product in multiple different currencies, you will have to configure your marketing page to correctly route different users to different plans depending on their region.You will also need to set up individual stripe plans for each currency.
+
+As you think about what markets you want to launch in, consult with legal and finance teams to ensure you are abiding by any legal or regulatory requirements for your product.
 
 ### Billing intervals
 
 The Subscription Platform supports billing intervals of one-month, six months, and one year. Subscriptions auto-renew and do not expire until a user cancels them.
+
+Like currencies, each billing interval represents a separate **plan** in Stripe. This means, if you wish to offer multiple different intervals, you will need to implement multiple different **plans**.
 
 ### Tiers & upgradable subscriptions
 
@@ -32,9 +42,6 @@ The Subscription Platform supports upgradable subscriptions between tiers of a p
 
 Rather than making a user go through an entire payments Flow, Sub Plat allows upgrades with a single click. Users are charged a pro-rated amount for the the upgrade for their current billing cycle and in subsequent billing cycles they will be charged the full amount of their new subscription.
 
-### Coming soon
-
-Our [Jira board][Jira board] is the best place to see work that's in progress.
 
 [team page]: /ecosystem-platform/docs/process/integration-with-subscription-platform
 [jira board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=360&projectKey=FXA&view=detail&quickFilter=1923#
