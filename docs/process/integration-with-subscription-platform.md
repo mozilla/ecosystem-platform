@@ -3,54 +3,35 @@ id: integration-with-subscription-platform
 title: Integration with Subscription Platform
 sidebar_label: Integration with Subscription Platform
 ---
+## Setting up A Subscription
 
-## Overview
+### Pre-Development
 
-The Subscription Platform handles all aspects of subscription management for Firefox Accounts. Integrations require first handling basic integration with FxA, after which the additional subscription capabilities can be determined, configured, and deployed. When integrated with the Subscription Platform, an additional event will be sent via [webhook][webhook] and the users subscription capabilities will be added to the [user’s profile data][profile-data].
+#### File A ticket
 
-## Terminology
+First thing's first. File an FxA ticket in GitHub. This ticket can be used to track documentation for your subscription. You can use the label `Subscription Request` but otherwise, don't worry too much about format for your issue. We will use this request to set up an initial meeting and get the ball rolling. We will track your subscription setup in Mana in order to keep sensitive details such as price and release dates and market confidential.
 
-Stripe is used to handle payments and subscriptions in the Subscription Platform. Terminology dealing with products and plans uses the [Stripe definitions of Product/Plan](https://stripe.com/docs/billing/subscriptions/products-and-plans).
+#### Have a kickoff meeting
 
-### Subscription Capability
+Once your ticket is filed, you should have had a RRA-style meeting with the Firefox Accounts team. During or shortly after this meeting, an initial subscription capability string or strings should be agreed upon.
 
-Each product is associated with the capabilities that it confers to a user. A bundle product may include multiple capabilities provided by varying [relying parties (RPs)][relying-party], or a single product may confer a single capability provided by multiple RPs. These capabilities are typically RP-specific.
+We will use this meeting to do the following:
 
-Subscription capabilities are lower-case strings that will be included in the users profile data and  [webhook] [subscription state notifications].
+1. Set up a Mana page to track basic info about your product such as name & capability string or strings
+2. Get a rough estimate of your shipping timeline (don't worry if this isn't 100% pinned down)
+3. Get a staging subscription set up for you to start testing with
 
-### FxA Event Broker
-
-Service that distributes [relying party events] to FxA integrations that have a registered [webhook] URL. These events are only sent to integrations that a FxA user has logged into.
-
-## Pre-Development
-
-Before getting started, you should have had a RRA-style meeting with the Firefox Accounts team. During or shortly after this meeting, an initial subscription capability string should have been agreed upon. If the product/plan did not exist yet, one will be created for the FxA stage environment.
-
-You will need up to three defined strings to develop a subscription platform integration:
-
-- Subscription Capability string
-- Product id, one for each environment (If building a lead page)
-- Plan id, one for each environment (If building a lead page)
-
-If your integration includes an application service, it will need a [webhook] handler to receive [relying party events] from the FxA Event Broker.
-
-### Tiers and Upgrades
-
-If your product consists of multiple different subscription tiers (Foo Silver, Foo Gold, Foo Platinum), different capabilities can be assigned for each level as needed. The Accounts team can configure metadata for each tier in Stripe so that users can upgrade between tiers without needing to re-enter CC information.
-
-### Billing Cycle Durations
-
-Sub Plat currently supports subscription billing cycles of one month, six months and one year. These will be represented as a set of `planID`s associated with a single `productId`. An accounts team member can help you configure each plan as needed.
-
-### Demoing Subscription Flows
-
-The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various Sub Plat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of Sub Plat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
-
-## Development
+### Development
 
 Integration with FxA is the primary development task to complete for a working subscription integration. The additional Subscription Capability string will be included as the `subscriptions` field in the response from the FxA Profile Server.
 
-### Lead Pages
+If your integration includes an application service, it will need a webhook handler to receive relying party events from the FxA Event Broker.
+
+#### Demoing Subscription Flows
+
+The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various Sub Plat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of Sub Plat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
+
+#### Setting up your marketing pages
 
 If your integration includes lead pages to start a subscription flow, you will need to include the product and plan id's in the subscription 'buy' URL. This link for production has the form of:
 
@@ -66,16 +47,23 @@ Valid hostnames for the FxA environments:
 
 Note that valid values for `productId` and `planId` will vary with environment as a different Stripe account is associated with each.
 
-Additionally, if your product has multiple associated plans in any environment, you will need to ensure that you are routing users correctly.
+Additionally, if your product has multiple associated plans in any environment, you will need to ensure that you are routing users correctly. The most likely cases for this would be:
 
-### Webhook Events
+1. If your product has plans with different billing intervals (monthly, annually)
+1. If your product has plans in different currencies
+
+Importantly, the Subscription Platform does not currently provide any inbuilt capabilities for routing users to a correct currency or for showing multiple plans to a user at once. If this is a requirement for your product, you must provide the appropriate UI and routing to ensure that users end up on the correct payment page for the correct product.
+
+#### Webhook Events
 
 If your integration includes an application service, [subscription state notifications] will also be sent via [webhook] to your registered [webhook] URL.
 
-## Testing
+#### Testing
 
 When integrated with the FxA stage or development environments, subscription sign-up's can be tested using [Stripe test cards](https://stripe.com/docs/testing#cards).
 
+
+[subscription request label]: https://github.com/mozilla/fxa/labels/Subscription%20Request
 [relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
