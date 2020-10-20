@@ -257,6 +257,8 @@ Firefox Accounts must work in the following environments:
 ## Deployment Documentation
 We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**  If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
 
+Additionally, we should notify our relying parties if we're going to change APIs or configuration details if we can (ie. it may not be prudent if we're changing a configuration variable in response to a security incident).  These notifications should be sent to the [fxacct-notices list][fxacct-notices-list] with enough time for relying parties to adjust their code or reply with any concerns.
+
 ## Security issues
 
 Since most of our work happens in the open, we need special procedures
@@ -352,6 +354,7 @@ back into the public repo by doing the following:
 [fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
 [fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA&view=planning.nodetail
 [fxa-jira-velocity]: https://jira.mozilla.com/secure/RapidBoard.jspa?projectKey=FXA&rapidView=359&view=reporting&chart=velocityChart
+[fxacct-notices-list]: https://mail.mozilla.org/listinfo/fxacct-notices
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
 [moz-code-review]: https://developer.mozilla.org/docs/Code_Review_FAQ
 [moz-sec-bugs]: https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting
