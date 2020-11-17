@@ -49,9 +49,9 @@ The values that are passed in the parameters below are subject to validation via
 
 |Name|Description|Example Values|Validation regex|Amplitude Chart Example|
 |----|-----------|--------------|----------------|-----------------------|
-|`entrypoint`|The specific page or browser UI element containing the first step of the FxA sign-in/sign-up process (e.g., enter email form)|`firstrun`|<!--begin-validation-entrypoint-->^[\w.:-]+$<!--end-validation-entrypoint-->|[Firstrun form views][amplitude-firstrun]|
-|`entrypoint_experiment`|Identifier for the experiment the user is part of (if any)||<!--begin-validation-entrypoint_experiment-->^[\w.:-]+$<!--end-validation-entrypoint_experiment-->||
-|`entrypoint_variation`|Identifier for the experiment variation the user is part of (if any)||<!--begin-validation-entrypoint_variation-->^[\w.:-]+$<!--end-validation-entrypoint_variation-->||
+|`entrypoint`|The specific page or browser UI element containing the first step of the FxA sign-in/sign-up process (e.g., enter email form)|`firstrun`|<!--begin-validation-entrypoint-->^[\w.-]+$<!--end-validation-entrypoint-->|[Firstrun form views][amplitude-firstrun]|
+|`entrypoint_experiment`|Identifier for the experiment the user is part of (if any)||<!--begin-validation-entrypoint_experiment-->^[\w.-]+$<!--end-validation-entrypoint_experiment-->||
+|`entrypoint_variation`|Identifier for the experiment variation the user is part of (if any)||<!--begin-validation-entrypoint_variation-->^[\w.-]+$<!--end-validation-entrypoint_variation-->||
 |`form_type`|For self-hosted forms only (see above) the type of form that the user submits to begin the FxA flow|either: `email` if the form captures the user's email, otherwise `other`||NA|
 |`utm_source`|Unambiguous identifier of site or browser UI element that linked to the page containing the beginning of the FxA sign-in/sign-up process |`blog.mozilla.org`|<!--begin-validation-utm_source-->^[\w\/.%-]+$<!--end-validation-utm_source-->|[Registration form views segmented by utm_source][amplitude-regform]|
 |`utm_campaign`|More general label for the campaign that the site is part of|`firstrun`|<!--begin-validation-utm_campaign-->^[\w\/.%-]+$<!--end-validation-utm_campaign-->|TBD|
