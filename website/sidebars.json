@@ -52,6 +52,7 @@
     ],
     "For FxA Engineers": [
       "fxa-engineering/fxa-dev-process",
+      "fxa-engineering/fxa-work-breakdown-process",
       "fxa-engineering/release-process",
       "fxa-engineering/fxa-api",
       "fxa-engineering/fxa-system-diagrams",
