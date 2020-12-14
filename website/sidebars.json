@@ -10,8 +10,8 @@
           "process/integration-with-fxa",
           "relying-parties/end-to-end-encryption",
           "relying-parties/metrics-for-relying-parties",
-          "features/firefox-accounts/ecosystem-telemetry"
-
+          "features/firefox-accounts/ecosystem-telemetry",
+          "features/firefox-accounts/pairing"
         ]
       },
       {
