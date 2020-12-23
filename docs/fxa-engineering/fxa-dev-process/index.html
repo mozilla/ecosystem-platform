@@ -256,16 +256,16 @@ production) state for our consumer. The should include effort required for code
 reviews, security reviews, testing, integration and build/deploy.</p>
 <table>
 <thead>
-<tr><th>Points</th><th>Relative Size</th><th>Description</th></tr>
+<tr><th>Points</th><th>Relative Size</th><th>Description</th><th>Review Time</th><th>Examples</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td>xs</td><td>This is a trivial change with clearly defined parameters.</td></tr>
-<tr><td>2</td><td>s</td><td>This is a small change with clearly defined parameters.</td></tr>
-<tr><td>3</td><td>m</td><td>This is a small change, but there's some uncertainty.</td></tr>
-<tr><td>5</td><td>l</td><td>Moderately complex, will require some effort but clearly defined.</td></tr>
-<tr><td>8</td><td>xl</td><td>Moderately complex, medium effort, some uncertainty.</td></tr>
-<tr><td>13</td><td>xxl</td><td>Complex, large effort, well defined (these should be broken down further)</td></tr>
-<tr><td>21</td><td>∞</td><td>Meta issue or We do not have clear scope. (This issue must be broken down)</td></tr>
+<tr><td>1</td><td>xs</td><td>This is a trivial change with clearly defined parameters.</td><td>1 engineer needs ~10 minutes</td><td></td></tr>
+<tr><td>2</td><td>s</td><td>A simple change (minimal code changes), where we understand all of the requirements.</td><td>1 engineer needs &lt;1 hour</td><td></td></tr>
+<tr><td>3</td><td>m</td><td>A simple change, but the code footprint is bigger (e.g. lots of different files, or tests affected). The requirements are clear.<br><br>or<br><br>This could also represent a 2 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.]</td><td>1 engineer needs &lt;2 hours</td><td></td></tr>
+<tr><td>5</td><td>l</td><td>A more complex change that will impact multiple areas of the codebase, there may also be some refactoring involved. Requirements are understood but you feel there are likely to be some gaps along the way.</td><td>1 engineer needs &lt;3 hours</td><td></td></tr>
+<tr><td>8</td><td>xl</td><td>A complex change. It will significantly change the codebase and/or business logic. It may require input from others to assure the requirements and impacts are well understood.  It may require coordination with additional teams.<br><br>or<br><br>This could also represent a 5 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.]</td><td>1 engineer needs 1/2 day.  This may require data review or an external team sign-off</td><td></td></tr>
+<tr><td>13</td><td>xxl</td><td>A significant change that may have dependencies (other teams or third-parties) and we likely still don't understand all of the requirements. It's unlikely we would commit to this in a milestone, and the preference would be to further clarify requirements and/or break in to smaller Issues.</td><td>2 engineers need a few 1/2 days each.  This may require security review or external team sign-offs</td><td></td></tr>
+<tr><td>21</td><td>∞</td><td>Meta issue or We do not have clear scope. (This issue must be broken down).  This is possibly a whole quarter sized epic.</td><td></td><td></td></tr>
 </tbody>
 </table>
 <h2><a class="anchor" aria-hidden="true" id="checkin-meetings"></a><a href="#checkin-meetings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Checkin Meetings</h2>
