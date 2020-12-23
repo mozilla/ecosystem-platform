@@ -122,46 +122,90 @@ As of late, we've split into two groups of people working on two Epics in parall
 
 ### Bug Triage
 
-We triage issues at least every week in our meetings.  Depending on the
-size of our backlog, we may schedule other meetings focused solely on triaging.
+Triage owners rotate throughout the team and we assign new triage owners every
+week in our meetings.  The triage owner is responsible for:
 
-Triage is done [from the backlog in Jira][fxa-jira-backlog].
+* Triaging any new issues in Jira
+* Triaging any new issues in Sentry
 
-![A screenshot of the backlog when this documentation was written](assets/fxa-backlog.png)
+The goals of our triage rotation are:
 
-Clicking the link should show you a page similar to the screenshot above.  Some
-notable parts:
+* Triaging issues, watching Sentry, understanding general user
+  sentiment/feedback is a shared team responsibility instead of a burden on 1
+  or 2 engineers
+* Knowledge sharing of different areas - a triage owner may not be the expert on
+  the topic and would reach out for help and learn from the process.
+* Users stay top-of-mind
+* 0 untriaged issues by the end of the triage cycle - before handover to the
+  next person
+  * But it’s OK to be untriaged before the meeting at the end of the cycle -
+    those issues are discussed and triaged at that meeting.
 
-* At the top of the page is a section called *QUICK FILTERS*.  These will
-  filter the list of Issues below.
-* You can see two collapsed sections in the middle of the page, one for *FxA
-  Train 155* and one for *FxA Train 156*.  The former is `ACTIVE`.  This is the
-  current train we're working on and the next train and if you click the arrow
-  in the top left next to the title, the section will expand and show you what
-  tasks are in each train.
-* Clicking the *Create Sprint* button will create a new Sprint and add it to
-  this page.
-* The Backlog on the bottom half of the screen has many issues in it.  You can
-  drag items from it into the Sprints or right-click on items and send them to
-  Sprints.  If you're going to do much with the tasks, it's likely more
-  effecient to use other views in Jira (with Filters) as the size of the FxA
-  backlog is unwieldy.
-* In vertical text on the left of the page is *VERSIONS* and *EPICS*.  Clicking
-  on *EPICS* will expand and show all the current epics (and allow
-  dragging/dropping to them).
+#### Triage Process
 
-Roughly, our triage flow is:
+* The triage owner updates the team on any significant issues or findings
+  during usual meetings
+* The triage owner provides a short summary at our team meeting the week
+  following their triage week
 
-0. Load the [Jira Backlog][fxa-jira-backlog].
-0. Click the *Un-triaged* quick filter.  The list of issues at the bottom of
-   the screen will change to only show issues that haven't been marked as
-   triaged.
-0. Click on the first issue in the Backlog.  A short preview will appear on the
-   right.  As appropriate, fill in as many fields as you know.  For a more
-   complete editing interface, press `e`.
-0. Once all the fields are set correctly, change the `Fix Version/s` field to
-   *Triaged*.  That's the flag that will take it out of the quick filter after
-   you save it.
+#### How to triage
+
+In all cases, a call needs to be made about urgency. It’s fine to not be sure!
+If it seems urgent, the issue should remain untriaged, which should force it to
+be raised in our team meetings.
+
+Jira is the canonical source of truth for how we track our own work, but bugs
+may come in through several other systems that have their own requirements.
+
+##### Errors/Issues/Work Requests/etc reported in Slack
+
+* If someone reports something to our team in Slack - 1st person to see //
+  respond should file a bug in Jira and add the link to the slack conversation
+  so we know it will be addressed not dropped.
+* Item is then triaged as normal when you get to "Jira Issues" below.
+
+##### Sentry
+* Sentry issues which may be of concern should have corresponding issues opened
+  in Jira, with a link to the Sentry report and a brief description. If you are
+  unsure whether a report is of concern or not, assume it is (ie, open an issue
+  anyway).
+* We should monitor our production instances closely as well as keep an eye out
+  on stage for new issues exposed by QA.  There are many projects in the #fxa
+  group on Sentry.
+* For reports that seem worth following up on, create a corresponding issue in
+  Jira.
+* In the right-hand sidebar of the sentry issue, there is a "Link to Github
+  Issue" button. This can be an easy way to file an issue that will eventually
+  be mirrored into Jira.  Otherwise make an issue manually.
+  * Issues created from this process will then be triaged as normal in Jira.
+
+##### Jira Issues:
+All of the steps above should have produced issues that make their way into
+Jira, so now we can look at an overview of all the things that are our
+responsibility.
+
+Triage [this Jira incoming issues query][fxa-jira-backlog] - only the issues
+under “Backlog” need triage.
+
+* Some guidance for fields to change:
+  * New issues default to Tasks, but is this a Bug instead (that is, a defect)?
+    * If it’s a bug, change the `Type` to `Bug` and set the `Found In` field to an
+      appropriate value
+  * Is it tied to one of the epics we have filed?
+    * Update the `Epic Link` field
+  * Does it require UX guidance?
+    * Set `needsux` as a label
+  * Does it require a Product Manager?
+    * Set `needsproduct` as a label
+  * Check if there is an appropriate component.  Our most common one is Code Quality.
+  * Consider adding a helpful comment!
+
+As you triage the issues move them into "To Do" (or close them).  Repeat for
+the rest of the issues in the Backlog.
+
+When you’re all finished, write a quick summary including any of the open
+issues you need help with and put a comment in #fxa-team.
+
 
 ## Estimation and Point Values
 Points are assigned to issues in Jira (ideally before starting work 😉) so that
@@ -352,7 +396,7 @@ back into the public repo by doing the following:
 [fxa-jira]: https://jira.mozilla.com/projects/FXA/issues/
 [fxa-jira-dashboard]: https://jira.mozilla.com/secure/Dashboard.jspa?selectPageId=11006
 [fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
-[fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA&view=planning.nodetail
+[fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=703&view=planning&issueLimit=100
 [fxa-jira-velocity]: https://jira.mozilla.com/secure/RapidBoard.jspa?projectKey=FXA&rapidView=359&view=reporting&chart=velocityChart
 [fxacct-notices-list]: https://mail.mozilla.org/listinfo/fxacct-notices
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
