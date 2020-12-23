@@ -217,15 +217,15 @@ all the steps in getting the particular work to a completed (ready for
 production) state for our consumer. The should include effort required for code
 reviews, security reviews, testing, integration and build/deploy.
 
-| Points | Relative Size | Description                                                                |
-| ------ | ------------- | -------------------------------------------------------------------------- |
-| 1      | xs            | This is a trivial change with clearly defined parameters.                  |
-| 2      | s             | This is a small change with clearly defined parameters.                    |
-| 3      | m             | This is a small change, but there's some uncertainty.                      |
-| 5      | l             | Moderately complex, will require some effort but clearly defined.          |
-| 8      | xl            | Moderately complex, medium effort, some uncertainty.                       |
-| 13     | xxl           | Complex, large effort, well defined (these should be broken down further)  |
-| 21     | ∞             | Meta issue or We do not have clear scope. (This issue must be broken down) |
+| Points | Relative Size | Description                                                                | Review Time | Examples |
+| ------ | ------------- | -------------------------------------------------------------------------- | ----------- | -------- |
+| 1      | xs            | This is a trivial change with clearly defined parameters.                  | 1 engineer needs ~10 minutes | |
+| 2      | s             | A simple change (minimal code changes), where we understand all of the requirements. | 1 engineer needs <1 hour | |
+| 3      | m             | A simple change, but the code footprint is bigger (e.g. lots of different files, or tests affected). The requirements are clear.<br><br>or<br><br>This could also represent a 2 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.] | 1 engineer needs <2 hours | |
+| 5      | l             | A more complex change that will impact multiple areas of the codebase, there may also be some refactoring involved. Requirements are understood but you feel there are likely to be some gaps along the way. | 1 engineer needs <3 hours | |
+| 8      | xl            | A complex change. It will significantly change the codebase and/or business logic. It may require input from others to assure the requirements and impacts are well understood.  It may require coordination with additional teams.<br><br>or<br><br>This could also represent a 5 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.] | 1 engineer needs 1/2 day.  This may require data review or an external team sign-off | |
+| 13     | xxl           | A significant change that may have dependencies (other teams or third-parties) and we likely still don't understand all of the requirements. It's unlikely we would commit to this in a milestone, and the preference would be to further clarify requirements and/or break in to smaller Issues.  | 2 engineers need a few 1/2 days each.  This may require security review or external team sign-offs | |
+| 21     | ∞             | Meta issue or We do not have clear scope. (This issue must be broken down).  This is possibly a whole quarter sized epic. | | |
 
 
 ## Checkin Meetings
