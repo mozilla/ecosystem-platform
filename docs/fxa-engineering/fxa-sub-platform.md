@@ -54,30 +54,30 @@ If you are using a new Stripe account, you will need to setup a product and its 
 
 ##### Product Metadata
 
-| Key                     | Value                                                                                                                                                                                           |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| productSet              | An arbitrary string used to group products in a set of upgrades & downgrades.                                                                                                                   |
-| productOrder            | A number used for sorting products in a set.                                                                                                                                                    |
-| webIconURL              | Image URL for product icon in web content.                                                                                                                                                      |
-| capabilities            | Comma-separated list of capabilities enabled by this product for all Relying Party's.                                                                                                           |
-| capabilities:{clientID} | Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.                                                                                    |
-| upgradeCTA              | HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
-| downloadURL             | The download URL for the product.                                                                                                                                                               |
-| emailIconURL            | Image URL for product icon in email content.                                                                                                                                                    |
-| product:subtitle | A subtitle for the product, usually displayed beneath the name in UI |
-| product:subtitle:{locale} | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
-| product:details:{n} | Bullet-point feature details for the product, where {n} is a number or ordering the points |
-| product:details:{n}:{locale} | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc) |
-| product:playStoreLink     | The google play store download URL for the product|
-| product:appStoreLink      | The App store download URL for the product|
-| product:termsOfServiceURL | The URL for the webpage containing the Terms of Service for the product offering|
-| product:termsOfServiceURL:{locale} | Localized override URL for the webpage containing the Terms of Service for the product offering|
-| product:termsOfServiceDownloadURL | The URL for a downloadable version of the Terms of Service for the product offering, used in emails |
-| product:termsOfServiceDownloadURL:{locale} | Localized override URL for a downloadable version of the Terms of Service for the product offering, used in emails|
-| product:privacyNoticeURL | The URL for the webpage containing the Privacy Notice for the product offering|
-| product:privacyNoticeURL:{locale} | Localized override URL for the webpage containing the Privacy Notice for the product offering|
-| product:privacyNoticeDownloadURL | The URL for a downloadable version of the Privacy Notice for the product offering|
-| product:privacyNoticeDownloadURL:{locale} | Localized override URL a downloadable version of the Privacy Notice for the product offering|
+| Key                                        | Value                                                                                                                                                                                           |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| productSet                                 | An arbitrary string used to group products in a set of upgrades & downgrades.                                                                                                                   |
+| productOrder                               | A number used for sorting products in a set.                                                                                                                                                    |
+| webIconURL                                 | Image URL for product icon in web content.                                                                                                                                                      |
+| capabilities                               | Comma-separated list of capabilities enabled by this product for all Relying Party's.                                                                                                           |
+| capabilities:{clientID}                    | Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.                                                                                    |
+| upgradeCTA                                 | HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
+| downloadURL                                | The download URL for the product.                                                                                                                                                               |
+| emailIconURL                               | Image URL for product icon in email content.                                                                                                                                                    |
+| product:subtitle                           | A subtitle for the product, usually displayed beneath the name in UI                                                                                                                            |
+| product:subtitle:{locale}                  | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)                                                                                       |
+| product:details:{n}                        | Bullet-point feature details for the product, where {n} is a number or ordering the points                                                                                                      |
+| product:details:{n}:{locale}               | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)                                                                                    |
+| product:playStoreLink                      | The google play store download URL for the product                                                                                                                                              |
+| product:appStoreLink                       | The App store download URL for the product                                                                                                                                                      |
+| product:termsOfServiceURL                  | The URL for the webpage containing the Terms of Service for the product offering                                                                                                                |
+| product:termsOfServiceURL:{locale}         | Localized override URL for the webpage containing the Terms of Service for the product offering                                                                                                 |
+| product:termsOfServiceDownloadURL          | The URL for a downloadable version of the Terms of Service for the product offering, used in emails                                                                                             |
+| product:termsOfServiceDownloadURL:{locale} | Localized override URL for a downloadable version of the Terms of Service for the product offering, used in emails                                                                              |
+| product:privacyNoticeURL                   | The URL for the webpage containing the Privacy Notice for the product offering                                                                                                                  |
+| product:privacyNoticeURL:{locale}          | Localized override URL for the webpage containing the Privacy Notice for the product offering                                                                                                   |
+| product:privacyNoticeDownloadURL           | The URL for a downloadable version of the Privacy Notice for the product offering                                                                                                               |
+| product:privacyNoticeDownloadURL:{locale}  | Localized override URL a downloadable version of the Privacy Notice for the product offering                                                                                                    |
 
 ###### Product Metadata defaults
 
@@ -104,10 +104,10 @@ Some of the metadata properties listed above [have defaults][product-details-def
 
 ##### Subscription Metadata
 
-| Key              | Value                                                                |
-| ---------------- | -------------------------------------------------------------------- |
-| previous_plan_id | The value of the previous plan that the user had been subscribed to. |
-| plan_change_date | Unix timestamp of the date the plan was changed.                     |
+| Key                       | Value                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| previous_plan_id          | The value of the previous plan that the user had been subscribed to.                           |
+| plan_change_date          | Unix timestamp of the date the plan was changed.                                               |
 | cancelled_for_customer_at | Unix timestamp of the date when the subscription was cancelled for the customer through FxA UI |
 
 ## Navigating the Payment Flow
@@ -165,3 +165,61 @@ endpoints][]. Stripe updates are sent back to the Auth Server via Stripe webhook
 users subscription has been created/updated/deleted.
 
 [subscription endpoints]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#subscriptions
+
+## Ladder Diagrams of Payment Interactions
+
+### PayPal Checkout
+
+Conditions for this flow:
+
+- User has no payment source on file, or is a new customer.
+- User clicks the displayed [PayPal Smart Button](https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons) to pay with PayPal.
+
+This diagram represents the activity after the PayPal button is clicked.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant B as Browser
+  participant A as FxA Auth Server
+  participant P as PayPal
+  participant S as Stripe
+
+  Note over B: Code run by createOrder callback to provide Checkout Token.
+  opt Customer hasn't been created
+  B->>A: POST /oauth/subscriptions/customer
+  A->>S: Create Customer
+  S->>A: Customer Response
+  Note over A: Stripe customer id linked to user.
+  A->>B: Customer Record
+  end
+  B->>A: POST /oauth/subscription/paypal-checkout
+  A->>P: SetExpressCheckout
+  P->>A: Checkout Token
+  A->>B: Checkout Token
+
+  Note over B: PayPal Popup for User to confirm
+  Note over B: User confirms, code run by onApprove
+  Note over B: Display 'Processing' Message
+  B->>A: POST /oauth/subscription/active/new
+  A->>P: CreateBillingAgreement
+  P->>A: Billing Agreement Response
+  Note over A: Store Billing Agreement ID in Db.
+  A->>S: Update customer metadata w/PayPal Billing Agreement ID
+  A->>S: Create subscription
+  Note over S: Invoice created
+  S->>A: Customer update response
+  S->>A: Subscription create response
+  A->>S: Finalize invoice w/auto_advance false
+  A->>P: DoReferenceTransaction
+  S->>A: Invoice finalize response
+  P->>A: Transaction response
+  A->>S: Update invoice w/PayPal Transaction ID
+  A->>S: Pay invoice out-of-band
+  S->>A: Update response
+  S->>A: Invoice pay response
+  A->>B: Subscription created response
+
+  B->>B: Redirect to Success page
+
+```
