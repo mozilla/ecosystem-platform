@@ -174,7 +174,60 @@ a user's subscription that are linked from the Settings page.</p>
 <p>FxA's Auth Server makes Stripe API calls for authenticated FxA users via its <a href="https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#subscriptions">subscription
 endpoints</a>. Stripe updates are sent back to the Auth Server via Stripe webhooks when a
 users subscription has been created/updated/deleted.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/vscode-development"><span class="arrow-prev">← </span><span class="function-name-prevnext">Using VS Code with FxA</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-email"><span>Processing Email</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#getting-started">Getting Started</a><ul class="toc-headings"><li><a href="#pre-development">Pre-Development</a></li><li><a href="#configuration">Configuration</a></li></ul></li><li><a href="#navigating-the-payment-flow">Navigating the Payment Flow</a></li><li><a href="#understanding-subscription-status">Understanding Subscription Status</a><ul class="toc-headings"><li><a href="#stripe-radar-and-payment-blocking">Stripe Radar and Payment Blocking</a></li></ul></li><li><a href="#interactions-with-stripe">Interactions with Stripe</a><ul class="toc-headings"><li><a href="#payments-server">Payments Server</a></li><li><a href="#auth-server">Auth Server</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
+<h2><a class="anchor" aria-hidden="true" id="ladder-diagrams-of-payment-interactions"></a><a href="#ladder-diagrams-of-payment-interactions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ladder Diagrams of Payment Interactions</h2>
+<h3><a class="anchor" aria-hidden="true" id="paypal-checkout"></a><a href="#paypal-checkout" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PayPal Checkout</h3>
+<p>Conditions for this flow:</p>
+<ul>
+<li>User has no payment source on file, or is a new customer.</li>
+<li>User clicks the displayed <a href="https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons">PayPal Smart Button</a> to pay with PayPal.</li>
+</ul>
+<p>This diagram represents the activity after the PayPal button is clicked.</p>
+<pre><code class="hljs css language-mermaid">sequenceDiagram
+  autonumber
+  participant <span class="hljs-type">B</span> <span class="hljs-keyword">as</span> <span class="hljs-type">Browser</span>
+  participant <span class="hljs-type">A</span> <span class="hljs-keyword">as</span> <span class="hljs-type">FxA</span> <span class="hljs-type">Auth</span> <span class="hljs-type">Server</span>
+  participant <span class="hljs-type">P</span> <span class="hljs-keyword">as</span> <span class="hljs-type">PayPal</span>
+  participant <span class="hljs-type">S</span> <span class="hljs-keyword">as</span> <span class="hljs-type">Stripe</span>
+
+  <span class="hljs-type">Note</span> over <span class="hljs-type">B</span>: <span class="hljs-type">Code</span> run by createOrder callback <span class="hljs-keyword">to</span> provide <span class="hljs-type">Checkout</span> <span class="hljs-type">Token</span>.
+  opt <span class="hljs-type">Customer</span> hasn't been created
+  <span class="hljs-type">B</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">POST</span> /oauth/subscriptions/customer
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Create</span> <span class="hljs-type">Customer</span>
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Customer</span> <span class="hljs-type">Response</span>
+  <span class="hljs-type">Note</span> over <span class="hljs-type">A</span>: <span class="hljs-type">Stripe</span> customer id linked <span class="hljs-keyword">to</span> user.
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">B</span>: <span class="hljs-type">Customer</span> <span class="hljs-type">Record</span>
+  <span class="hljs-keyword">end</span>
+  <span class="hljs-type">B</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">POST</span> /oauth/subscription/paypal-checkout
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">P</span>: <span class="hljs-type">SetExpressCheckout</span>
+  <span class="hljs-type">P</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Checkout</span> <span class="hljs-type">Token</span>
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">B</span>: <span class="hljs-type">Checkout</span> <span class="hljs-type">Token</span>
+
+  <span class="hljs-type">Note</span> over <span class="hljs-type">B</span>: <span class="hljs-type">PayPal</span> <span class="hljs-type">Popup</span> <span class="hljs-keyword">for</span> <span class="hljs-type">User</span> <span class="hljs-keyword">to</span> confirm
+  <span class="hljs-type">Note</span> over <span class="hljs-type">B</span>: <span class="hljs-type">User</span> confirms, code run by onApprove
+  <span class="hljs-type">Note</span> over <span class="hljs-type">B</span>: <span class="hljs-type">Display</span> <span class="hljs-symbol">'Processing'</span> <span class="hljs-type">Message</span>
+  <span class="hljs-type">B</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">POST</span> /oauth/subscription/active/<span class="hljs-keyword">new</span>
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">P</span>: <span class="hljs-type">CreateBillingAgreement</span>
+  <span class="hljs-type">P</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Billing</span> <span class="hljs-type">Agreement</span> <span class="hljs-type">Response</span>
+  <span class="hljs-type">Note</span> over <span class="hljs-type">A</span>: <span class="hljs-type">Store</span> <span class="hljs-type">Billing</span> <span class="hljs-type">Agreement</span> <span class="hljs-type">ID</span> <span class="hljs-keyword">in</span> <span class="hljs-type">Db</span>.
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Update</span> customer metadata w/<span class="hljs-type">PayPal</span> <span class="hljs-type">Billing</span> <span class="hljs-type">Agreement</span> <span class="hljs-type">ID</span>
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Create</span> subscription
+  <span class="hljs-type">Note</span> over <span class="hljs-type">S</span>: <span class="hljs-type">Invoice</span> created
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Customer</span> update response
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Subscription</span> create response
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Finalize</span> invoice w/auto_advance <span class="hljs-literal">false</span>
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">P</span>: <span class="hljs-type">DoReferenceTransaction</span>
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Invoice</span> finalize response
+  <span class="hljs-type">P</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Transaction</span> response
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Update</span> invoice w/<span class="hljs-type">PayPal</span> <span class="hljs-type">Transaction</span> <span class="hljs-type">ID</span>
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">S</span>: <span class="hljs-type">Pay</span> invoice out-<span class="hljs-keyword">of</span>-band
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Update</span> response
+  <span class="hljs-type">S</span>-&gt;&gt;<span class="hljs-type">A</span>: <span class="hljs-type">Invoice</span> pay response
+  <span class="hljs-type">A</span>-&gt;&gt;<span class="hljs-type">B</span>: <span class="hljs-type">Subscription</span> created response
+
+  <span class="hljs-type">B</span>-&gt;&gt;<span class="hljs-type">B</span>: <span class="hljs-type">Redirect</span> <span class="hljs-keyword">to</span> <span class="hljs-type">Success</span> page
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/vscode-development"><span class="arrow-prev">← </span><span class="function-name-prevnext">Using VS Code with FxA</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-email"><span>Processing Email</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#getting-started">Getting Started</a><ul class="toc-headings"><li><a href="#pre-development">Pre-Development</a></li><li><a href="#configuration">Configuration</a></li></ul></li><li><a href="#navigating-the-payment-flow">Navigating the Payment Flow</a></li><li><a href="#understanding-subscription-status">Understanding Subscription Status</a><ul class="toc-headings"><li><a href="#stripe-radar-and-payment-blocking">Stripe Radar and Payment Blocking</a></li></ul></li><li><a href="#interactions-with-stripe">Interactions with Stripe</a><ul class="toc-headings"><li><a href="#payments-server">Payments Server</a></li><li><a href="#auth-server">Auth Server</a></li></ul></li><li><a href="#ladder-diagrams-of-payment-interactions">Ladder Diagrams of Payment Interactions</a><ul class="toc-headings"><li><a href="#paypal-checkout">PayPal Checkout</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js" type="application/javascript"></script><script>
         mermaid.initialize({
             startOnReady: true,
             theme: 'forest',
