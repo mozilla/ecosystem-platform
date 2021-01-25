@@ -11,8 +11,11 @@ class Footer extends React.Component {
   render() {
     return (
       <footer>
-        <img src='/ecosystem-platform/img/mozilla-logo.png' height='24' />
-        <script src='https://unpkg.com/mermaid@8.4.2/dist/mermaid.min.js' type="application/javascript" />
+        <img src="/ecosystem-platform/img/mozilla-logo.png" height="24" />
+        <script
+          src="https://unpkg.com/mermaid@8.9.0/dist/mermaid.min.js"
+          type="application/javascript"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
