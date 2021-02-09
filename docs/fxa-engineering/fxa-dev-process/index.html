@@ -342,8 +342,17 @@ drop the now-unused old column.</li>
 <li>Android Current Version (Android WebView)</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="deployment-documentation"></a><a href="#deployment-documentation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deployment Documentation</h2>
-<p>We maintain a <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">private deployment document</a> to keep track of any configuration changes, any database changes, etc.  <strong>Anything that needs to be done aside from deploying updated code should be tracked in this document.</strong>  If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.</p>
-<p>Additionally, we should notify our relying parties if we're going to change APIs or configuration details if we can (ie. it may not be prudent if we're changing a configuration variable in response to a security incident).  These notifications should be sent to the <a href="https://mail.mozilla.org/listinfo/fxacct-notices">fxacct-notices list</a> with enough time for relying parties to adjust their code or reply with any concerns.</p>
+<p>We maintain a <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">private deployment document</a> to keep track of
+any configuration changes, any database changes, etc.  <strong>Anything that needs to
+be done aside from deploying updated code should be tracked in this document.</strong>
+If your patch needs any additional changes or config you are responsible for
+putting those notes in this document before the train ends.</p>
+<p>Additionally, we should notify our relying parties if we're going to change
+APIs or configuration details if we can (ie. it may not be prudent if we're
+changing a configuration variable in response to a security incident).  These
+notifications should be sent to the <a href="https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices">firefox-accounts-notices
+group</a> with enough time for relying parties to adjust
+their code or reply with any concerns.</p>
 <h2><a class="anchor" aria-hidden="true" id="security-issues"></a><a href="#security-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Security issues</h2>
 <p>Since most of our work happens in the open, we need special procedures
 for dealing with security-sensitive issues that must be fixed in production
