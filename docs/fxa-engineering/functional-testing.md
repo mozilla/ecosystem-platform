@@ -4,7 +4,7 @@ title: Functional/Selenium Tests
 sidebar_label: Functional/Selenium Tests
 ---
 
-Current as of `December 12th, 2019`
+Current as of `March 11th, 2021`
 
 End to end testing of the entire FxA ecosystem is provided by a [comprehensive suite of Selenium tests](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional) in the fxa-content-server package. Tests can be run by going to the content-server package directory and typing:
 
@@ -12,7 +12,9 @@ End to end testing of the entire FxA ecosystem is provided by a [comprehensive s
 $ npm run test-functional
 ```
 
-The full set of functional tests is run on [CircleCI on every checkin](./fxa-tests-circleci) and on [TeamCity](https://tc-test.dev.lcip.org/) every time a pull request is merged to main.
+The full set of functional tests is run on [CircleCI](./fxa-tests-circleci) on every checkin and every time a pull request is merged to main.
+This full set consist of a smoke test suite(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_smoke) which runs the high priority test cases first and upon success the full suite of regression tests(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_regression) are run. If there is a failure in the smoke test suite, the regression suite won't be run until the failures have been fixed.
+There is also a notification system in place for when these failures occur to alert the FxA team via Slack messaging.
 
 [The Intern](https://theintern.io/) library is used to run the tests, which itself is a wrapper around the [Leadfoot](https://theintern.io/docs.html#Leadfoot/2/api/Command) WebDriver library.
 
@@ -324,7 +326,7 @@ This is far and away the number one reason why functional tests fail. Always rem
 that Selenium will run tests as fast as they possibly can, it's not like a real user
 sitting in front of a computer where it takes time to type or move the mouse. Also keep
 in mind that testing locally does not incur network latency. Finally, tests run on
-CircleCI and TeamCity are run in virtual machines, backend requests and even the
+CircleCI are run in virtual machines, backend requests and even the
 test runner are often an order of magnitude slower than local machines.
 
 One of the most common problems is clicking on a submit button and then immediately
