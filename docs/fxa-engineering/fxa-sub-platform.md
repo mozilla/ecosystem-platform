@@ -78,6 +78,7 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | product:privacyNoticeURL:{locale}          | Localized override URL for the webpage containing the Privacy Notice for the product offering                                                                                                   |
 | product:privacyNoticeDownloadURL           | The URL for a downloadable version of the Privacy Notice for the product offering                                                                                                               |
 | product:privacyNoticeDownloadURL:{locale}  | Localized override URL a downloadable version of the Privacy Notice for the product offering                                                                                                    |
+| support:app:{x}                            | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.|
 
 ###### Product Metadata defaults
 
