@@ -72,12 +72,10 @@ If you are using a new Stripe account, you will need to setup a product and its 
 | product:appStoreLink                       | The App store download URL for the product                                                                                                                                                      |
 | product:termsOfServiceURL                  | The URL for the webpage containing the Terms of Service for the product offering                                                                                                                |
 | product:termsOfServiceURL:{locale}         | Localized override URL for the webpage containing the Terms of Service for the product offering                                                                                                 |
-| product:termsOfServiceDownloadURL          | The URL for a downloadable version of the Terms of Service for the product offering, used in emails                                                                                             |
-| product:termsOfServiceDownloadURL:{locale} | Localized override URL for a downloadable version of the Terms of Service for the product offering, used in emails                                                                              |
+| product:termsOfServiceDownloadURL          | The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. It can be either a) full, direct URL to a PDF (e.g. https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf), or, b) a URL without the language and file extension (e.g. https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos). See the "Legal Document Download URL Metadata" section below for more information. |
 | product:privacyNoticeURL                   | The URL for the webpage containing the Privacy Notice for the product offering                                                                                                                  |
 | product:privacyNoticeURL:{locale}          | Localized override URL for the webpage containing the Privacy Notice for the product offering                                                                                                   |
-| product:privacyNoticeDownloadURL           | The URL for a downloadable version of the Privacy Notice for the product offering                                                                                                               |
-| product:privacyNoticeDownloadURL:{locale}  | Localized override URL a downloadable version of the Privacy Notice for the product offering                                                                                                    |
+| product:privacyNoticeDownloadURL           | The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.                                         |
 | support:app:{x}                            | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.|
 
 ###### Product Metadata defaults
@@ -102,6 +100,18 @@ Some of the metadata properties listed above [have defaults][product-details-def
 ```
 
 [product-details-defaults]: https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/subscriptions/metadata.ts#L14
+
+###### Legal Document Download URL Metadata
+
+For the legal document download URL metadata,
+`product:termsOfServiceDownloadURL` and `product:privacyNoticeDownloadURL`,
+they can be in the form of an incomplete URL, as they will be handled by a
+redirect endpoint that tries to best match the user's locale to a localized
+version of the document.  For example, if the value of
+`product:termsOfServiceDownloadURL` is
+'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos' and the user's
+locale is `de`, then the endpoint will redirect the user to
+https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf.
 
 ##### Subscription Metadata
 
