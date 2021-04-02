@@ -62,7 +62,7 @@
 <h3><a class="anchor" aria-hidden="true" id="i-am-the-release-owner-how-should-i-plan-my-sprint"></a><a href="#i-am-the-release-owner-how-should-i-plan-my-sprint" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>I am the Release Owner: How should I plan my Sprint?</h3>
 <p>If you are the designated Release owner, consider the following suggestions to managing your work and the release:</p>
 <ul>
-<li>When taking on work for the sprint, allocate at least half of your time to release management duties.</li>
+<li>When taking on work for the sprint, allocate a portion of each day to release management duties - particular as the end of the sprint nears.</li>
 <li>Take some time a day or two before tagging is scheduled to reach out to individual team members to check-in on in-progress or to-do work items. This might result in you taking on additional work performing reviews or reaching out to the appropriate people.
 <ul>
 <li>Things to consider asking:
@@ -113,7 +113,6 @@
 <li><p>Ensure that any configuration changes noted in the deployment bug land in <a href="https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa">cloudops-deployment</a>.</p></li>
 <li><p>Run any outstanding database migrations.  These are applied automatically for <code>dev</code> and <code>stage</code> but are reviewed manually for production since we may need to take care with the changes to avoid slow queries.  The migrations should be included in the <a href="https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit">deployment doc</a>.</p></li>
 <li><p>Build fxa-auth, fxa-content, fxa-oauth, fxa-profile, fxa-verifier in stage on Jenkins using git commit from cloudops-deployment PR and docker images referenced in deploy bug</p></li>
-<li><p>Ensure that TeamCity tests are passing</p></li>
 <li><p>Request QA on stage (by posting in the bug)</p>
 <ol>
 <li><p>If major issues are found, a new patch is made and we’re back to step 3, running <code>release.sh patch</code></p>
