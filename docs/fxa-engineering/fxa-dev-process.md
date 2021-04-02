@@ -4,33 +4,19 @@ title: Development Process
 sidebar_label: Development Process
 ---
 
-We develop and deploy on a one-week cycle. Every Thursday we cut a release
-"Train" (ie. a Sprint) that goes through [deployment to stage and into
-production](release-process.md).
+We develop and deploy on a two-week cycle. Every other Thursday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process.md).
 
 ## Our weekly process
 
 ![A visual map of our weekly process](assets/fxa-schedule.png)
 
-Above is a diagram illustrating the high level FxA development process.  It
-does not represent all the work each group does, nor does it show every group
-that is critical to shipping Firefox Accounts.  It's intention is to give an
-idea of timeframes:
-* On Tuesday, after sign off from QA, the train is pushed to production
-* On Thursday, the Engineering team tags the current train and commits to a new
-  set of work for the next train.  The operations team pushes the newly tagged
-  train to our staging environment and the QA team starts to test it.
-* It's important to note that fixing regressions of the train on Stage is a
-  higher priority than fixing new Issues in the current train.  Depending on
-  the regression's severity it may be picked to Stage, picked to Production, or
-  just ride the train the following week.
+Above is a diagram illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  It's intention is to give an idea of timeframes:
+* Sprints are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
+* Fixing regressions of the train on Stage is a higher priority than fixing new issues in the current train.  Depending on the regression's severity it may be picked to Stage, picked to Production, or just ride the train the following week.
 
 ## Product Planning
 
-Product-level feature planning is currently managed via Epics in Jira.  Each
-feature goes through a comprehensive series of steps from defining and
-designing, to building and QA, to measuring changes and results, and finally
-closing the Epic.
+Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
 
 ## Issue management
 
@@ -43,66 +29,45 @@ Issue status is reflected by the following:
 * The Sprint (in Jira) indicates *when* we are working on the issue.
 * The Points (in Jira) indicate roughly *how complex* the issue is.
 
-Issues, labels, and assignee are synchronized automatically between GitHub and
-Jira (a delay of a minute or two).
+Issues, labels, and assignee are synchronized automatically between GitHub and Jira (a delay of a minute or two).
 
 We also have two relevant components in Bugzilla:
 * [Firefox :: Firefox Accounts][bugzilla-fxa]
 * [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server]
 
-These components are used to help coordinate between other projects using
-Bugzilla and for issues relating to security.  To automatically file a GitHub
-bug from Bugzilla, put `[fxa]` in the whiteboard.
+These components are used to help coordinate between other projects using Bugzilla and for issues relating to security.
 
-If you're wondering where to file a bug, unless it's a security bug, please
-file in Jira.
+If you're wondering where to file a bug, unless it's a security bug, please file in Jira.
 
 ### New Features
 
-New features are expected to be described in an Epic with supporting Tasks and
-User Stories (including acceptance criteria).
+New features are expected to be described thoroughly in an Epic with a description, acceptance criteria, and eventually supporting Tasks filed under it.
 
 ```mermaid
 graph TD
-A[Epic] --> B(User Story)
-A --> C(User Story)
+A[Epic] --> B(Task)
+A --> C(Task)
 A --> D(Task)
 A --> E(Bug)
 ```
-Generally, we can expect Epics to be written by the Product team.  Tasks and
-User Stories will likely be written by the Product and Engineering teams as
-they need to be broken down small enough to fit inside of a sprint.  [Learn
-more about user stories][moz-user-stories].
+Generally, we can expect Epics to be written by the Product team.  Tasks and will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit inside of a sprint.  [Learn more about user stories][moz-user-stories].
 
-As Tasks and Bugs pop up, they should be associated with open Epics as
-appropriate.
+As Tasks and Bugs pop up, they should be associated with open Epics as appropriate.
 
 ### Sprints
 
-Sprints are tracked in Jira.  There is a [dashboard for our current
-sprint][fxa-jira-dashboard] and a [detailed view of our current
-sprint][fxa-jira-sprint].
+Sprints are tracked in Jira.  There is a [dashboard for our current sprint][fxa-jira-dashboard] and a [detailed view of our current sprint][fxa-jira-sprint].
 
-The amount of work we can accomplish in a sprint depends on how many people are
-on the team, how much time those people can devote to the work, and what type
-of work it is.  Our [historical velocity is tracked][fxa-jira-velocity], but
-past performance is no guarantee of future results.
+The amount of work we can accomplish in a sprint depends on how many people are on the team, how much time those people can devote to the work, and what type of work it is.  Our [historical velocity is tracked][fxa-jira-velocity], but past performance is no guarantee of future results.
 
 When considering what you can accomplish in a sprint, remember:
-* FxA is a complex project with a lot of moving parts.  If you're not familiar
-  with the area, sometimes a simple patch can lead to a rabbit hole that soaks
-  up your time.
-* All patches are reviewed by another team member who also has their own
-  obligations that sprint.  Leave room in your schedule to review patches and
-  consider that others might not get to your patch immediately.
-* Some patches may require additional review from, for example, the operations,
-  security, localization, or data steward teams.  If that's the case it's
-  likely it won't land in the same sprint it's written in since our sprints are
-  pretty short.
+* FxA is a complex project with a lot of moving parts.  If you're not familiar with the area, sometimes a simple patch can lead to a rabbit hole that soaks up your time.
+* All patches are reviewed by another team member who also has their own obligations that sprint.  Leave room in your schedule to review patches and consider that others might not get to your patch immediately.
+* Some patches may require additional review from, for example, the operations, security, localization, or data steward teams.  If that's the case it may not land in the same sprint it is written in.
 
 #### How do we decide what to work on?
 
-We take input from many sources including our Product Management, our QA team, our customers (both relying parties and end users), and ourselves.  Usually this input is in the form of tickets filed in Jira.  We triage this input (described in [Bug Triage](#bug-triage)) to determine what is the most important thing to work on in the next sprint.  There are often special cases and reasons to work on things which may find their way into a sprint but for the most part in each Sprint we aim to close, in priority order:
+We take input from many sources including our Product Managers, our QA team, our customers (both relying parties and end users), and ourselves.  Usually this input is in the form of issues filed in Jira.  We triage this input (described in [Bug Triage](#bug-triage)) to determine what is the most important thing to work on in the next sprint.  There are often special cases and reasons to work on things which may find their way into a sprint but for the most part in each sprint we aim to close, in priority order:
 
 * Blocking bugs that have been found in our production site
 * Blocking bugs found in our staging site
@@ -110,9 +75,9 @@ We take input from many sources including our Product Management, our QA team, o
 * Any in-progress Epics
 * Starting on the next Epic (Epics are in priority order in Jira)
 
-In the midst of that workflow bugs will be reported and found.  If they are important we'll add them to the Sprint.  If they are part of an Epic we're actively working on, we'll add them to that Epic (and thus, they will be closed in short order).  If they aren't a high priority, they'll be put in the backlog.  Occasionally we may take a sprint and work on only bugs to help reduce our backlog.
+In the midst of our regular process workflow bugs will be reported and found.  If they are important we'll add them to the sprint.  If they are part of an epic we're actively working on, we'll add them to that epic (and thus, they will be closed in short order).  If they aren't a high priority, they'll be put in the backlog.  Occasionally we may take a sprint and work on only bugs to help reduce our backlog.
 
-As of late, we've split into two groups of people working on two Epics in parallel.  This is a good balance between throughput and working as a team.  Having more people work on fewer things means:
+We try to work on things as a team (vs individually).  Having more people work on fewer things means:
 
 * It's easier to find a reviewer for code you write (and less context switching for everyone involved)
 * It's easier to find someone with enough context to work through hard questions like architecture design
@@ -122,8 +87,7 @@ As of late, we've split into two groups of people working on two Epics in parall
 
 ### Bug Triage
 
-Triage owners rotate throughout the team and we assign new triage owners every
-week in our meetings.  The triage owner is responsible for:
+Triage owners rotate throughout the team and we assign new triage owners in our meetings.  The triage owner is responsible for:
 
 * Triaging any new issues in Jira
 * Triaging any new issues in Sentry
@@ -131,91 +95,64 @@ week in our meetings.  The triage owner is responsible for:
 The goals of our triage rotation are:
 
 * Triaging issues, watching Sentry, understanding general user
-  sentiment/feedback is a shared team responsibility instead of a burden on 1
-  or 2 engineers
-* Knowledge sharing of different areas - a triage owner may not be the expert on
-  the topic and would reach out for help and learn from the process.
+  sentiment/feedback is a shared team responsibility instead of a burden on 1 or 2 engineers
+* Knowledge sharing of different areas - a triage owner may not be the expert on the topic and would reach out for help and learn from the process.
 * Users stay top-of-mind
-* 0 untriaged issues by the end of the triage cycle - before handover to the
-  next person
-  * But it’s OK to be untriaged before the meeting at the end of the cycle -
-    those issues are discussed and triaged at that meeting.
+* 0 untriaged issues by the end of the triage cycle - before handover to the next person
+  * But it’s OK to be untriaged before the meeting at the end of the cycle - those issues are discussed and triaged at that meeting.
 
 #### Triage Process
 
-* The triage owner updates the team on any significant issues or findings
-  during usual meetings
-* The triage owner provides a short summary at our team meeting the week
-  following their triage week
+* The triage owner updates the team on any significant issues or findings during our usual meetings
+* The triage owner provides a short summary at our team meeting the week following their triage week
 
 #### How to triage
 
-In all cases, a call needs to be made about urgency. It’s fine to not be sure!
-If it seems urgent, the issue should remain untriaged, which should force it to
-be raised in our team meetings.
+In all cases, a call needs to be made about urgency. It’s fine to not be sure!  If it seems urgent, the issue should remain untriaged, which should force it to be raised in our team meetings.
 
-Jira is the canonical source of truth for how we track our own work, but bugs
-may come in through several other systems that have their own requirements.
+Jira is the canonical source of truth for how we track our own work, but bugs may come in through several other systems that have their own requirements.
 
 ##### Errors/Issues/Work Requests/etc reported in Slack
 
-* If someone reports something to our team in Slack - 1st person to see //
-  respond should file a bug in Jira and add the link to the slack conversation
-  so we know it will be addressed not dropped.
-* Item is then triaged as normal when you get to "Jira Issues" below.
+* If someone reports something to our team in Slack the 1st person to see and respond should file a bug in Jira and add the link to the slack conversation so we know it will be addressed and not dropped.
+* The item is then triaged as normal when you get to "Jira Issues" below.
 
 ##### Sentry
-* Sentry issues which may be of concern should have corresponding issues opened
-  in Jira, with a link to the Sentry report and a brief description. If you are
-  unsure whether a report is of concern or not, assume it is (ie, open an issue
+* Sentry issues which may be of concern should have corresponding issues opened in Jira, with a link to the Sentry report and a brief description. If you are unsure whether a report is of concern or not, assume it is (ie, open an issue
   anyway).
-* We should monitor our production instances closely as well as keep an eye out
-  on stage for new issues exposed by QA.  There are many projects in the #fxa
-  group on Sentry.
-* For reports that seem worth following up on, create a corresponding issue in
-  Jira.
-* In the right-hand sidebar of the sentry issue, there is a "Link to Github
-  Issue" button. This can be an easy way to file an issue that will eventually
-  be mirrored into Jira.  Otherwise make an issue manually.
+* We should monitor our production instances closely as well as keep an eye out on stage for new issues exposed by QA.  There are many projects in the #fxa group on Sentry.
+* For reports that seem worth following up on, create a corresponding issue in Jira.
+* In the right-hand sidebar of the sentry issue, there is a "Link to Github Issue" button. This can be an easy way to file an issue that will eventually be mirrored into Jira.  Otherwise make an issue manually.
   * Issues created from this process will then be triaged as normal in Jira.
 
 ##### Jira Issues:
-All of the steps above should have produced issues that make their way into
-Jira, so now we can look at an overview of all the things that are our
-responsibility.
+All of the steps above should have produced issues that make their way into Jira, so now we can look at an overview of all the things that are our responsibility.
 
-Triage [this Jira incoming issues query][fxa-jira-backlog] - only the issues
-under “Backlog” need triage.
+Triage [this Jira incoming issues query][fxa-jira-backlog] - only the issues under “Backlog” need triage.
 
 * Some guidance for fields to change:
   * New issues default to Tasks, but is this a Bug instead (that is, a defect)?
-    * If it’s a bug, change the `Type` to `Bug` and set the `Found In` field to an
-      appropriate value
+    * If it’s a bug, change the `Type` to `Bug` and set:
+      * The `Found In` field to an appropriate value
+      * The `Severity` field to an appropriate value
   * Is it tied to one of the epics we have filed?
     * Update the `Epic Link` field
   * Does it require UX guidance?
     * Set `needsux` as a label
   * Does it require a Product Manager?
     * Set `needsproduct` as a label
-  * Check if there is an appropriate component.  Our most common one is Code Quality.
+  * If it is about improving our code quality add the `code_quality` label.
   * Consider adding a helpful comment!
 
-As you triage the issues move them into "To Do" (or close them).  Repeat for
-the rest of the issues in the Backlog.
+As you triage the issues move them into "To Do" (or close them).  Repeat for the rest of the issues in the Backlog.
 
-When you’re all finished, write a quick summary including any of the open
-issues you need help with and put a comment in #fxa-team.
+When you’re all finished, write a quick summary including any of the open issues you need help with and put a comment in #fxa-team.
 
 
 ## Estimation and Point Values
-Points are assigned to issues in Jira (ideally before starting work 😉) so that
-we can track our velocity over time, which aids in planning.
+Points are assigned to issues in Jira (ideally before starting work 😉) so that we can track our velocity over time, which aids in planning.
 
-The goal of estimation is for us to assess the issue in terms of its relative
-complexity, effort, and doubt. When applying an estimate, we should consider
-all the steps in getting the particular work to a completed (ready for
-production) state for our consumer. The should include effort required for code
-reviews, security reviews, testing, integration and build/deploy.
+The goal of estimation is for us to assess the issue in terms of its relative complexity, effort, and doubt. When applying an estimate, we should consider all the steps in getting the particular work to a completed (ready for production) state for our consumer. The should include effort required for code reviews, security reviews, testing, integration and build/deploy.
 
 | Points | Relative Size | Description                                                                | Review Time | Examples |
 | ------ | ------------- | -------------------------------------------------------------------------- | ----------- | -------- |
@@ -230,27 +167,16 @@ reviews, security reviews, testing, integration and build/deploy.
 
 ## Checkin Meetings
 
-The team meets regularly to stay in sync about development status and ensure
-nothing is falling through the cracks.  During meetings we take notes and
-afterward we send a summary of each meeting to an appropriate mailing list.
+The team meets regularly to stay in sync about development status and ensure nothing is falling through the cracks.  During meetings we take notes in a central document that anyone in the meeting can reference.
 
 Please see our [project calendar][fxa-calendar] for details.
 
 ## Developing on a long running branch
 
-If a branch will survive beyond a couple of days its important to have a bit of
-strategy so as to avoid merging frustrations for yourself and your team.  If
-possible you should use other options like feature flags, but sometimes a
-branch is the best way to go.  Ask your team if you're unsure.  If you need to
-use a branch, please keep in mind:
-* Your team won't be keeping up with what is landing on the branch.  Regular
-  communication and/or demos of where you are at and where you are going can
-  help keep your changes in peoples' minds.
-* You should rebase against main often to avoid a giant headache when you
-  eventually merge
-* Consider creating new components instead of editing old ones if you have
-  extensive enough changes.  This way it's a very small change to flip from one
-  to the other instead of trying to merge.
+If a branch will survive beyond a couple of days its important to have a bit of strategy so as to avoid merging frustrations for yourself and your team.  If possible you should use other options like feature flags, but sometimes a branch is the best way to go.  Ask your team if you're unsure.  If you need to use a branch, please keep in mind:
+* Your team won't be keeping up with what is landing on the branch.  Regular communication and/or demos of where you are at and where you are going can help keep your changes in peoples' minds.
+* You should rebase against main often to avoid a giant headache when you eventually merge
+* Consider creating new components instead of editing old ones if you have extensive enough changes.  This way it's a very small change to flip from one to the other instead of trying to merge.
 
 ## Code Review
 
@@ -270,10 +196,7 @@ Here are some handy questions and things to consider when reviewing code for Fir
 * Does it display user-controlled data?
     * It must be appropriately escaped, e.g. htmlescaped before being inserted into web content.
 * Does it involve a database schema migration?
-    * The changes must be backwards-compatible with the previous deployed version.  This means
-      that you can't do something like `ALTER TABLE CHANGE COLUMN` in a single deployment, but
-      must split it into two: one to add the new column and start using it, and second to
-      drop the now-unused old column.
+    * The changes must be backwards-compatible with the previous deployed version.  This means that you can't do something like `ALTER TABLE CHANGE COLUMN` in a single deployment, but must split it into two: one to add the new column and start using it, and second to drop the now-unused old column.
     * Does it contain any long-running statements that might lock tables during deployment?
     * Can the changes be rolled back without data loss or a service outage?
     * Has the canonical db schema been kept in sync with the patch files?
@@ -299,47 +222,30 @@ Firefox Accounts must work in the following environments:
 - Android Current Version (Android WebView)
 
 ## Deployment Documentation
-We maintain a [private deployment document][fxa-deploy-doc] to keep track of
-any configuration changes, any database changes, etc.  **Anything that needs to
-be done aside from deploying updated code should be tracked in this document.**
-If your patch needs any additional changes or config you are responsible for
-putting those notes in this document before the train ends.
+We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**
+If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
 
-Additionally, we should notify our relying parties if we're going to change
-APIs or configuration details if we can (ie. it may not be prudent if we're
-changing a configuration variable in response to a security incident).  These
-notifications should be sent to the [firefox-accounts-notices
-group][firefox-accounts-notices] with enough time for relying parties to adjust
-their code or reply with any concerns.
+Additionally, we should notify our relying parties if we're going to change APIs or configuration details if we can (ie. it may not be prudent if we're changing a configuration variable in response to a security incident).  These notifications should be sent to the [firefox-accounts-notices group][firefox-accounts-notices] with enough time for relying parties to adjust their code or reply with any concerns.
 
 ## Security issues
 
-Since most of our work happens in the open, we need special procedures
-for dealing with security-sensitive issues that must be fixed in production
-before being made visible to the public.
+Since most of our work happens in the open, we need special procedures for dealing with security-sensitive issues that must be fixed in production before being made visible to the public.
 
-We use private bugzilla bugs for tracking security-related issues,
-because this allows us to manage visibility for other stakeholders at Mozilla
-while maintaining confidentiality.
+We use private bugzilla bugs for tracking security-related issues, because this allows us to manage visibility for other stakeholders at Mozilla while maintaining confidentiality.
 
-We use private github repos for developing security fixes
-and tagging security-related releases.
+We use private github repos for developing security fixes and tagging security-related releases.
 
 ### Filing security issues
 
-If you believe you have found a security-sensitive issue with any part of the
-Firefox Accounts service, please file it as confidential security bug in
-Bugzilla via this link:
+If you believe you have found a security-sensitive issue with any part of the Firefox Accounts service, please file it as confidential security bug in Bugzilla via this link:
 
 * [File a security-sensitive FxA bug][fxa-security-bug]
 
-The Firefox Accounts service is part of Mozilla's [bug bounty program][moz-bug-bounty],
-which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
+The Firefox Accounts service is part of Mozilla's [bug bounty program][moz-bug-bounty], which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
 
 ### Making a private point-release
 
-We maintain the following private github repo that can be used for making
-security-related point-releases
+We maintain the following private github repo that can be used for making security-related point-releases
 
 * https://github.com/mozilla/fxa-private
 

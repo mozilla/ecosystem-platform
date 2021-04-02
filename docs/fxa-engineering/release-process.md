@@ -14,7 +14,7 @@ The main purpose of the release owner is to follow the "Releasing Code" process 
 ### I am the Release Owner: How should I plan my Sprint? 
 If you are the designated Release owner, consider the following suggestions to managing your work and the release:
 
-* When taking on work for the sprint, allocate at least half of your time to release management duties.
+* When taking on work for the sprint, allocate a portion of each day to release management duties - particular as the end of the sprint nears.
 * Take some time a day or two before tagging is scheduled to reach out to individual team members to check-in on in-progress or to-do work items. This might result in you taking on additional work performing reviews or reaching out to the appropriate people.
     * Things to consider asking:
         * Are there any tasks that need to be in the train? Are any of them in jeopardy?
@@ -65,8 +65,6 @@ If you are the designated Release owner, consider the following suggestions to m
 1. Run any outstanding database migrations.  These are applied automatically for `dev` and `stage` but are reviewed manually for production since we may need to take care with the changes to avoid slow queries.  The migrations should be included in the [deployment doc][deployment-doc].
 
 1. Build fxa-auth, fxa-content, fxa-oauth, fxa-profile, fxa-verifier in stage on Jenkins using git commit from cloudops-deployment PR and docker images referenced in deploy bug
-
-1. Ensure that TeamCity tests are passing
 
 1. Request QA on stage (by posting in the bug)
 
