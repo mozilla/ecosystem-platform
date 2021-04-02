@@ -104,12 +104,10 @@
 <tr><td>product:appStoreLink</td><td>The App store download URL for the product</td></tr>
 <tr><td>product:termsOfServiceURL</td><td>The URL for the webpage containing the Terms of Service for the product offering</td></tr>
 <tr><td>product:termsOfServiceURL:{locale}</td><td>Localized override URL for the webpage containing the Terms of Service for the product offering</td></tr>
-<tr><td>product:termsOfServiceDownloadURL</td><td>The URL for a downloadable version of the Terms of Service for the product offering, used in emails</td></tr>
-<tr><td>product:termsOfServiceDownloadURL:{locale}</td><td>Localized override URL for a downloadable version of the Terms of Service for the product offering, used in emails</td></tr>
+<tr><td>product:termsOfServiceDownloadURL</td><td>The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <a href="https://accounts-static.cdn.mozilla.net">https://accounts-static.cdn.mozilla.net</a>. It can be either a) full, direct URL to a PDF (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf">https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf</a>), or, b) a URL without the language and file extension (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos">https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos</a>). See the &quot;Legal Document Download URL Metadata&quot; section below for more information.</td></tr>
 <tr><td>product:privacyNoticeURL</td><td>The URL for the webpage containing the Privacy Notice for the product offering</td></tr>
 <tr><td>product:privacyNoticeURL:{locale}</td><td>Localized override URL for the webpage containing the Privacy Notice for the product offering</td></tr>
-<tr><td>product:privacyNoticeDownloadURL</td><td>The URL for a downloadable version of the Privacy Notice for the product offering</td></tr>
-<tr><td>product:privacyNoticeDownloadURL:{locale}</td><td>Localized override URL a downloadable version of the Privacy Notice for the product offering</td></tr>
+<tr><td>product:privacyNoticeDownloadURL</td><td>The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.</td></tr>
 <tr><td>support:app:{x}</td><td>Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The <code>{x}</code> part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.</td></tr>
 </tbody>
 </table>
@@ -130,6 +128,16 @@
   <span class="hljs-attribute">privacyNoticeDownloadURL</span>:
     <span class="hljs-string">'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_privacy_notice/en-US.pdf'</span>,
 </code></pre>
+<h6><a class="anchor" aria-hidden="true" id="legal-document-download-url-metadata"></a><a href="#legal-document-download-url-metadata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Legal Document Download URL Metadata</h6>
+<p>For the legal document download URL metadata,
+<code>product:termsOfServiceDownloadURL</code> and <code>product:privacyNoticeDownloadURL</code>,
+they can be in the form of an incomplete URL, as they will be handled by a
+redirect endpoint that tries to best match the user's locale to a localized
+version of the document.  For example, if the value of
+<code>product:termsOfServiceDownloadURL</code> is
+'<a href="https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos'">https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos'</a> and the user's
+locale is <code>de</code>, then the endpoint will redirect the user to
+<a href="https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf">https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf</a>.</p>
 <h5><a class="anchor" aria-hidden="true" id="subscription-metadata"></a><a href="#subscription-metadata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Subscription Metadata</h5>
 <table>
 <thead>
