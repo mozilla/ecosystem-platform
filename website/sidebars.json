@@ -66,6 +66,7 @@
           "fxa-engineering/fxa-metrics",
           "fxa-engineering/fxa-localization",
           "fxa-engineering/fxa-jwt-access-tokens",
+          "fxa-engineering/fxa-scoped-keys",          
           "fxa-engineering/fxa-webchannel-protocol",
           "fxa-engineering/fxa-oauth-webchannel-protocol",
           "fxa-engineering/fxa-content-server-ab-testing",
