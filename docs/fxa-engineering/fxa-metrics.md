@@ -100,7 +100,7 @@ The Heka filter does some processing on the events and then writes them once-per
 The CSV files are then processed by python scripts in the `mozilla/fxa-activity-metrics` repo, running on the fxa-admin EC2 instance (managed by jrgm and jbuck):
 
 * https://github.com/mozilla/fxa-activity-metrics/
-* https://github.com/mozilla-services/cloudops-deployment/blob/master/projects/fxa/puppet/modules/fxa_admin/manifests/init.pp
+* https://github.com/mozilla-services/cloudops-deployment/blob/main/projects/fxa/puppet/modules/fxa_admin/manifests/init.pp
 
 The scripts import the data to a Redshift cluster managed by Ops, then expire old data.
 
@@ -127,7 +127,7 @@ The tables are visible in Redash, under the “FxA Activity Metrics” data sour
 
 Our Amplitude events are sent to a GCP pubsub queue from stackdriver, this stuff is managed by jbuck. We have a node script that listens to the queue and then sends the events to Amplitude:
 
-* https://github.com/mozilla/fxa-amplitude-send/blob/master/pubsub/index.js
+* https://github.com/mozilla/fxa-amplitude-send/blob/main/pubsub/index.js
 
 We manage to avoid any of the complicated batching logic recommended by some of the Amplitude documentation because our device ids for Amplitude are not persistent, they’re randomly-generated on every page load. So we don’t fall foul of the rate limits, except occasionally if there is some automated testing that thrashes a load of events in quick succession. There are issues open in the fxa repo about the device id thing, it was supposed to be a temporary measure but it’s been like that for years now so…
 
@@ -176,7 +176,7 @@ You don’t need to do this, it’s all set up to work automatically.
 # What other docs are there?
 * https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/metrics-events.md
 * https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/client-metrics.md
-* https://github.com/mozilla/application-services/blob/master/docs/product-portal/accounts/metrics.md
+* https://github.com/mozilla/application-services/blob/main/docs/metrics.md
 
 
 
