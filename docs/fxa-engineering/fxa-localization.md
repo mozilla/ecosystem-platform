@@ -172,7 +172,7 @@ Unlike the rest of the FxA translations that are held in gettext .po files, the 
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract_strings.sh
 [#extraction-cron-job]: https://github.com/mozilla/fxa-content-server-l10n/blob/b54413751c27964c8f6db9bc94904ffe50036c4c/.circleci/config.yml#L60
 [#fxa-pp-source]: https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_PrivacyNotice
-[#fxa-tos-source]: https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_ToS
+[#fxa-tos-source]: https://github.com/mozilla/legal-docs/blob/master/en/firefox_cloud_services_tos.md
 [#gettext-comment-extraction-2]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L2483
 [#gettext-comment-extraction]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L26
 [#gettext]: https://www.gnu.org/software/gettext/
