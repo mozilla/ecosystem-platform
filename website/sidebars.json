@@ -72,6 +72,7 @@
           "fxa-engineering/fxa-tests-circleci",
           "fxa-engineering/functional-testing",
           "fxa-engineering/fxa-content-server-architecture",
+          "fxa-engineering/fxa-session-tokens",
           "process/interruptive-surveys",
           "fxa-engineering/fxa-github"
         ]
