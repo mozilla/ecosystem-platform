@@ -1,0 +1,581 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>onepw Protocol · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# Firefox Accounts/Sync Protocol"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="onepw Protocol · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="# Firefox Accounts/Sync Protocol"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Topic Deep Dives</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/welcome">Welcome</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Platform</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Accounts</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-accounts/fxa-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-fxa">Integration with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/end-to-end-encryption">End-to-end Encryption</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/relying-parties/metrics-for-relying-parties">Metrics</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-accounts/pairing">Pairing authentication</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Subscription Platform</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/sub-plat/sub-plat-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/sub-plat/sub-plat-features">Subscription Features</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/integration-with-subscription-platform">Integration with Subscription Platform</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Push</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-push/push-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-push/push-design">Design, API&#x27;s, Error Codes</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-push/push-development">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-push/push-history">History</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Firefox Sync</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/sync-feature">Overview</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/password-management-feature">Password Management and Syncing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/bookmarks-feature">Bookmarks</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/storage-feature">Storage</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/history-feature">History</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/features/firefox-sync/account-management-feature">Account Management</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/becoming-a-sync-client">Becoming A Sync Client</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/sync-testing">Sync Testing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/using-the-staging-environment">Using the Staging Environment</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">For FxA Engineers</h3><ul class=""><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-dev-process">Development Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-work-breakdown-process">Work Breakdown Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/release-process">Release Process</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-api">Internal API Documentation</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-system-diagrams">FxA System Diagrams</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-logging">Application Logging</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/vscode-development">Using VS Code with FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-sub-platform">Subscription Platform</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Topic Deep Dives</h4><ul><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-email">Processing Email</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-metrics">Metrics</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-localization">Localization</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-jwt-access-tokens">JWT Access Tokens</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-scoped-keys">Scoped Keys</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-onepw-protocol">onepw Protocol</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-webchannel-protocol">WebChannels in Desktop &amp; Fennec</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-oauth-webchannel-protocol">WebChannels in Fenix &amp; WebExtensions</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-content-server-ab-testing">Experiments &amp; A/B testing</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-tests-circleci">Tests in CircleCI</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/functional-testing">Functional/Selenium Tests</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-content-server-architecture">Content-server architecture</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-session-tokens">Session Tokens</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/process/interruptive-surveys">Running Surveys in FxA</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-github">GitHub Strategies</a></li></ul></div><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-adr">Architectural Decision Records</a></li><li class="navListItem"><a class="navItem" href="/ecosystem-platform/docs/fxa-engineering/fxa-additional-docs">Additional Docs</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">onepw Protocol</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="firefox-accountssync-protocol"></a><a href="#firefox-accountssync-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Firefox Accounts/Sync Protocol</h1>
+<p>This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the <a href="https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server">FxA auth-server</a>. Clients use this protocol to prove their knowledge of the account password, for which they receive a <code>sessionToken</code>, which can be used to obtain a signed BrowserID certificate (which can be used to convince subsequent relying parties that they control the account). This protocol is also used to retrieve a pair of encryption keys (<code>kA</code> and <code>kB</code>) which will be used to encrypt Sync data.</p>
+<p>The protocol is designed to protect the user's data as best as possible given the design constraints (including the use of a single user password, and CPU+memory limitations of slow mobile clients). Other protocols will be introduced later, in environments that can handle them, to improve data protection further.</p>
+<p>Note that all messages are delivered over an HTTPS connection. The client browser may also implement cert-pinning to improve on the certificate validation process. The protections described below are in addition to those provided by TLS.</p>
+<p>This is the protocol used to manage FxA accounts and Sync clients for Firefox 29, due to be shipped in late April 2014. It replaces the J-PAKE -based pairing setup protocol that's been in use since Firefox 4.0.</p>
+<h1><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h1>
+<p>Clients have an email address and a password (which is never sent directly to the fxa-auth-server). A fairly simple protocol is used to prove knowledge of the password, which gives the client a session token that they can use later.</p>
+<p>A slightly more complex protocol is used to obtain the sync encryption keys.</p>
+<p>The server remembers several secrets per client. The main one is the &quot;verifier hash&quot;, which is used to test the client's knowledge of the account password. The other two secrets are <code>kA</code> and <code>wrap(wrap(kB))</code>: <code>kA</code> is the class-A sync key (for data which can be recovered through an email challenge link), and <code>wrap(wrap(kB))</code> is unwrapped by the client to get <code>kB</code> (for data which can only be recovered by knowledge of the password).</p>
+<p>Note that the class-A key is not currently used for any sync data.</p>
+<h2><a class="anchor" aria-hidden="true" id="client-side-key-stretching"></a><a href="#client-side-key-stretching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Client-Side Key Stretching</h2>
+<p>&quot;Key Stretching&quot; is the practice of running a password through a computationally-expensive one-way function before using it for encryption or authentication. The goal is to make brute-force dictionary attacks more expensive, by raising the cost of testing each guess.</p>
+<p>To protect the user's class-B data against a TLS-breaking eavesdropper or active compromise of our keyserver (so the attacker gets to see <code>authPW</code> as it is sent to the server), we perform some key stretching on the client. This makes it more difficult to brute-force the original password from <code>authPW</code>. To further improve protection against static compromise (where the attacker sees the stored <code>verifyHash</code> and <code>wrap(wrap(kB))</code> in the server's database), we do additional stretching on the server. For details about how this stretching is used to wrap keys, see <a href="#fetching-sync-keys">Fetching Sync Keys</a>, below.</p>
+<p>On the server, we use the memory-hard &quot;scrypt&quot; function (pronounced &quot;ess-crypt&quot;) for this purpose, as motivated by the attacker-cost studies in <a href="https://wiki.mozilla.org/Identity/CryptoIdeas/01-PBKDF-scrypt">Identity/CryptoIdeas/01-PBKDF-scrypt</a>.</p>
+<p>The goal is to ensure all values in the server's long-term storage will require at least the hard scrypt-based stretch to test each password guess. All values sent over the wire or temporarily held in server memory should require at least the weaker PBKDF stretch for each guess.</p>
+<h1><a class="anchor" aria-hidden="true" id="creating-the-account"></a><a href="#creating-the-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating The Account</h1>
+<p>The first act performed by a user is to create the account. They enter email+password into their browser, which then does the following steps:</p>
+<ul>
+<li>runs 1000 rounds of PBKDF2, using the email address as a salt, to produce &quot;quickStretchedPW&quot;</li>
+<li>feed quickStretchedPW into HKDF to obtain &quot;authPW&quot;</li>
+<li>deliver (email, authPW) to the keyserver's <code>POST /account/create</code> API</li>
+</ul>
+<p><img src="/ecosystem-platform/docs/assets/onepw-create.png" alt="Diagram of account creation flow"></p>
+<p>The server creates a random 32-byte <code>authSalt</code>, and uses it to stretch <code>authPW</code> further, using scrypt (64k/8/1), to derive <code>bigStretchedPW</code> and <code>verifyHash</code>. It then stores <code>authSalt</code> and <code>verifyHash</code> in the database.</p>
+<p>In addition, the server creates both <code>kA</code> and <code>wrap(wrap(kB))</code> as randomly-generated 256-bit (32-byte) strings. It stores these, along with all the remaining values, indexed by email, in the account table where they can be retrieved later.</p>
+<p>The <code>/account/create</code> call allocates and returns a <code>sessionToken</code> (described below), just as if the client had immediately performed a login. In addition, if the <code>/account/create</code> request path included a queryarg of <code>keys=true</code>, the call will allocate and return a <code>keyFetchToken</code> (also described below).</p>
+<p>To prevent fixation attacks, we require new accounts to verify their configured recovery email address before letting them learn the generated keys or obtain a signed certificate. The server will send email with a URL that contains a long random &quot;verification code&quot; in a query argument. This URL points to a static page with some javascript that submits the code to the <code>POST /account/recovery_methods/verify_code</code> API. The URL can be clicked by any browser (it is not bound to anything), and when the API is hit, the account is marked as verified.</p>
+<p>The account will issue sessionTokens and keyFetchTokens without email verification, but they cannot be used (for much) until verification is complete.</p>
+<h1><a class="anchor" aria-hidden="true" id="login-obtaining-the-sessiontoken"></a><a href="#login-obtaining-the-sessiontoken" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Login: Obtaining the sessionToken</h1>
+<p>To connect a browser to an existing account, we use the following login protocol to transform an email+password pair into a sessionToken. The sessionToken will be used in the next section to obtain signed certificates.</p>
+<p>This protocol starts by feeding the password and email address into 1000 rounds of PBKDF2 to obtain &quot;quickStretchedPW&quot;, feeding quickStretchedPW into HKDF to get &quot;authPW&quot;, then delivering email+authPW to the server's <code>/account/login</code> endpoint.</p>
+<p><img src="/ecosystem-platform/docs/assets/onepw-auth.png" alt="Diagram of auth flow"></p>
+<p>The server uses the email address to look up the database row, extracts authSalt, performs the same stretching as during account creation to obtain &quot;bigStretchedPW&quot; and then &quot;verifyHash&quot;, then compares verifyHash against the stored value. If they match, the client has proven knowledge of the password, and the server creates a new session. The server returns the newly-generated sessionToken to the client, along with its account identifier (uid).</p>
+<p>In the future, the <code>/account/login</code> endpoint may also accept two-factor authentication data. If so, it is likely to return a &quot;2FA-required&quot; error to the first request, with information on what additional UI should be displayed to solicit the additional data. The response should also indicate an &quot;account mode&quot;, with a known string for this first (one-password) mode. When we add the two-password mode (described below), any account which has been moved to the new mode will return a different string, and then older clients (who don't understand the new mode) should display an error to the user prompting them to use a newer version of the client.</p>
+<p>The <code>/account/login</code> call should also include information about the client device, such as a host name, profile name, model number, etc. This will be used to describe the session to the user later, when they enumerate their active sessions (for review and possible revocation).</p>
+<p>If the client wants to get encryption keys for Sync in addition to signed certificates, it should use <code>POST /account/login?keys=true</code>, which returns a keyFetchToken in addition to the usual sessionToken.</p>
+<h2><a class="anchor" aria-hidden="true" id="creating-a-session"></a><a href="#creating-a-session" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a Session</h2>
+<p>Each successful call to <code>/account/login</code> or <code>/account/login?keys=true</code> results in a new session (with a unique+unguessable sessionToken). The server can support multiple sessions per account (typically one per client device, plus perhaps others for account-management portals). The sessionToken lasts forever (until revoked by a password change or explicit revocation command), and can be used an unlimited number of times.</p>
+<p>Many keyserver APIs require a HAWK-protected request that uses the sessionToken. Some of them require that the account be in the &quot;verified&quot; state.</p>
+<ul>
+<li>GET /account/devices</li>
+<li>POST /session/destroy</li>
+<li>GET /recovery_email/status</li>
+<li>POST /recovery_email/resend_code</li>
+<li>POST /certificate/sign (requires &quot;verified&quot; account)</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="email-verification"></a><a href="#email-verification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Email Verification</h2>
+<p>As above, to prevent fixation attacks, new accounts must verify their email address before they can learn keys or obtain a certificate. Nevertheless, we wish clients to forget the user's password while they wait for email verification to complete. To achieve this, clients can obtain a sessionToken before verification, but most APIs that require it will raise errors until verification is finished.</p>
+<p>A successful <code>/account/login</code> response includes information about the verification status of the account. If necessary, the client can use <code>/recovery_email/status</code> endpoint (which requires a sessionToken but not account verification) until the user clicks the email link and the API reports verification is complete. Then the client can use <code>GET /account/keys</code> and <code>POST /certificate/sign</code>, described below.</p>
+<p>If the client merely wants certificates and doesn't care about encryption keys, it can use <code>POST /account/login</code> instead. This returns a sessionToken but not a keyFetchToken.</p>
+<h1><a class="anchor" aria-hidden="true" id="signing-certificates"></a><a href="#signing-certificates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Signing Certificates</h1>
+<p>Clients who have a active sessionToken, for an account on which the email address has been verified, can use the <code>/certificate/sign</code> endpoint to obtain a signed BrowserID/Persona certificate. This certificate can then be used to produce signed BrowserID assertions for delivery to RPs.</p>
+<p>The sessionToken is used to derive two values:</p>
+<ul>
+<li>tokenID</li>
+<li>request HMAC key</li>
+</ul>
+<p><img src="/ecosystem-platform/docs/assets/IdPAuth-use-session.png" alt="Diagram of certificate creation flow"></p>
+<p>The requestHMACkey is used in a HAWK request to provide integrity over many APIs, including /certificate/sign. requestHMACkey is used as credentials.key, while tokenID is used as credentials.id . HAWK includes the URL and the HTTP method (&quot;POST&quot;) in the HMAC-protected data, and will optionally include the HTTP request body (payload) if requested.</p>
+<h1><a class="anchor" aria-hidden="true" id="fetching-sync-keys"></a><a href="#fetching-sync-keys" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fetching Sync Keys</h1>
+<p>If the client also wants kA/kB for Sync, it uses <code>/account/login?keys=true</code> instead of <code>/account/login</code>. When the server sees this, in addition to creating a sessionToken, it also allocates a random <code>keyFetchToken</code> and prepares an encrypted response for a future call that will redeem this token.</p>
+<p>The client will use keyFetchToken (as described below) to obtain <code>kA</code> and <code>wrap(wrap(kB))</code>. It will then use <code>quickStretchedPW</code> to derive <code>unwrapBKey</code>, from which it can obtain the unwrapped <code>kB</code>.</p>
+<p><img src="/ecosystem-platform/docs/assets/onepw-keys.png" alt="Diagram of key derivation flow"></p>
+<p>During the <code>/account/login?keys=true</code> call, the server extracts a second value from its HKDF call named <code>wrapwrapKey</code>. It uses <code>wrapwrapKey</code> to unwrap <code>wrap(wrap(kB))</code> from its database (with a simple XOR) to derive <code>wrap(kB)</code> and holds this temporarily in memory for the duration of the request (it is never written to the database unencrypted).</p>
+<p>The server then uses <code>keyFetchToken</code> to derive <code>tokenID</code>, <code>reqHMACkey</code>, and <code>keyRequestKey</code>. <code>keyRequestKey</code> is used to derive <code>respHMACkey</code> and <code>respXORkey</code>. The server concatenates <code>kA</code> and the temporary copy of <code>wrap(kB)</code>, then encrypts the pair by XORing it with <code>respXORkey</code>, and attaches a MAC generated with <code>respHMACkey</code>. It stores (<code>reqHMACkey</code>, <code>encryptedResponse</code>) in a short-lived database table indexed by <code>tokenID</code>, and returns <code>sessionToken</code> and <code>keyFetchToken</code> to the client.</p>
+<p>Note that <code>keyFetchToken</code> and <code>wrap(kB)</code> are <em>not</em> stored in the database. The goal is to make sure that nothing stored in the database enables an easy brute-force attack on the user's password: all saved values must include the long scrypt stretch in their derivation or protection.</p>
+<p><img src="/ecosystem-platform/docs/assets/IdPAuth-keys-server.png" alt="Diagram of server side of GET /account/keys request"></p>
+<p>Later, the client will use <code>keyFetchToken</code> to derive the same values as the server did, and uses <code>tokenID</code> and <code>reqHMACkey</code> to make a HAWK request to the &quot;GET /account/keys&quot; API. The server looks up the stored table entry with <code>tokenID</code>, checks the request HMAC for validity, then returns the pre-encrypted response and deletes the entry.</p>
+<p>The client recomputes the MAC, compares it (throwing an error if it doesn't match), extracts the ciphertext, XORs it with the derived respXORkey, then splits it into the separate kA and wrap(kB) values.</p>
+<p><img src="/ecosystem-platform/docs/assets/IdPAuth-keys-client.png" alt="Diagram of client side of GET /account/keys request"></p>
+<p>Finally, the server-provided wrap(kB) value is simply XORed with the password-derived unwrapBKey (both are 32-byte strings) to obtain kB. There is no MAC on wrap(kB).</p>
+<p><img src="/ecosystem-platform/docs/assets/IdPAuth-key-unwrap.png" alt="Small diagram of kB unwrap flow"></p>
+<p>&quot;kA&quot; and &quot;kB&quot; enable the browser to encrypt/decrypt synchronized data records. They will be used to derive separate encryption and HMAC keys for each data collection (bookmarks, form-fill data, saved-password, open-tabs, etc). This will allow the user to share some data, but not everything, with a third party. The client may intentionally forget kA and kB (only retaining the derived keys) to reduce the power available to someone who steals their device.</p>
+<p>Note that /account/keys will not succeed until the account's email address has been verified, which could take hours or days if the user does not respond to the challenge email promptly. Also note that each keyFetchToken is single-use and short-lived: it will only be used for a specific kA/wrapKB message, and expires immediately if/when the account password is changed.</p>
+<p>Crypto note: while the two returned keys are encrypted with (a derivative of) keyFetchToken, the keyFetchToken itself is sent over the (TLS-protected) wire without additional protection. This encryption protects the short-term server key-fetch-token table (indexed by <code>tokenID</code>) from brute-force attacks: if the server stored <code>wrapwrapKey</code> until the key-fetch token were redeemed, a database breach would yield <code>wrap(kB)</code> which only provides weak (PBKDF) protection against dictionary attacks. In addition, this encryption step minimizes the changes to our existing (SRP-based) code, and may become more meaningful in a future protocol which uses SRP to protect the keyFetchToken in transit.</p>
+<p>We use the <code>/account/keys</code> API (instead of merely returning the keys directly in <code>/account/login</code> and <code>password/change/start</code>) so that clients can forget the master password while they wait for the recovery email to be verified. If there were not a second key-fetch API, clients would need to poll with <code>/account/login</code> repeatedly until verification had finished, requiring both the original password and a new server-side keystretch operation each time.</p>
+<h1><a class="anchor" aria-hidden="true" id="changing-the-password"></a><a href="#changing-the-password" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changing the Password</h1>
+<p>The account may be reset in two circumstances: when the user changes their password (i.e. they still know the old password), or when the user forgets their password.</p>
+<p>To change the password from one known value to another, the client uses a two-phase API. They start with a message to the <code>/password/change/start</code> endpoint. This accepts the same email and old-authPW that <code>/account/login?keys=true</code> takes, and returns both a <code>keyFetchToken</code> and a newly-allocated <code>passwordChangeToken</code>.</p>
+<p>Clients should then use the <code>keyFetchToken</code> and their old <code>unwrapBkey</code> to obtain and unwrap kB, then re-wrap it with the new <code>unwrapBkey</code> derived from their new password. This allows the password-changing client to retain their class-B data. <code>kA</code> is unchanged (and uninvolved in the protocol), so they retain their class-A data too.</p>
+<p>Finally, the client sends the new <code>authPW</code> and <code>wrap(kB)</code> to the <code>/password/change/finish</code> endpoint, which is HAWK-authenticated by the <code>passwordChangeToken</code>. If accepted, the server generates a new random <code>authSalt</code>, derives the new <code>verifyHash</code>, encrypts <code>wrap(kB)</code> into <code>wrap(wrap(kB))</code>, and commits all three to the account database.</p>
+<p><img src="/ecosystem-platform/docs/assets/onepw-change-password.png" alt="Diagram of change password flow"></p>
+<p>The <code>passwordChangeToken</code> is single-use and expires quickly, within 10 minutes.</p>
+<p>When the account is reset (for any reason), all active sessions and tokens will be cancelled (disconnecting all devices from the account). The client should immediately establish a new session as described above.</p>
+<h1><a class="anchor" aria-hidden="true" id="handling-a-forgotten-password"></a><a href="#handling-a-forgotten-password" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handling a Forgotten Password</h1>
+<p>When the user has forgotten their password, they will use a web-based flow to reset the account. This starts by visiting a page on the fxa-content-server, continues by sending an email with a secret code to the user, then finishes when the user clicks on a link in that email and establishes a new password.</p>
+<p>Note that, since the forgotten-password client never learns <code>kB</code>, any class-B data will be lost. This is necessary to protect class-B data from attackers who can read the users's email but do not know the account password (including those who compromise the IdP and the keyserver itself). When using <code>/account/reset</code> below, the server generates a new random <code>wrap(wrap(kB))</code> (just as it does during account creation). <code>kA</code> remains unchanged, allowing the user to recover their class-A data.</p>
+<p>The fxa-content-server &quot;forgot my password&quot; page takes the user's email address and submits it to the <code>/password/forgot/send_code</code> API (other recovery methods may be added in the future, like a phone number for SMS, but for now we only handle email). This API is unauthenticated (after all, the user who has forgotten their password knows nothing but their email address).</p>
+<p>The server marks the corresponding account as &quot;pending recovery&quot;, allocates a random passwordForgotToken for the account, creates a recovery code, and sends email to the user with instructions and a URL (pointing at the fxa-content-server) with both the passwordForgotToken and the recovery code as query-args.</p>
+<p>When the user clicks this link, the fxa-content-server page that gets loaded will submit the token and code to the <code>/password/forgot/verify_code</code> API. When the server sees a matching token and code, it allocates an <code>accountResetToken</code> and returns it to the client (page) that submitted them. The client can then use the <code>accountResetToken</code> to establish a new password as described below. This all takes place in a web browser.</p>
+<p><img src="/ecosystem-platform/docs/assets/onepw-forgot-password.png" alt="Diagram of forgot password flow"></p>
+<p>The API uses a distinct token and code for historical reasons: the original scheme assumed an agent-based flow instead of a web-based one, in which the user's browser chrome (or other client) would remember the passwordForgotToken while waiting for the user to transcribe the recovery code from the email into the client. In that scheme, the code needed to be short enough to transcribe, and there were additional security considerations involving limited re-use of the <code>passwordForgotToken</code> and code length. In the new web-based flow, the recovery code is a full-strength (256-bit) random string.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-accountresettoken"></a><a href="#using-accountresettoken" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using accountResetToken</h2>
+<p>The client puts their new password through the same stretching procedure as described in the new-account section above, resulting in a new authPW. The client then uses the accountResetToken to HAWK-authenticate a request to the <code>/account/reset</code> API, including the new authPW.</p>
+<p>If the request is accepted, the server generates a new random authSalt, computes a new verifyHash, and stores verifyHash in the database. It also creates a new random <code>wrap(wrap(kB))</code> value, cancels all active sessions and tokens (disconnecting all devices from the account), and sends a &quot;your password has been changed&quot; email to the user (perhaps including the IP address of the client which used the API).</p>
+<p>All class-B data will be lost. The <code>/account/reset</code> API is just like the <code>/account/create</code> API, except that it is HAWK-authenticated by an accountResetToken, and requires that the email already be in the database (as opposed to forbidding that).</p>
+<p><img src="/ecosystem-platform/docs/assets/onepw-reset.png" alt="Diagram of password reset flow"></p>
+<p>accountResetToken is used to derive <code>tokenID</code> and <code>requestHMACkey</code> as usual, then the request data is delivered in the body of a HAWK request that uses tokenID as credentials.id and requestHMACkey as credentials.key .</p>
+<p>After using <code>/account/reset</code>, clients should immediately perform the login protocol from above: a new sessionToken is required, since old sessions and tokens are revoked by <code>/account/reset</code>. Clients can retain the new authPW value during this process to avoid needing to run the key-stretching routine a second time.</p>
+<h1><a class="anchor" aria-hidden="true" id="deleting-the-account"></a><a href="#deleting-the-account" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deleting The Account</h1>
+<p>When the user wishes to completely delete their account, the browser needs to perform two actions:</p>
+<ul>
+<li>contact the storage servers and delete all records and collections</li>
+<li>contact the keyserver and delete the account information</li>
+</ul>
+<p>The user should be prompted for their password as confirmation (i.e. a browser in the normal attached-and-synchronizing state should not be able to erase the account information: it must prove recent knowledge of the password).</p>
+<p>The device submits <code>authPW</code> to the <code>/account/destroy</code> endpoint. This request contains no body and returns only a success code.</p>
+<h1><a class="anchor" aria-hidden="true" id="keyserver-protocol-summary"></a><a href="#keyserver-protocol-summary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Keyserver Protocol Summary</h1>
+<ul>
+<li>POST /account/create (email,authPW) -&gt; ok (server sends verification email)
+<ul>
+<li>creates a user account</li>
+</ul></li>
+<li>POST /account/login (email, authPW) -&gt; sessionToken, emailVerified</li>
+<li>POST /account/login?keys=true (authPW) -&gt; sessionToken, keyFetchToken, emailVerified</li>
+<li>GET /account/devices {sessionToken} () -&gt; list of devices</li>
+<li>GET /account/keys {keyFetchToken,needs-verf} () -&gt; kA/wrap(kB)
+<ul>
+<li>single-use, only if email is verified, encrypted results</li>
+</ul></li>
+<li>POST /account/reset {accountResetToken} (newAuthPW) -&gt; ok
+<ul>
+<li>single-use, does not require email to be verified, revoke all tokens for account, send notification email to user</li>
+</ul></li>
+<li>POST /account/delete (authPW) -&gt; ok, account deleted</li>
+<li>POST /session/destroy {sessionToken} () -&gt; ok
+<ul>
+<li>for detaching a device, destroy all tokens</li>
+</ul></li>
+<li>POST /recovery_email/status {sessionToken} () -&gt; &quot;verified&quot; status of email
+<ul>
+<li>use &quot;Accept: text/event-stream&quot; header for server-sent-events; server will send &quot;update&quot; event with the new content of the resource any time it changes.</li>
+</ul></li>
+<li>POST /recovery_email/resend_code {sessionToken} () -&gt; re-send verification email</li>
+<li>POST /recovery_email/verify_code (code) -&gt; set &quot;verified&quot; flag
+<ul>
+<li>this code will come from a clickable link and is an unauthenticated endpoint</li>
+<li>this could maybe take the recovery method if that would be helpful</li>
+<li>sets verified flag on recovery method</li>
+</ul></li>
+<li>POST /certificate/sign {sessionToken,needs-verf} (pubkey) -&gt; cert
+<ul>
+<li>only if recovery email is verified</li>
+</ul></li>
+<li>POST /password/change/start {needs-verf} (email, authPW) -&gt; keyFetchToken, passwordChangeToken</li>
+<li>POST /password/change/finish {passwordChangeToken} (newAuthPW, newWrapKB) -&gt; ok</li>
+<li>POST /password/forgot/send_code () -&gt; passwordForgotToken
+<ul>
+<li>sends code to recovery method (email for now, maybe SMS later)</li>
+<li>this is a short code, not a clickable link</li>
+</ul></li>
+<li>POST /password/forgot/resend_code {passwordForgotToken} -&gt; re-sends code</li>
+<li>POST /password/forgot/verify_code {passwordForgotToken} (code) -&gt; accountResetToken
+<ul>
+<li>sets verified flag on recovery method</li>
+</ul></li>
+<li>POST /get_random_bytes</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="typical-client-flows"></a><a href="#typical-client-flows" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Typical Client Flows</h2>
+<p>Create account</p>
+<ul>
+<li>POST /account/create (email,authPW) -&gt; ok (server sends verification email)</li>
+<li>POST /account/login (email, authPW) -&gt; sessionToken, verifiedStatus (=false)</li>
+<li>GET /recovery_email/status {sessionToken} () -&gt; verifiedStatus
+<ul>
+<li>optional (only if user requests resend):
+<ul>
+<li>POST /recovery_email/resend_code {sessionToken}() -&gt; ok</li>
+</ul></li>
+<li>POST /recovery_email/verify_code (code) -&gt; ok</li>
+</ul></li>
+<li>POST /certificate/sign {sessionToken} (pubkey) -&gt; cert</li>
+</ul>
+<p>Attach to new device</p>
+<ul>
+<li>POST /account/login (email, authPW) -&gt; sessionToken, verifiedStatus
+<ul>
+<li>if not verified, poll until verified</li>
+</ul></li>
+<li>POST /certificate/sign {sessionToken} (pubkey) -&gt; cert</li>
+</ul>
+<p>Attach new device for Sync</p>
+<ul>
+<li>POST /account/login?keys=true (email, authPW) -&gt; sessionToken, keyFetchToken, verifiedStatus
+<ul>
+<li>if not verified, poll until verified</li>
+</ul></li>
+<li>GET /account/keys {keyFetchToken,needs-verf} () -&gt; kA/wrap(kB)</li>
+<li>POST /certificate/sign {sessionToken} (pubkey) -&gt; cert</li>
+</ul>
+<p>Forgot password</p>
+<ul>
+<li>POST /password/forgot/send_code (email) -&gt; passwordForgotToken</li>
+<li>POST /password/forgot/verify_code {passwordForgotToken} (code) -&gt;  accountResetToken</li>
+<li>POST /account/reset {accountResetToken} (newAuthPW) -&gt; ok</li>
+<li>GOTO &quot;Attach to new device&quot;</li>
+</ul>
+<p>Change Password</p>
+<ul>
+<li>POST /password/change/start {needs-verf} (email, authPW) -&gt; keyFetchToken, passwordChangeToken</li>
+<li>GET /account/keys {keyFetchToken} () -&gt; kA/wrap(kB)</li>
+<li>POST /password/change/finish {passwordChangeToken} (newAuthPW, newWrapKB) -&gt; ok</li>
+<li>GOTO &quot;Attach to new device&quot;</li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="hawk-notes"></a><a href="#hawk-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>HAWK Notes</h1>
+<p>The following calls are HAWK-authenticated by some sort of token:</p>
+<ul>
+<li>GET /account/devices</li>
+<li>GET /account/keys</li>
+<li>POST /account/reset</li>
+<li>POST /session/destroy</li>
+<li>POST /recovery_email/status</li>
+<li>POST /recovery_email/resend_code</li>
+<li>POST /certificate/sign</li>
+<li>POST /password/change/finish</li>
+</ul>
+<p>These calls use HKDF to derive two values from the token:</p>
+<ul>
+<li>tokenID</li>
+<li>reqHMACkey</li>
+</ul>
+<p>The client uses tokenID and reqHMACkey for a HAWK (<a href="https://github.com/hueniverse/hawk/">https://github.com/hueniverse/hawk/</a>) request to the API endpoint, using tokenID as &quot;<a href="http://credentials.id">credentials.id</a>&quot; and reqHMACkey as &quot;credentials.key&quot;. The server uses tokenID to look up the corresponding token, then derives reqHMACkey to validate the request.</p>
+<p>All tokens have an associated tokenID. For all tokens other than <code>keyFetchToken</code>, the server needs to maintain a table that maps the tokenID to the token itself, so it can derive other values from the token later. For <code>keyFetchToken</code>, the table should map tokenID to only reqHMACkey and the pre-encrypted response, to avoid retaining anything that could be used to decrypt the response.</p>
+<p>Each token is associated with a specific account, so later API requests do not need to specify an email address or account ID.</p>
+<p>HAWK offers optional payload verification for requests, by including a hash of the payload contents in the serialized headers (which are then HMACed). All onepw clients SHOULD include this payload hash. Most HAWK client libraries automatically include the hash, but we have one instance (the Java-based Firefox-on-Android client, see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=986664">bug 986664</a>) which omits the hash on one call. Therefore, the server does not currently enforce the payload hash on all requests (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=985766">bug 985766</a>).</p>
+<p>This is safe, because all requests are delivered inside a TLS-protected channel: any attacker who could see (and then modify) a valid request would also be able to learn the token which signed it. Payload validation was more important in the previous SRP-based protocol, which was designed to avoid reliance on TLS: all requests and responses were validated, and all tokens encrypted with keys that derive from the SRP session key.</p>
+<p>So payload protection is a &quot;nice-to-have&quot;, not a requirement. New clients should send the hash. Once we've fixed the android client, and the number of old android clients drops below some comfortable threshold, we will change the server to require payload hashes for all POST requests.</p>
+<h1><a class="anchor" aria-hidden="true" id="crypto-notes"></a><a href="#crypto-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Crypto Notes</h1>
+<p>Strong entropy is needed in the following places:</p>
+<ul>
+<li>(server) initial creation kA, wrap(wrap(kB)), and authSalt</li>
+<li>(server) creation of sessionToken, keyFetchToken, accountResetToken, passwordChangeToken, and passwordForgotToken</li>
+</ul>
+<p>On the server, code should get entropy from /dev/urandom via a function that uses it, like &quot;crypto.randomBytes()&quot; in node.js or &quot;os.urandom()&quot; in python.</p>
+<p>An HKDF-based stream cipher is used to protect the contents of some requests. HKDF is used to create a number of random bytes equal to the length of the message, then these are XORed with the plaintext to produce the ciphertext. An HMAC is then computed from the ciphertext, to protect the integrity of the message.</p>
+<p>HKDF, like any KDF, is defined to produce output that is indistinguishable from random data (&quot;The HKDF Scheme&quot;, <a href="http://eprint.iacr.org/2010/264.pdf">http://eprint.iacr.org/2010/264.pdf</a> , by Hugo Krawczyk, section 3). XORing a plaintext with a random keystream to produce ciphertext is a simple and secure approach to data encryption, epitomized by AES-CTR or a stream cipher (<a href="http://cr.yp.to/snuffle/design.pdf">http://cr.yp.to/snuffle/design.pdf</a>). HKDF is not the fastest way to generate such a keystream, but it is safe, easy to specify, and easy to implement (just HMAC and XOR).</p>
+<p>Each keystream must be unique. We define keyFetchToken to be a single-use randomly-generated value, to ensure our HKDF-XOR keystreams will be unique.</p>
+<p>A slightly more-traditional alternative would be to use AES-CTR (with the same HMAC-SHA256 used here), with a randomly-generated IV. This is equally secure, but requires implementors to obtain an AES library (with CTR mode, which does not seem to be universal). An even more traditional technique would be AES-CBC, which introduces the need for padding and a way to specify the length of the plaintext. The additional specification complexity, plus the library load, leads me to prefer HKDF+XOR.</p>
+<p>kB is equal to the XOR of wrapKey (which is a deterministic function of the user's email address, password, and hard-coded stretching parameters), the server's wrapwrapKey (a deterministic function of user's email address, password, the server's stretching parameters, and the server-side <code>authSalt</code>), and the server's randomly-generated <code>wrap(wrap(kB))</code> value, making kB a random value too. Using XOR as a wrapping function allows us to avoid sending any derivative of kB in the initial createAccount arguments, or depending upon client-side entropy sources.</p>
+<p>To make this technique safe, any time kB or the password is changed, the authSalt should be changed too. Otherwise knowledge of both wrap(wrap(old-kB)) and old-kB would reveal wrapKey, making it easy to deduce the new kB. Changing authSalt causes wrapwrapKey to change too, preventing this.</p>
+<p>There is no MAC on wrap(kB). If the keyserver chooses to deliver a bogus wrap(kB) or kA, the client might discover the problem a moment later when it attempts to use the key, or not, depending upon the high-level protocol. Sync, our first client, uses the tuple of (email, hash(kB), cert-generation-number) to identify a pool of stored user data. So Sync clients which receive a corrupt key will find themselves in an isolated pool, and will believe themselves to be the only device connected to their Sync account.</p>
+<p>It might be useful to add a checksum to kA and wrap(kB) to detect accidental corruption (e.g. store and deliver kA+SHA256(kA), or wrap(kB)+HMAC(unwrapBkey, wrap(kB))), but this doesn't protect against intentional changes, and a MAC on kB would introduce an additional oracle to feed a dictionary attack. We omit this checksum for now, assuming that disks will be reliable enough to let us never experience such failures.</p>
+<h1><a class="anchor" aria-hidden="true" id="security-analysis"></a><a href="#security-analysis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Security Analysis</h1>
+<p>This protocol aims to have two main security properties:</p>
+<ul>
+<li>a &quot;passive&quot; attacker (who can read the server's stored database contents) gets to do two things: 1: learn kA. 2: perform a &quot;hard&quot; brute-force attack against the password, where &quot;hard&quot; means they must do 64k/8/1-scrypt for each password guess.</li>
+<li>an &quot;active&quot; attacker (one who can eavesdrop on TLS connections, or who compromises the running keyserver, and can thus observe messages sent to/from the clients) gets to do three things. 1: learn kA. 2: control the account (i.e. produce assertions). 3: perform an &quot;easy&quot; brute-force attack against the password (and thus kB), where &quot;easy&quot; means they must do 1000 rounds of PBKDF for each guessed password they want to test.</li>
+</ul>
+<p>This is weaker than the earlier SRP-based protocol, but still stronger than common industry practice, and significantly easier for clients to implement. In particular, clients do not need to perform scrypt-based stretching or SRP.</p>
+<p>As with the SRP-based protocol, if the client is implemented in web content, then a strong active attacker (who can MitM TLS connections and thus serve doctored client code) can bypass the entire protocol and learn the password directly. This, of course, includes a server who decides (or is coerced) into delivering such pages.</p>
+<p>The long-term server data is intended to be safe against &quot;easy&quot; dictionary attacks, meaning that given everything stored in the DB, a passive attacker must still perform the full scrypt stretch to test each password guess.</p>
+<p>The passive attacker gets access to two values that serve as password-guessing oracles. The first is &quot;verifyHash&quot;, which is derived from the output of the full scrypt-based stretch. The second is <code>wrap(wrap(kB))</code> (which could be used in conjunction with some class-B encrypted data to test passwords), which is also protected by the scrypt step: for each password, the attacker runs the full computation to derive kB, then tries to decrypt some data and sees if its HMAC check passes.</p>
+<p>The stored pre-encrypted response to <code>GET /account/keys</code> would also serve as an oracle, but the server explicitly doesn't retain the <code>keyFetchToken</code> that encrypts it. Since keyFetchToken is randomly generated and independent of the user's password, the data it encrypts does not help test password guesses.</p>
+<h2><a class="anchor" aria-hidden="true" id="vs-old-sync"></a><a href="#vs-old-sync" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>vs. old-Sync</h2>
+<p>Given the Sync legacy of full-strength random keys, exchanged with J-PAKE pairing, we'd like to make it possible to achieve similar levels of security with the new protocol. When viewed from the perspective of old-Sync, this new protocol has the following weaknesses:</p>
+<ul>
+<li>Passwords. All security, even against (rate-limited) online attacks, is limited by the strength of the user's password. old-Sync (nominally) had no passwords, and no practical amount of guessing would yield the account's encryption key.  Moderate-strength passwords can benefit from expensive stretching, but users with a password of &quot;123456&quot; will probably lose control of their account no matter what we do.</li>
+<li>Password Reuse. If a user has a strong password but it's not unique, there is a risk that it maybe compromised on another service. Old-Sync (nominally) had no passwords, and as such password reuse was not possible.</li>
+<li>Weak client-side stretching: the server (or someone who successfully compromises it), or an attacker who can forge TLS certificates (or who records traffic and later learns the server's TLS private key), both get enough information to perform a dictionary attack that is only limited by the weak PBKDF-based stretch. This is relatively cheap.</li>
+<li>Use of Password in a Web Context: when the client of this protocol runs inside a web page, rather than in browser chrome, a new set of attacks become possible. Compromised/coerced servers can quietly deliver modified pages which reveal the user's password to a waiting attacker. This becomes more likely as the scope of Firefox Accounts grows to include new use cases which preclude a chrome-only client (e.g. signing into Marketplace from other web browsers). This same problem exists with corrupted browser updates, of course, but it is nominally possible to download a browser from a trusted source and disable automatic updates, whereas it is not feasible to prevent or even detect surreptitious web-page tampering.</li>
+</ul>
+<p>These weaknesses are the result of compromises. The features obtained in this bargain are:</p>
+<ul>
+<li>recover account data (with the password) after losing your only device</li>
+<li>add a new device without access to an old device</li>
+<li>use slow/old clients (rather than doing expensive scrypt stretching client-side)</li>
+<li>generalized Firefox Accounts, with more features than just Sync</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="vs-earlier-srp-based-protocol"></a><a href="#vs-earlier-srp-based-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>vs. earlier SRP-based protocol</h2>
+<p>Relative to the SRP-based protocol described in <a href="https://wiki.mozilla.org/Identity/AttachedServices/KeyServerProtocol">https://wiki.mozilla.org/Identity/AttachedServices/KeyServerProtocol</a> , this &quot;onepw&quot; protocol has the following weaknesses:</p>
+<ul>
+<li>a TLS-level eavesdropper learns authPW (allowing them to control the account), learns kA (revealing all class-A data), and learns wrap(kB) (&quot;easy&quot; brute-force attack)</li>
+<li>the auth server gets an &quot;easy&quot; brute-force attack (by knowing authPW or wrap(kB))</li>
+</ul>
+<p>In exchange for these weaknesses, this protocol gains the following advantages:</p>
+<ul>
+<li>simpler client: no SRP necessary</li>
+<li>faster client: less client-side stretching</li>
+<li>server can upgrade protection of stored data (e.g. do more stretching) with minimal client involvement</li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="extensions"></a><a href="#extensions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extensions</h1>
+<h2><a class="anchor" aria-hidden="true" id="changing-server-side-protections"></a><a href="#changing-server-side-protections" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changing Server-Side Protections</h2>
+<p>If we need to change the scrypt stretching parameters (or move to some other algorithm entirely), the server can do this any time the user logs in or otherwise presents <code>authPW</code>. The server should store some version marker in the database with each account row, to perform the same stretching each time, but can use different values for different accounts. The requirements are that the server can 1: compare <code>authPW</code> against an earlier value, 2: return the same <code>wrap(kB)</code> as was submitted earlier, and 3: provides adequate protection against database compromise.</p>
+<p>Likely changes include:</p>
+<ul>
+<li>store verifyHash and <code>wrap(wrap(kB))</code> in encrypted form, protected by an HSM, or with a key that is manually typed into the server instead of being stored on disk</li>
+<li>adding two-factor (2FA) verifiers to the database</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="changing-client-side-protection"></a><a href="#changing-client-side-protection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changing Client-Side Protection</h2>
+<p>We can change the client-side stretching parameters (perhaps to increase the number of PBKDF2 rounds) without affecting the server's behavior (it only sees <code>authPW</code>, and doesn't care how the client derives it). But we would need a way to coordinate such changes among the various clients using this account. We might define a v2 API which adds an extra round-trip: starting by submitting an email address and getting back the client-side stretching parameters. Once an account was upgraded to use a longer stretch, they could no longer be accessed by v1 clients. The server could know this and return errors to v1 clients (incidentally learning the default-stretched authPW in the process).</p>
+<h2><a class="anchor" aria-hidden="true" id="two-password-extension"></a><a href="#two-password-extension" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>two-password extension</h2>
+<p>One proposal to address the &quot;Use of Password in a Web Context&quot; weakness above is to introduce an optional second password, with improved security. The general idea is to feed the second password into the original SRP protocol (client-side scrypt, SRP-protected exchange of strong wrapped kB). The second password would only be used for Sync (not for plain Firefox Account login), and only entered into chrome UI (never into web content).</p>
+<p>The API to perform SRP will be gated by the sessionToken, as will use of the scrypt-helper, which could marginally improve our DoS story.</p>
+<p>If we implement this, it will require a <code>/v2</code> API call to use. When an account is configured for a second password, the <code>/v2/account/login?keys=true</code> request will return an error or a field to that effect, instead of a keyFetchToken. Changing from one password to two, or vice versa, will involve extra API calls. Using the first-generation <code>/v1</code> API on such an account will return an error that says you must use a newer client.</p>
+<p>Use of a second password will restore all the security properties of the earlier SRP-based protocol: only the scrypt-helper gets the &quot;easy&quot; brute-force attack, and the only &quot;hard&quot; brute-force attacks are available to a malicious active server or a TLS-level eavesdropper on the create-account and forgot-password flows. kA is protected from all eavesdroppers.</p>
+<h2><a class="anchor" aria-hidden="true" id="pairing-extension"></a><a href="#pairing-extension" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>pairing extension</h2>
+<p>An even stronger improvement would be to re-introduce an optional pairing flow. When this is enabled for the first time, the client will produce a strong random key and include it in the derivation of unwrapBkey. The server will make a note of the fact that pairing is enabled. When connecting later devices, the client will see this flag and initiate the J-PAKE pairing UI to transfer the additional key.</p>
+<p>This pairing flow can be better than the old-Sync flow because we have more information to work with. Depending upon how much the user types before we start the transfer, we may know an email address (reducing the number of candidate machines to talk to), and the account password (making it harder to for the attacker to participate in the pairing process). This will allow us to automatically pop up the pairing dialog on the sending machine, and to reduce the length of the sync code considerably (perhaps just a 4-digit PIN).</p>
+<h1><a class="anchor" aria-hidden="true" id="delta-from-old-srp-protocol"></a><a href="#delta-from-old-srp-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>delta from old SRP protocol</h1>
+<p>The following endpoints are modified:</p>
+<ul>
+<li><code>POST /account/create</code> (gets authPW instead of srpV/srpSalt)</li>
+<li><code>POST /account/reset</code> (gets authPW instead of wrapKB/srpV/srpSalt, parameters are not encrypted)</li>
+<li><code>POST /account/delete</code> (gets authPW instead of HAWK-with-authtoken)</li>
+<li><code>POST /password/change/start</code> (gets old authPW, not authToken, returns passwordChangeToken instead of accountResetToken)</li>
+</ul>
+<p>these endpoints are added:</p>
+<ul>
+<li><code>POST /password/change/finish</code></li>
+<li><code>POST /account/login</code></li>
+<li><code>POST /account/login?keys=true</code></li>
+</ul>
+<p>and these are removed:</p>
+<ul>
+<li><code>POST /auth/start</code></li>
+<li><code>POST /auth/finish</code></li>
+<li><code>POST /session/create</code> (since sessionToken comes from /account/login)</li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="test-vectors"></a><a href="#test-vectors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test Vectors</h1>
+<h3><a class="anchor" aria-hidden="true" id="client-stretch-kdf"></a><a href="#client-stretch-kdf" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>client stretch-KDF</h3>
+<p>email:
+616e6472c3a94065
+78616d706c652e6f
+7267</p>
+<p>password:
+70c3a4737377c3b6
+7264</p>
+<p>quickStretchedPW:
+e4e8889bd8bd61ad
+6de6b95c059d56e7
+b50dacdaf62bd846
+44af7e2add84345d</p>
+<p>authPW:
+247b675ffb4c4631
+0bc87e26d712153a
+be5e1c90ef00a478
+4594f97ef54f2375</p>
+<p>authSalt (normally random):
+00f0000000000000
+0000000000000000
+0000000000000000
+0000000000000000</p>
+<p>bigStretchedPW:
+441509e25c92ee10
+3d5a1a874e6f155d
+f25a44d06e61c894
+616c9e85181dba97</p>
+<p>verifyHash:
+a4765bf103dc057f
+4cf4bc2c131ddb67
+16e8a4333cc55e1d
+3c449f31f0eec4f1</p>
+<h3><a class="anchor" aria-hidden="true" id="accountkeys"></a><a href="#accountkeys" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>/account/keys</h3>
+<p>wrapwrapKey:
+3ebea117efa9faf5
+7ce195899b290505
+8368e7760cc26ea5
+8a2a1be0da7fb287</p>
+<p>unwrapBkey:
+de6a2648b78284fc
+b9ffa81ba9580330
+9cfba7af583c01a8
+a1a63e567234dd28</p>
+<p>keyFetchToken:
+8081828384858687
+88898a8b8c8d8e8f
+9091929394959697
+98999a9b9c9d9e9f</p>
+<p>tokenID (keyFetchToken):
+3d0a7c02a15a62a2
+882f76e39b6494b5
+00c022a8816e0486
+25a495718998ba60</p>
+<p>reqHMACkey:
+87b8937f61d38d0e
+29cd2d5600b3f4da
+0aa48ac41de36a0e
+fe84bb4a9872ceb7</p>
+<p>keyRequestKey:
+14f338a9e8c6324d
+9e102d4e6ee83b20
+9796d5c74bb734a4
+10e729e014a4a546</p>
+<p>respHMACkey:
+f824d2953aab9faf
+51a1cb65ba9e7f9e
+5bf91c8d8fd1ac1c
+8c2d31853a8a1210</p>
+<p>respXORkey:
+ce7d7aa77859b235
+9932970bbe2101f2
+e80d01faf9191bd5
+ee52181d2f0b7809
+8281ba8cff392543
+3a89f7c3095e0c89
+900a469d60790c83
+3281c4df1a11c763</p>
+<p>kA:
+2021222324252627
+28292a2b2c2d2e2f
+3031323334353637
+38393a3b3c3d3e3f</p>
+<p>wrapkB:
+7effe354abecbcb2
+34a8dfc2d7644b4a
+d339b525589738f2
+d27341bb8622ecd8</p>
+<p>plaintext:
+2021222324252627
+28292a2b2c2d2e2f
+3031323334353637
+38393a3b3c3d3e3f
+7effe354abecbcb2
+34a8dfc2d7644b4a
+d339b525589738f2
+d27341bb8622ecd8</p>
+<p>ciphertext:
+ee5c58845c7c9412
+b11bbd20920c2fdd
+d83c33c9cd2c2de2
+d66b222613364636
+fc7e59d854d599f1
+0e212801de3a47c3
+4333f3b838ee3471
+e0f285649c332bbb</p>
+<p>MAC:
+4c17f42a0b319bbb
+a327d2b326ad23e9
+37219b4de32e3ec7
+b3e3f740522ad6ef</p>
+<p>response:
+ee5c58845c7c9412
+b11bbd20920c2fdd
+d83c33c9cd2c2de2
+d66b222613364636
+fc7e59d854d599f1
+0e212801de3a47c3
+4333f3b838ee3471
+e0f285649c332bbb
+4c17f42a0b319bbb
+a327d2b326ad23e9
+37219b4de32e3ec7
+b3e3f740522ad6ef</p>
+<p>wrapkB:
+7effe354abecbcb2
+34a8dfc2d7644b4a
+d339b525589738f2
+d27341bb8622ecd8</p>
+<p>unwrapBkey:
+de6a2648b78284fc
+b9ffa81ba9580330
+9cfba7af583c01a8
+a1a63e567234dd28</p>
+<p>kB:
+a095c51c1c6e384e
+8d5777d97e3c487a
+4fc2128a00ab395a
+73d57fedf41631f0</p>
+<h3><a class="anchor" aria-hidden="true" id="use-session-certificatesign-etc"></a><a href="#use-session-certificatesign-etc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>use session (certificate/sign, etc)</h3>
+<p>sessionToken:
+a0a1a2a3a4a5a6a7
+a8a9aaabacadaeaf
+b0b1b2b3b4b5b6b7
+b8b9babbbcbdbebf</p>
+<p>tokenID (sessionToken):
+c0a29dcf46174973
+da1378696e4c82ae
+10f723cf4f4d9f75
+e39f4ae3851595ab</p>
+<p>reqHMACkey:
+9d8f22998ee7f579
+8b887042466b72d5
+3e56ab0c094388bf
+65831f702d2febc0</p>
+<h1><a class="anchor" aria-hidden="true" id="glossary"></a><a href="#glossary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Glossary</h1>
+<p>This defines some of the jargon we've developed for this protocol.</p>
+<ul>
+<li>data classes: each type of browser data (bookmarks, passwords, history, etc) can be assigned, by the user, to either class-A or class-B.  Note that this user selection is not yet implemented by Firefox, and all data types are treated as class-B by default.</li>
+<li>class-A: data assigned to this class can be recovered, even if the user forgets their password, by proving control over an email address and resetting the account. It can also be read by Mozilla (since it runs the keyserver and knows kA), or by the user's IdP (by resetting the account without the user's permission).</li>
+<li>class-B: data in this class cannot be recovered if the password is forgotten. It cannot be read by the IdP. Mozilla (via the keyserver) cannot read this data, but can attempt a brute-force dictionary attack against the password.</li>
+<li>kA: the master key for data stored as &quot;class-A&quot;, a 32-byte binary string. Individual encryption keys for different datatypes are derived from kA.</li>
+<li>kB: the master key for data stored as &quot;class-B&quot;, a 32-byte binary string.</li>
+<li>wrap(kB): an encrypted copy of kB. The keyserver stores wrap(kB) and never sees kB itself. The client (browser) uses a key derived from the user's password to decrypt wrap(kB), obtaining the real kB.</li>
+<li>sessionToken: a long-lived per-device token which allows the device to obtained signed BrowserID certificates for the account's identity (<a href="mailto:GUID@picl-something.org">GUID@picl-something.org</a>). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of &quot;revoke a specific device&quot; or &quot;revoke all devices&quot; function).</li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="references"></a><a href="#references" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>References</h1>
+<p>This file was last substantially edited in early 2014. Its commit history can be found in the old fxa-auth-server repo: <a href="https://github.com/mozilla/fxa-auth-server/wiki/onepw-protocol">https://github.com/mozilla/fxa-auth-server/wiki/onepw-protocol</a></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/ecosystem-platform/docs/fxa-engineering/fxa-scoped-keys"><span class="arrow-prev">← </span><span>Scoped Keys</span></a><a class="docs-next button" href="/ecosystem-platform/docs/fxa-engineering/fxa-webchannel-protocol"><span class="function-name-prevnext">WebChannels in Desktop &amp; Fennec</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#client-side-key-stretching">Client-Side Key Stretching</a></li><li><a href="#creating-a-session">Creating a Session</a></li><li><a href="#email-verification">Email Verification</a></li><li><a href="#using-accountresettoken">Using accountResetToken</a></li><li><a href="#typical-client-flows">Typical Client Flows</a></li><li><a href="#vs-old-sync">vs. old-Sync</a></li><li><a href="#vs-earlier-srp-based-protocol">vs. earlier SRP-based protocol</a></li><li><a href="#changing-server-side-protections">Changing Server-Side Protections</a></li><li><a href="#changing-client-side-protection">Changing Client-Side Protection</a></li><li><a href="#two-password-extension">two-password extension</a></li><li><a href="#pairing-extension">pairing extension</a><ul class="toc-headings"><li><a href="#client-stretch-kdf">client stretch-KDF</a></li><li><a href="#accountkeys">/account/keys</a></li><li><a href="#use-session-certificatesign-etc">use session (certificate/sign, etc)</a></li></ul></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.9.0/dist/mermaid.min.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest',
+            themeCSS: '.noteText { font-family: monospace; }'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl, index) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          diagramEl.addEventListener('click', (evt) => {
+            evt.currentTarget.classList.toggle('highlight');
+            document.body.classList.toggle('highlight-service');
+          }, false);
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'bf6d9655ef3d5789d97465aff250ee76',
+                indexName: 'mozilla_ecosystem-platform',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
