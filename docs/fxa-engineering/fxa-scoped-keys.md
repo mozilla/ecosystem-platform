@@ -632,7 +632,7 @@ The original version of this document:
 [ietf-oauth-native-apps]: https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12
 [jose]: https://tools.ietf.org/wg/jose/
 [oauth2-standard]: https://oauth.net/2/
-[onepwprotocol]: https://github.com/mozilla/fxa-auth-server/wiki/onepw-protocol
+[onepwprotocol]: fxa-onepw-protocol
 [openid-connect]: http://openid.net/specs/openid-connect-core-1_0.html#Introduction
 [rfc7516]: https://tools.ietf.org/html/rfc7516
 [rfc7517]: https://tools.ietf.org/html/rfc7517
