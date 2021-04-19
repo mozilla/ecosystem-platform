@@ -53,6 +53,7 @@
       "fxa-engineering/fxa-dev-process",
       "fxa-engineering/fxa-work-breakdown-process",
       "fxa-engineering/release-process",
+      "fxa-engineering/fxa-incident-response",
       "fxa-engineering/fxa-api",
       "fxa-engineering/fxa-system-diagrams",
       "fxa-engineering/fxa-logging",
