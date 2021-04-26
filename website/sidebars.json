@@ -81,6 +81,7 @@
         ]
       },
       "fxa-engineering/fxa-adr",
+      "fxa-engineering/fxa-scheduled-maintenance",
       "fxa-engineering/fxa-additional-docs"
     ]
   }
