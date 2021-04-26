@@ -21,8 +21,8 @@ When planning scheduled maintenance that will result in downtime for Firefox Acc
   - Impact on users
   - Example: 
     > On [2021-04-24 at 11pm ET](https://time.is/2300_24_Apr_2021_in_Toronto?Firefox_Accounts_scheduled_maintenance) (this Saturday) we will be upgrading the Firefox Accounts oauth database to a larger instance size. End users will not be able to sign in or make new subscriptions for 5-10 minutes.
-3. Send the notice to firefox-accounts-notices@mozilla.com
-4. Send the notice to Slack channels:
+4. Send the notice to firefox-accounts-notices@mozilla.com
+5. Send the notice to Slack channels:
   - #fxa
   - #subscription-platform
 
