@@ -25,6 +25,7 @@ When planning scheduled maintenance that will result in downtime for Firefox Acc
 5. Send the notice to Slack channels:
   - #fxa
   - #subscription-platform
+6. Set maintenance window for [Kinto Webextensions](https://moz-svc-ops.pagerduty.com/service-directory/PLMUB9U/activity) so Sven doesn't get paged
 
 ## Downtime Procedure Notes
 
