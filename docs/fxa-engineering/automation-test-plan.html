@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Automation Test Plan · Firefox Ecosystem Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Current as of `April 28th, 2021`"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Automation Test Plan · Firefox Ecosystem Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://mozilla.github.io/ecosystem-platform/"/><meta property="og:description" content="Current as of `April 28th, 2021`"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/ecosystem-platform/img/fx-master-brand.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/ecosystem-platform/js/scrollSpy.js"></script><link rel="stylesheet" href="/ecosystem-platform/css/main.css"/><script src="/ecosystem-platform/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/ecosystem-platform/"><img class="logo" src="/ecosystem-platform/img/fx-master-brand.png" alt="Firefox Ecosystem Platform"/><h2 class="headerTitleWithLogo">Firefox Ecosystem Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/ecosystem-platform/docs/welcome" target="_self">Docs</a></li><li class=""><a href="https://github.com/mozilla/ecosystem-platform" target="_self">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Automation Test Plan</h1></header><article><div><span><p>Current as of <code>April 28th, 2021</code></p>
+<h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
+<p>This document provides general guidelines around writing, running, and maintaining Firefox Accounts (FxA) automated tests. The FxA test strategy document can be found here: <a href="https://docs.google.com/document/d/1gYvGpXtLkSA84ELKJA-3tOPtlRlgcIQwmVOKbirtII0/edit#">FxA test strategy</a>
+This document will ensure that everyone on the project is aware of the expectations and the process of maintenance around the automated tests.
+Apart from maintaining the existing functional tests, the plan is to eventually move the FxA project to Continuous Deployment (CD). This document will lay out the guidelines for  specified situations and around ownership of the automated tests. The goal is to enforce and start implementing these guidelines so that maintaining and reviewing these automation suites is easier on everyone.
+This is the epic created for the FxA CD tasks: <a href="https://jira.mozilla.com/browse/FXA-1324">FxA CD Jira task</a>
+And this document mentions the plan: <a href="https://docs.google.com/document/d/1faQtkdH57PctE4FO0m-1ZXgs8QHi-igsoPD6_vKjS2A/edit#">FxA CD plan</a></p>
+<h2><a class="anchor" aria-hidden="true" id="brief-description"></a><a href="#brief-description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Brief Description</h2>
+<p>There are multiple projects under the FxA umbrella. For FxA there are bi-weekly releases, in addition to feature testing. There are many relying parties that use FxA, such as Lockwise and FPN.
+Firefox Accounts lets you access Mozilla Services on any device with the Firefox browser by simply signing in. All you need to create a Firefox Account is an email address and a password.
+FxA: <a href="https://mozilla.github.io/ecosystem-platform/docs/welcome">https://mozilla.github.io/ecosystem-platform/docs/welcome</a>
+These automation tests provide end to end testing of the features for FxA.The focus of FxA testing is on making sure no regressions occur and that new features work as expected. These automated tests ensure that the service maintains a high level of quality and to achieve that multiple automated FxA tests are run with Firefox trains and releases, for both desktop and mobile.</p>
+<h2><a class="anchor" aria-hidden="true" id="goals"></a><a href="#goals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Goals</h2>
+<ul>
+<li>Set up periodic review of the health of automated tests</li>
+<li>Figure out the test failures, if any, and work towards fixing the issues with the help of Dev team</li>
+<li>Create Jira tickets for all the failures or flaky tests</li>
+<li>If these failures are caused by a recent check in then the dev responsible for the check in needs to take ownership of creating the bug and fixing it. But anyone who catches the failures can report it since the aim here is to get the bugs logged and fixed.</li>
+<li>Disable or delete (if warranted) the consistent failures/flaky tests until fixed, then re-enable</li>
+<li>When it comes to adding new tests, preference is that we have a 70/30 break between Ecosystem QA and devs</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="scope"></a><a href="#scope" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scope</h2>
+<p>The scope of this document is to focus on the existing functional (regression) automation suite in FxA and any upcoming new tests that's written. This also includes the new Settings tests.</p>
+<h2><a class="anchor" aria-hidden="true" id="technical-requirements"></a><a href="#technical-requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Technical Requirements</h2>
+<p>The end to end testing of the entire FxA ecosystem is provided by a comprehensive suite of Selenium tests in the fxa-content-server package.
+The full set of functional tests is run on CircleCI on every check in and every time a pull request is merged to main. This full set consist of a <a href="https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_smoke">Smoke test suite</a> which runs the high priority test cases first and upon success the full suite of <a href="https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_regression">Regression tests</a> are run.
+If there is a failure in the smoke test suite, the regression suite won't be run until the failures have been fixed.
+There is also a notification system in place for when these failures occur to alert the FxA team via Slack messaging.</p>
+<h2><a class="anchor" aria-hidden="true" id="owners"></a><a href="#owners" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Owners</h2>
+<ul>
+<li><p>Test Engineers:
+Ankita Shrivastava - email: [<a href="mailto:ashrivastava@mozilla.com">ashrivastava@mozilla.com</a>], slack: @ankita
+Rebecca Billings - email: [<a href="mailto:rbillings@mozilla.com">rbillings@mozilla.com</a>], slack: @rbillings</p></li>
+<li><p>Devs:
+FxA-Devs - slack: @fxa</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="failure-procedure"></a><a href="#failure-procedure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Failure Procedure</h2>
+<p>Whenever the Stage gets updated, the smoke test suite is triggered and once the smoke test passes, all the regression tests are run . In the event of failure, the FxA team gets notified and the release owner needs to take a look at the failures and log issues.</p>
+<p>If the tests keep failing for more than a week and nobody has been able to get to it, the testing team (or the Dev team) will disable the tests from the suite assuming there is no significant impact of these failing tests and upon discussing with the Dev team, these tests will be removed permanently.</p>
+<h2><a class="anchor" aria-hidden="true" id="adding-tests"></a><a href="#adding-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding tests</h2>
+<p>Preference is that we have a 70/30 break between Test Engineering and devs when it comes to adding new tests.
+Whenever new tests get added, it is reviewed by someone from the Ecosystem Test Eng. Team.</p>
+<h2><a class="anchor" aria-hidden="true" id="updating-existing-tests"></a><a href="#updating-existing-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Updating existing tests</h2>
+<p>The Test Engineering team will be responsible for maintaining the existing tests. The tests will be reviewed quarterly and any failures will be reported to the Dev team for them to take a look at. All the failures will be reported in Jira.</p>
+<h2><a class="anchor" aria-hidden="true" id="flaky-tests"></a><a href="#flaky-tests" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flaky Tests</h2>
+<p>Along with the failures, all the flaky tests(i.e tests that are not consistently failing but are still failing 50% of the time) will be reported as well in Jira. Any consistent failures or flaky tests will be disabled(but not removed) until fixed and then re-enabled afterwards.</p>
+<h2><a class="anchor" aria-hidden="true" id="sign-off"></a><a href="#sign-off" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sign Off</h2>
+<p>List of people who have reviewed and agreed to the above listed guidelines. Note that this list should be the same as the the major stakeholders in building and maintaining the automated tests for the project</p>
+<table>
+<thead>
+<tr><th>NAME</th><th>TEAM/ROLE</th><th>DATE</th></tr>
+</thead>
+<tbody>
+<tr><td>Ankita Shrivastava</td><td>Ecosystem Test Engineer</td><td>04/16/2021</td></tr>
+<tr><td>Wil Clouser</td><td>Sr. Engineering Manager</td><td>04/16/2021</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#overview">Overview</a></li><li><a href="#brief-description">Brief Description</a></li><li><a href="#goals">Goals</a></li><li><a href="#scope">Scope</a></li><li><a href="#technical-requirements">Technical Requirements</a></li><li><a href="#owners">Owners</a></li><li><a href="#failure-procedure">Failure Procedure</a></li><li><a href="#adding-tests">Adding tests</a></li><li><a href="#updating-existing-tests">Updating existing tests</a></li><li><a href="#flaky-tests">Flaky Tests</a></li><li><a href="#sign-off">Sign Off</a></li></ul></nav></div><footer><img src="/ecosystem-platform/img/mozilla-logo.png" height="24"/><script src="https://unpkg.com/mermaid@8.9.0/dist/mermaid.min.js" type="application/javascript"></script><script>
+        mermaid.initialize({
+            startOnReady: true,
+            theme: 'forest',
+            themeCSS: '.noteText { font-family: monospace; }'
+          });
+        // remarkable converts the mermaid diagrams to HTML and injects a bunch
+        // of HTML tags the mermaid parser cannot handle. Remove the HTML and
+        // run the parser on the original text.
+        const mermaidDiagramEls = document.querySelectorAll('.language-mermaid');
+        mermaidDiagramEls.forEach(function(diagramEl, index) {
+          // strip out any HTML
+          diagramEl.innerHTML = diagramEl.innerText;
+          diagramEl.addEventListener('click', (evt) => {
+            evt.currentTarget.classList.toggle('highlight');
+            document.body.classList.toggle('highlight-service');
+          }, false);
+        });
+        mermaid.init(undefined, mermaidDiagramEls);
+        </script></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'bf6d9655ef3d5789d97465aff250ee76',
+                indexName: 'mozilla_ecosystem-platform',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
