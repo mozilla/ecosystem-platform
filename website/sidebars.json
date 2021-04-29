@@ -57,6 +57,7 @@
       "fxa-engineering/fxa-api",
       "fxa-engineering/fxa-system-diagrams",
       "fxa-engineering/fxa-logging",
+      "fxa-engineering/automation-test-plan",
       "fxa-engineering/vscode-development",
       "fxa-engineering/fxa-sub-platform",
       {
