@@ -208,6 +208,8 @@ Here are some handy questions and things to consider when reviewing code for Fir
     * Note whether we should announce it on one or more developer mailing lists.
 * Does it add appropriate new metrics or logging?
 * Does it consider accessibility?
+* Are there any environment variables that need to be set/updated in dev/stage/prod?
+    * The author should open their own PRs to update any server config. See [Creating cloudops PRs](#creating-cloudops-prs).
 
 ## Browser Support
 `Last updated: Sep 18, 2020`
@@ -223,9 +225,41 @@ Firefox Accounts must work in the following environments:
 
 ## Deployment Documentation
 We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**
-If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
+If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends. For environment variable changes, you must open the PRs on the cloudops repos yourself and reference them in the deployment document. See [Creating cloudops PRs](#creating-cloudops-prs).
 
 Additionally, we should notify our relying parties if we're going to change APIs or configuration details if we can (ie. it may not be prudent if we're changing a configuration variable in response to a security incident).  These notifications should be sent to the [firefox-accounts-notices group][firefox-accounts-notices] with enough time for relying parties to adjust their code or reply with any concerns.
+
+### Creating cloudops PRs
+#### About the cloudops repos
+We use AWS and GCP clouds in our production services for FxA. We have some servers running on Kubernetes and GCP and most of our servers running on AWS in plain EC2 instances.
+
+Configuration for these servers is declarative using [YAML](https://yaml.org/). We use a templating language called [Helm](https://helm.sh/) to do variable substitutions, loop constructs, etc.
+
+The environment variables get injected into the Docker container as it's run.
+
+#### Services in AWS
+1. Fork the repo and get access: https://github.com/mozilla-services/cloudops-deployment.
+    - If you don't have access to the repo you need, please request it in #fxa-team.
+2. Set the value of the variable in each environment
+    - (TODO: fill in)
+
+(TODO: include example PR link)
+
+#### Services in GCP
+1. Fork the repo and get access: https://github.com/mozilla-services/cloudops-infra. The FxA services are contained in the `projects/fxa` directory.
+2. `cd projects/fxa/k8s`
+3. Add the environment variable to `charts/${service}/templates/configmap.yaml` in alphabetical order under the `data` key.
+    * Unless the value is constant across all environments, enter a value that follows this pattern: `ENVIRONMENT_VARIABLE: {{ .Values.environmentVariable | quote }}`
+    * Kubernetes requires all values to be in quotes, so the latter part ensures that happens.
+4. Set the value of the variable in each environment by either:
+    * Setting a default value for all environments and specifying an override value for a particular environment (e.g. set a feature flag default to `false` but `true` on dev and stage).
+      * Defaults go into `charts/${service}/values.yaml`
+      * Overrides go into `values/${service}.yaml`
+      * [Example PR](https://github.com/mozilla-services/cloudops-infra/pull/2957)
+    * Explicitly setting a value for every environment (e.g. set a feature flag to `true` on dev and stage and `false` on prod).
+      * (TODO: fill in)
+
+Either way you choose, there must be a value for the variable in every environment. Helm will error otherwise.
 
 ## Security issues
 
