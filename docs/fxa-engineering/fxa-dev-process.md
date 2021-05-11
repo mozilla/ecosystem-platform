@@ -18,6 +18,9 @@ Above is a diagram illustrating the high level FxA development process.  It does
 
 Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
 
+We maintain boards for where our epics are in that life-cycle.  See what [Firefox Accounts][fxa-product-board] or [Subscription Platform][subplat-product-board] is working on now.
+
+
 ## Issue management
 
 Most of our work takes place on [GitHub][fxa-repository] and [Jira][fxa-jira].
@@ -50,9 +53,16 @@ A --> C(Task)
 A --> D(Task)
 A --> E(Bug)
 ```
-Generally, we can expect Epics to be written by the Product team.  Tasks and will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit inside of a sprint.  [Learn more about user stories][moz-user-stories].
+Generally, we can expect Epics to be written by the Product team.  Tasks will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit inside of a sprint.  [Learn more about user stories][moz-user-stories].
 
 As Tasks and Bugs pop up, they should be associated with open Epics as appropriate.
+
+When a task is in the `Ready for Engineering` column, it's expected that:
+* A [PI Ticket][pi-jira] has been filed
+* If there are interesting security changes, the security team has been notified
+* If there are significant string changes, the L10n team has been notified
+* Appropriate metrics have been documented and will be implemented (ie. How will we know this is a success?)
+
 
 ### Sprints
 
@@ -319,3 +329,7 @@ back into the public repo by doing the following:
 [moz-sec-bugs]: https://www.mozilla.org/security/bug-bounty/faq-webapp/#bug-reporting
 [moz-standards]: https://developer.mozilla.org/docs/Mozilla/Developer_guide/Committing_Rules_and_Responsibilities
 [moz-user-stories]: https://docs.google.com/presentation/d/1zepsrOiHINBMS3TJ8nFDJ4gf8u6kRONe1hdMDnlyZvI/edit
+
+[fxa-product-board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=360&projectKey=FXA
+[subplat-product-board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=808
+[pi-jira]: https://jira.mozilla.com/projects/PI/issues/
