@@ -78,10 +78,12 @@ When considering what you can accomplish in a sprint, remember:
 
 This isn't a comprehensive list but is a good selection to be aware of.  You should know the synchronization between Jira and Github is a little picky (eg. it won't sync spaces) so some labels will sync slightly differently.  For example, `good first issue` on Github is `good-first-issue` on Jira.
 
-* `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue
+We should use these labels any time they apply.
+
+* `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue.  When you use this label *leave a comment in the issue with context about how to test it*.
 * `qa-`: This is not something that should be tested by QA
 * `regression`: This used to work and now it doesn't
-* `good first issue` and `help wanted`: Use both of these labels
+* `good first issue` and `help wanted`: Use both of these labels at the same time when you come across an issue that would be good for a contributor.
 * `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
 * `code_quality`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code.
 * `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
