@@ -63,7 +63,6 @@ When a task is in the `Ready for Engineering` column, it's expected that:
 * If there are significant string changes, the L10n team has been notified
 * Appropriate metrics have been documented and will be implemented (ie. How will we know this is a success?)
 
-
 ### Sprints
 
 Sprints are tracked in Jira.  There is a [dashboard for our current sprint][fxa-jira-dashboard] and a [detailed view of our current sprint][fxa-jira-sprint].
@@ -74,6 +73,18 @@ When considering what you can accomplish in a sprint, remember:
 * FxA is a complex project with a lot of moving parts.  If you're not familiar with the area, sometimes a simple patch can lead to a rabbit hole that soaks up your time.
 * All patches are reviewed by another team member who also has their own obligations that sprint.  Leave room in your schedule to review patches and consider that others might not get to your patch immediately.
 * Some patches may require additional review from, for example, the operations, security, localization, or data steward teams.  If that's the case it may not land in the same sprint it is written in.
+
+### Labels we use
+
+This isn't a comprehensive list but is a good selection to be aware of.  You should know the synchronization between Jira and Github is a little picky (eg. it won't sync spaces) so some labels will sync slightly differently.  For example, `good first issue` on Github is `good-first-issue` on Jira.
+
+* `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue
+* `qa-`: This is not something that should be tested by QA
+* `regression`: This used to work and now it doesn't
+* `good first issue` and `help wanted`: Use both of these labels
+* `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
+* `code_quality`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code.
+* `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
 
 #### How do we decide what to work on?
 
