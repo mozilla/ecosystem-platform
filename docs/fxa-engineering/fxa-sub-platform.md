@@ -6,7 +6,7 @@ sidebar_label: Subscription Platform
 
 ## Getting Started
 
-Current as of `March 10, 2020`.
+Current as of `May 13, 2021`.
 
 ### Pre-Development
 
@@ -128,14 +128,14 @@ Once your API keys are set, restart the affected servers (`auth` or `payments`) 
 Reference the [workflow](https://github.com/mozilla/fxa#workflow) section of the FxA docs to sign up for and verify an account. You should now be able to access the payment flow at:
 
 ```
-http://127.0.0.1:3030/subscriptions/products/{productId}?plan={planId}
+http://localhost:3030/subscriptions/products/{productId}?plan={planId}
 ```
 
-The `productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional. If you are running the entire FxA stack and are using the keys from the Stripe FxA dev account, you can navigate to `123done` on port `:8080` to click on the link beginning with "Subscribe" to reach the form with a prepopulated product.
+The `productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional, unless you want to specify a plan.  Otherwise, if the product has multiple plans, the first one in the list as returned by Stripe is used.  If you are running the entire FxA stack and are using the keys from the Stripe FxA dev account, you can navigate to `123done` on port `:8080` to click on the link beginning with "Subscribe" to reach the form with a prepopulated product.
 
 Enter any name, valid expiration date, CVC number, and any card number from the [Stripe test cards docs](https://stripe.com/docs/testing#cards) to successfully create a test subscription.
 
-Navigate back to `http://127.0.0.1:3031/subscriptions` to manage your subscriptions.
+Navigate back to `http://localhost:3030/subscriptions` to manage your subscriptions.
 
 ## Understanding Subscription Status
 
@@ -169,13 +169,122 @@ server:
 The payments server handles the payment flow as well as serving pages for managing
 a user's subscription that are linked from the Settings page.
 
+[subscription endpoints]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#subscriptions
+
 ### Auth Server
 
 FxA's Auth Server makes Stripe API calls for authenticated FxA users via its [subscription
 endpoints][]. Stripe updates are sent back to the Auth Server via Stripe webhooks when a
 users subscription has been created/updated/deleted.
 
-[subscription endpoints]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/api.md#subscriptions
+Some Stripe webhooks will trigger emails.  These emails are behind a feature flag.  If you wish to send emails in your environment, set the auth server configuration
+
+```
+{
+  "subscriptions": {
+    "transactionalEmails": {
+      "enabled": true
+    }
+  }
+}
+```
+
+or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true".  In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://stripe.com/docs/stripe-cli/webhooks)'s event forwarding feature.  (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
+
+## PayPal Integration
+
+PayPal can be configured as an additional payment provider in the Subscription Platform.  PayPal's [Express Checkout Reference Transactions](https://developer.paypal.com/docs/archive/express-checkout/integration-guide/ECReferenceTxns/) is the feature that enables the Subscription Platform to use PayPal as a payment provider for recurring subscriptions.  The customer's PayPal Billing Agreement ID is saved for future subscription invoices.  See [the diagram below](#paypal-checkout) for details on this process.
+
+The PayPal paid subscriptions are still driven by Stripe's subscription and invoicing model.  The key difference is that PayPal paid subscriptions have a [collection method](https://stripe.com/docs/api/subscriptions/object#subscription_object-collection_method) of `send_invoice`.  The [PayPal processor](#paypal-processor) is used to pay the invoices with the customer's billing agreement ID.
+
+### PayPal Accounts
+
+You need three types of PayPal accounts for development.
+
+- PayPal Developer Account: allows you to access the PayPal Developer Dashboard
+- Sandbox PayPal Personal Account: used for testing as the customer
+- Sandbox PayPal Business Account: used for testing
+
+To create a PayPal developer account, sign up at https://developer.paypal.com/.  Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account.  Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
+
+Once you are in the PayPal developer dashboard, navigate to "Accounts" under the Sandbox section of the menu.  Here you can create [a pair of personal and business sandbox accounts](https://developer.paypal.com/docs/api-basics/sandbox/accounts/).  (To easily create multiple accounts for testing, there's a [bulk account creation feature](https://developer.paypal.com/docs/api-basics/sandbox/bulk-accounts/).)
+
+Once you've added your account pair, navigate to the bussines account by selecting "View/edit account".  Now click on the "API Credentials" tab.  You'll need the "NVP/SOAP Sandbox API Credentials" for the next section.
+
+### Configuration
+
+#### Auth Server
+
+In order to enable and use PayPal in the auth server, set the following configuration options
+
+```
+{
+  "subscriptions": {
+    "paypalNvpSigCredentials": {
+      "enabled": true,
+      "sandbox": true,
+      "user": "your PayPal NVP API User name",
+      "pwd": "your PayPal NVP API password",
+      "signature": "your PayPal NVP API signature"
+    }
+  }
+}
+```
+
+The environment variables equivalent would be
+```
+SUBSCRIPTIONS_PAYPAL_ENABLED=true \
+PAYPAL_SANDBOX=true \
+PAYPAL_NVP_USER='your PayPal NVP API User name' \
+PAYPAL_NVP_PWD='your PayPal NVP API password' \
+PAYPAL_NVP_SIGNATURE='your PayPal NVP API signature'
+```
+
+#### Payments Server
+
+The Payments frontend also does not offer PayPal as payment provider by default.  To enable the feature, set the following configuration options
+
+```
+{
+  "featureFlags": {
+    "usePaypalUIByDefault": true,
+    }
+  },
+  "paypal": {
+    "clientId": "sb",
+    "apiUrl": "https://www.sandbox.paypal.com",
+    "scriptUrl": "https://www.paypal.com"
+  }
+}
+```
+
+Or use the environment variables
+
+```
+FEATURE_USE_SCA_PAYMENT_UI_BY_DEFAULT=true \
+PAYPAL_CLIENT_ID='sb' \
+PAYPAL_API_URL='https://www.sandbox.paypal.com' \
+PAYPAL_SCRIPT_URL='https://www.paypal.com'
+```
+
+The paypal*/PAYPAL_* values are the defaults in the repo.  For local development, you do not need to change them.
+
+### The PayPal Button
+
+The Payments frontend uses the [PayPal JavaScript SDK](https://developer.paypal.com/docs/business/javascript-sdk/) to [add a button](https://developer.paypal.com/docs/business/checkout/configure-payments/single-page-app/) to the checkout process to [integrate with PayPal's NVP/SOAP API](https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/#intent-options-when-integrating-with-older-apis).  This button is loaded and displayed in an iFrame by PayPal.
+
+### Instant Payment Notification (IPN)
+
+[PayPal IPN](https://developer.paypal.com/docs/api-basics/notifications/ipn/) is PayPal's equivalent of Stripe's webhook feature.  We do rely on IPNs in the Subscription Platform.  Unlike Stripe, however, PayPal does not offer any tool that would forward the events to your local environment.  Our team use [ngrok](https://ngrok.com/) for that purpose.
+
+Once you have the services running locally, start ngrok with `ngrok 9000` and note the public URL.  Using your sandbox business account and the public URL fron ngrok, complete [these steps to set up IPNs](https://developer.paypal.com/docs/api-basics/notifications/ipn/IPNSetup/).
+
+
+### PayPal Processor
+
+After the initial payment during subscription creation, the recurring payments for future invoices are handled by the PayPal processor script.  To simulate or debug charging additional invoices paid by PayPal, you need to run this script.  It is located at `packages/fxa-auth-server/scripts/paypal-process.ts`.
+
+The script will make up to a configurable number of [attempts to pay](https://developer.paypal.com/docs/archive/express-checkout/ec-set-up-reference-transactions/#capture-future-payments) an invoice before cancelling the subscription.  This attempts count is saved to the invoice itself as metadata.  The invoice's metadata is also used to prevent sending multiple failed payment emails per invoice from the PayPal payment attempts.
 
 ## Ladder Diagrams of Payment Interactions
 
