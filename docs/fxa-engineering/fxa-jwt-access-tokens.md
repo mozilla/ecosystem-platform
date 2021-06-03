@@ -50,6 +50,15 @@ Firefox Accounts largely follows the IETF JWT access token draft spec's
 - `sub` - subject, user id. Normally the FxA user id for the user. If the RP uses [Pairwise Pseudonymous Identifiers (PPID)][#ppid-doc], will be an identifier that cannot be correlated to either the real FxA userid, or the PPID given out to other RPs.
 - `fxa-subscriptions` - space separated list of subscriptions the user has for the RP. Claim is only present if the user has a subscription with the RP.
 
+Internal Mozilla reliers also have access to the following custom claims:
+
+- `fxa-generation`: A number that increases each time the user's password is changed.
+Reliers can use this value to reject JWTs that were created before the password change,
+by tracking the largest-seen `fxa-generation` claim for each user and rejecting tokens
+that have smaller values.
+- `fxa-profileChangedAt`: A timestamp that increases each time the user's core profile data
+is changed. Reliers can use this value to refresh cached profile data in a timely manner.
+
 ## Local verification of a JWT access token
 
 The following is based on the [section on validation][#ietf-jwt-access-token-draft-spec-validation] JWT Access Token Draft Spec:
