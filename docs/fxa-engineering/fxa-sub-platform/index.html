@@ -94,8 +94,10 @@
 <tr><td>capabilities</td><td>Comma-separated list of capabilities enabled by this product for all Relying Party's.</td></tr>
 <tr><td>capabilities:{clientID}</td><td>Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.</td></tr>
 <tr><td>upgradeCTA</td><td>HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages.</td></tr>
-<tr><td>downloadURL</td><td>The download URL for the product.</td></tr>
 <tr><td>emailIconURL</td><td>Image URL for product icon in email content.</td></tr>
+<tr><td>downloadURL</td><td>The download or subscription success action URL for the product.</td></tr>
+<tr><td>product:successActionButtonLabel</td><td>An alternative label for the subscription success action button. The action is specified by <code>downloadURL</code>.</td></tr>
+<tr><td>product:successActionButtonLabel:{locale}</td><td>Localized override for the alternative label for the subscription success action button.</td></tr>
 <tr><td>product:subtitle</td><td>A subtitle for the product, usually displayed beneath the name in UI</td></tr>
 <tr><td>product:subtitle:{locale}</td><td>Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)</td></tr>
 <tr><td>product:details:{n}</td><td>Bullet-point feature details for the product, where {n} is a number or ordering the points</td></tr>
