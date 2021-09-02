@@ -54,31 +54,31 @@ If you are using a new Stripe account, you will need to setup a product and its 
 
 ##### Product Metadata
 
-| Key                                        | Value                                                                                                                                                                                           |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| productSet                                 | An arbitrary string used to group products in a set of upgrades & downgrades.                                                                                                                   |
-| productOrder                               | A number used for sorting products in a set.                                                                                                                                                    |
-| webIconURL                                 | Image URL for product icon in web content.                                                                                                                                                      |
-| capabilities                               | Comma-separated list of capabilities enabled by this product for all Relying Party's.                                                                                                           |
-| capabilities:{clientID}                    | Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.                                                                                    |
-| upgradeCTA                                 | HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
-| emailIconURL                               | Image URL for product icon in email content.                                                                                                                                                    |
-| downloadURL                                | The download or subscription success action URL for the product.                                                                                                                                                              |
-| product:successActionButtonLabel                           | An alternative label for the subscription success action button. The action is specified by `downloadURL`.                                                                                                                            |
-| product:successActionButtonLabel:{locale}                           | Localized override for the alternative label for the subscription success action button.                                                                                                                            |
-| product:subtitle                           | A subtitle for the product, usually displayed beneath the name in UI                                                                                                                            |
-| product:subtitle:{locale}                  | Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)                                                                                       |
-| product:details:{n}                        | Bullet-point feature details for the product, where {n} is a number or ordering the points                                                                                                      |
-| product:details:{n}:{locale}               | Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)                                                                                    |
-| product:playStoreLink                      | The google play store download URL for the product                                                                                                                                              |
-| product:appStoreLink                       | The App store download URL for the product                                                                                                                                                      |
-| product:termsOfServiceURL                  | The URL for the webpage containing the Terms of Service for the product offering                                                                                                                |
-| product:termsOfServiceURL:{locale}         | Localized override URL for the webpage containing the Terms of Service for the product offering                                                                                                 |
-| product:termsOfServiceDownloadURL          | The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. It can be either a) full, direct URL to a PDF (e.g. https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf), or, b) a URL without the language and file extension (e.g. https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos). See the "Legal Document Download URL Metadata" section below for more information. |
-| product:privacyNoticeURL                   | The URL for the webpage containing the Privacy Notice for the product offering                                                                                                                  |
-| product:privacyNoticeURL:{locale}          | Localized override URL for the webpage containing the Privacy Notice for the product offering                                                                                                   |
-| product:privacyNoticeDownloadURL           | The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.                                         |
-| support:app:{x}                            | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.|
+| Key | Description |
+| --- | --- |
+| downloadURL                               | Required. The download or subscription success action URL for the product.                 |
+| product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.   |
+| product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
+| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. It can be either a) full, direct URL to a PDF (e.g. https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf), or, b) a URL without the language and file extension (e.g. https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos). See the "Legal Document Download URL Metadata" section below for more information.                                |
+| webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net.            |
+| capabilities                              | Required if `capabilities:{clientID}` is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.                                                                                                   |
+| capabilities:{clientID}                   | Required if `capabilities` is not provided. Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}. |
+| emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. |
+| appStoreLink                              | Optional. The App store download URL for the product. |
+| playStoreLink                             | Optional. The google play store download URL for the product. |
+| productSet                                | Optional. An arbitrary string used to group products in a set of upgrades & downgrades. |
+| productOrder                              | Optional. A number used for sorting products in a set. |
+| product:details:{n}                       | Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points. |
+| product:details:{n}:{locale}              | Optional. Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
+| product:privacyNoticeURL:{locale}         | Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering. |
+| product:privacyNoticeDownloadURL          | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL. |
+| product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
+| product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
+| product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
+| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `downloadURL`. |
+| product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
+| support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
+| upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 
 ###### Product Metadata defaults
 
