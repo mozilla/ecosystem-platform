@@ -85,32 +85,32 @@
 <h5><a class="anchor" aria-hidden="true" id="product-metadata"></a><a href="#product-metadata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Product Metadata</h5>
 <table>
 <thead>
-<tr><th>Key</th><th>Value</th></tr>
+<tr><th>Key</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>productSet</td><td>An arbitrary string used to group products in a set of upgrades &amp; downgrades.</td></tr>
-<tr><td>productOrder</td><td>A number used for sorting products in a set.</td></tr>
-<tr><td>webIconURL</td><td>Image URL for product icon in web content.</td></tr>
-<tr><td>capabilities</td><td>Comma-separated list of capabilities enabled by this product for all Relying Party's.</td></tr>
-<tr><td>capabilities:{clientID}</td><td>Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.</td></tr>
-<tr><td>upgradeCTA</td><td>HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages.</td></tr>
-<tr><td>emailIconURL</td><td>Image URL for product icon in email content.</td></tr>
-<tr><td>downloadURL</td><td>The download or subscription success action URL for the product.</td></tr>
-<tr><td>product:successActionButtonLabel</td><td>An alternative label for the subscription success action button. The action is specified by <code>downloadURL</code>.</td></tr>
-<tr><td>product:successActionButtonLabel:{locale}</td><td>Localized override for the alternative label for the subscription success action button.</td></tr>
-<tr><td>product:subtitle</td><td>A subtitle for the product, usually displayed beneath the name in UI</td></tr>
-<tr><td>product:subtitle:{locale}</td><td>Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)</td></tr>
-<tr><td>product:details:{n}</td><td>Bullet-point feature details for the product, where {n} is a number or ordering the points</td></tr>
-<tr><td>product:details:{n}:{locale}</td><td>Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc)</td></tr>
-<tr><td>product:playStoreLink</td><td>The google play store download URL for the product</td></tr>
-<tr><td>product:appStoreLink</td><td>The App store download URL for the product</td></tr>
-<tr><td>product:termsOfServiceURL</td><td>The URL for the webpage containing the Terms of Service for the product offering</td></tr>
-<tr><td>product:termsOfServiceURL:{locale}</td><td>Localized override URL for the webpage containing the Terms of Service for the product offering</td></tr>
-<tr><td>product:termsOfServiceDownloadURL</td><td>The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <a href="https://accounts-static.cdn.mozilla.net">https://accounts-static.cdn.mozilla.net</a>. It can be either a) full, direct URL to a PDF (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf">https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf</a>), or, b) a URL without the language and file extension (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos">https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos</a>). See the &quot;Legal Document Download URL Metadata&quot; section below for more information.</td></tr>
-<tr><td>product:privacyNoticeURL</td><td>The URL for the webpage containing the Privacy Notice for the product offering</td></tr>
-<tr><td>product:privacyNoticeURL:{locale}</td><td>Localized override URL for the webpage containing the Privacy Notice for the product offering</td></tr>
-<tr><td>product:privacyNoticeDownloadURL</td><td>The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.</td></tr>
+<tr><td>downloadURL</td><td>Required. The download or subscription success action URL for the product.</td></tr>
+<tr><td>product:privacyNoticeURL</td><td>Required. The URL for the webpage containing the Privacy Notice for the product offering.</td></tr>
+<tr><td>product:termsOfServiceURL</td><td>Required. The URL for the webpage containing the Terms of Service for the product offering.</td></tr>
+<tr><td>product:termsOfServiceDownloadURL</td><td>Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <a href="https://accounts-static.cdn.mozilla.net">https://accounts-static.cdn.mozilla.net</a>. It can be either a) full, direct URL to a PDF (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf">https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf</a>), or, b) a URL without the language and file extension (e.g. <a href="https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos">https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos</a>). See the &quot;Legal Document Download URL Metadata&quot; section below for more information.</td></tr>
+<tr><td>webIconURL</td><td>Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <a href="https://accounts-static.cdn.mozilla.net">https://accounts-static.cdn.mozilla.net</a>.</td></tr>
+<tr><td>capabilities</td><td>Required if <code>capabilities:{clientID}</code> is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.</td></tr>
+<tr><td>capabilities:{clientID}</td><td>Required if <code>capabilities</code> is not provided. Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.</td></tr>
+<tr><td>emailIconURL</td><td>Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <a href="https://accounts-static.cdn.mozilla.net">https://accounts-static.cdn.mozilla.net</a>.</td></tr>
+<tr><td>appStoreLink</td><td>Optional. The App store download URL for the product.</td></tr>
+<tr><td>playStoreLink</td><td>Optional. The google play store download URL for the product.</td></tr>
+<tr><td>productSet</td><td>Optional. An arbitrary string used to group products in a set of upgrades &amp; downgrades.</td></tr>
+<tr><td>productOrder</td><td>Optional. A number used for sorting products in a set.</td></tr>
+<tr><td>product:details:{n}</td><td>Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points.</td></tr>
+<tr><td>product:details:{n}:{locale}</td><td>Optional. Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc).</td></tr>
+<tr><td>product:privacyNoticeURL:{locale}</td><td>Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering.</td></tr>
+<tr><td>product:privacyNoticeDownloadURL</td><td>Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.</td></tr>
+<tr><td>product:termsOfServiceURL:{locale}</td><td>Optional. Localized override URL for the webpage containing the Terms of Service for the product offering.</td></tr>
+<tr><td>product:subtitle</td><td>Optional. A subtitle for the product, usually displayed beneath the name in UI.</td></tr>
+<tr><td>product:subtitle:{locale}</td><td>Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc).</td></tr>
+<tr><td>product:successActionButtonLabel</td><td>Optional. An alternative label for the subscription success action button. The action is specified by <code>downloadURL</code>.</td></tr>
+<tr><td>product:successActionButtonLabel:{locale}</td><td>Optional. Localized override for the alternative label for the subscription success action button.</td></tr>
 <tr><td>support:app:{x}</td><td>Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The <code>{x}</code> part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.</td></tr>
+<tr><td>upgradeCTA</td><td>Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages.</td></tr>
 </tbody>
 </table>
 <h6><a class="anchor" aria-hidden="true" id="product-metadata-defaults"></a><a href="#product-metadata-defaults" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Product Metadata defaults</h6>
