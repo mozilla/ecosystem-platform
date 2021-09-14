@@ -9,9 +9,9 @@ sidebar_label: Release Process
 The main purpose of the release owner is to follow the "Releasing Code" process below.  The release owner should work with the rest of the team to ensure a smooth close-out of the current sprint.
 
 ### How is a Release Owner selected?
- At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc]. 
+ At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc].
 
-### I am the Release Owner: How should I plan my Sprint? 
+### I am the Release Owner: How should I plan my Sprint?
 If you are the designated Release owner, consider the following suggestions to managing your work and the release:
 
 * When taking on work for the sprint, allocate a portion of each day to release management duties - particular as the end of the sprint nears.
@@ -34,7 +34,7 @@ If you are the designated Release owner, consider the following suggestions to m
     1. Ensure you have appropriate QA signoffs
        * Not applicable for `main` -> `stage`
     1. Ensure you don't have any modified files or code laying around before you start the tag
-    1. Ensure you have the latest from `main`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`. 
+    1. Ensure you have the latest from `main`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`.
 
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
 
@@ -204,8 +204,20 @@ Operations is involved at this point to deploy to production directly from `fxa-
 
 Once the fix is verified in production, the patch is cherry-picked or merged back to `fxa`.
 
+## Temporary stage deploys
 
+If you are working on something that you wish to test out in a release environment before it is officially merged into `main` you might consider a temporary deploy to stage.
 
+To do so, start by branching off the most recent train branch. Don't branch off `main` so you're not introducing changes merged after the official train was deployed.
+
+Commit your changes, tag them, and push. Because you're pushing a tag it will trigger a build workflow in CircleCI. Keep an eye on the `deploy-packages` job.
+
+Once the images have been built you can ping someone from Ops in Slack to selectively deploy servers your changes occurred in (e.g. if you only change code in `fxa-auth-server`, only the auth server needs to be deployed).
+
+Some things to keep in mind:
+
+- This is a temporary deploy. Your changes will be reverted when the next official stage train tag occurs, or if someone else needs to perform this process.
+- We have relying parties that depend on stage for their own testing, so try not to break things with your temporary code. If you think this is a possibility please consider pinging QA in Slack so they can perform tests as needed.
 
 
 [cloudops-deployment]: https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa
