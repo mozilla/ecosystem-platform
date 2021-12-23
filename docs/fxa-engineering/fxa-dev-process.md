@@ -85,7 +85,7 @@ We should use these labels any time they apply.
 * `regression`: This used to work and now it doesn't
 * `good first issue` and `help wanted`: Use both of these labels at the same time when you come across an issue that would be good for a contributor.
 * `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
-* `code_quality`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code.
+* `maintenance`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code.
 * `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
 
 #### How do we decide what to work on?
@@ -164,7 +164,7 @@ Triage [this Jira incoming issues query][fxa-jira-backlog] - only the issues und
     * Set `needsux` as a label
   * Does it require a Product Manager?
     * Set `needsproduct` as a label
-  * If it is about improving our code quality add the `code_quality` label.
+  * If it is about improving our code quality add the `maintenance` label.
   * Consider adding a helpful comment!
 
 As you triage the issues move them into "To Do" (or close them).  Repeat for the rest of the issues in the Backlog.
