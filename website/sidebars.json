@@ -37,13 +37,8 @@
         "type": "subcategory",
         "label": "Firefox Sync",
         "ids": [
-          "features/firefox-sync/sync-feature",
-          "features/firefox-sync/password-management-feature",
-          "features/firefox-sync/bookmarks-feature",
           "features/firefox-sync/storage-feature",
-          "features/firefox-sync/history-feature",
           "features/firefox-sync/account-management-feature",
-          "process/becoming-a-sync-client",
           "process/sync-testing",
           "process/using-the-staging-environment"
         ]
@@ -68,7 +63,7 @@
           "fxa-engineering/fxa-metrics",
           "fxa-engineering/fxa-localization",
           "fxa-engineering/fxa-jwt-access-tokens",
-          "fxa-engineering/fxa-scoped-keys",          
+          "fxa-engineering/fxa-scoped-keys",
           "fxa-engineering/fxa-onepw-protocol",
           "fxa-engineering/fxa-webchannel-protocol",
           "fxa-engineering/fxa-oauth-webchannel-protocol",
