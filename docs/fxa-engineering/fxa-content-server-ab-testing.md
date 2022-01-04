@@ -1,7 +1,7 @@
 ---
 id: fxa-content-server-ab-testing
-title: Experiments & A/B Testing in the fxa-content-server
-sidebar_label: Experiments & A/B testing
+title: "Experiments & A/B Testing in the fxa-content-server"
+sidebar_label: "Experiments & A/B testing"
 ---
 
 Current as of `December 3rd, 2019`

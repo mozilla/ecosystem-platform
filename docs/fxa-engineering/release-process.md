@@ -118,7 +118,7 @@ You can then close the `train-xxx -> main` PR.
 
 ### The Happy Path: A regular release
 
-![A simplified merging diagram](assets/fxa-release1.png)
+![A simplified merging diagram](../assets/fxa-release1.png)
 
 During a regular release, running `release.sh` will create an appropriately named branch, update a few files like the Changelogs, and create a tag.  The Release Owner will push the branch to github and open a pull request back to `main`.
 
@@ -132,7 +132,7 @@ git pull
 
 ### A Patch Release
 
-![A patch release diagram](assets/fxa-release4.png)
+![A patch release diagram](../assets/fxa-release4.png)
 
 A patch release is used between official releases.  For example, a regression discovered midway through a sprint that can't wait for a normal release cycle would be pushed to production earlier through this process.
 
@@ -152,7 +152,7 @@ git log  # Verify it looks like you expect
 
 ### Another Option for a Patch Release
 
-![A alternative patch release diagram](assets/fxa-release5.png)
+![A alternative patch release diagram](../assets/fxa-release5.png)
 
 An alternative to the Patch Release described above would be to use an additional branch.  This would allow you to test complex changes without affecting the current release branch.
 
@@ -186,7 +186,7 @@ Git is a flexible tool and there are other options if other scenarios arise.  Do
 
 ### A Security Release
 
-![Diagram showing a security release](assets/fxa-release3.png)
+![Diagram showing a security release](../assets/fxa-release3.png)
 
 A security release will make use of the `fxa-private` repository.  This diagram illustates an important security patch being pushed live midway through sprint 100.  Firstly, we need to bring `fxa-private` up to speed since it probably hasn't been used in a while.
 

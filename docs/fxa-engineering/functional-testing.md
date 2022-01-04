@@ -1,7 +1,7 @@
 ---
 id: functional-testing
-title: Functional/Selenium Tests
-sidebar_label: Functional/Selenium Tests
+title: "Functional/Selenium Tests"
+sidebar_label: "Functional/Selenium Tests"
 ---
 
 Current as of `March 11th, 2021`

@@ -42,7 +42,7 @@ The first act performed by a user is to create the account. They enter email+pas
 * feed quickStretchedPW into HKDF to obtain "authPW"
 * deliver (email, authPW) to the keyserver's `POST /account/create` API
 
-![Diagram of account creation flow](assets/onepw-create.png)
+![Diagram of account creation flow](../assets/onepw-create.png)
 
 The server creates a random 32-byte `authSalt`, and uses it to stretch `authPW` further, using scrypt (64k/8/1), to derive `bigStretchedPW` and `verifyHash`. It then stores `authSalt` and `verifyHash` in the database.
 
@@ -60,7 +60,7 @@ To connect a browser to an existing account, we use the following login protocol
 
 This protocol starts by feeding the password and email address into 1000 rounds of PBKDF2 to obtain "quickStretchedPW", feeding quickStretchedPW into HKDF to get "authPW", then delivering email+authPW to the server's `/account/login` endpoint.
 
-![Diagram of auth flow](assets/onepw-auth.png)
+![Diagram of auth flow](../assets/onepw-auth.png)
 
 The server uses the email address to look up the database row, extracts authSalt, performs the same stretching as during account creation to obtain "bigStretchedPW" and then "verifyHash", then compares verifyHash against the stored value. If they match, the client has proven knowledge of the password, and the server creates a new session. The server returns the newly-generated sessionToken to the client, along with its account identifier (uid).
 
@@ -99,7 +99,7 @@ The sessionToken is used to derive two values:
 * tokenID
 * request HMAC key
 
-![Diagram of certificate creation flow](assets/IdPAuth-use-session.png)
+![Diagram of certificate creation flow](../assets/IdPAuth-use-session.png)
 
 The requestHMACkey is used in a HAWK request to provide integrity over many APIs, including /certificate/sign. requestHMACkey is used as credentials.key, while tokenID is used as credentials.id . HAWK includes the URL and the HTTP method ("POST") in the HMAC-protected data, and will optionally include the HTTP request body (payload) if requested.
 
@@ -109,7 +109,7 @@ If the client also wants kA/kB for Sync, it uses `/account/login?keys=true` inst
 
 The client will use keyFetchToken (as described below) to obtain `kA` and `wrap(wrap(kB))`. It will then use `quickStretchedPW` to derive `unwrapBKey`, from which it can obtain the unwrapped `kB`.
 
-![Diagram of key derivation flow](assets/onepw-keys.png)
+![Diagram of key derivation flow](../assets/onepw-keys.png)
 
 During the `/account/login?keys=true` call, the server extracts a second value from its HKDF call named `wrapwrapKey`. It uses `wrapwrapKey` to unwrap `wrap(wrap(kB))` from its database (with a simple XOR) to derive `wrap(kB)` and holds this temporarily in memory for the duration of the request (it is never written to the database unencrypted).
 
@@ -117,17 +117,17 @@ The server then uses `keyFetchToken` to derive `tokenID`, `reqHMACkey`, and `key
 
 Note that `keyFetchToken` and `wrap(kB)` are *not* stored in the database. The goal is to make sure that nothing stored in the database enables an easy brute-force attack on the user's password: all saved values must include the long scrypt stretch in their derivation or protection.
 
-![Diagram of server side of GET /account/keys request](assets/IdPAuth-keys-server.png)
+![Diagram of server side of GET /account/keys request](../assets/IdPAuth-keys-server.png)
 
 Later, the client will use `keyFetchToken` to derive the same values as the server did, and uses `tokenID` and `reqHMACkey` to make a HAWK request to the "GET /account/keys" API. The server looks up the stored table entry with `tokenID`, checks the request HMAC for validity, then returns the pre-encrypted response and deletes the entry.
 
 The client recomputes the MAC, compares it (throwing an error if it doesn't match), extracts the ciphertext, XORs it with the derived respXORkey, then splits it into the separate kA and wrap(kB) values.
 
-![Diagram of client side of GET /account/keys request](assets/IdPAuth-keys-client.png)
+![Diagram of client side of GET /account/keys request](../assets/IdPAuth-keys-client.png)
 
 Finally, the server-provided wrap(kB) value is simply XORed with the password-derived unwrapBKey (both are 32-byte strings) to obtain kB. There is no MAC on wrap(kB).
 
-![Small diagram of kB unwrap flow](assets/IdPAuth-key-unwrap.png)
+![Small diagram of kB unwrap flow](../assets/IdPAuth-key-unwrap.png)
 
 "kA" and "kB" enable the browser to encrypt/decrypt synchronized data records. They will be used to derive separate encryption and HMAC keys for each data collection (bookmarks, form-fill data, saved-password, open-tabs, etc). This will allow the user to share some data, but not everything, with a third party. The client may intentionally forget kA and kB (only retaining the derived keys) to reduce the power available to someone who steals their device.
 
@@ -148,7 +148,7 @@ Clients should then use the `keyFetchToken` and their old `unwrapBkey` to obtain
 
 Finally, the client sends the new `authPW` and `wrap(kB)` to the `/password/change/finish` endpoint, which is HAWK-authenticated by the `passwordChangeToken`. If accepted, the server generates a new random `authSalt`, derives the new `verifyHash`, encrypts `wrap(kB)` into `wrap(wrap(kB))`, and commits all three to the account database.
 
-![Diagram of change password flow](assets/onepw-change-password.png)
+![Diagram of change password flow](../assets/onepw-change-password.png)
 
 The `passwordChangeToken` is single-use and expires quickly, within 10 minutes.
 
@@ -166,7 +166,7 @@ The server marks the corresponding account as "pending recovery", allocates a ra
 
 When the user clicks this link, the fxa-content-server page that gets loaded will submit the token and code to the `/password/forgot/verify_code` API. When the server sees a matching token and code, it allocates an `accountResetToken` and returns it to the client (page) that submitted them. The client can then use the `accountResetToken` to establish a new password as described below. This all takes place in a web browser.
 
-![Diagram of forgot password flow](assets/onepw-forgot-password.png)
+![Diagram of forgot password flow](../assets/onepw-forgot-password.png)
 
 
 The API uses a distinct token and code for historical reasons: the original scheme assumed an agent-based flow instead of a web-based one, in which the user's browser chrome (or other client) would remember the passwordForgotToken while waiting for the user to transcribe the recovery code from the email into the client. In that scheme, the code needed to be short enough to transcribe, and there were additional security considerations involving limited re-use of the `passwordForgotToken` and code length. In the new web-based flow, the recovery code is a full-strength (256-bit) random string.
@@ -179,7 +179,7 @@ If the request is accepted, the server generates a new random authSalt, computes
 
 All class-B data will be lost. The `/account/reset` API is just like the `/account/create` API, except that it is HAWK-authenticated by an accountResetToken, and requires that the email already be in the database (as opposed to forbidding that).
 
-![Diagram of password reset flow](assets/onepw-reset.png)
+![Diagram of password reset flow](../assets/onepw-reset.png)
 
 accountResetToken is used to derive `tokenID` and `requestHMACkey` as usual, then the request data is delivered in the body of a HAWK request that uses tokenID as credentials.id and requestHMACkey as credentials.key .
 
@@ -339,7 +339,7 @@ This is weaker than the earlier SRP-based protocol, but still stronger than comm
 
 As with the SRP-based protocol, if the client is implemented in web content, then a strong active attacker (who can MitM TLS connections and thus serve doctored client code) can bypass the entire protocol and learn the password directly. This, of course, includes a server who decides (or is coerced) into delivering such pages.
 
-The long-term server data is intended to be safe against "easy" dictionary attacks, meaning that given everything stored in the DB, a passive attacker must still perform the full scrypt stretch to test each password guess. 
+The long-term server data is intended to be safe against "easy" dictionary attacks, meaning that given everything stored in the DB, a passive attacker must still perform the full scrypt stretch to test each password guess.
 
 The passive attacker gets access to two values that serve as password-guessing oracles. The first is "verifyHash", which is derived from the output of the full scrypt-based stretch. The second is `wrap(wrap(kB))` (which could be used in conjunction with some class-B encrypted data to test passwords), which is also protected by the scrypt step: for each password, the attacker runs the full computation to derive kB, then tries to decrypt some data and sees if its HMAC check passes.
 
@@ -350,7 +350,7 @@ The stored pre-encrypted response to `GET /account/keys` would also serve as an 
 Given the Sync legacy of full-strength random keys, exchanged with J-PAKE pairing, we'd like to make it possible to achieve similar levels of security with the new protocol. When viewed from the perspective of old-Sync, this new protocol has the following weaknesses:
 
 * Passwords. All security, even against (rate-limited) online attacks, is limited by the strength of the user's password. old-Sync (nominally) had no passwords, and no practical amount of guessing would yield the account's encryption key.  Moderate-strength passwords can benefit from expensive stretching, but users with a password of "123456" will probably lose control of their account no matter what we do.
-* Password Reuse. If a user has a strong password but it's not unique, there is a risk that it maybe compromised on another service. Old-Sync (nominally) had no passwords, and as such password reuse was not possible. 
+* Password Reuse. If a user has a strong password but it's not unique, there is a risk that it maybe compromised on another service. Old-Sync (nominally) had no passwords, and as such password reuse was not possible.
 * Weak client-side stretching: the server (or someone who successfully compromises it), or an attacker who can forge TLS certificates (or who records traffic and later learns the server's TLS private key), both get enough information to perform a dictionary attack that is only limited by the weak PBKDF-based stretch. This is relatively cheap.
 * Use of Password in a Web Context: when the client of this protocol runs inside a web page, rather than in browser chrome, a new set of attacks become possible. Compromised/coerced servers can quietly deliver modified pages which reveal the user's password to a waiting attacker. This becomes more likely as the scope of Firefox Accounts grows to include new use cases which preclude a chrome-only client (e.g. signing into Marketplace from other web browsers). This same problem exists with corrupted browser updates, of course, but it is nominally possible to download a browser from a trusted source and disable automatic updates, whereas it is not feasible to prevent or even detect surreptitious web-page tampering.
 
