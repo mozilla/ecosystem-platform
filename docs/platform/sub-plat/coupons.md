@@ -16,13 +16,13 @@ Coupons can be created in Stripe and assigned to different Product Subscriptions
 
 Coupons can be found under Products -> Coupons
 
-[Navigating to Coupons](assets/coupons/navigation.png)
+[Navigating to Coupons](../../assets/coupons/navigation.png)
 
 ### Creating the coupon
 
 After you land on the coupon page press the +New button to create a coupon. This will open up the coupon creation screen. Enter the mandatory information:
 
-**Name** - This is the name of the coupon that will be displaid on the invoice.  This should be user friendly. 
+**Name** - This is the name of the coupon that will be displaid on the invoice. This should be user friendly.
 **Type** - Choose the typo of coupon you are creating ( % off or, fixed amount).
 **Percent off** - If you have chosen a percentage discrount fill in the % box.
 **Currency & Discount amount** - If you have chosen a fixed amount discrount choose your currency and the descount amount.
@@ -31,7 +31,7 @@ After you land on the coupon page press the +New button to create a coupon. This
 **Redemprion limits** - Do not user this field. Leave both options unchecked.
 **Codes** - This allows us to set short codes that the user will enter into the Discount field during checkout. Turn this toggle on
 
-[Coupon Creation](assets/coupons/create.png)
+[Coupon Creation](../../assets/coupons/create.png)
 
 ### Creating coupon codes
 
@@ -39,29 +39,26 @@ Once you turned on the codes toggle you will see a new section appear. You can m
 
 **Code** - Set a code for the coupon. This code will be used during the subscription checkout flow.
 **Eligible for first-time orders only** - Do not use this field. This will prohibit for customers that already have a subscription to another product from using the coupon on a new product (Ex: has VPN but wants Relay)
-**Limit to a specific customer** - Do not use this field. 
+**Limit to a specific customer** - Do not use this field.
 **Limit the numberof times this code can be redeemed** - Select this option and put in a limit if you want to limit the number of times this coupon can be used. (Ex: only the first 300 people who read our blog can use the coupon)
 **Add an expiry date** - Select this option and enter a date time if you want this coupon to expire. (Ex: if the expiry of the coupon is Jan 1, 2022 9:00 PST users attempting to use this coupon on Jan 1, 2022 9:01 PST will see an error. )
 **Require minimum order value** - Do not use this field. Instead be mindfull of which Products/ Prices you assign each coupon. (Ex: do not assign a $1USD off coupon to a $0.99USD subscription)
 
-### Saving the coupon 
+### Saving the coupon
 
-Once you have filled in, and double checked all of your information, press the Create coupon button. Please note that once you create the coupon you are limited to what you can edit. Only the Name of the coupon can be edited. Already existing codes cannot be edited, only archived. However new codes can be added. 
+Once you have filled in, and double checked all of your information, press the Create coupon button. Please note that once you create the coupon you are limited to what you can edit. Only the Name of the coupon can be edited. Already existing codes cannot be edited, only archived. However new codes can be added.
 
-[Coupon Codes](assets/coupons/codes.png)
-
+[Coupon Codes](../../assets/coupons/codes.png)
 
 ## Linking coupons to Products
 
-In order for our customers to be able to use the coupons during the subscription checkout flow we must tie the promotion code(s) to a specific product or price. We do this via the metadata section in stripe. Add a new metadata item. Name it promotionCodes and provide it with a comma separated list of coupon codes. 
+In order for our customers to be able to use the coupons during the subscription checkout flow we must tie the promotion code(s) to a specific product or price. We do this via the metadata section in stripe. Add a new metadata item. Name it promotionCodes and provide it with a comma separated list of coupon codes.
 
-Each product most likely has multiple prices in different currencies/ locales. If you want a coupon to apply to all of the prices add the coupon the the metadata at the product level. If however you only want the coupon to apply to a locale or a specific price apply the metadata at that price level. 
+Each product most likely has multiple prices in different currencies/ locales. If you want a coupon to apply to all of the prices add the coupon the the metadata at the product level. If however you only want the coupon to apply to a locale or a specific price apply the metadata at that price level.
 
-Please note that coupons have limitations. A fixed amount coupon of a certain currency can only be applied to a subscription in that currency. So if you add a $1USD coupon to a product that has Euro pricing this coupon will not work for customers paying in Euro. 
+Please note that coupons have limitations. A fixed amount coupon of a certain currency can only be applied to a subscription in that currency. So if you add a $1USD coupon to a product that has Euro pricing this coupon will not work for customers paying in Euro.
 
-[Metadata](assets/coupons/metadata.png)
-
-
+[Metadata](../../assets/coupons/metadata.png)
 
 ## Testing coupons
 

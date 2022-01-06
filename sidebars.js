@@ -20,7 +20,7 @@ module.exports = {
         'Subscription Platform': ['platform/sub-plat/sub-plat-overview',
                                   'platform/sub-plat/sub-plat-features',
                                   'platform/sub-plat/integration-with-subscription-platform',
-                                  'platform/sub-plat/coupons'],
+                                  'platform/sub-plat/sub-plat-coupons'],
       }]
     },
     {
