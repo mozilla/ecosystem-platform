@@ -18,15 +18,9 @@ The site is build using [Docusaurus](https://docusaurus.io/en/) and is automatic
 deployed from master to GitHub Pages using CircleCI. To build and run it locally you can:
 
 ```
-$> cd ./website/
-$> npm install
-$> npm start
+$> yarn install
+$> yarn start
 ```
 
 That should open a new browser window automatically, or you can manually browse
 to http://localhost:3000/ecosystem-platform/ to view the docs.
-
-This repository contains:
-
-* `./website`: Config for the docusaurus website, such as themes and deployment options.
-* `./docs`: Markdown files for the actual documentation itself.

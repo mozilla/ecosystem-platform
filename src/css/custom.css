@@ -1,0 +1,91 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Inter-Regular.woff2?v=3.13') format('woff2'),
+    url('/fonts/Inter-Regular.woff?v=3.13') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Inter-Bold.woff2?v=3.13') format('woff2'),
+    url('/fonts/Inter-Bold.woff?v=3.13') format('woff');
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Metropolis-Regular.woff2?v=10.0.0') format('woff2'),
+    url('/fonts/Metropolis-Regular.woff?v=10.0.0') format('woff');
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Metropolis-Bold.woff2?v=10.0.0') format('woff2'),
+    url('/fonts/Metropolis-Bold.woff?v=10.0.0') format('woff');
+}
+
+:root {
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --ifm-heading-font-family: Metropolis, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --ifm-color-primary: #0060df;
+  --ifm-navbar-background-color: #FAFAFB;
+  --ifm-footer-background-color: #FAFAFB;
+  --ifm-menu-color-background-active: #F0F0F4;
+  --ifm-heading-color: #0C0C0D;
+  --ifm-font-color-base: #0C0C0D;
+  --ifm-toc-border-color: #E7E7E7;
+}
+
+[data-theme="dark"]:root {
+  --ifm-color-primary: #0090ED;
+  --ifm-navbar-background-color: #26262b;
+  --ifm-footer-background-color: #26262b;
+  --ifm-menu-color-background-active: #26262b;
+  --ifm-heading-color: #f9f9f9;
+  --ifm-font-color-base: #f1f1f1;
+  --ifm-toc-border-color: #2d2d36;
+}
+
+.navbar__title {
+  font-size: 1.3rem;
+}
+
+.navbar__logo {
+  margin-right: .7rem;
+}
+
+.menu_node_modules-\@docusaurus-theme-classic-lib-next-theme-DocSidebar-styles-module {
+  padding: 1rem .7rem !important;
+}
+
+.menu__link--active {
+  font-weight: 700;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}

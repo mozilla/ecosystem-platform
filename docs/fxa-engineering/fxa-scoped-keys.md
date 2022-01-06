@@ -46,7 +46,7 @@ While there is significantly more detail at the above link, the main points nece
 
 The application fetches `wrapKb` from the FxA server, then calculates the user's ***master key material*** via xor: `kB = wrapkB ⊕ unwrapBKey`.
 
-![A simplified diagram of connecting to Firefox Sync](assets/fxa-scoped-keys-1.png)
+![A simplified diagram of connecting to Firefox Sync](../assets/fxa-scoped-keys-1.png)
 
 Constructing the master key material `kB` from two separate components in this manner gives the system some interesting security properties:
 
@@ -85,7 +85,7 @@ Our approach to satisfying these requirements is based on the following key idea
 * Use client-side web content from accounts.firefox.com to produce derived key material during the OAuth authorization flow.
 * Securely communicate key material back to the client application by encrypting it for transit during the OAuth redirect dance.
 
-We explore each point in turn in the following sections, which are presented in the order in which we intend to build and ship them.  
+We explore each point in turn in the following sections, which are presented in the order in which we intend to build and ship them.
 
 [Data Model](#data-model) defines the overarching view of how we'll model access to encryption keys via special OAuth scopes
 [Protocol Flow](#protocol-flow) defines an extension to the OAuth authorization flow that can securely transmit key material from FxA web content back to the relying application.
@@ -111,7 +111,7 @@ Using scopes to define what keys can be accessed by which applications has a num
 
 We'll follow prior art from [Google’s OAuth 2.0 scopes][googles-oauth2-scopes] and use URIs to represent permissions that relate to a specific service operated by Mozilla, and short literal strings to represent special permissions that relate directly to the relying application.  We currently have the following specific use-cases in mind:
 
-* ***App-specific keys***.  A relying application may request the special `app_key` scope in order to get a unique key just for its own use, and would depend on Firefox Accounts to ensure this key is not shared with other applications.  Only applications that share a redirect_uri origin would be able to access the same `app_key` key.  
+* ***App-specific keys***.  A relying application may request the special `app_key` scope in order to get a unique key just for its own use, and would depend on Firefox Accounts to ensure this key is not shared with other applications.  Only applications that share a redirect_uri origin would be able to access the same `app_key` key.
 * ***Firefox Notes***.  This application consists of a new server-side storage API and corresponding client-side application code.  The application will request the scope `https://identity.mozilla.com/apps/notes` which will allow it to retrieve both some purpose-specific encryption keys, and an OAuth token that can be used to access the storage API.
 * ***Sync keys***.  A relying application may request the scope `https://identity.mozilla.com/apps/sync` in order to get access to the user's sync data.  In this case Firefox Accounts would be responsible for ensuring that it provides the same encryption keys as used by existing sync clients, to ensure backwards compatibility.
 
@@ -159,7 +159,7 @@ To maintain the existing security properties of FxA, we need to deliver this bun
 
 Since we must operate within a standard OAuth protocol flow, there is no way for FxA web content to communicate directly with the client application.  The key material must transit the OAuth redirect flow and hence be handled by servers on both sides.  To guard against exposure, we will encrypt it for transit using public-key cryptography with an ephemeral key generated at the start of the OAuth flow.
 
-![Protocol Flow Diagram](assets/fxa-scoped-keys-2.png)
+![Protocol Flow Diagram](../assets/fxa-scoped-keys-2.png)
 
 At a high level, the flow will operate as follows:
 
@@ -274,7 +274,7 @@ POST /authorization HTTP/1.1
 
 grant_type=authorization_code&
 code=ABC123&
-code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk 
+code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 ```
 
 The server responds with both the OAuth access token, and the corresponding JWE of key material:
@@ -421,7 +421,7 @@ The existing Sync service does not support using different encryption keys to ac
 
 ### Test Vectors (WIP)
 
-The above description of protocol flow was designed for human-readability.  For completeness, this section specifies the specific concrete values that would be expected at each step of the flow.  To avoid ambiguity we will represent ASCII strings like 'literal string' and show raw bytes in hex format as <ABCDEF>.  Linebreaks within values are for readability only.
+The above description of protocol flow was designed for human-readability.  For completeness, this section specifies the specific concrete values that would be expected at each step of the flow.  To avoid ambiguity we will represent ASCII strings like 'literal string' and show raw bytes in hex format as &lt;ABCDEF&gt;.  Linebreaks within values are for readability only.
 
 To begin, assume that the relying application has been registered with FxA with the following client details:
 
@@ -555,7 +555,7 @@ POST /authorization HTTP/1.1
 
 grant_type=authorization_code&
 code=67675750e08865338ed540f9656c4102&
-code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk 
+code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
 
 ...
 
