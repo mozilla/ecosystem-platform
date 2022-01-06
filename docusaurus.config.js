@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   tagline: 'Documentation for Firefox Accounts, Sync and more',
   url: 'https://mozilla.github.io',
   baseUrl: '/ecosystem-platform/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/firefox-logo.png',
   organizationName: 'mozilla',
