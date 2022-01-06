@@ -12,12 +12,10 @@ jobs:
       - run:
           name: Build and publish the docs portal
           command: |
-            pushd website
             yarn install
             git config --global user.name "Application Services"
             git config --global user.email "application-services@mozilla.com"
             USE_SSH=true CUSTOM_COMMIT_MESSAGE="Deploy website [skip ci]" yarn deploy
-            popd
 
 workflows:
   version: 2
