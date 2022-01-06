@@ -89,3 +89,17 @@
 [data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+/* We have to use !important here because mermaid inlines styles */
+[data-theme="dark"] [id^=mermaid] .messageText, [data-theme="dark"] [id^=mermaid] .loopText {
+  fill: var(--ifm-font-color-base) !important;
+  stroke: var(--ifm-font-color-base) !important;
+}
+
+[data-theme="dark"] [id^=mermaid] .loopText tspan {
+  fill: inherit !important;
+}
+
+[data-theme="dark"] [id^=mermaid] line, [data-theme="dark"] [id^=mermaid] path {
+  stroke: #9c9c9c !important;
+}
