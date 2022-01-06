@@ -4,6 +4,7 @@ jobs:
   Deploy to GitHub pages:
     docker:
       - image: circleci/node:latest
+    resource_class: small
     steps:
       - add_ssh_keys:
           fingerprints:
