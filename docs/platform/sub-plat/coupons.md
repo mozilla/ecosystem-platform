@@ -26,10 +26,10 @@ After you land on the coupon page press the +New button to create a coupon. This
 - **Type** - Choose the type of coupon you are creating ( % off or, fixed amount).
 - **Percent off** - If you have chosen a percentage dicount fill in the % box.
 - **Currency & Discount amount** - If you have chosen a fixed amount discount choose your currency and the discount amount.
-- **Apply to a specific procude** - Do not use this field, leave in the default off position
+- **Apply to a specific products** - Do not use this field, leave in the default off position
 - **Duration** - Select the duration of the coupon. This ties directly to the invoice. Forever means the coupon will be used for the first subscription and all renewals. Once means the coupon will only be valid for the initial subscritpion. Multiple months means that the coupon will be valid multiple times for a monthly subscription but only once for a yearly subscription unless the number of months is greater than 12.
-  - **Redemprion limits** - Do not use this field. Leave both options unchecked.
-  - **Codes** - This allows us to set short codes that the user will enter into the Discount field during checkout. Turn this toggle on
+- **Redemprion limits** - Do not use this field. Leave both options unchecked.
+- **Codes** - This allows us to set short codes that the user will enter into the Discount field during checkout. Turn this toggle on
 
 ![Coupon Creation](../../assets/coupons/create.png)
 
@@ -40,7 +40,7 @@ Once you turned on the codes toggle you will see a new section appear. You can m
 - **Code** - Set a code for the coupon. This code will be used during the subscription checkout flow.
 - **Eligible for first-time orders only** - Do not use this field. This will prohibit customers that already have a subscription to another product from using the coupon on a new product (Ex: has VPN but wants Relay)
 - **Limit to a specific customer** - Do not use this field.
-- **Limit the numberof times this code can be redeemed** - Select this option and put in a limit if you want to limit the number of times this coupon can be used. (Ex: only the first 300 people who read our blog can use the coupon)
+- **Limit the number of times this code can be redeemed** - Select this option and put in a limit if you want to limit the number of times this coupon can be used. (Ex: only the first 300 people who read our blog can use the coupon)
 - **Add an expiry date** - Select this option and enter a date time if you want this coupon to expire. (Ex: if the expiry of the coupon is Jan 1, 2022 9:00 PST users attempting to use this coupon on Jan 1, 2022 9:01 PST will see an error. )
 - **Require minimum order value** - Do not use this field. Instead be mindfull of which Products/ Prices you assign each coupon. (Ex: do not assign a $1USD off coupon to a $0.99USD subscription)
 
