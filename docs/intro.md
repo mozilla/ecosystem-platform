@@ -5,11 +5,21 @@ sidebar_label: Introduction
 slug: /
 ---
 
-**Welcome to the Ecosystem Platform docs.** The goal of this site is to serve as a documentation hub for Firefox Accounts, Services, Synced Client Integrations, and Subscription Platform, which collectively make up the Ecosystem Platform. It provides detailed breakdowns of the various components that make up these services, including technical references, guides, concepts, deep-dives, and much more.
+**Welcome to the Ecosystem Platform docs.** The goal of this site is to serve as a documentation hub for Firefox Accounts and Subscription Platform. It provides detailed breakdowns of the various components that make up these services, including technical references, guides, concepts, deep-dives, and much more.
+
+If you are interested in integrating with Firefox Accounts or Subscription Platform please review the **For Relying Parties** section on the left.
 
 ## Let's chat
 
-Need to reach us? Mozilla Employees can drop into [#fxa](https://mozilla.slack.com/archives/C4D36CAJW) in Slack, and external folks can reach us in the [Firefox Accounts Matrix chat room](https://chat.mozilla.org/#/room/#fxa:mozilla.org).
+Need to reach us? Mozilla Employees can drop into [#fxa](https://mozilla.slack.com/archives/C4D36CAJW) in Slack, and other folks can reach us in the [Firefox Accounts Matrix chat room](https://chat.mozilla.org/#/room/#fxa:mozilla.org).
+
+## Related Projects
+
+There are some closely related projects which have their own documentation.  We link to them for posterity:
+
+* [Mozilla Push Service](https://mozilla-push-service.readthedocs.io/en/latest/)
+* [Application Services Rust Components](https://mozilla.github.io/application-services/book/index.html)
+* [Sync](https://mozilla-services.readthedocs.io/en/latest/)
 
 ## About this site
 

@@ -1,0 +1,239 @@
+---
+title: Development Setup
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Getting Started
+
+:::note
+👋 Just a heads up - FxA has a lot of moving parts, and there are plenty of areas that may cause headaches when getting set up. If you get stuck feel free to [reach out](/#lets-chat) and we'll do our best to help.
+:::
+
+1. Manually install the [system dependencies](#dependencies).
+
+1. Clone this repository:
+
+  ```shell
+  git clone https://github.com/mozilla/fxa.git
+  ```
+
+1. Enter the directory, install Yarn dependencies, and start everything up:
+
+  ```shell
+  cd fxa
+  yarn install
+  yarn start
+  ```
+
+  :::caution
+  `yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo:mozilla/fxa+filename:pm2.config.js+filename:infrastructure.config.js)). Doing so may result in errors.
+  :::
+
+1. Once your services have all started up you should now be able to [visit FxA locally](http://localhost:3030). Next up you may want to [create an account](./local-accounts).
+
+:::tip
+FxA should only be accessed locally using the `localhost` host, and not via `127.0.0.1`.
+:::
+
+### Handy commands
+
+[PM2](https://github.com/Unitech/PM2) is used to control services locally. Use the CLI to control and inspect services:
+
+```shell
+# Start all services
+yarn start
+
+# Stop all services
+yarn stop
+
+# Display logs for all services
+yarn pm2 logs
+
+# Display logs for just the `auth` service
+yarn pm2 logs auth
+
+# Restart the `mysql` service
+yarn pm2 restart mysql
+
+# Stop the `content` service
+yarn pm2 stop content
+```
+
+Check out the [PM2 docs](https://github.com/Unitech/PM2) for more commands. If you're using VS Code there is also a [handy extension](./vscode-development) for managing PM2 services.
+
+Additionally, be sure to check out the [`package.json`](https://github.com/mozilla/fxa/search?q=package.json) files in both the root and individual packages to see all available commands.
+
+:::tip
+To avoid wasting computer resources while not working on FxA make sure to stop the servers using `yarn stop`. Once you are back working on FxA just use the `yarn start` command to bring the servers back up.
+:::
+
+### Troubleshooting
+
+- [TODO common issues]
+
+## Dependencies
+
+:::tip
+Looking for how to manage Yarn dependencies? [Click here](./yarn-dependencies) to learn more.
+:::
+
+Select your operating system to install the required dependencies for developing FxA. The instructions are intended to be followed in order.
+
+<Tabs groupId="operating-systems">
+<TabItem value="mac" label="macOS" default>
+
+Node.js can be installed in a few ways (including using the [installer](https://nodejs.org/en/download/)). The following commands install the latest version, but you should check out [`.nvmrc`](https://github.com/mozilla/fxa/blob/main/.nvmrc) to see the specific version FxA expects (YMMV using versions greater than it):
+
+```shell
+# via nvm (recommended) - https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install node
+
+# via Bash
+curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+
+# via Brew
+brew install node
+```
+
+Next, use the command line to install the following:
+
+```shell
+# Git (via XCode)
+xcode-select --install
+
+# Python deps
+sudo easy_install pip && sudo pip install virtualenv
+
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --profile default
+
+# Yarn (via NPM)
+npm install -g yarn
+```
+
+Finally, manually install the following:
+
+- [Docker Desktop](https://docs.docker.com/desktop/mac/install/)
+- [Java](https://www.java.com/en/download/)
+- [libgmp](https://gmplib.org/#DOWNLOAD)
+- [Google Cloud SDK CLI](https://cloud.google.com/sdk/docs/quickstart#mac)
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+Start by installing some essentials:
+
+```shell
+# Git, curl, libgmp, Java, Python deps, Firefox, + more
+sudo apt-get install git curl build-essential python-virtualenv python-dev pkg-config libssl-dev libgmp3-dev openjdk-11-jre firefox
+
+# Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --profile default
+```
+
+Node.js can be installed in a few ways (including using the [installer](https://nodejs.org/en/download/)). The following commands install the latest version, but you should check out [`.nvmrc`](https://github.com/mozilla/fxa/blob/main/.nvmrc) to see the specific version FxA expects (YMMV using versions greater than it):
+
+```shell
+# via nvm (recommended) - https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install node
+
+# via NodeSource
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+With Node + NPM installed you can now install Yarn:
+
+```shell
+npm install -g yarn
+```
+
+Finally, manually install the following:
+
+- [Docker Desktop](https://docs.docker.com/engine/install/ubuntu/)
+  <details>
+    <summary>Additional Docker notes</summary>
+    Docker commands require sudo, to avoid it, follow steps below:
+
+    Add the `docker` group if it doesn't already exist:
+
+    ```shell
+    sudo groupadd docker
+    ```
+
+    Add the connected user `$USER` to the `docker` group
+
+    ```shell
+    sudo gpasswd -a $USER docker
+    ```
+
+    Restart the `docker` daemon
+
+    ```shell
+    sudo service docker restart
+    ```
+  </details>
+- [Google Cloud SDK CLI](https://cloud.google.com/sdk/docs/quickstart#deb)
+
+</TabItem>
+<TabItem value="win" label="Windows">
+
+Start by installing [Windows Subsystem for Linux](https://docs.microsoft.com/en-ca/windows/wsl/).
+
+Follow the Ubuntu instructions for installing essentials and Node via CLI.
+
+Finally, manually install the following:
+
+- [Docker Desktop](https://docs.docker.com/desktop/windows/install/)
+- [Google Cloud SDK CLI](https://cloud.google.com/sdk/docs/quickstart#windows)
+
+</TabItem>
+</Tabs>
+
+## Secrets
+
+When developing locally you may need to set up some secrets in order to effectively work with certain services. These secrets are managed at the package level.
+
+Check out the Secrets section in the following package documentation:
+
+- [fxa-auth-server](#UPDATE-ME)
+- [fxa-payments-server](#UPDATE-ME)
+
+## Testing
+
+:::tip
+While it is possible to run the entire code base's test suite, in development you'll likely want to run a specific test or a subset of tests. Please refer to each package's documentation for detailed instructions on how to test its respective code.
+:::
+
+### Test all or some packages
+
+:::note
+You might need to run `yarn start infrastructure` to start services before running tests.
+:::
+
+From the root directory you may test all or some FxA packages:
+
+```shell
+# Test only `fxa-shared`
+yarn test fxa-shared
+
+# Test `fxa-auth-db-mysql` and `fxa-auth-server`
+yarn test fxa-auth-db-mysql fxa-auth-server
+
+# Test all packages
+yarn test all
+```
+
+The above commands invoke the same tests that CI uses, and is not necessarily the same as running yarn test in any given package.
+
+### Emulating a CI environment
+
+It is possible to run various test suites (known as Jobs) acting as CircleCI. This is useful if you're encountering CI-specific failures. Please refer to [this documentation](#UPDATE-ME).
+
+## Contributing
+
+If you've got FxA all set up and running, congratulations! Those interested in helping to develop Firefox Accounts should check out the [Contributing](https://github.com/mozilla/fxa/blob/main/CONTRIBUTING.md) doc.
