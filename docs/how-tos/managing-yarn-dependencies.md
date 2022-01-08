@@ -4,7 +4,7 @@ title: Managing Yarn Dependencies
 
 ## On Your Machine
 
-FxA uses [Yarn](https://yarnpkg.com/) to manage its Node dependencies. Follow the [Development Setup guide](./development-setup) for how to install Yarn and the `yarn` command on your machine.
+FxA uses [Yarn](https://yarnpkg.com/) to manage its Node dependencies. Follow the [Development Setup guide](../tutorials/development-setup) for how to install Yarn and the `yarn` command on your machine.
 
 :::note
 Once upon a time FxA used [`npm`](https://docs.npmjs.com/cli/v7/commands/npm) to manage its dependencies, which means you may come across documentation or commands that still reference its usage. In most cases you should be able to freely replace the keyword `npm` with `yarn`, but it's worth learning about [the differences](https://www.sitepoint.com/yarn-vs-npm/#comparingnpmandyarncommands) between the two CLIs.
@@ -17,7 +17,7 @@ If `yarn install` is failing run `yarn -v` and check that it is at least 1.22.0.
 :::
 
 :::tip
-We have a script that can automatically detect changes to the `yarn.lock` file and run `yarn install` when you check out a branch or pull in latest. To enable it set `FXA_AUTO_INSTALL=1`.
+We have a script that can automatically detect changes to the `yarn.lock` file and run `yarn install` when you check out a branch or pull in latest. To enable it set `FXA_AUTO_INSTALL=1`.  If you don't enable it, you'll see a warning when changes are detected letting you know to run `yarn install` manually.
 :::
 
 ## Dependabot Pull Requests
