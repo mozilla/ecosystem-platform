@@ -4,7 +4,7 @@ title: Node Debugging
 
 It's possible to debug a running Node process using a variety of debuggers (see the [Node debugging docs](https://nodejs.org/en/docs/guides/debugging-getting-started/) for details).
 
-You may also be interested in checking out how to use [VS Code with FxA](./vscode-development).
+You may also be interested in checking out how to use [VS Code with FxA](using-vscode-with-fxa).
 
 ## Debugging a Server
 

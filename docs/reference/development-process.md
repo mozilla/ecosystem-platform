@@ -2,7 +2,7 @@
 title: Development Process
 ---
 
-We develop and deploy on a two-week cycle. Every other Thursday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process.md).
+We develop and deploy on a two-week cycle. Every other Thursday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process).
 
 ## Our weekly process
 

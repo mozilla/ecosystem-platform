@@ -12,5 +12,5 @@ Once you've got FxA running locally you'll probably want to create an account th
 
   ![Terminal preview of inbox service](../assets/logs-inbox-signin.png)
 
-  If you'd rather receive the actual verification code email instead of using the terminal, check out how to [use MailDev](./maildev-emails) for local emails.
+  If you'd rather receive the actual verification code email instead of using the terminal, check out how to [use MailDev](local-emails-with-maildev) for local emails.
 1. That's it! You'll be taken to `/settings` with the message "Account verified successfully" appearing along the top.
