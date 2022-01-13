@@ -224,6 +224,14 @@ function authenticate(request: http.IncomingMessage): object {
 }
 ```
 
+Webhooks are processed from our event broker service. Currently, we emit events for password change, profile change, subscription change and delete account.
+
+For additional documentation please reference the [readme](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/README.md).
+
+### Register for webhooks
+
+Once you have setup a service to receive webhook events, you can then register the webhook url by filing a bugzilla issue. For example, you can clone this [bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1745741) and update with your information. 
+
 ## Some flow diagrams
 
 ### A full oauth flow
