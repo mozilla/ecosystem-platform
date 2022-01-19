@@ -10,14 +10,13 @@ Current as of `November 15th, 2019`
 stateDiagram
   state "RP" as RP
   state "Amazon S3" as s3: Profile photo storage
+  state "Amazon SES" as ses: Amazon email delivery
   state "Amazon SNS" as sns: Amazon hosted email/SMS
   state "Basket" as basket: Send marketing emails, hosted by Marketing
   state "fraud detection pipeline" as fdp: Should an event be blocked? Hosted by SecOps
   state "fxa-auth-server" as auth: authn/authz
-  state "fxa-auth-db-mysql" as authdb: DB service for auth-server
   state "fxa-content-server" as content
   state "fxa-customs-server" as customs: Fraud/abuse prevention
-  state "fxa-email-service" as email: SMTP gateway
   state "fxa-event-broker" as eb: Notify RPs of important user events
   state "fxa-payments-server" as payments
   state "fxa-profile-server" as profile
@@ -34,18 +33,16 @@ stateDiagram
   User-->RP
   RP-->auth
   RP-->content
-  auth-->authdb
   auth-->basket
   auth-->customs
   auth-->eb
-  auth-->email
   auth-->gcp
   auth-->mysql
   auth-->profile
   auth-->redis
   auth-->sns
+  auth-->ses
   auth-->zendesk
-  authdb-->mysql
   content-->auth
   content-->gcp
   content-->payments
@@ -54,7 +51,6 @@ stateDiagram
   customs-->iprepd
   customs-->memcached
   eb-->RP
-  email-->sns
   fdp-->customs
   gcp-->fdp
   gcp-->mdp
@@ -79,13 +75,12 @@ stateDiagram
 ```mermaid
 stateDiagram
   state "RP" as RP
-  state "amazon sns" as sns: Amazon hosted email/SMS
+  state "Amazon SES" as ses: Amazon email delivery
+  state "Amazon SNS" as sns: Amazon hosted email/SMS
   state "Basket - Salesforce Marketing Cloud (SFMC)" as basket: Send marketing emails, hosted by Marketing
-  state "fxa-auth-db-mysql" as authdb: DB service for auth-server
   state "fxa-auth-server" as auth: authn/authz
   state "fxa-content-server" as content
   state "fxa-customs-server" as customs: Fraud/abuse prevention
-  state "fxa-email-service" as email: SMTP gateway
   state "fxa-event-broker" as eb: Notify RPs of important user events
   state "fxa-payments-server" as payments
   state "fxa-profile-server" as profile
@@ -100,16 +95,15 @@ stateDiagram
   payments-->auth : 3
   profile-->auth : 4
   support_panel-->auth : 5
-  auth-->authdb : 6
+  auth-->ses : 6
   auth-->basket : 7
   auth-->customs : 8
   auth-->eb : 9
-  auth-->email : 10
-  auth-->gcp : 11
-  auth-->mysql : 12
-  auth-->redis : 13
-  auth-->sns : 14
-  auth-->zendesk : 16
+  auth-->gcp : 10
+  auth-->mysql : 11
+  auth-->redis : 12
+  auth-->sns : 13
+  auth-->zendesk : 14
 
   note left of RP
 No.  Connection             Reason
@@ -118,16 +112,15 @@ No.  Connection             Reason
 3.   payments &rarr; auth        update subscriptions
 4.   profile &rarr; auth         canonical profile info
 5.   support_panel &rarr; auth   view user info
-6.   auth &rarr; authdb          authentication/subscription CRUD
+6.   auth &rarr; ses             send email to users
 7.   auth &rarr; basket          notify of user events
 8.   auth &rarr; customs         fraud detection
 9.   auth &rarr; event broker    notify of user update
-10.  auth &rarr; email           send email to users
-11.  auth &rarr; gcp             logging
-12.  auth &rarr; mysql           authorization CRUD
-13.  auth &rarr; redis           profile/sessionToken cache
-14.  auth &rarr; sns             send SMS messages
-16.  auth &rarr; zendesk         file support tickets
+10.  auth &rarr; gcp             logging
+11.  auth &rarr; mysql           authorization CRUD
+12.  auth &rarr; redis           profile/sessionToken cache
+13.  auth &rarr; sns             send SMS messages
+14.  auth &rarr; zendesk         file support tickets
 
   end note
 
@@ -189,18 +182,6 @@ No.  Connection           Reason
 6.   gcp &rarr; fdp            notify of user events
   end note
 
-```
-
-## fxa-email-service
-
-```mermaid
-stateDiagram
-  state "fxa-auth-server" as auth: authn/authz
-  state "fxa-email-service" as email: SMTP gateway
-  state "amazon sns" as sns: Amazon hosted email/SMS
-
-  auth-->email
-  email-->sns
 ```
 
 ## fxa-payments-server
