@@ -2,7 +2,7 @@
 title: Tests in CircleCI
 ---
 
-Last Updated: 2019-11-26
+Last Updated: 2022-01-19
 
 ## Overview
 
@@ -51,10 +51,6 @@ Some packages do not use `build-module` - these each use customized jobs:
 - [`fxa-shared`](#fxa-shared)
 - [`js-client`](#js-client)
 - [`fxa-oauth-server`](#fxa-oauth-server)
-- [`fxa-email-event-proxy`](#fxa-email-event-proxy)
-- [`fxa-email-service`](#fxa-email-service)
-
-Finally, [the `docs` job](#docs) is run after the completion of `js-client` and `fxa-email-service` jobs.
 
 ### deploy-tag
 
@@ -63,11 +59,6 @@ The jobs specified in this workflow only run for tags.
 All steps in the workflow depends on [the `install` job](#install), so that gets run first.
 
 Then, [the shared `deploy-module` job](#deploy-module) is run in parallel for most packages - [check `.circleci/config.yml` for an up-to-date list](https://github.com/mozilla/fxa/blob/main/.circleci/config.yml#L355).
-
-There are also some package-specific jobs here:
-
-- [fxa-email-event-proxy-tag](#fxa-email-event-proxy-tag)
-- [fxa-email-service-tag](#fxa-email-service-tag)
 
 ## Jobs
 
@@ -129,26 +120,6 @@ This is done by running [`.circleci/install-content-server.sh`](#circleci-instal
 
 Custom task for fxa-shared package. It runs lint and test directly on the CircleCI host node - rather than building a Docker container for running tests.
 
-### js-client
-
-Custom task for js-client package. It runs `.circleci/test-js-client.sh` to install, build, lint, and test directly on the CircleCI host node - rather than building a Docker container for running tests. It also installs a `default-jre` dependency required to build [`sjcl`](http://bitwiseshiftleft.github.io/sjcl/).
-
-### fxa-email-event-proxy
-
-Custom task for fxa-email-event-proxy package. It runs lint and test directly on the CircleCI host node - rather than building a Docker container for running tests.
-
-### fxa-email-event-proxy-tag
-
-Custom task for fxa-email-event-proxy package run when a commit is tagged. It directly runs on the CircleCI host node to build, leaving a copy of the build in CircleCI build artifacts as `fxa-email-event-proxy.$CIRCLE_TAG.zip` - where `$CIRCLE_TAG` is the name of the tag used.
-
-### fxa-email-service
-
-Custom task for fxa-email-service package. Since this package is Rust based, it performs a build via `cargo` directly on the CircleCI host. A Docker container is built around the product of the `cargo` build using `.circleci/tag.sh fxa-email-service` - the binary built on the host is copied into the container by `packages/fxa-email-service/Dockerfile-tag`.
-
-### fxa-email-service-tag
-
-Custom task for fxa-email-service package. Since this package is Rust based, it performs a release build via `cargo` directly on the CircleCI host. A Docker container is built around the product of the `cargo` build using `.circleci/tag.sh fxa-email-service` - the binary built on the host is copied into the container by `packages/fxa-email-service/Dockerfile-tag`.
-
 ### docs
 
 Custom task for building and publishing documentation. Runs `_scripts/gh-pages.sh` - but only on main branch in the main project repo.
@@ -169,7 +140,6 @@ Builds documentation and commits the result to [the gh-pages branch of the repo]
 
 This, in turn, publishes the result to mozilla.github.io/fxa - which currently includes:
 
-- [Rust docs for fxa-email-service](http://mozilla.github.io/fxa/fxa-email-service/fxa_email_service/index.html).
 - [Storybook for fxa-payments-server](http://mozilla.github.io/fxa/fxa-payments-server/)
 
 ### .circleci/config.yml
@@ -186,21 +156,8 @@ For pull requests, the script fetches and parses the diff for the current PR. Th
 
 If there's an error while fetching or parsing the diff, `all` is output. Otherwise, the script checks the path of each file changed to build a list of modules for testing.
 
-Some modules depend on other modules. Within `package.json` at the root of the FxA project, there is an `fxa.moduleDependencies` object. This maps named modules to their dependencies.
+Some modules depend on other modules. Dependencies that resolve to `workspace:*` are added recursively to the list of modules to test.
 
-If the diff contains changes to any of the dependencies, the dependent module is also added to the list. So, for example, `fxa-content-server` lists `fxa-auth-server` as a dependency. Thus, a change to `fxa-auth-server` causes `fxa-content-server` to be automatically included in the list.
-
-```json
-"fxa": {
-  "moduleDependencies": {
-    "fxa-content-server": [
-      "fxa-auth-server"
-    ]
-  }
-}
-```
-
-Finally, the list is output to the stdout, one module per line for each in need of testing.
 
 ### .circleci/build-test-deploy.sh
 
@@ -260,18 +217,6 @@ Untagged commits or commits on branches that do fall into one of the above cases
 
 Logic for running or skipping deployment for a given module is also implemented here: `packages/test.list` is expected to contain a list output from `modules-to-test.js` - if the current module's name is missing and the list isn't `all`, this script will exit immediately.
 
-### .circleci/tag.sh
-
-Used solely by `fxa-email-service` as a custom version of `build.sh` and `deploy.sh`:
-
-- Builds a Docker container using `Dockerfile-tag` tagged `${MODULE}:latest`
-- Re-tags the Docker container using basically the same logic as `deploy.sh` and pushes to Docker Hub
-
-### .circleci/install-content-server.sh
-
-Copies over `version.json` and runs `npm install` for fxa-content-server.
-
-### .circleci/test-content-server.sh
 
 TBD:
 - describe how content-server tests are run
