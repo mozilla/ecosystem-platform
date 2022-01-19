@@ -4,8 +4,6 @@ title: System Diagrams
 
 Current as of `November 15th, 2019`
 
-Click on any image to expand.
-
 ## FxA universe
 
 ```mermaid
@@ -13,8 +11,7 @@ stateDiagram
   state "RP" as RP
   state "Amazon S3" as s3: Profile photo storage
   state "Amazon SNS" as sns: Amazon hosted email/SMS
-  state "Amplitude" as amplitude: Hosted metrics
-  state "Basket - Salesforce Marketing Cloud (SFMC)" as basket: Send marketing emails, hosted by Marketing
+  state "Basket" as basket: Send marketing emails, hosted by Marketing
   state "fraud detection pipeline" as fdp: Should an event be blocked? Hosted by SecOps
   state "fxa-auth-server" as auth: authn/authz
   state "fxa-auth-db-mysql" as authdb: DB service for auth-server
@@ -31,7 +28,6 @@ stateDiagram
   state "Mozilla Data Platform (MDP)" as mdp: Send marketing emails, hosted by Marketing
   state "mysql" as mysql: auth, oauth, profile CRUD
   state "redis" as redis: session/profile info cache
-  state "subhub" as subhub: Hosted by IT
   state "Support agent" as support_agent: Fix user problems
   state "Zendesk" as zendesk: Hosted support management
 
@@ -48,7 +44,6 @@ stateDiagram
   auth-->profile
   auth-->redis
   auth-->sns
-  auth-->subhub
   auth-->zendesk
   authdb-->mysql
   content-->auth
@@ -63,7 +58,6 @@ stateDiagram
   fdp-->customs
   gcp-->fdp
   gcp-->mdp
-  gcp-->amplitude
   payments-->auth
   payments-->profile
   payments-->stripe
@@ -73,7 +67,6 @@ stateDiagram
   profile-->gcp
   profile-->mysql
   profile-->s3
-  subhub-->stripe
   support_agent-->support_panel
   support_agent-->zendesk
   support_panel-->auth
@@ -100,7 +93,6 @@ stateDiagram
   state "gcp" as gcp: logging/metrics
   state "mysql" as mysql: auth, oauth, profile CRUD
   state "redis" as redis: session/profile info cache
-  state "subhub" as subhub: Hosted by IT
   state "Zendesk" as zendesk: Hosted support management
 
   RP-->auth : 1
@@ -117,7 +109,6 @@ stateDiagram
   auth-->mysql : 12
   auth-->redis : 13
   auth-->sns : 14
-  auth-->subhub : 15
   auth-->zendesk : 16
 
   note left of RP
@@ -136,7 +127,6 @@ No.  Connection             Reason
 12.  auth &rarr; mysql           authorization CRUD
 13.  auth &rarr; redis           profile/sessionToken cache
 14.  auth &rarr; sns             send SMS messages
-15.  auth &rarr; subhub          update subscriptions
 16.  auth &rarr; zendesk         file support tickets
 
   end note
