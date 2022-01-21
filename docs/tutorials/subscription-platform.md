@@ -81,7 +81,7 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
 | support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
-
+| promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
 ###### Product Metadata defaults
 
 Some of the metadata properties listed above [have defaults][product-details-defaults] that are used when they're not defined in Stripe:
@@ -129,7 +129,7 @@ https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf.
 
 Once your API keys are set, restart the affected servers (`auth` or `payments`) if needed.
 
-Reference the [workflow](https://github.com/mozilla/fxa#workflow) section of the FxA docs to sign up for and verify an account. You should now be able to access the payment flow at:
+Reference the [workflow](../how-tos/creating-an-account-locally) section of the FxA docs to sign up for and verify an account. You should now be able to access the payment flow at:
 
 ```
 http://localhost:3030/subscriptions/products/{productId}?plan={planId}

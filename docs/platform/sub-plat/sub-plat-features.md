@@ -16,7 +16,7 @@ Subscription Platform integrates with ZenDesk to provide staffed support. The Fx
 
 ## Data Reporting
 
-Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ticket data in addition to any telemetry you collect in your offering. Please see this document to understand access and status for all of these endpoints.
+Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ticket data in addition to any telemetry you collect in your offering. Please see [this document][../references/metrics] to understand access and status for all of these endpoints.
 
 ## Geo-Restrictions
 
@@ -24,7 +24,7 @@ Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ti
 
 ## Currency & Market Support
 
-The Subscription Platform supports a number of currencies including USD, CAD, NZD, Singapore Dollars, Euros, Great British Pounds, and Malaysian Ringgit. Practically speaking, any currency supported by Stripe is available through Sub Plat. Please be aware that if you wish to ship a product in a currency other than the ones listed above, you may wish to run QA on our staging environment.
+The Subscription Platform supports a number of currencies including USD, CAD, NZD, Singapore Dollars, Swiss Franc, Euros, Great British Pounds, and Malaysian Ringgit. Practically speaking, any currency supported by Stripe is available through Sub Plat. Please be aware that if you wish to ship a product in a currency other than the ones listed above, you may wish to run QA on our staging environment.
 
 Importantly, If you wish to offer your product in multiple different currencies, you will have to configure your marketing page to correctly route different users to different plans depending on their region.You will also need to set up individual stripe plans for each currency.
 

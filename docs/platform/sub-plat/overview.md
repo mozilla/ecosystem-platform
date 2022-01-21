@@ -13,7 +13,7 @@ What is the Subscription Platform? Think of it as a catch-all name for a set of 
 3. **Billing** - Ongoing billing & receipt emails once a subscription is entered.
 4. **Subscription Management UI** - Settings that allow the user to update payment information.
 5. **Subscription Support** - Staffed support for end users.
-6. **Revenue and funnel metrics** - dashboards in Amplitude and Stripe that provide insights into conversion through the subscription funnel, as well as revenue data such as MRR and churn.
+6. **Revenue and funnel metrics** - dashboards in Looker and Stripe that provide insights into conversion through the subscription funnel, as well as revenue data such as MRR and churn.
 
 ## How subscriptions work
 

@@ -69,4 +69,4 @@ When integrated with the FxA stage or development environments, subscription sig
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
 [webhook]: https://en.wikipedia.org/wiki/Webhook
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user
-[config]: /ecosystem-platform/docs/fxa-engineering/fxa-sub-platform#configuration
+[config]: /ecosystem-platform/tutorials/subscription-platform#configuration
