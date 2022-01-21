@@ -230,7 +230,7 @@ For additional documentation please reference the [readme](https://github.com/mo
 
 ### Register for webhooks
 
-Once you have setup a service to receive webhook events, you can then register the webhook url by filing a bugzilla issue. For example, you can clone this [bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1745741) and update with your information. 
+Once you have setup a service to receive webhook events, you can then register the webhook url by creating a pull request in [cloudops-infra](https://github.com/mozilla-services/cloudops-infra). To edit webhooks coming from FxA stage, you'll need to edit [projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf#L16-L77). To edit webhooks coming from FxA prod you'll need to edit [projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf#L16-L82). You'll need to add your client id to `endpoint_topic_config`, and your webhook url to `endpoint_subscription_config`. See an [example PR]().
 
 ## Some flow diagrams
 
