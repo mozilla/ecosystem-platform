@@ -66,8 +66,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         darkTheme: darkCodeTheme,
       },
       algolia: {
-        appId: '6FDAH39W6J',
-        apiKey: 'ba6cda8e4777c205151ddf78330f40f1',
+        appId: 'RFM5H13DFK',
+        apiKey: '8751d831ab7e8c4439d8eff5b100490c',
         indexName: 'mozilla_ecosystem-platform',
       },
     }),
