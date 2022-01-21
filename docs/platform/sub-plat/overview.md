@@ -25,7 +25,7 @@ If a user cancels their subscription, this metadata goes away and your product c
 
 ## Terminology
 
-Before diving into [features](sub-plat-features.md) and [integration](../../process/integration-with-subscription-platform.md) how-tos, it's useful to align on key terminology.
+Before diving into [features](sub-plat-features.md) and [integration](integration-with-subscription-platform.md) how-tos, it's useful to align on key terminology.
 
 ### Relying Party
 
