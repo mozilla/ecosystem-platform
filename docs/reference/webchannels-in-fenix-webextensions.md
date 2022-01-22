@@ -75,7 +75,7 @@ Sent when a user successfully authenticates via a WebChannel OAuth flow.
 
 #### data
 
-```
+```json
 {
   "code": "02f3cfea84ac4c143662b38d6c7f0c82c6f91eb041befc7cecda446b1b4887c1",
   "state": "vHao1p6OizzwReCkQMSpZA",

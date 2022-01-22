@@ -62,6 +62,10 @@ In the URL bar, open:
 
 ## Amplitude Metrics
 
+:::caution
+We no longer use Amplitude.  This section is out of date.
+:::
+
 As long as the experiment name is added to one of [MANUAL_EXPERIMENTS or STARTUP_EXPERIMENTS](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/experiment.js), the experiment name and group are reported to Amplitude and added to the user's `experiments` user property. The Amplitude experiment name is in the form:
 
 ```

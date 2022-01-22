@@ -15,7 +15,7 @@ FxA has several databases, for example `fxa`, `fxa_profile` and `pushbox`. Somet
 
 Execute an interactive shell on the MySQL DB container and start the MySQL shell:
 
-```sh
+```shell
 yarn mysql
 ```
 
@@ -23,7 +23,7 @@ OR
 
 Start the MySQL shell through the MySQL client:
 
-```sh
+```shell
 mysql -uroot --host=127.0.0.1 --port=3306
 ```
 

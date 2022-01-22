@@ -67,10 +67,14 @@ The client side is a [Backbone](https://backbonejs.org/) based Single Page Appli
 handling user input, communicating with various FxA backend services, and communicating with RPs or browsers.
 The client app runs in modern Web capable systems, see [supported browsers](fxa-dev-process#browser-support) for up to date tier 1 support.
 
-**NOTE** Yes, FxA uses Backbone. React wasn't a thing when FxA started, and converting FxA to use React
+:::note
+Yes, FxA uses Backbone. React wasn't a thing when FxA started, and converting FxA to use React
 will be a journey of tears. [Only attempt such a task piece by piece](#converting-to-react).
+:::
 
-**NOTE 2** Our use of Backbone isn't strictly Model-View-Controller (MVC), ours is more like MVVM. We use Models and Views and have models for the Views.
+:::note
+Our use of Backbone isn't strictly Model-View-Controller (MVC), ours is more like MVVM. We use Models and Views and have models for the Views.
+:::
 
 ## High Level Web Client Components
 
@@ -91,12 +95,14 @@ any of these properites to meet the specification of that integration.
 
 Brokers communicate with RPs via the URL or a [Channel](#channels).
 
-**NOTE️** While placing screen->screen transition logic in auth_brokers might seem like an odd choice, this resulted
+:::note
+While placing screen->screen transition logic in auth_brokers might seem like an odd choice, this resulted
 in a huge simplification over when complex transition logic was embedded in views. Some screen->screen transitions
 depend on the integration type, and embedding this logic within the Views resulted in an unmaintainable
 mess. The work to completely remove transition logic from views was never completed, and we have since
 made many transitions more universal and it may be that we could move some of this logic back into views.
 It may also be that distinct state machines outside of brokers would have been a better choice.
+:::
 
 #### Auth Broker implementations
 
@@ -138,25 +144,30 @@ Three primary types of Relier models exist:
 2. oauth
 3. web (called relier)
 
-**NOTE**: Any long lived data (e.g., email address, uid, client_id), coming from an RP or on the URL
+:::caution
+Any long lived data (e.g., email address, uid, client_id), coming from an RP or on the URL
 **MUST BE** validated and transformed within Reliers. While it seems natural to ingest and sanitize
 data in the Views, we are unable to control what users and malicious actors do. Assuming users always
 enter at `/`, or at `/complete_sign_up`, etc, _does not hold_. To prevent XSS, we would have to validate
 and sanitize long lived data *on every screen it is used*, and we saw many cases in the past where we
 forgot to do this. Ingesting and validating the data on startup in the Relier model ensures the data
 is checked once and is ensured to be safe afterwards.
+:::
 
-**NOTE 2**: The front end could probably be significantly simplified if all query parameter validation
-logic was moved to the server.
+:::note
+The front end could probably be significantly simplified if all query parameter validation logic was moved to the server.
+:::
 
 ### User
 
 A [User](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/user.js) holds and persists data about one or more Accounts as well as keeping track of the currently signed in user.
 
-**NOTE**: The user model was a premature solution to allow us to have an "account chooser" where a user visiting
+:::note
+The user model was a premature solution to allow us to have an "account chooser" where a user visiting
 a new RP would be able to choose from any of their signed in Accounts. We never implemented this, and the User
 model has been a bit of a pain. The model does handle other things, though we could probably move most of its
 responsibilities elsewhere and simplify the overall architecture.
+:::
 
 ### Account
 
@@ -343,9 +354,9 @@ as possible. Whenever the user signs in or out, [BroadcastChannel](https://devel
 messages are sent to all other FxA tabs. Whenever another tab receives a message, it responds
 appropriately.
 
-### l10n
+### Localization
 
-See [L10n in the content and auth servers](./fxa-localization).
+See [L10n in the content and auth servers](../reference/localization).
 
 ## Settings
 

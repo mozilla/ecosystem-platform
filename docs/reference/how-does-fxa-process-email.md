@@ -19,7 +19,11 @@ There are also two subdirectories, layouts and partials:
 * The templates in `layouts` contain outer scaffolding that’s common across emails. For the HTML emails that includes stuff like metadata, header logo and smallprint in the footer. For the plain text emails it’s just the standard footer text. Layout names are specified in the call to `render`.
 * The templates in `partials` contain reusable components that are common to many emails. They’re included inline using the handlebars `{{> partialName}}` syntax.
 
-## L10n
+## Localization (L10n)
+
+:::note
+See also [this deep dive on Localization](localization).
+:::
 
 There is more detailed documentation about localization elsewhere. For the scope of this document though if will suffice to say that there is a grunt task called `l10n-extract` which is run as part of our L10n automation. It extracts strings from templates by looking for the `{{t "this string needs translating"}}` syntax and from JS code by looking for the `gettext('this string needs translating')` syntax.  Stuff like the email subject and variable data for partials will be in the JS code.
 
@@ -27,21 +31,21 @@ Bear in mind that occasionally we need to bump the parser version that’s used 
 
 ## Bounces and complaints
 
-[SES delivery, bounce and complaint notifications][aws-notification-docs] are published to SQS queues. As well as emitting metrics (see below), we also store bounce records in the auth db whenever a bounce or complaint occurs. The email service then checks those records against thresholds defined in the config and if any thresholds are violated, sending will fail.
+[SES delivery, bounce and complaint notifications](https://docs.aws.amazon.com/ses/latest/dg/notification-contents.html) are published to SQS queues. As well as emitting metrics (see below), we also store bounce records in the auth db whenever a bounce or complaint occurs. The email service then checks those records against thresholds defined in the config and if any thresholds are violated, sending will fail.
 
-The bounce and complaint handling code is in `lib/email/bounces.js` but long-term we want to migrate to the email service’s implementation instead, which was written some time ago but has [not been deployed yet][3358]. The motivation for moving is partly semantic, because bounce records don’t really belong in the auth db, but also security, because the email service should not need access to the auth db.
+The bounce and complaint handling code is in `lib/email/bounces.js` but long-term we want to migrate to the email service’s implementation instead, which was written some time ago but has not been deployed yet. The motivation for moving is partly semantic, because bounce records don’t really belong in the auth db, but also security, because the email service should not need access to the auth db.
 
 ## Metrics
 
 We emit metrics when emails are sent, delivered and when they bounce or complaints are received. A regrettable decision was made to treat complaints as a type of bounce when the metrics were first implemented, which means some of the numbers are unintuitive. Specifically, you might expect that `count sent = count delivered + count bounced`. That’s not true. Instead, `count sent = count delivered + count bounced - count complained`.
 
-The metrics code is slightly confusing because, as mentioned in the previous section, we haven’t finished migrating to the email service yet. That means there’s metrics code we’re using right now and other stuff we’re not using yet, which is waiting for the [email service deployment][3358].
+The metrics code is slightly confusing because, as mentioned in the previous section, we haven’t finished migrating to the email service yet. That means there’s metrics code we’re using right now and other stuff we’re not using yet, which is waiting for the email service deployment.
 
 The stuff we’re using right now is in `lib/email/delivery.js` and `lib/email/bounces.js`. These modules receive events directly from SES and should be pretty straightforward to understand.
 
 The stuff we’re not using yet is in `lib/email/notifications.js`, which receives events from the email service (using the same format as SES for consistency). That queue won’t receive any events until the above-linked PR is deployed. The story behind it is we want to keep the metrics code in the auth server, even though bounce and complaint handling is moving away.
 
-The two handlers are designed to co-exist, so it’s fine for them both to be in operation when the email service stuff gets deployed, they’ll just compete for events without duplicating any metrics or whatever. When we’re happy that the email service is behaving correctly, we should land the draft PR that I worked on to remove the old SQS handlers from the auth server: [#2192][2192].
+The two handlers are designed to co-exist, so it’s fine for them both to be in operation when the email service stuff gets deployed, they’ll just compete for events without duplicating any metrics or whatever. When we’re happy that the email service is behaving correctly, we should remove the old SQS handlers from the auth server.
 
 ## Tests
 

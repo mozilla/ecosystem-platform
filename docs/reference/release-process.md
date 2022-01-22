@@ -34,9 +34,13 @@ If you are the designated Release owner, consider the following suggestions to m
     1. Ensure you don't have any modified files or code laying around before you start the tag
     1. Ensure you have the latest from `main`, including tags. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`.
 
+:::caution
 **The release script expects the git origin to be unchanged from the default.**  If you've modified your git remotes you will get confusing output here and might mess things up.  If in doubt, check out a new copy of FxA (eg. `git clone git@github.com:mozilla/fxa.git fxa.tagging` and do all your tagging there.
+:::
 
+:::tip
 **If you're tagging in a newly cloned repo, ensure your commits will be GPG signed.** Run `git config --list` and verify you see `commit.gpgsign=true`. If this is not already set globally, run `git config --global commit.gpgsign true`.
+:::
 
 1. Run [release.sh][release.sh] from the root of the repository.  Make sure there are no errors in the output.
 
@@ -62,7 +66,7 @@ If you are the designated Release owner, consider the following suggestions to m
 
 1. Run any outstanding database migrations.  These are applied automatically for `dev` and `stage` but are reviewed manually for production since we may need to take care with the changes to avoid slow queries.  The migrations should be included in the [deployment doc][deployment-doc].
 
-1. Build fxa-auth, fxa-content, fxa-oauth, fxa-profile, fxa-verifier in stage on Jenkins using git commit from cloudops-deployment PR and docker images referenced in deploy bug
+1. Build `fxa-auth`, `fxa-content`, `fxa-oauth`, `fxa-profile`, `fxa-verifier` in stage on Jenkins using git commit from cloudops-deployment PR and docker images referenced in deploy bug
 
 1. Request QA on stage (by posting in the bug)
 
@@ -78,7 +82,7 @@ If you are the designated Release owner, consider the following suggestions to m
 
 #### Releasing Icons
 
-All product icons live in a dedicated `assets` directory in the fxa repo. This directory is independent of individual packages in the monorepo because it doesn't need to be wrapped up in any particular container, and these icons may be used across different servers.
+All product icons live in a dedicated [assets directory](https://github.com/mozilla/fxa/tree/main/assets) in the fxa repo. This directory is independent of individual packages in the monorepo because it doesn't need to be wrapped up in any particular container, and these icons may be used across different servers.
 
 The `assets` directory is uploaded manually to the FxA CDN at https://accounts-static.cdn.mozilla.net as part of the release process. Subdirectories map directly to paths under the CDN domain: content in `assets/foo` maps to https://accounts-static.cdn.mozilla.net/foo.
 

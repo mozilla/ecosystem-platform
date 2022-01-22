@@ -9,9 +9,9 @@ slug: /
 
 If you are interested in integrating with Firefox Accounts or Subscription Platform please review the **For Relying Parties** section on the left.
 
-## Let's chat
-
+:::note
 Need to reach us? Mozilla Employees can drop into [#fxa](https://mozilla.slack.com/archives/C4D36CAJW) in Slack, and other folks can reach us in the [Firefox Accounts Matrix chat room](https://chat.mozilla.org/#/room/#fxa:mozilla.org).
+:::
 
 ## Related Projects
 

@@ -4,6 +4,10 @@ title: Metrics
 
 Last updated: `March 11th, 2020`
 
+:::caution
+This is a bit outdated.  We no longer use Amplitude.
+:::
+
 # What types of metrics are there?
 The FxA metrics ecosystem is somewhat arcane and esoteric, so a brief history of how we got to where we are may be helpful to understand the landscape.
 

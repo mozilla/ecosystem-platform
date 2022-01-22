@@ -4,7 +4,9 @@ title: Incident Response
 
 _Updated April 16, 2021_
 
-_Incident response at Mozilla is a bit of a moving target at the time of this writing.  We expect to use whatever system becomes a broad standard, but in the mean time we'll follow the process below._
+:::note
+Incident response at Mozilla is a bit of a moving target at the time of this writing.  We expect to use whatever system becomes a broad standard, but in the mean time we'll follow the process below.
+:::
 
 0. Read about [Firefox Incident Response][fx-incident-response] for some background.  We follow that model of incident command and classification of incidents
 0. Use [this template][sec-response-template] for the response.  Fill in what you can, delete sections that are not relevant.

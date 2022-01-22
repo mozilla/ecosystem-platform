@@ -2,7 +2,7 @@
 title: Work Breakdown Process
 ---
 
-# Prerequisites
+## Prerequisites
 0. Prior to beginning breaking down an Epic, the Feature Request has been fully
    defined and has been flagged as Ready for Engineering, where "fully defined"
    implies that all User Stories have been identified and documented. This
@@ -12,12 +12,13 @@ title: Work Breakdown Process
    epics are large enough to justify the effort/time of creating a Technical
    Specification. If the Epic being worked on results in a ‘Yes’ answer to any
    of the following questions, a technical specification is likely warranted.
-    0.  Does this epic likely include at least 50 Story points worth of effort?
-    0.  Does the epic result in substantial changes/additions to API’s, server
+
+    *  Does this epic likely include at least 50 Story points worth of effort?
+    *  Does the epic result in substantial changes/additions to API’s, server
         architecture, metrics, or security aspects that have not previously
         been discussed and accepted by the team?
 
-# Using a Technical Specification Document
+## Using a Technical Specification Document
 When creating medium to large features (Epics), it is important to clearly
 define what changes to the code-base, architecture, API’s, databases,
 documentation, metrics, and security may result from these changes. The
@@ -27,7 +28,7 @@ those changes is a medium-effort task that should also be peer-reviewed to
 ensure it's the best approach. The technical specification should be completed
 before work breakdowns.
 
-## Goals
+### Goals
 The goal of a Technical Specification is to:
 * Clearly communicate the technical design of an Epic and the changes required
   to implement it to the team.
@@ -47,7 +48,7 @@ technical specification template is loosely based on. Note that our ADR process
 implies that some aspects of the technical specification will reside as
 supporting/related ADRs.
 
-## Process for creating a Technical Specification Document
+### Process for creating a Technical Specification Document
 When responsible for an Epic, the epic owner should:
 
 * Determine if a Technical Specification is needed, if so, proceed.
@@ -57,14 +58,14 @@ When responsible for an Epic, the epic owner should:
 * Create work breakdown based on Technical Specification that can include
   timelines and estimates.
 
-## Template
+### Template
 To aid in creating a Technical Specification, use the FxA Epic Technical
 Specification from the [Mozilla templates][mozilla-templates] under Planners
-(at the bottom).  Sections that don’t apply should be left as ‘Not Applicable’.
+(at the bottom).  Sections that don’t apply should be left as `Not Applicable`.
 
 
 
-# Breaking down work
+## Breaking down work
 Depending on the size of the project this can be accomplished either by a team
 or an individual.  If this is a large feature, you should have a Technical
 Specification Document to kick this work off (see previous section).  The steps
@@ -95,14 +96,14 @@ to proceed are roughly:
    further.  See also our [Estimation Guidelines][estimation-guidelines].
 
 
-# Small Epic Examples
+## Small Epic Examples
 [Multiple Product Support][jira-multiproduct-support]
 
-# Large Epic Examples
+## Large Epic Examples
 TBD
 
 
-[estimation-guidelines]: https://mozilla.github.io/ecosystem-platform/docs/fxa-engineering/fxa-dev-process#estimation-and-point-values
+[estimation-guidelines]: https://mozilla.github.io/ecosystem-platform/reference/development-process#estimation-and-point-values
 [jira-multiproduct-support]: https://jira.mozilla.com/browse/FXA-457
 [on-writing-tech-specs]: https://codeburst.io/on-writing-tech-specs-6404c9791159
 [mozilla-templates]: https://docs.google.com/document/u/0/?tgif=d&ftv=1:whj

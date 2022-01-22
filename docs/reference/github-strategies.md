@@ -2,6 +2,10 @@
 title: GitHub Strategies
 ---
 
+:::note
+This strategy was developed before there were more permission options in Github and before we started using Github Enterprise.  It is probably worth revisiting this.
+:::
+
 # Groups & Permissions
 Firefox Accounts has a history of using [too?] many repositories on GitHub.
 Over many years this means important repositories can be neglected.
