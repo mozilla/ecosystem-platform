@@ -131,7 +131,9 @@ Finally, the server-provided wrap(kB) value is simply XORed with the password-de
 
 Note that /account/keys will not succeed until the account's email address has been verified, which could take hours or days if the user does not respond to the challenge email promptly. Also note that each keyFetchToken is single-use and short-lived: it will only be used for a specific kA/wrapKB message, and expires immediately if/when the account password is changed.
 
+:::note
 Crypto note: while the two returned keys are encrypted with (a derivative of) keyFetchToken, the keyFetchToken itself is sent over the (TLS-protected) wire without additional protection. This encryption protects the short-term server key-fetch-token table (indexed by `tokenID`) from brute-force attacks: if the server stored `wrapwrapKey` until the key-fetch token were redeemed, a database breach would yield `wrap(kB)` which only provides weak (PBKDF) protection against dictionary attacks. In addition, this encryption step minimizes the changes to our existing (SRP-based) code, and may become more meaningful in a future protocol which uses SRP to protect the keyFetchToken in transit.
+:::
 
 We use the `/account/keys` API (instead of merely returning the keys directly in `/account/login` and `password/change/start`) so that clients can forget the master password while they wait for the recovery email to be verified. If there were not a second key-fetch API, clients would need to poll with `/account/login` repeatedly until verification had finished, requiring both the original password and a new server-side keystretch operation each time.
 
@@ -196,6 +198,7 @@ The device submits `authPW` to the `/account/destroy` endpoint. This request con
 
 # Keyserver Protocol Summary
 
+```
 * POST /account/create (email,authPW) -> ok (server sends verification email)
   * creates a user account
 * POST /account/login (email, authPW) -> sessionToken, emailVerified
@@ -226,12 +229,13 @@ The device submits `authPW` to the `/account/destroy` endpoint. This request con
 * POST /password/forgot/verify_code {passwordForgotToken} (code) -> accountResetToken
   * sets verified flag on recovery method
 * POST /get_random_bytes
-
+```
 
 ## Typical Client Flows
 
 Create account
 
+```
 * POST /account/create (email,authPW) -> ok (server sends verification email)
 * POST /account/login (email, authPW) -> sessionToken, verifiedStatus (=false)
 * GET /recovery_email/status {sessionToken} () -> verifiedStatus
@@ -239,41 +243,47 @@ Create account
     * POST /recovery_email/resend_code {sessionToken}() -> ok
   * POST /recovery_email/verify_code (code) -> ok
 * POST /certificate/sign {sessionToken} (pubkey) -> cert
-
+```
 
 Attach to new device
 
+```
 * POST /account/login (email, authPW) -> sessionToken, verifiedStatus
   * if not verified, poll until verified
 * POST /certificate/sign {sessionToken} (pubkey) -> cert
-
+```
 
 Attach new device for Sync
 
+```
 * POST /account/login?keys=true (email, authPW) -> sessionToken, keyFetchToken, verifiedStatus
   * if not verified, poll until verified
 * GET /account/keys {keyFetchToken,needs-verf} () -> kA/wrap(kB)
 * POST /certificate/sign {sessionToken} (pubkey) -> cert
-
+```
 
 Forgot password
 
+```
 * POST /password/forgot/send_code (email) -> passwordForgotToken
 * POST /password/forgot/verify_code {passwordForgotToken} (code) ->  accountResetToken
 * POST /account/reset {accountResetToken} (newAuthPW) -> ok
 * GOTO "Attach to new device"
-
+```
 
 Change Password
 
+```
 * POST /password/change/start {needs-verf} (email, authPW) -> keyFetchToken, passwordChangeToken
 * GET /account/keys {keyFetchToken} () -> kA/wrap(kB)
 * POST /password/change/finish {passwordChangeToken} (newAuthPW, newWrapKB) -> ok
 * GOTO "Attach to new device"
+```
 
 # HAWK Notes
 
 The following calls are HAWK-authenticated by some sort of token:
+
 
 * GET /account/devices
 * GET /account/keys
@@ -618,13 +628,16 @@ reqHMACkey:
 
 This defines some of the jargon we've developed for this protocol.
 
-* data classes: each type of browser data (bookmarks, passwords, history, etc) can be assigned, by the user, to either class-A or class-B.  Note that this user selection is not yet implemented by Firefox, and all data types are treated as class-B by default.
-* class-A: data assigned to this class can be recovered, even if the user forgets their password, by proving control over an email address and resetting the account. It can also be read by Mozilla (since it runs the keyserver and knows kA), or by the user's IdP (by resetting the account without the user's permission).
-* class-B: data in this class cannot be recovered if the password is forgotten. It cannot be read by the IdP. Mozilla (via the keyserver) cannot read this data, but can attempt a brute-force dictionary attack against the password.
-* kA: the master key for data stored as "class-A", a 32-byte binary string. Individual encryption keys for different datatypes are derived from kA.
-* kB: the master key for data stored as "class-B", a 32-byte binary string.
-* wrap(kB): an encrypted copy of kB. The keyserver stores wrap(kB) and never sees kB itself. The client (browser) uses a key derived from the user's password to decrypt wrap(kB), obtaining the real kB.
-* sessionToken: a long-lived per-device token which allows the device to obtained signed BrowserID certificates for the account's identity (GUID@picl-something.org). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of "revoke a specific device" or "revoke all devices" function).
+
+| Term | Definition |
+| ------ | ------------- |
+| data classes | each type of browser data (bookmarks, passwords, history, etc) can be assigned, by the user, to either class-A or class-B.  Note that this user selection is not yet implemented by Firefox, and all data types are treated as class-B by default. |
+| class-A | data assigned to this class can be recovered, even if the user forgets their password, by proving control over an email address and resetting the account. It can also be read by Mozilla (since it runs the keyserver and knows kA), or by the user's IdP (by resetting the account without the user's permission). |
+| class-B | data in this class cannot be recovered if the password is forgotten. It cannot be read by the IdP. Mozilla (via the keyserver) cannot read this data, but can attempt a brute-force dictionary attack against the password. |
+| kA | the master key for data stored as "class-A", a 32-byte binary string. Individual encryption keys for different datatypes are derived from kA. |
+| kB | the master key for data stored as "class-B", a 32-byte binary string. |
+| wrap(kB) | an encrypted copy of kB. The keyserver stores wrap(kB) and never sees kB itself. The client (browser) uses a key derived from the user's password to decrypt wrap(kB), obtaining the real kB. |
+| sessionToken | a long-lived per-device token which allows the device to obtained signed BrowserID certificates for the account's identity (GUID@picl-something.org). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of "revoke a specific device" or "revoke all devices" function). |
 
 # References
 

@@ -18,11 +18,11 @@ system [Pontoon][#pontoon] was gettext as the newer format based
 on [Fluent](https://projectfluent.org/) did not yet exist.
 
 ## Extraction process
-* Timed [cron job on Circle][#extraction-cron-job], run on Fridays at 08.00 PST.
+* Timed [cron job on Circle][#extraction-cron-job], runs on Thursday afternoons.
 * Calls [extract-and-pull-request.sh][#extract-and-pull-request] which extracts strings and creates a branch with a random name.
   - In turn calls [extract_strings.sh][#extract-strings]
   - See [Extraction process deep dive](#extraction-process-deep-dive) for more info.
-* Branch becomes a pull request on the fxa-content-server-l10n repository which must be merged by a developer after doing cursory checks.
+* Branch becomes a pull request on the `fxa-content-server-l10n` repository which must be merged by a developer after doing cursory checks.
   - Check to ensure new/changed strings “look right”.
 * Once merged, [Pontoon automatically pulls in string][#pontoon-fxa-repo] changes and notifies localizers.
 
@@ -54,7 +54,7 @@ The downside to how this process works is that strings are only pulled into prod
 
 While gettext does not have the expressive power of Fluent, it has on the whole been sufficient for our needs. Gettext translations are held in .po (Portable Object) files with a relatively simple format. A simple example from the [current Lithuanian translations][#lithuanian-translation-example-1]:
 
-```
+```po
 #: .es5/views/confirm_reset_password.js:195
 msgid "Password reset"
 msgstr "Slaptažodžio atkūrimas"
@@ -80,7 +80,7 @@ msgstr "Paskyros pranešimai dabar taip pat bus siunčiami adresu %(secondaryEma
 ```
 When translated by the content or auth-servers, secondaryEmailVerified will be passed as a variable to the translate function, causing %(secondaryEmailVerified)s to be replaced with the passed in value.
 
-Within the content and auth server, all strings that are to be translated are wrapped in a `t` method. `t` is a signal to the l10n extraction script that the embedded string is meant for translation. Within mustache templates, strings meant for extraction are wrapped in {{#t}}{{/t}} or {{#unsafeTranslate}}{{/unsafeTranslate}} tags.
+Within the content and auth server, all strings that are to be translated are wrapped in a `t` method. `t` is a signal to the l10n extraction script that the embedded string is meant for translation. Within mustache templates, strings meant for extraction are wrapped in `{{#t}}{{/t}}` or `{{#unsafeTranslate}}{{/unsafeTranslate}}` tags.
 
 Gettext comments can be used to provide extra context to translators to allow them to effectively translate strings that could be vague in different languages. For example, [from the sign_in view on the content server][#signin-view-example]:
 
@@ -108,15 +108,15 @@ msgstr "Iniciar sesión"
 
 ### Content server gotchas
 
-Strings within mustache templates wrapped a {{#t}}{{/t}} tag are HTML escaped by default to prevent unexpected HTML from being written to the DOM. HTML can be written to the DOM from a string that is translated using the {{#unsafeTranslate}}{{/unsafeTranslate}} tag. Within an unsafeTranslate tag, named variables must contain the escaped prefix to remind developers that the variable must be HTML escaped before being written.
+Strings within mustache templates wrapped a `{{#t}}{{/t}}` tag are HTML escaped by default to prevent unexpected HTML from being written to the DOM. HTML can be written to the DOM from a string that is translated using the `{{#unsafeTranslate}}{{/unsafeTranslate}}` tag. Within an `unsafeTranslate` tag, named variables must contain the escaped prefix to remind developers that the variable must be HTML escaped before being written.
 
 ## Extraction process deep dive
-Here we go into more detail about the internals of extract-and-pull-request.sh. The call to [extract_strings.sh][#extract-strings] needs the most explanation.
+Here we go into more detail about the internals of `extract-and-pull-request.sh`. The call to [extract_strings.sh][#extract-strings] needs the most explanation.
 
-String extraction on both the content and auth server are facilitated using a grunt task called l10n-extract. The content server is a mixture of JavaScript, TypeScript, JSX, Handlebars, and Mustache, each of these file types may contain translatable strings. The jsx-gettext parser was written by Zach Carter, a former FxA teammate at a time when no generic solution existed to extract strings from a variety of file types. Jsx-gettext is able to handle standard JavaScript, TypeScript, JSX, Handlebars, and Mustache, however it is unable to parse JavaScript extensions such as babel-specific dynamic imports and class properties. The first major step in the string extraction process is to have [babel convert JavaScript, TypeScript, and JSX into ES5 Javascript][#l10n-extract].
+String extraction on both the content and auth server are facilitated using a grunt task called l10n-extract. The content server is a mixture of JavaScript, TypeScript, JSX, Handlebars, and Mustache, each of these file types may contain translatable strings. The `jsx-gettext parser` was written by Zach Carter, a former FxA teammate at a time when no generic solution existed to extract strings from a variety of file types. Jsx-gettext is able to handle standard JavaScript, TypeScript, JSX, Handlebars, and Mustache, however it is unable to parse JavaScript extensions such as babel-specific dynamic imports and class properties. The first major step in the string extraction process is to have [babel convert JavaScript, TypeScript, and JSX into ES5 Javascript][#l10n-extract].
 
 * Use [babel to convert non-standard JavaScript, JSX, and TypeScript into ES5 JavaScript][#l10n-extract].
-* jsx-gettext parser analyses source files looking for the keywords [‘t’, and ‘unsafeTranslate’][#l10n-extract-keywords], saving a list of strings along with source location annotations to &lt;package&gt;/locale/templates/LC_MESSAGES/client.pot and &lt;package&gt;/locale/templates/LC_MESSAGES/server.pot
+* `jsx-gettext parser` analyses source files looking for the keywords [‘t’, and ‘unsafeTranslate’][#l10n-extract-keywords], saving a list of strings along with source location annotations to &lt;package&gt;/locale/templates/LC_MESSAGES/client.pot and &lt;package&gt;/locale/templates/LC_MESSAGES/server.pot
   * The .pot files contain only the current strings that need to be translated.
 * For [each locale in the fxa-content-server-l10n repo][#l10n-repo-locale-dir], the strings from the .pot files are [merged with existing strings][#merge-with-existing-strings] in .po files.
   * Translations of strings in the .pot file that are already in the existing .po files are kept.
@@ -142,7 +142,7 @@ We deploy static resources such as JavaScript to a 3rd party CDN (Amazon), and u
   * The SRI hash of that locale’s JavaScript bundle is [added to the script tag in the HTML][#add-sri-to-html].
 
 ## Dates and Times
-Dates and times are a special case because dates and times are very locale specific. For example, in Europe it is common for July 10 to be written 10/07 whereas that would read October 10th to North Americans. All of our times and dates are translated using the locale-aware version of MomentJS. Since the locale-aware [MomentJS][#momentjs] is rather large (67kb), dates and times displayed in the [Devices & apps panel][#devices-and-apps-panel] of FxA are translated on the auth-server when requesting the devices and apps list.
+Dates and times are a special case because dates and times are very locale specific. For example, in Europe it is common for July 10 to be written `10/07` whereas that would read October 10th to North Americans. All of our times and dates are translated using the locale-aware version of MomentJS. Since the locale-aware [MomentJS][#momentjs] is rather large (67kb), dates and times displayed in the [Devices & apps panel][#devices-and-apps-panel] of FxA are translated on the auth-server when requesting the devices and apps list.
 
 ## Terms of Service and Privacy Policy are handled differently
 The FxA [Terms of Service][#fxa-tos-source] and [Privacy Policy][#fxa-pp-source] are handled differently to other FxA translations. The most important difference is that these are considered legally binding documents, as such changes are driven by Mozilla’s legal team and source documents are held in the [mozilla/legal-docs repository][#legal-docs-repo] on Github. Any time either document is updated, paid specialist legal translators make the updates for other languages.
@@ -168,7 +168,7 @@ Unlike the rest of the FxA translations that are held in gettext .po files, the 
 [#extract-and-pull-request]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract-and-pull-request.sh
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/extract_strings.sh
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract_strings.sh
-[#extraction-cron-job]: https://github.com/mozilla/fxa-content-server-l10n/blob/b54413751c27964c8f6db9bc94904ffe50036c4c/.circleci/config.yml#L60
+[#extraction-cron-job]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/.circleci/config.yml#L62
 [#fxa-pp-source]: https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_PrivacyNotice
 [#fxa-tos-source]: https://github.com/mozilla/legal-docs/blob/master/en/firefox_cloud_services_tos.md
 [#gettext-comment-extraction-2]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L2483

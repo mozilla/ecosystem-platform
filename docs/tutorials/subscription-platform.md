@@ -22,7 +22,7 @@ You will need to create the file `fxa/packages/fxa-auth-server/config/secrets.js
 
 Ex:
 
-```
+```json
 {
   "subscriptions": {
     "stripeApiKey": "sk_test_####"
@@ -32,7 +32,7 @@ Ex:
 
 Additionally create the file `fxa/packages/fxa-payments-server/server/config/secrets.json` and specify `stripe.apiKey` to override the default Mozilla Stripe public API key with your own public key:
 
-```
+```json
 {
   "stripe": {
     "apiKey": "pk_test_####"
@@ -40,7 +40,9 @@ Additionally create the file `fxa/packages/fxa-payments-server/server/config/sec
 }
 ```
 
+:::note
 Note that neither `secrets.json` files are tracked in Git, and they take precedence over each server's default configurations, should you need to make any additional local-only modifications.
+:::
 
 #### Stripe Product/Plans
 
@@ -48,7 +50,9 @@ To see the available products or create a new one in the Stripe dashboard, navig
 
 If you are using a new Stripe account, you will need to setup a product and its plan. The product should have additional metadata configured as needed.
 
-**Please note:** Product Names are the canonical displayed name shown in Sub Plat UI. In some cases these may be paired with a plan's billing interval. Plan names are not displayed to users.
+:::note
+Product Names are the canonical displayed name shown in Sub Plat UI. In some cases these may be paired with a plan's billing interval. Plan names are not displayed to users.
+:::
 
 ##### Product Metadata
 
@@ -82,7 +86,7 @@ If you are using a new Stripe account, you will need to setup a product and its 
 
 Some of the metadata properties listed above [have defaults][product-details-defaults] that are used when they're not defined in Stripe:
 
-```
+```json
   subtitle: 'Full-device VPN',
   details: [
     'Device-level encryption',
@@ -148,7 +152,7 @@ The last 4 states are `active`, `trialing`, `past_due`, and `cancelled`. The fir
 
 ### Stripe Radar and Payment Blocking
 
-We use [Stripe Radar](https://stripe.com/docs/radar/rules) to block payments from both potentially abusive sources as well as from potential subscribers in currently unsupported regions. Our production radar rules are [documented in Mana](https://mana.mozilla.org/wiki/display/FIREFOX/Stripe+Radar+Rules).
+We use [Stripe Radar](https://stripe.com/docs/radar/rules) to block payments from both potentially abusive sources as well as from potential subscribers in currently unsupported regions. Our production radar rules are [documented in Mana](https://mana.mozilla.org/wiki/display/FJT/Stripe+Radar+Rules).
 
 ## Interactions with Stripe
 
@@ -179,7 +183,7 @@ users subscription has been created/updated/deleted.
 
 Some Stripe webhooks will trigger emails.  These emails are behind a feature flag.  If you wish to send emails in your environment, set the auth server configuration
 
-```
+```json
 {
   "subscriptions": {
     "transactionalEmails": {
@@ -217,7 +221,7 @@ Once you've added your account pair, navigate to the bussines account by selecti
 
 In order to enable and use PayPal in the auth server, set the following configuration options
 
-```
+```json
 {
   "subscriptions": {
     "paypalNvpSigCredentials": {
@@ -232,7 +236,7 @@ In order to enable and use PayPal in the auth server, set the following configur
 ```
 
 The environment variables equivalent would be
-```
+```shell
 SUBSCRIPTIONS_PAYPAL_ENABLED=true \
 PAYPAL_SANDBOX=true \
 PAYPAL_NVP_USER='your PayPal NVP API User name' \
@@ -244,7 +248,7 @@ PAYPAL_NVP_SIGNATURE='your PayPal NVP API signature'
 
 The Payments frontend also does not offer PayPal as payment provider by default.  To enable the feature, set the following configuration options
 
-```
+```json
 {
   "featureFlags": {
     "usePaypalUIByDefault": true,
@@ -260,7 +264,7 @@ The Payments frontend also does not offer PayPal as payment provider by default.
 
 Or use the environment variables
 
-```
+```shell
 FEATURE_USE_SCA_PAYMENT_UI_BY_DEFAULT=true \
 PAYPAL_CLIENT_ID='sb' \
 PAYPAL_API_URL='https://www.sandbox.paypal.com' \

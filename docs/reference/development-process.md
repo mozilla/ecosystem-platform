@@ -16,7 +16,7 @@ Above is a diagram illustrating the high level FxA development process.  It does
 
 Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
 
-We maintain boards for where our epics are in that life-cycle.  See what [Firefox Accounts][fxa-product-board] or [Subscription Platform][subplat-product-board] is working on now.
+We maintain roadmaps for what we're working on.  See what [Firefox Accounts][fxa-roadmap] or [Subscription Platform][subplat-roadmap] is working on now.
 
 
 ## Issue management
@@ -60,10 +60,11 @@ When a task is in the `Ready for Engineering` column, it's expected that:
 * If there are interesting security changes, the security team has been notified
 * If there are significant string changes, the L10n team has been notified
 * Appropriate metrics have been documented and will be implemented (ie. How will we know this is a success?)
+* If there are legal or privacy implications, the legal and privacy teams have been consulted
 
 ### Sprints
 
-Sprints are tracked in Jira.  There is a [dashboard for our current sprint][fxa-jira-dashboard] and a [detailed view of our current sprint][fxa-jira-sprint].
+Sprints are tracked in Jira.  There is a [detailed view of our current sprint][fxa-jira-sprint].
 
 The amount of work we can accomplish in a sprint depends on how many people are on the team, how much time those people can devote to the work, and what type of work it is.  Our [historical velocity is tracked][fxa-jira-velocity], but past performance is no guarantee of future results.
 
@@ -107,6 +108,10 @@ We try to work on things as a team (vs individually).  Having more people work o
 
 
 ### Bug Triage
+
+:::caution
+There is a new process being experimented with so this may not be 100% accurate.  Ask a team member for a link to the work in progress document.
+:::
 
 Triage owners rotate throughout the team and we assign new triage owners in our meetings.  The triage owner is responsible for:
 
@@ -194,6 +199,10 @@ Please see our [project calendar][fxa-calendar] for details.
 
 ## Developing on a long running branch
 
+:::caution
+You should probably be using a feature flag instead of a branch.
+:::
+
 If a branch will survive beyond a couple of days its important to have a bit of strategy so as to avoid merging frustrations for yourself and your team.  If possible you should use other options like feature flags, but sometimes a branch is the best way to go.  Ask your team if you're unsure.  If you need to use a branch, please keep in mind:
 * Your team won't be keeping up with what is landing on the branch.  Regular communication and/or demos of where you are at and where you are going can help keep your changes in peoples' minds.
 * You should rebase against main often to avoid a giant headache when you eventually merge
@@ -230,18 +239,6 @@ Here are some handy questions and things to consider when reviewing code for Fir
 * Does it add appropriate new metrics or logging?
 * Does it consider accessibility?
 
-## Browser Support
-`Last updated: Sep 18, 2020`
-
-Firefox Accounts must work in the following environments:
-
-- Firefox Desktop ESR - 1
-- Firefox for Android ESR - 1
-- Firefox for iOS Current Version
-- Latest versions of modern browsers (Chrome, Safari, Opera, Edge)
-- iOS Current Version (iOS WebView)
-- Android Current Version (Android WebView)
-
 ## Deployment Documentation
 We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**
 If your patch needs any additional changes or config you are responsible for putting those notes in this document before the train ends.
@@ -272,53 +269,83 @@ We maintain the following private github repo that can be used for making securi
 
 The recommended procedure for doing so is:
 
-* Check out the private repo, independently from your normal working repo:
-  * `git clone git@github.com:mozilla/fxa-private`
-  * `cd fxa-private`
-  * N.B: Do not add it
-    as a remote on your normal working repo,
-    because this increases the risk
-    of pushing a private fix to the public repo
-    by mistake.
-* Add the corresponding public repo as a remote named "public",
+1. Check out the private repo, independently from your normal working repo:
+
+  ```shell
+  git clone git@github.com:mozilla/fxa-private
+  cd fxa-private
+  ```
+
+  :::tip
+    Do not add it as a remote on your normal working repo,
+    because this increases the risk of pushing a private fix to the public repo by mistake.
+  :::
+
+1. Add the corresponding public repo as a remote named `public`,
   and ensure it's up-to-date:
-  * `git remote add public git@github.com:mozilla/fxa`
-  * `git fetch public`
-* Check out the latest release branch and push it to the private repo:
-  * `git checkout public/train-XYZ`
-  * `git push origin train-XYZ`
-* Develop your fix against this as a new branch in the private repo:
-  * `git checkout -b train-XYZ-my-security-fix`
-  * `git commit -a`
-  * git push -u origin train-XYZ-my-security-fix`
-* Submit and review the fix as a PR in the private repo,
+  
+  ```shell
+  git remote add public git@github.com:mozilla/fxa
+  git fetch public
+  ```
+
+1. Check out the latest release branch and push it to the private repo:
+
+  ```shell
+  git checkout public/train-XYZ
+  git push origin train-XYZ
+  ```
+
+1. Develop your fix against this as a new branch in the private repo:
+
+  ```shell
+  git checkout -b train-XYZ-my-security-fix
+  git commit -a
+  git push -u origin train-XYZ-my-security-fix
+  ```
+
+1. Submit and review the fix as a PR in the private repo,
   targetting the `train-XYZ` branch.
-* Tag a point release in the private repo, following the release steps
-  * `git checkout train-XYZ; git pull  # ensure we have the merged PR`
-  * `grunt version:patch`
-  * `git push`
-* Push the tag in order to trigger a CircleCI build:
-  * `git push origin v1.XYZ.N`
-  * N.B: Do not use `git push --tags`
-    as this will not correctly trigger
-    the CircleCI build.
-* File an issue on the public repo
-  as a reminder to uplift the fix
+
+1. Tag a point release in the private repo, following the release steps
+
+  ```shell
+  git checkout train-XYZ; git pull  # ensure we have the merged PR
+  grunt version:patch
+  git push
+  ```
+
+1. Push the tag in order to trigger a CircleCI build:
+  
+  ```shell
+  git push origin v1.XYZ.N
+  ```
+
+  :::caution
+  Do not use `git push --tags` as this will not correctly trigger
+  the CircleCI build.
+  :::
+
+1. File an issue on the public repo as a reminder to uplift the fix
   once it has been deployed to production.
 
-Once the fix has been deployed and is safe to reveal publicly, it can be merged
-back into the public repo by doing the following:
+Once the fix has been deployed and is safe to reveal publicly, it can be merged back into the public repo by doing the following:
 
-* Push the private train branch to the public repo,
+1. Push the private train branch to the public repo,
   as a new branch:
-  * `git push public train-XYZ:train-XYZ-uplift`
-* Open a PR in the public repo,
-  targeting the public `train-XYZ` branch,
-  for review and merge.
-* Push the tag to the public repo:
-  * `git push public v1.XYZ.N`
-* Merge the `train-XYZ` branch to main
-  following the usual steps to release
+  
+  ```shell
+  git push public train-XYZ:train-XYZ-uplift
+  ```
+1. Open a PR in the public repo, targeting the public `train-XYZ` branch, for review and merge.
+
+1. Push the tag to the public repo:
+  
+  ```shell
+  git push public v1.XYZ.N
+  ```
+
+1. Merge the `train-XYZ` branch to main following the usual steps to release
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
 [bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15068002&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=Firefox%3A%3AFirefoxAccounts&query_format=advanced&component=Firefox%20Accounts&product=Firefox&known_name=Firefox%3A%3AFirefoxAccounts
@@ -329,11 +356,10 @@ back into the public repo by doing the following:
 [fxa-module]: https://wiki.mozilla.org/Modules/Other#Firefox_Accounts
 [fxa-security-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&component=Server:%20Firefox%20Accounts&groups=cloud-services-security
 [fxa-repository]: https://github.com/mozilla/fxa
-[fxa-jira]: https://jira.mozilla.com/projects/FXA/issues/
-[fxa-jira-dashboard]: https://jira.mozilla.com/secure/Dashboard.jspa?selectPageId=11006
-[fxa-jira-sprint]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=359&projectKey=FXA
-[fxa-jira-backlog]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=703&view=planning&issueLimit=100
-[fxa-jira-velocity]: https://jira.mozilla.com/secure/RapidBoard.jspa?projectKey=FXA&rapidView=359&view=reporting&chart=velocityChart
+[fxa-jira]: https://mozilla-hub.atlassian.net/browse/FXA
+[fxa-jira-sprint]: https://mozilla-hub.atlassian.net/jira/software/c/projects/FXA/boards/225
+[fxa-jira-backlog]: https://mozilla-hub.atlassian.net/jira/software/c/projects/FXA/boards/227/backlog?issueLimit=100
+[fxa-jira-velocity]: https://mozilla-hub.atlassian.net/jira/software/c/projects/FXA/boards/225/reports/velocity-chart
 [firefox-accounts-notices]: https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices
 [moz-bug-bounty]: https://www.mozilla.org/security/bug-bounty/
 [moz-code-review]: https://developer.mozilla.org/docs/Code_Review_FAQ
@@ -341,6 +367,6 @@ back into the public repo by doing the following:
 [moz-standards]: https://developer.mozilla.org/docs/Mozilla/Developer_guide/Committing_Rules_and_Responsibilities
 [moz-user-stories]: https://docs.google.com/presentation/d/1zepsrOiHINBMS3TJ8nFDJ4gf8u6kRONe1hdMDnlyZvI/edit
 
-[fxa-product-board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=360&projectKey=FXA
-[subplat-product-board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=808
-[pi-jira]: https://jira.mozilla.com/projects/PI/issues/
+[fxa-roadmap]: https://mozilla-hub.atlassian.net/jira/plans/36/scenarios/36?vid=145#plan/backlog
+[subplat-roadmap]: https://mozilla-hub.atlassian.net/jira/plans/34/scenarios/34?vid=136#plan/backlog
+[pi-jira]: https://mozilla-hub.atlassian.net/jira/software/c/projects/QA/issues/

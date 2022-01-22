@@ -33,7 +33,7 @@ Used to get the browser's currently signed in user as well as browser capabiliti
 
 #### request data
 
-```js
+```json
 {
   isPairing: <boolean>,
   service: <string>
@@ -45,7 +45,7 @@ Used to get the browser's currently signed in user as well as browser capabiliti
 
 #### response data
 
-```js
+```json
 {
   capabilities: <capabilities>
   signedInUser: <signed in user> || null
@@ -69,7 +69,7 @@ Sent on signin or signup after a user has entered their credentials and submit t
 
 #### request data
 
-```js
+```json
 {
   email: <email>
 }
@@ -77,7 +77,7 @@ Sent on signin or signup after a user has entered their credentials and submit t
 
 #### response data
 
-```js
+```json
 {
   ok: true | false;
 }
@@ -108,7 +108,7 @@ Expected by Fennec.
 
 #### data
 
-```js
+```json
 {
   email: <email>,
   uid: <user id>
@@ -125,7 +125,7 @@ Expected by Fx Desktop.
 
 #### data
 
-```js
+```json
 {
   email: <email>,
   uid: <user id>
@@ -149,7 +149,7 @@ Called whenever the user signs out of their account. No response is expected.
 
 #### data
 
-```js
+```json
 {
   uid: <user id>
 }
@@ -164,7 +164,7 @@ expected.
 
 #### data
 
-```js
+```json
 {
   uid: <user id>
 }
@@ -176,7 +176,7 @@ expected.
 
 ### loginData
 
-```js
+```json
 {
   declinedSyncEngines: [<array of declined sync engines>],
   email: <email>,
@@ -253,7 +253,7 @@ See [`engines` capability in Fenix & WebExtensions](./fxa-oauth-webchannel-proto
 
 Each custom event is created as follows:
 
-```
+```js
 new CustomEvent('WebChannelMessageToChrome', {
   detail: {
     id: 'account_updates',
@@ -274,7 +274,7 @@ new CustomEvent('WebChannelMessageToChrome', {
 
 Responses to FxA use the `WebChannelMessageToContent` custom event, which is handled by the `WebChannel.jsm` module's [`send` function](https://dxr.mozilla.org/mozilla-central/source/toolkit/modules/WebChannel.jsm#272). The `message` parameter should the following format:
 
-```js
+```json
 {
   command: <command>,
   data: <data>,
@@ -293,7 +293,3 @@ Responses to FxA use the `WebChannelMessageToContent` custom event, which is han
 3. fxaccounts:can_link_account
 4. fxaccounts:login
 5. fxaccounts:email_verified (if supported)
-
-## See also
-
-- [WebChannels in the Fenix browser & WebExtensions](./fxa-oauth-webchannel-protocol)
