@@ -4,7 +4,7 @@ title: Subscription Platform
 
 ## Getting Started
 
-Current as of `May 13, 2021`.
+Current as of `Jan 24, 2022`.
 
 ### Pre-Development
 
@@ -250,10 +250,6 @@ The Payments frontend also does not offer PayPal as payment provider by default.
 
 ```json
 {
-  "featureFlags": {
-    "usePaypalUIByDefault": true,
-    }
-  },
   "paypal": {
     "clientId": "sb",
     "apiUrl": "https://www.sandbox.paypal.com",
@@ -265,7 +261,6 @@ The Payments frontend also does not offer PayPal as payment provider by default.
 Or use the environment variables
 
 ```shell
-FEATURE_USE_SCA_PAYMENT_UI_BY_DEFAULT=true \
 PAYPAL_CLIENT_ID='sb' \
 PAYPAL_API_URL='https://www.sandbox.paypal.com' \
 PAYPAL_SCRIPT_URL='https://www.paypal.com'
