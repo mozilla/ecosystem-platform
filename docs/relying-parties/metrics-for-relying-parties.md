@@ -4,7 +4,7 @@ title: Metrics for Relying Parties
 sidebar_label: Metrics
 ---
 
-Last updated: `December 3rd, 2019`
+Last updated: `January 26th, 2022`
 
 ## Relying-Party Hosted Email Form
 
@@ -67,6 +67,11 @@ Other Notes:
 
 * Regarding `utm_term`: note that the current usage of this parameter is different from what is typical. In most scenarios, it is used to track the search terms that led the users to the page. If you would like to use the parameter in this way, please inform the Firefox Accounts team.
 
+## User Opt-out
+
+Users may opt-out of metrics from the FxA settings page. If they do, FxA will not collect or store metrics and relying parties must not either.
+
+[User profiles][get-profile] include the `metricsEnabled` boolean. When the value is `false` relying parties should not collect any metrics tied to the user. Relying parties should check this value every time the profile is requested.
 
 [amplitude-firstrun]: https://analytics.amplitude.com/mozilla-corp/chart/n8cd9no
 [amplitude-regform]: https://analytics.amplitude.com/mozilla-corp/chart/f5sz7kt
@@ -74,3 +79,4 @@ Other Notes:
 [param-example]: https://github.com/mozilla/activity-stream/blob/06aeeb331e9dd497e4d115d0e6cba51b9b25b36c/content-src/asrouter/templates/StartupOverlay/StartupOverlay.jsx#L30
 [flow-events]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/server/lib/flow-event.js
 [query-params]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/query-params.md
+[get-profile]: https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#get-v1profile
