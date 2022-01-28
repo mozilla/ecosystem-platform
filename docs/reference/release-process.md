@@ -88,11 +88,11 @@ The `assets` directory is uploaded manually to the FxA CDN at https://accounts-s
 
 The Stripe product icons live in `assets/product-icons`.
 
-It's fine to create other subdirectories for new collections of assets as needed.
+It's fine to create other subdirectories for new collections of assets as needed but you'll need to modify the push script to include them.
 
-The release script for static assets is `_scripts/upload_assets_to_cdn.sh`. It semi-automates pushing the icons to the CDN, assuming the user has the correct credentials / env vars set in their terminal session.
+The release script for static assets is `.github/workflows/upload-assets-to-cdn.yml`. 
 
-Icons and other assets are normally deployed with every release. If icons need to be deployed outside the regular release process, just ask ops to run the upload script.
+Icons and other assets are normally deployed with every release. If icons need to be deployed outside the regular release process, ask operations for help.
 
 ## FAQ
 
