@@ -87,6 +87,10 @@ A call to `logAmplitudeEvent` results in a `POST` to `/metrics`, which is handle
 
 The Payments frontend reports the timing data surfaced by [Navigation Timing Level 2][navigation-timing-2] back to the server side, which then sends the calculated performance metrics to our statsD server.  One major difference between these performance metrics and those in Redshift for Content Server is that these do not have a flow id to connect the timings into a performance overview for a particular request.
 
+## Relying Parties
+
+See [metrics for relying parties][rp-metrics].
+
 # How are metrics ingested?
 
 ## Redshift
@@ -190,3 +194,4 @@ You don’t need to do this, it’s all set up to work automatically.
 [grafana-dashboards]: https://earthangel-b40313e5.influxcloud.net/dashboards/f/Q6zOs-JZk/firefox-accounts-fxa
 [event-broker-readme]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#metrics
 [navigation-timing-2]: https://www.w3.org/TR/navigation-timing-2/
+[rp-metrics]: ../relying-parties/metrics-for-relying-parties.md
