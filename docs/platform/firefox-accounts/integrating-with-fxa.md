@@ -66,7 +66,7 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
     These are generally marketing pages that include a link to start the
     subscription flow.
 
-We also suggest you join the [firefox-accounts-notices group][firefox-accounts-notices] so you can stay informed about relevant API changes.
+We communicate with our relying parties via the [firefox-accounts-notices group][firefox-accounts-notices].  Please join this list to avoid any surprises.
 
 ## OAuth Integration
 
