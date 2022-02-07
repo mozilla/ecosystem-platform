@@ -13,7 +13,9 @@ module.exports = {
                                   'platform/sub-plat/sub-plat-features',
                                   'platform/sub-plat/integration-with-subscription-platform',
                                   'platform/sub-plat/sub-plat-coupons'],
-      }]
+      },
+      'platform/using-apis',
+      ]
     },
     {
       type: 'category',
