@@ -1,24 +1,25 @@
 ---
-title: Release Process
+title: Release Owner Duties
 ---
 
-## Release Owner
-### What is a Release Owner?
-The main purpose of the release owner is to follow the "Releasing Code" process below.  The release owner should work with the rest of the team to ensure a smooth close-out of the current sprint.
+## What is a Release Owner?
+The main duty of the release owner is to be the designated engineer to follow the "Releasing Code" process described below. The release owner should communicate and work with the rest of the team to ensure a smooth close-out of the current sprint, as well as create patch (AKA dot) releases as necessary throughout the sprint.
 
-### How is a Release Owner selected?
- At the time of writing, the release responsibility is rotated every train to the next team member on the list at the top of our [deployment doc][deployment-doc].
+At the time of writing, the release responsibility is rotated every sprint/train to the next team member on the list at the top of our [deployment doc][deployment-doc].
 
-### I am the Release Owner: How should I plan my Sprint?
-If you are the designated Release owner, consider the following suggestions to managing your work and the release:
+## I am the Release Owner: How should I plan my Sprint?
+If you are the designated release owner, consider the following suggestions to managing your work and the release:
 
-* When taking on work for the sprint, allocate a portion of each day to release management duties - particular as the end of the sprint nears.
-* Take some time a day or two before tagging is scheduled to reach out to individual team members to check-in on in-progress or to-do work items. This might result in you taking on additional work performing reviews or reaching out to the appropriate people.
+* When taking on work for the sprint, consider taking on around 5-15% less in order to allocate a portion of each day to release management duties and in particular towards the end of the sprint - this helps give you padding in case an unexpected (or two, or three) dot release comes up.
+* Take some time a day or two before tagging is scheduled to reach out in the #fxa-team Slack channel or to individual team members to check-in on in-progress or to-do work items. This might result in you taking on additional work performing reviews or reaching out to the appropriate people.
     * Things to consider asking:
-        * Are there any tasks that need to be in the train? Are any of them in jeopardy?
+        * Are there any tasks that need to be in the train? Are any of them in jeopardy of holding up the release from being tagged?
         * Is there anything I can do to help keep things moving?
+* 1-3 hours before tagging, check open PRs and let the team know you will be tagging at X time. Atypically, a critical patch may be very close to landing which may delay the tag by a few hours.
 
-
+:::tip
+If you're new to release ownership, check that you have access to the [fxa-private](https://github.com/mozilla/fxa-private/) and [cloudops-deployment](https://github.com/mozilla-services/cloudops-deployment) repos. While not crucial, access to fxa-private enables you to see a Bugzilla URL outputted by the release script and access to cloudops-deployment allows you to see PRs that may be listed in the deploy doc as well as make PRs in that repo when you make code changes that necessitate them.
+:::
 
 ## Releasing Code
 
@@ -54,7 +55,7 @@ If you are the designated Release owner, consider the following suggestions to m
 
 1. The release script will also print a URL which you can use to open a PR to merge the train branch back into the main branch
 
-1. Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]). Remember to include:
+1. Finally, the release script will print out a bug template.  Copy that template and open a deployment bug in bugzilla under `Cloud Services :: Operations: Deployment Requests` ([example][example-deployment-bug]) even if the component says it's deprecated. Remember to include:
 
     1. Notes from the deploy doc, particularly any server side changes that need to happen as part of this deployment.
     1. Links to the needs:qa label on GitHub.
