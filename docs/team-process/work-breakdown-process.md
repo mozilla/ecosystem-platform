@@ -1,5 +1,5 @@
 ---
-title: Work Breakdown Process
+title: Work Breakdown
 ---
 
 ## Prerequisites

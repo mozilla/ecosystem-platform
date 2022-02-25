@@ -1,8 +1,8 @@
 ---
-title: Development Process
+title: Planning and Development
 ---
 
-We develop and deploy on a two-week cycle. Every other Thursday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process).
+We develop and deploy on a two-week cycle. Every other Wednesday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process).
 
 ## Our weekly process
 
@@ -11,12 +11,6 @@ We develop and deploy on a two-week cycle. Every other Thursday we cut a release
 Above is a diagram illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  It's intention is to give an idea of timeframes:
 * Sprints are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
 * Fixing regressions of the train on Stage is a higher priority than fixing new issues in the current train.  Depending on the regression's severity it may be picked to Stage, picked to Production, or just ride the train the following week.
-
-## Product Planning
-
-Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
-
-We maintain roadmaps for what we're working on.  See what [Firefox Accounts][fxa-roadmap] or [Subscription Platform][subplat-roadmap] is working on now.
 
 
 ## Issue management
@@ -29,16 +23,39 @@ Issue status is reflected by the following:
 * The assignee, if any, indicates *who* is responsible for that action.
 * The Sprint (in Jira) indicates *when* we are working on the issue.
 * The Points (in Jira) indicate roughly *how complex* the issue is.
+* The Type (in Jira) indicates whether the issue is a task, bug, or spike (research task). These are oftentimes housed in epics for feature work which may live in meta-epics of differing types.
+* The Severity (in Jira) for *bugs only* indicates the impact of the bug. ([more details][bug-severity])
 
-Issues, labels, and assignee are synchronized automatically between GitHub and Jira (a delay of a minute or two).
+Issues, labels, and assignee are synchronized automatically between GitHub and Jira (a delay of a minute or two). Spikes and epics do not sync to Github, and it's best not to create an issue as a subtask for visibility reasons in Jira.
 
 We also have two relevant components in Bugzilla:
 * [Firefox :: Firefox Accounts][bugzilla-fxa]
 * [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server]
 
-These components are used to help coordinate between other projects using Bugzilla and for issues relating to security.
+These components are used to help coordinate between other projects using Bugzilla and for issues relating to security. For related info, see our [Bugzilla triage docs][bugzilla-triage].
 
 If you're wondering where to file a bug, unless it's a security bug, please file in Jira.
+
+### Labels we use
+
+This isn't a comprehensive list but is a good selection to be aware of.  You should know the synchronization between Jira and Github is a little picky (eg. it won't sync spaces) so some labels will sync slightly differently in regards to spaces, dashes, and colons.  For example, `good first issue` on Github is `good-first-issue` on Jira.
+
+We should use these labels any time they apply.
+
+* `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue.  When you use this label *leave a comment in the issue with context about how to test it*.
+* `qa-`: This is not something that should be tested by QA
+* `regression`: This used to work and now it doesn't
+* `good first issue` and `help wanted`: Use both of these labels at the same time when you come across an issue that would be good for a contributor.
+* `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
+* `maintenance`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code. Do not mistake this with the uppercase `Maintenance` label which is used by other teams.
+* `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
+* `cat:*`: A category the work falls under, such as `cat:a11y` or `cat:code-quality`.
+
+## Product Planning
+
+Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
+
+We maintain roadmaps for what we're working on.  See what [Firefox Accounts][fxa-roadmap] or [Subscription Platform][subplat-roadmap] is working on now.
 
 ### New Features
 
@@ -62,7 +79,7 @@ When a task is in the `Ready for Engineering` column, it's expected that:
 * Appropriate metrics have been documented and will be implemented (ie. How will we know this is a success?)
 * If there are legal or privacy implications, the legal and privacy teams have been consulted
 
-### Sprints
+## Sprints
 
 Sprints are tracked in Jira.  There is a [detailed view of our current sprint][fxa-jira-sprint].
 
@@ -73,23 +90,9 @@ When considering what you can accomplish in a sprint, remember:
 * All patches are reviewed by another team member who also has their own obligations that sprint.  Leave room in your schedule to review patches and consider that others might not get to your patch immediately.
 * Some patches may require additional review from, for example, the operations, security, localization, or data steward teams.  If that's the case it may not land in the same sprint it is written in.
 
-### Labels we use
+### How do we decide what to work on?
 
-This isn't a comprehensive list but is a good selection to be aware of.  You should know the synchronization between Jira and Github is a little picky (eg. it won't sync spaces) so some labels will sync slightly differently.  For example, `good first issue` on Github is `good-first-issue` on Jira.
-
-We should use these labels any time they apply.
-
-* `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue.  When you use this label *leave a comment in the issue with context about how to test it*.
-* `qa-`: This is not something that should be tested by QA
-* `regression`: This used to work and now it doesn't
-* `good first issue` and `help wanted`: Use both of these labels at the same time when you come across an issue that would be good for a contributor.
-* `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
-* `maintenance`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code.
-* `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
-
-#### How do we decide what to work on?
-
-We take input from many sources including our Product Managers, our QA team, our customers (both relying parties and end users), and ourselves.  Usually this input is in the form of issues filed in Jira.  We triage this input (described in [Bug Triage](#bug-triage)) to determine what is the most important thing to work on in the next sprint.  There are often special cases and reasons to work on things which may find their way into a sprint but for the most part in each sprint we aim to close, in priority order:
+We take input from many sources including our Product Managers, our QA team, our customers (both relying parties and end users), and ourselves.  Usually this input is in the form of issues filed in Jira.  We triage this input (described in [Triage Process](triage-process.md)) to determine what is the most important thing to work on in the next sprint.  There are often special cases and reasons to work on things which may find their way into a sprint but for the most part in each sprint we aim to close, in priority order:
 
 * Blocking bugs that have been found in our production site
 * Blocking bugs found in our staging site
@@ -105,75 +108,6 @@ We try to work on things as a team (vs individually).  Having more people work o
 * It's easier to find someone with enough context to work through hard questions like architecture design
 * More people will have experience with more areas of the code
 * Epics will be closed out faster
-
-
-### Bug Triage
-
-:::caution
-There is a new process being experimented with so this may not be 100% accurate.  Ask a team member for a link to the work in progress document.
-:::
-
-Triage owners rotate throughout the team and we assign new triage owners in our meetings.  The triage owner is responsible for:
-
-* Triaging any new issues in Jira
-* Triaging any new issues in Sentry
-
-The goals of our triage rotation are:
-
-* Triaging issues, watching Sentry, understanding general user
-  sentiment/feedback is a shared team responsibility instead of a burden on 1 or 2 engineers
-* Knowledge sharing of different areas - a triage owner may not be the expert on the topic and would reach out for help and learn from the process.
-* Users stay top-of-mind
-* 0 untriaged issues by the end of the triage cycle - before handover to the next person
-  * But it’s OK to be untriaged before the meeting at the end of the cycle - those issues are discussed and triaged at that meeting.
-
-#### Triage Process
-
-* The triage owner updates the team on any significant issues or findings during our usual meetings
-* The triage owner provides a short summary at our team meeting the week following their triage week
-
-#### How to triage
-
-In all cases, a call needs to be made about urgency. It’s fine to not be sure!  If it seems urgent, the issue should remain untriaged, which should force it to be raised in our team meetings.
-
-Jira is the canonical source of truth for how we track our own work, but bugs may come in through several other systems that have their own requirements.
-
-##### Errors/Issues/Work Requests/etc reported in Slack
-
-* If someone reports something to our team in Slack the 1st person to see and respond should file a bug in Jira and add the link to the slack conversation so we know it will be addressed and not dropped.
-* The item is then triaged as normal when you get to "Jira Issues" below.
-
-##### Sentry
-* Sentry issues which may be of concern should have corresponding issues opened in Jira, with a link to the Sentry report and a brief description. If you are unsure whether a report is of concern or not, assume it is (ie, open an issue
-  anyway).
-* We should monitor our production instances closely as well as keep an eye out on stage for new issues exposed by QA.  There are many projects in the #fxa group on Sentry.
-* For reports that seem worth following up on, create a corresponding issue in Jira.
-* In the right-hand sidebar of the sentry issue, there is a "Link to Github Issue" button. This can be an easy way to file an issue that will eventually be mirrored into Jira.  Otherwise make an issue manually.
-  * Issues created from this process will then be triaged as normal in Jira.
-
-##### Jira Issues:
-All of the steps above should have produced issues that make their way into Jira, so now we can look at an overview of all the things that are our responsibility.
-
-Triage [this Jira incoming issues query][fxa-jira-backlog] - only the issues under “Backlog” need triage.
-
-* Some guidance for fields to change:
-  * New issues default to Tasks, but is this a Bug instead (that is, a defect)?
-    * If it’s a bug, change the `Type` to `Bug` and set:
-      * The `Found In` field to an appropriate value
-      * The `Severity` field to an appropriate value
-  * Is it tied to one of the epics we have filed?
-    * Update the `Epic Link` field
-  * Does it require UX guidance?
-    * Set `needsux` as a label
-  * Does it require a Product Manager?
-    * Set `needsproduct` as a label
-  * If it is about improving our code quality add the `maintenance` label.
-  * Consider adding a helpful comment!
-
-As you triage the issues move them into "To Do" (or close them).  Repeat for the rest of the issues in the Backlog.
-
-When you’re all finished, write a quick summary including any of the open issues you need help with and put a comment in #fxa-team.
-
 
 ## Estimation and Point Values
 Points are assigned to issues in Jira (ideally before starting work 😉) so that we can track our velocity over time, which aids in planning.
@@ -370,3 +304,5 @@ Once the fix has been deployed and is safe to reveal publicly, it can be merged 
 [fxa-roadmap]: https://mozilla-hub.atlassian.net/jira/plans/36/scenarios/36?vid=145#plan/backlog
 [subplat-roadmap]: https://mozilla-hub.atlassian.net/jira/plans/34/scenarios/34?vid=136#plan/backlog
 [pi-jira]: https://mozilla-hub.atlassian.net/jira/software/c/projects/QA/issues/
+[bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
+[bugzilla-triage]: ./triage-process.md#bugzilla-skip-for-subplat

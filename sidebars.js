@@ -35,11 +35,13 @@ module.exports = {
                             'how-tos/connecting-to-a-local-mysql-db',
                             'how-tos/using-a-custom-profile-with-firefox',
                            ],
+          'Team Processes': [
+                            'team-process/development-process',
+                            'team-process/work-breakdown-process',
+                            'team-process/triage-process',
+                            'team-process/release-process'],
           'Reference':     [
                             'reference/browser-support',
-                            'reference/development-process',
-                            'reference/work-breakdown-process',
-                            'reference/release-process',
                             'reference/incident-response',
                             'reference/how-does-fxa-process-email',
                             'reference/localization',
