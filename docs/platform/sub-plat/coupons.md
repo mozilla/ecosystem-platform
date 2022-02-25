@@ -68,6 +68,11 @@ In order for the coupons to work on local or staging you need to ensure to add t
 - **SUB_PLAT_DEV** - Use this account in test mode to configure coupons that can be used on localhost.
 - **Subscriotion Platform** - Use this account to configure coupons for production use.
 
+## Coupon validation
+
+- **$0 Invoices** - The system will allow a user to use a 100% off coupon whether it is a percentage or currency based discount
+- **Invoice Minimums** - Stripe has a list of minimum and maximum charge amounts. This means that a discount coupon that goes below/above the minimum/maximums allowed will not allow the user to complete the subscription process. [Stripe documentation](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts)
+- **Monthly Repeating Coupons** - Monthly repeating coupons can only be applied to subscriptions that are billed monthly or daily. This will ensure that the user has an accurate representation of future billings. Since the discount is applied to the invoice, monthly repeating coupons will not alter a yearly subscription unless they repeat for 13+ months. This is the same for 6 month subscriptions. 
 
 
 [team page]: /ecosystem-platform/docs/process/integration-with-subscription-platform
