@@ -6,7 +6,7 @@ We develop and deploy on a two-week cycle. Every other Wednesday we cut a releas
 
 ## Our weekly process
 
-![A visual map of our weekly process](../assets/fxa-schedule.png)
+![A visual map of our weekly process](../../assets/fxa-schedule.png)
 
 Above is a diagram illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  It's intention is to give an idea of timeframes:
 * Sprints are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
