@@ -73,7 +73,7 @@ When you’re looking at new issues, check that there’s not already a comment 
 
 Sometimes, errors come up that seem unlikely to come up again or that we’d want to look at later if it persists. You can check “ignore until...” and choose an appropriate option. If you notice a new problem since a previous deployment or an issue that affects a lot of users through a lot of events, it’s very likely worth filing an issue for. File an issue with a link to the Sentry error and (likely) add the `maintenance` label in Jira, and then link it in Sentry via the “Link Github Issues” on the right-hand side.
 
-If you’re finishing Sentry triage by yourself and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
+If you’re finishing Sentry triage by yourself because there wasn't enough time during the team triage and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
 
 ### Stripe Triage (Skip for FxA)
 
@@ -95,7 +95,7 @@ If a Bugzilla bug includes a user's email address or any PII (personal identifia
 
 This is to protect their email address from being on a publicly accessible link and users will be able to see their own issues even if they’re marked confidential.
 
-⭐️ Many Bugzilla tickets we triage from our users create tickets for similar reasons. Check out the [FxA Bugzilla Common Scenarios & Responses doc][bugzilla-common-scenarios] for examples of typical user requests and our response. If you come across a scenario we may see again in the future, please document it there for future reference.
+⭐️ Many Bugzilla tickets we triage from our users create tickets for similar reasons. Check out the [FxA Bugzilla Common Scenarios & Responses doc][bugzilla-common-scenarios] for examples of typical user requests and our response. If you come across a scenario we may see again in the future, please document it there for future reference. Also, remember the people you're helping are our users. Feel free to personalize or change a "canned response" as needed.
 
 :::tip
 Sometimes all a user needs to resolve their issue, for example, and depending on what they report, is the date they enabled 2FA on their account so they can search their files to find saved recovery codes. You might consider providing users relevant info from the Admin Panel if there's nothing we can do on our end in case it rings any bells for them.
@@ -125,13 +125,24 @@ You'll see an additional commit from "Bananafox" on Dependabot PRs. Bananafox is
 Keep in mind that Dependabot duty is shared between the FxA triage owner and the SubPlat triage owner. Try to move these PRs along at least once or twice a week, but also be sure to timebox yourself.
 :::
 
-If CI is green and the files changed look correct, approve the Dependabot PR and use the “squash and merge” option to combine bot commits so the package upgrades are easier to revert if problems arise. If you need Dependabot to rebase the change, comment on the PR with `@dependabot recreate`. We can't use `@dependabot rebase` because the PR is modified by Bananafox.
+#### Dependabot PRs that Pass CI
+
+Generally speaking, if CI is green, the dependency is very likely fine to merge. However, also take a look at the number shown on the "checks" tab of the PR. If there's less than 4 checks, it might actually cause a problem somewhere in the codebase, and if there's not already an issue filed for that package, you may want to check that package's release notes to see if there's any notes about breaking changes, and/or ask the team if anyone thinks it may not be safe to merge.
+
+If CI is green, 4+ checks are shown, and none of the files changed looks out of the ordinary, approve the Dependabot PR and use the “squash and merge” option to combine bot commits so the package upgrades are easier to revert if problems arise. If you need Dependabot to rebase the change, comment on the PR with `@dependabot recreate`. We can't use `@dependabot rebase` because the PR is modified by Bananafox.
+
+:::caution
+Try not to merge dependency updates if we're planning on tagging a release the same day. If we merge something in and discover a dependency problem with or after the tag, we will need a dot release just to patch the bad dependency upgrade.
+:::
 
 #### Failed Dependabot PRs
 
 If a Dependabot PR fails CI, investigate the failure. If it was a flaky test failure, rerun CI from failed. If the failure is legit and it looks like it can be resolved quickly or easily, consider checking into the Dependabot branch, fixing what caused the failure, and pushing the fix to the PR. If the needed change was anything other than a small tweak, request a review from a teammate to double check your work before merging.
 
-If there are many failures and/or it's not feasible to fix the failures at the moment, either file a Jira maintenance ticket for it if the update seems important and/or close the PR. Dependabot will attempt to update the dependency at its next release.
+If there are many failures and/or it's not feasible to fix the failures at the moment, create a Jira ticket for the package upgrade failure if one doesn’t already exist and give it the labels `maintenance` and `dependencies`, link to it from the Dependabot PR, comment `@dependabot ignore this major version`, and close the PR. We ignore until the next major version instead of a minor version because the chance that it will fail again is very high, but we want it to remind us again when a dependency has a major upgrade so that the dependency doesn't just get lost in the backlog (plus, wishful thinking that maybe it will magically pass 🤞).
+
+If a ticket has already been filed for a previous failure of the same package and the new failure is because of a Dependabot attempt to upgrade to the new major version, comment on the ticket to note how far behind the dependency is. Consider bringing it up in the next triage meeting - if our backlog is full of needed dependency upgrades, we'll likely find the time to work through at least some of them.
+
 
 #### Security Warnings
 
@@ -157,7 +168,7 @@ Triage owners should occasionally check to see if they can answer any questions 
 [bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
 [labels-we-use]: ./development-process.md#labels-we-use
 [point-estimation]: ./development-process.md#estimation-and-point-values
-[oauth-integration]: ../platform/firefox-accounts/integrating-with-fxa.md#oauth-integration
+[oauth-integration]: ../../platform/firefox-accounts/integrating-with-fxa.md#oauth-integration
 [fxa-prs]: https://github.com/mozilla/fxa/pulls
 [ecosystem-prs]: https://github.com/mozilla/ecosystem-platform/pulls
 [dependabot-yml]: https://github.com/mozilla/fxa/blob/main/.github/dependabot.yml

@@ -35,12 +35,17 @@ module.exports = {
                             'how-tos/connecting-to-a-local-mysql-db',
                             'how-tos/using-a-custom-profile-with-firefox',
                            ],
-          'Team Processes': [
-                            'team-process/development-process',
-                            'team-process/work-breakdown-process',
-                            'team-process/triage-process',
-                            'team-process/release-process'],
           'Reference':     [
+                              {
+                                type: 'category',
+                                label: 'Team Processes',
+                                items: [
+                                  'reference/team-processes/development-process',
+                                  'reference/team-processes/work-breakdown-process',
+                                  'reference/team-processes/triage-process',
+                                  'reference/team-processes/release-process',
+                                ]
+                            },
                             'reference/browser-support',
                             'reference/incident-response',
                             'reference/how-does-fxa-process-email',
@@ -62,6 +67,11 @@ module.exports = {
                             'reference/mobile-specifics',
                             'reference/architectural-decision-records',
                             'reference/github-strategies',
+                            {
+                              type: "link",
+                              label: "Telemetry Data Docs",
+                              href: "https://docs.telemetry.mozilla.org/datasets/fxa.html"
+                            },
                            ],          
           'Explanation':   [
                             'explanation/onepw-protocol',
