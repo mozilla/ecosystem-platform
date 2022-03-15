@@ -61,12 +61,12 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | downloadURL                               | Required. The download or subscription success action URL for the product.                 |
 | product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.   |
 | product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
-| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. It can be either a) full, direct URL to a PDF (e.g. https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf), or, b) a URL without the language and file extension (e.g. https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos). See the "Legal Document Download URL Metadata" section below for more information.                                |
-| webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net.          |
+| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the "Legal Document Download URL Metadata" section below for more information.                                |
+| webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>.          |
 | webIconBackground                         | Optional. A valid css color, color name or gradient for display behind your product icon on the web. Defaults to `#20123a`         |
 | capabilities                              | Required if `capabilities:{clientID}` is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.                                                                                                   |
 | capabilities:{clientID}                   | Required if `capabilities` is not provided. Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}. |
-| emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at https://accounts-static.cdn.mozilla.net. |
+| emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
 | appStoreLink                              | Optional. The App store download URL for the product. |
 | playStoreLink                             | Optional. The google play store download URL for the product. |
 | productSet                                | Optional. An arbitrary string used to group products in a set of upgrades & downgrades. |
@@ -76,6 +76,7 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | product:privacyNoticeURL:{locale}         | Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering. |
 | product:privacyNoticeDownloadURL          | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL. |
 | product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
+| product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. |
 | product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
 | product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
 | product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `downloadURL`. |
@@ -83,6 +84,7 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 | promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
+
 ###### Product Metadata defaults
 
 Some of the metadata properties listed above [have defaults][product-details-defaults] that are used when they're not defined in Stripe:
@@ -116,7 +118,7 @@ version of the document.  For example, if the value of
 `product:termsOfServiceDownloadURL` is
 'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos' and the user's
 locale is `de`, then the endpoint will redirect the user to
-https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf.
+<https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf>.
 
 ##### Subscription Metadata
 
@@ -210,7 +212,7 @@ You need three types of PayPal accounts for development.
 - Sandbox PayPal Personal Account: used for testing as the customer
 - Sandbox PayPal Business Account: used for testing
 
-To create a PayPal developer account, sign up at https://developer.paypal.com/.  Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account.  Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
+To create a PayPal developer account, sign up at <https://developer.paypal.com/>.  Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account.  Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
 
 Once you are in the PayPal developer dashboard, navigate to "Accounts" under the Sandbox section of the menu.  Here you can create [a pair of personal and business sandbox accounts](https://developer.paypal.com/docs/api-basics/sandbox/accounts/).  (To easily create multiple accounts for testing, there's a [bulk account creation feature](https://developer.paypal.com/docs/api-basics/sandbox/bulk-accounts/).)
 
@@ -237,6 +239,7 @@ In order to enable and use PayPal in the auth server, set the following configur
 ```
 
 The environment variables equivalent would be
+
 ```shell
 SUBSCRIPTIONS_PAYPAL_ENABLED=true \
 PAYPAL_SANDBOX=true \
@@ -278,7 +281,6 @@ The Payments frontend uses the [PayPal JavaScript SDK](https://developer.paypal.
 [PayPal IPN](https://developer.paypal.com/docs/api-basics/notifications/ipn/) is PayPal's equivalent of Stripe's webhook feature.  We do rely on IPNs in the Subscription Platform.  Unlike Stripe, however, PayPal does not offer any tool that would forward the events to your local environment.  Our team use [ngrok](https://ngrok.com/) for that purpose.
 
 Once you have the services running locally, start ngrok with `ngrok 9000` and note the public URL.  Using your sandbox business account and the public URL fron ngrok, complete [these steps to set up IPNs](https://developer.paypal.com/docs/api-basics/notifications/ipn/IPNSetup/).
-
 
 ### PayPal Processor
 
