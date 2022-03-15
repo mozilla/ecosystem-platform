@@ -1,7 +1,5 @@
 ---
-id: fxa-token-types
-title: Types of Auth Token in FxA
-sidebar_label: Types of Auth Token
+title: Types of Auth Tokens
 ---
 
 Last updated: `December 04th, 2019`
@@ -38,11 +36,11 @@ of token:
 
 A ***Bearer Token*** is an opaque string that can be used by any client in posession of the token, simply by presenting
 it verbatim in the request to the server (e.g. in the `Authorization` header). These are the simplest types of token
-for clients to use, but allow for interception and reply attacks. In particular, the server the receives a Bearer Token
+for clients to use, but allow for interception and replay attacks. In particular, the server that receives a Bearer Token
 is capable of extracting it and using it to perform other API calls.
 
 A ***Hawk Token*** consists of an opaque string id and corresponding secret key. To use the token, clients must use the
-secret key to sign outgoing requests using [the scheme described here](https://hapi.dev/family/hawk/). This is more
+secret key to sign outgoing requests using [the scheme described here](https://github.com/mozilla/hawk/blob/main/API.md). This is more
 complicated for clients but it binds the use of the token to the particular request being made, and it offers the
 potential for replay prevention.
 
@@ -63,15 +61,13 @@ Session tokens are an ***FxA Hawk Token*** where the 32-byte string is generated
   endpoint.
 * Requesting the `https://identity.mozilla.com/tokens/session` scope during an OAuth flow.
 
-Session tokens are intended only for authenticating communication with the FxA servers themselves, so RP servers
+Session tokens are intended only for authenticated communication with the FxA servers themselves, so RP servers
 should never encounter a session token in the wild.
 
 On the client side, session tokens are typically handled by web content on accounts.firefox.com while the user
 is interacting with their account. However, web browsers that support signing in with FxA in order to access
 account-enabled browser features, may obtain a session token during the sigin flow and use it to communicate
 directly with the FxA server APIs.
-
-TODO: we should better articulate ownership expections here, around webchannels etc.
 
 # Session Metadata
 
@@ -83,6 +79,7 @@ signed-in state. Properties of the session token include:
   password).
 * Timestamp at which the token was last used (truncated to a few hours granularity to reduce db write load).
 * Details of the user-agent string from the last use of the token.
+* The geolocation of the IP address that requested the session token
 
 This information may be used by the FxA server to make authorization decisions, and RPs may request that a user
 be authenticated to a certain level of assurance (such as requiring that the sessionToken be last-authenticated
@@ -106,7 +103,7 @@ Certain actions on the account can only be performed with a verified session, in
 
 ## Multi-Factor Auth
 
-If the user enalbes two-step authentication on their account, then each sessionToken will keep track of
+If the user enables two-step authentication on their account, then each sessionToken will keep track of
 whether it has been involved in a successful 2FA authentication. This information is reported in the session
 metadata in two ways:
 
@@ -130,9 +127,6 @@ Refresh tokens should only ever be presented to the FxA auth/oauth server, and s
 talking to other resource servers. Instead, the RP should use the refresh token to generate a short-lived
 [access token][#oauth-access-tokens] and use that to communicate with resource servers.
 
-TODO: talk more about scopes here?
-TODO: hypothesize about how we could make these more secure in future?
-
 # OAuth Access Tokens
 
 RPs that wish to access resource servers on behalf of the user (say, to read or store user data) need
@@ -141,19 +135,26 @@ to obtain an [OAuth Access Token](https://www.oauth.com/oauth2-servers/access-to
 be consumed by resource servers. For example the RP might use an access token with scope "profile" in order
 to read the user's profile data from the FxA profile server.
 
-TODO: talk more about scopes here?
-TODO: hypothesize about how we could make these more secure in future?
+FxA also supports JWT Access tokens.  See [JWT Access Tokens](jwt-access-tokens.md) for an in-depth look at that less-commonly-used type.
 
 # OIDC Identity Tokens
 
-They're for signin. Link to OIDC spec, and explain why they're useful.
+They're for signin.
+
+See the [OIDC spec](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) and the
+[FxA supported claims](https://accounts.firefox.com/.well-known/openid-configuration).
+
+This token, a JWT, proves that a user's been authenticated (in this case,
+with FxA). It can also be used as the `id_token_hint` query param value in a
+`prompt=none` flow ([additional information](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/prompt-none.md)]).
+
+This token is issued along with the access token and refresh token when the
+scope "openid" is present.
+
 
 # KeyFetch Tokens
 
 They're for fetching keys. RPs shouldn't need to now this, because they use the scoped-keys flow.
-Talk a bit about verification and how it relates to sessionToken verification.
-Explain the whole scrypt-on-the-server thing, and the way we encrypt the keys for communicating
-back to the client.
 
 # Password Change Tokens
 
@@ -166,16 +167,14 @@ Limited number of verification attempts. Generates a reset token.
 
 # Account Reset Tokens
 
-Special-use token for resetting the password. I need to remember why this is a separate token...
+Special-use token for resetting the password.
 
 # BrowserID Assertions
 
 Legacy identity assertion format. Used by sync, and accepted when granting OAuth tokens, but
-should not be used for anything new. Maybe link to an ADR describing our plan to get rid of them.
+should not be used for anything new.
 
-# Sync Storage Credentials
+BrowserID stopped being used in Firefox 80 and we're eagerly awaiting the long
+tail of users to upgrade so we can remove this code.  See details in
+[Issue #9007 / FXA-2715](https://github.com/mozilla/fxa/issues/9007).
 
-Not sure if this belongs here, since it's not really FxA. But it's a thing sync clients need to
-know about. Exchange BID assertion of OAuth token for special sync credentails.
-It might be a good place to explain how we'd like this to go away in the future, in favour
-of just using oauth token directly.
