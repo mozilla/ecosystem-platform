@@ -71,19 +71,19 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | playStoreLink                             | Optional. The google play store download URL for the product. |
 | productSet                                | Optional. An arbitrary string used to group products in a set of upgrades & downgrades. |
 | productOrder                              | Optional. A number used for sorting products in a set. |
+| product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. This parameter is used as a hyperlink in emails sent to the customer when their subscription is cancelled due, manual cancellation, FxA Account deletion, or failed payment.|
 | product:details:{n}                       | Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points. |
 | product:details:{n}:{locale}              | Optional. Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
 | product:privacyNoticeURL:{locale}         | Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering. |
 | product:privacyNoticeDownloadURL          | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL. |
 | product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
-| product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. |
 | product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
 | product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
 | product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `downloadURL`. |
 | product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
+| promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
 | support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
-| promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
 
 ###### Product Metadata defaults
 
