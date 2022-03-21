@@ -34,6 +34,7 @@ module.exports = {
                             'how-tos/managing-yarn-dependencies',
                             'how-tos/connecting-to-a-local-mysql-db',
                             'how-tos/using-a-custom-profile-with-firefox',
+                            'how-tos/working-with-metrics',
                            ],
           'Reference':     [
                               {
@@ -74,6 +75,7 @@ module.exports = {
                             },
                            ],          
           'Explanation':   [
+                            'explanation/metrics',                
                             'explanation/onepw-protocol',
                             'explanation/scoped-keys',
                             'explanation/content-server-architecture',
