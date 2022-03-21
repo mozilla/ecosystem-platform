@@ -22,7 +22,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         docs: {
           routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/mozilla/ecosystem-platform/edit/main/website/',
+          editUrl: 'https://github.com/mozilla/ecosystem-platform/edit/master/',
           remarkPlugins: [require('mdx-mermaid')],
         },
         blog: false,
