@@ -51,6 +51,7 @@ module.exports = {
                             'reference/how-does-fxa-process-email',
                             'reference/localization',
                             'reference/metrics',
+                            'reference/token-types',
                             'reference/jwt-access-tokens',
                             'reference/storybook-deploys-with-circleci',
                             'reference/webchannels-in-firefox-desktop-fennec',
@@ -72,7 +73,7 @@ module.exports = {
                               label: "Telemetry Data Docs",
                               href: "https://docs.telemetry.mozilla.org/datasets/fxa.html"
                             },
-                           ],          
+                           ],
           'Explanation':   [
                             'explanation/onepw-protocol',
                             'explanation/scoped-keys',
@@ -82,6 +83,6 @@ module.exports = {
         },
         'additional-docs',
     ]
-    },    
+    },
   ],
 };
