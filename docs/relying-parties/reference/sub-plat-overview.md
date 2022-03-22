@@ -1,7 +1,6 @@
 ---
 id: sub-plat-overview
 title: Subscription Platform Overview
-sidebar_label: Overview
 ---
 
 ## Introduction
