@@ -6,15 +6,22 @@ module.exports = {
       label: 'For Relying Parties',
       collapsible: false,
       items: [{
-        'Firefox Accounts':      ['platform/firefox-accounts/fxa-overview',
-                                  'platform/firefox-accounts/integration-with-fxa',
-                                  'platform/firefox-accounts/pairing'],
-        'Subscription Platform': ['platform/sub-plat/sub-plat-overview',
-                                  'platform/sub-plat/sub-plat-features',
-                                  'platform/sub-plat/integration-with-subscription-platform',
-                                  'platform/sub-plat/sub-plat-coupons'],
+        'Tutorials': [
+                        'relying-parties/tutorials/integration-with-fxa',
+                        'relying-parties/tutorials/integration-with-subscription-platform',
+                        'relying-parties/tutorials/pairing',                        
+                     ],
+        'How-to Guides': [
+                          'relying-parties/how-twos/end-to-end-encryption',
+                         ],
+        'Reference': [
+                      'relying-parties/reference/metrics-for-relying-parties',
+                      'relying-parties/reference/sub-plat-overview',
+                      'relying-parties/reference/sub-plat-features',            
+                      'relying-parties/reference/sub-plat-coupons',
+                      'relying-parties/reference/using-apis',
+                     ],
       },
-      'platform/using-apis',
       ]
     },
     {
