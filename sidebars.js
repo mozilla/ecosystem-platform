@@ -69,7 +69,6 @@ module.exports = {
                             'reference/automation-testplan',
                             'reference/internal-api-documentation',
                             'reference/experiments-ab-testing',
-                            'reference/interruptive-surveys',
                             'reference/system-diagrams',
                             'reference/application-logging',
                             'reference/scheduled-maintenance',
