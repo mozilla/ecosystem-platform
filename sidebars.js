@@ -75,6 +75,7 @@ module.exports = {
                             'reference/mobile-specifics',
                             'reference/architectural-decision-records',
                             'reference/github-strategies',
+                            'reference/third-party-authentication',
                             {
                               type: "link",
                               label: "Telemetry Data Docs",
