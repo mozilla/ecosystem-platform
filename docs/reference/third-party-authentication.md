@@ -4,7 +4,7 @@ title: Third Party Authentication in FxA
 
 Last updated: `April 06th, 2022`
 
-FxA current supports Apple and Google as third party authentication providers. This feature
+FxA currently supports Apple and Google as third party authentication providers. This feature
 was developed to support migrating Pocket users over to FxA. To maintain feature parity with Pocket, FxA added
 support for users to log in with their existing Apple/Google accounts within the FxA ecosystem.
 
@@ -78,7 +78,7 @@ Update the auth server [config](https://github.com/mozilla/fxa/blob/e31b9deb2d7e
 ```
 
 Note that you should update your `secrets.json` file in `/packages/fxa-auth-server/config/` to override the `clientSecret`.
-This will help reduce the risk of accidentally committing secrets to in git.
+This will help reduce the risk of accidentally committing secrets into git.
 
 #### Content server config
 
