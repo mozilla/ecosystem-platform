@@ -116,7 +116,7 @@ Update the content server [config](https://github.com/mozilla/fxa/blob/e31b9deb2
 ### How to setup Apple auth locally
 
 To create an Apple OAuth client you will need to have an Apple developer account. To run Apple authentication locally you 
-will also need to have https unfortunately, see [setup instructions]().
+will also need to have https unfortunately, see [setup instructions](#how-to-setup-local-env-for-https).
 
 #### Auth server config
 
