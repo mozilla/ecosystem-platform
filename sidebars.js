@@ -56,7 +56,7 @@ module.exports = {
                             },
                             'reference/browser-support',
                             'reference/incident-response',
-                            'reference/how-does-fxa-process-email',
+                            'reference/emails',
                             'reference/localization',
                             'reference/metrics',
                             'reference/token-types',
