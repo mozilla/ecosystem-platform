@@ -125,7 +125,7 @@ The goal of estimation is for us to assess the issue in terms of its relative co
 | 21     | ∞             | Meta issue or We do not have clear scope. (This issue must be broken down).  This is possibly a whole quarter sized epic. | | |
 
 
-## Checkin Meetings
+## Check-in Meetings
 
 The team meets regularly to stay in sync about development status and ensure nothing is falling through the cracks.  During meetings we take notes in a central document that anyone in the meeting can reference.
 
@@ -142,6 +142,68 @@ If a branch will survive beyond a couple of days its important to have a bit of 
 * You should rebase against main often to avoid a giant headache when you eventually merge
 * Consider creating new components instead of editing old ones if you have extensive enough changes.  This way it's a very small change to flip from one to the other instead of trying to merge.
 
+## Pull requests
+
+At the time of writing, FxA engineers push their branches to `mozilla/fxa` directly; we have [an issue we closed as a won't fix][issue-forked-prs] detailing why we currently don't use forks, see [merging a contributor's PR](#merging-a-contributors-pr) for how to handle PRs from forks. Try to delete your stale or already merged branches on a regular basis.
+
+See [CONTRIBUTING.md][contributing-md] to see FxA's contributing guidelines, including commit message guidelines. Because we prefer one commit per issue or PR closed, depending on the task at hand engineers may need to interactively rebase against `main`, consolidate their commits, and force push to their branch. [See the ADR][adr-squash-and-merge] around disabling squash and merge for related additional details. Note that we have branch protection against force pushing to `main` or `train-*` branches.
+
+To perform a rebase, fixup your commits, and force push:
+
+1. While not always required, you may want to have latest `main` locally with `git fetch <remote> main:main`
+1. Run `git rebase -i main`
+1. You'll see a list of your commits containing a command (like `pick`), their hashes, and messages
+    1. Change `pick` on the message(s) you want to fix up to `f` or `fixup`¹
+    1. You may want to `r` or `reword` the first commit to fill out the message per our guidelines or to add to your existing message if what you're fixing up isn't captured in the original commit (if so, you may also want to edit your original PR message to reflect the reworded commit message)
+1. Exit Vim, and your rebase will begin
+1. If no one else is working in your branch, you may force push with `git push <remote> <branch name> -f`. If you're pairing with someone, do this carefully by communicating with the collaborator and be sure to use the `--force-with-lease` option rather than `-f`
+
+¹We generally prefer fixing up (`f`) over squashing (`s`) because squashing appends the commit message to the previous one while fixing up discards it. If you squash instead, your commit message may follow the guidelines but display your other messages at the bottom which might look like extra cruft, like "WIP" or "Address review comments".
+
+:::tip
+If you're not used to force pushing, it can feel a little scary at first. You can always fork the repo and push to your fork before rebasing and force pushing to `mozilla/fxa` if you want to preserve a copy of history, or after rebasing and before force pushing, run a `git diff` against your locally fixed up branch and what's been pushed. You can exit rebasing and get to your previous state by running `git rebase --abort` if you need to.
+:::
+
+### Example PR scenarios for commit strategies
+
+These are not hard rules, but here are some various scenarios and strategies you might use:
+
+**Scenario (r+ or r+ with nits)**: You have a fix ready and you commit it per the guidelines. If you get review approval without requested changes, you may merge it. If you get review approval with nits (nitpicks) you'd like to address, you can commit the changes, follow the fixup/force push steps above, and once CI passes again, you may merge the PR.
+
+It's generally too much overhead to re-review approved PRs with nitpick fixes just to make sure the fixup was done properly. We have "Dismiss stale pull request approvals when new commits are pushed" disabled in our branch protections for this reason.
+
+**Scenario (changes requested)**: A reviewer asks for changes on your PR. Depending on the breadth of changes required, you may want to commit those changes separately and regular push to your branch and when the reviewer approves, follow the fixup/force push steps above, and once CI passes again, you may merge the PR. Alternatively, you may rather go ahead fixup/force push to your branch so the reviewer can also see the final commit.
+
+**Scenario (draft PR)**: You have a branch containing several commits that you'd like to open as a draft for early feedback. You may fixup your commits at this stage if you wish which wouldn't require a force push, but it's fine for a PR to have multiple commits until you feel it's ready for review and merge. You might fill out the pull request title and template to help early reviewers and to give you something to copy and paste when you're ready to write the commit message. When your PR is ready for a review and potentially merge, follow the steps above to fixup your commits and force push.
+
+**Scenario (large PR)**: You've been working on a large task, which probably should have been broken down better, with many commits that may actually make the review process easier to keep them separate because they're loosely organized. It's fine to open a PR like this for review, but it's best to fill out the pull request title and template to help reviewers and to give you something to copy and paste when you're ready to write the commit message. Handle this how you and the reviewer feel is best, just be sure to fixup your commits before the PR is merged.
+
+### Merging a contributor's PR
+
+If someone outside of the fxa-devs group on Github makes a contribution, they will have to use their fork since they won't have write access to `mozilla/fxa`, see why this won't pass CI [on this issue][issue-forked-prs].
+
+Review the pull request per our "code review" guidelines below. When the PR appears ready, we will need to grab the contributor's commit and place it in a PR temporarily into `mozilla/fxa` marked as a draft and/or with a "do not merge" label or title. Circle CI will run the full suite based on that _commit_, meaning CI will appear to run on the contributor's branch.
+
+If you expect to only need to do this once, run:
+
+```bash
+git fetch git@github.com:<username>/fxa.git <commit hash>
+git checkout -b <whatever-branch-name> <commit hash> # you can also use FETCH_HEAD instead of <commit hash>, as they're the same
+git push <remote> <whatever-branch-name>
+```
+
+By using this method instead of cherry-picking, the commit is not co-authored by the team member.
+
+If you expect to do this more than once, add the contributor's fork as a `remote` so you can pull from their branch more easily.
+
+```bash
+git remote add <username> git@github.com:<username>/git.git
+git fetch <username>
+git checkout --track <username>/<contributor‘s branch name>
+```
+
+When CI passes, merge the contributor's PR and close your temporary PR.
+
 ## Code Review
 
 This project is production Mozilla code and subject to our [engineering practices and quality standards][moz-standards].  Every patch must be [reviewed][moz-code-review] by an owner or peer of the [Firefox Accounts module][fxa-module].
@@ -151,9 +213,10 @@ This project is production Mozilla code and subject to our [engineering practice
 Here are some handy questions and things to consider when reviewing code for Firefox Accounts:
 
 * Did test coverage increase, or at least stay the same?
-* Does it introduce new user-facing strings?
+* Does it introduce new user-facing strings or does it change any existing ones?
   * Ensure the strings are finalized and approved.  Double check for any typos.  It's hard to change strings once they get localized.
   * Ensure they will be extracted by being consistent with the code in the package you're working on.
+  * If string changes exist in a package that uses Fluent, ensure the FTL ID for the string is also updated
 * Does it store user-provided data?
     * The validation rules should be explicit, documented, and clearly enforced before storage.
     * Ensure new stored data has been approved by a data steward.
@@ -172,6 +235,9 @@ Here are some handy questions and things to consider when reviewing code for Fir
     * Note whether we should announce it on one or more developer mailing lists.
 * Does it add appropriate new metrics or logging?
 * Does it consider accessibility?
+* If styling changes are made, does it consider RTL languages?
+* Does it warrant any documentation updates?
+* Does the commit message match our guidelines? If you are approving a PR with multiple commits, consider leaving a comment reminding them to consolidate their commits before hitting the merge button.
 
 ## Deployment Documentation
 We maintain a [private deployment document][fxa-deploy-doc] to keep track of any configuration changes, any database changes, etc.  **Anything that needs to be done aside from deploying updated code should be tracked in this document.**
@@ -306,3 +372,7 @@ Once the fix has been deployed and is safe to reveal publicly, it can be merged 
 [pi-jira]: https://mozilla-hub.atlassian.net/jira/software/c/projects/QA/issues/
 [bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
 [bugzilla-triage]: ./triage-process.md#bugzilla-skip-for-subplat
+
+[contributing-md]: https://github.com/mozilla/fxa/blob/main/CONTRIBUTING.md
+[issue-forked-prs]: https://github.com/mozilla/fxa/issues/12261
+[adr-squash-and-merge]: https://github.com/mozilla/fxa/blob/main/docs/adr/0030-disable-squash-and-merge.md
