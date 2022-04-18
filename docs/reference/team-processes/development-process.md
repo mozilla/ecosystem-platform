@@ -185,7 +185,7 @@ Since most of our work happens in the open, we need special procedures for deali
 
 We use private bugzilla bugs for tracking security-related issues, because this allows us to manage visibility for other stakeholders at Mozilla while maintaining confidentiality.
 
-We use private github repos for developing security fixes and tagging security-related releases.
+We use private github repos for developing security fixes and tagging security-related releases. See the [Security Releases](release-process#security-releases) section on the release process page for more information on how to handle releasing this code.
 
 ### Filing security issues
 
@@ -195,91 +195,7 @@ If you believe you have found a security-sensitive issue with any part of the Fi
 
 The Firefox Accounts service is part of Mozilla's [bug bounty program][moz-bug-bounty], which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
 
-### Making a private point-release
 
-We maintain the following private github repo that can be used for making security-related point-releases
-
-* https://github.com/mozilla/fxa-private
-
-The recommended procedure for doing so is:
-
-1. Check out the private repo, independently from your normal working repo:
-
-  ```shell
-  git clone git@github.com:mozilla/fxa-private
-  cd fxa-private
-  ```
-
-  :::tip
-    Do not add it as a remote on your normal working repo,
-    because this increases the risk of pushing a private fix to the public repo by mistake.
-  :::
-
-1. Add the corresponding public repo as a remote named `public`,
-  and ensure it's up-to-date:
-  
-  ```shell
-  git remote add public git@github.com:mozilla/fxa
-  git fetch public
-  ```
-
-1. Check out the latest release branch and push it to the private repo:
-
-  ```shell
-  git checkout public/train-XYZ
-  git push origin train-XYZ
-  ```
-
-1. Develop your fix against this as a new branch in the private repo:
-
-  ```shell
-  git checkout -b train-XYZ-my-security-fix
-  git commit -a
-  git push -u origin train-XYZ-my-security-fix
-  ```
-
-1. Submit and review the fix as a PR in the private repo,
-  targetting the `train-XYZ` branch.
-
-1. Tag a point release in the private repo, following the release steps
-
-  ```shell
-  git checkout train-XYZ; git pull  # ensure we have the merged PR
-  grunt version:patch
-  git push
-  ```
-
-1. Push the tag in order to trigger a CircleCI build:
-  
-  ```shell
-  git push origin v1.XYZ.N
-  ```
-
-  :::caution
-  Do not use `git push --tags` as this will not correctly trigger
-  the CircleCI build.
-  :::
-
-1. File an issue on the public repo as a reminder to uplift the fix
-  once it has been deployed to production.
-
-Once the fix has been deployed and is safe to reveal publicly, it can be merged back into the public repo by doing the following:
-
-1. Push the private train branch to the public repo,
-  as a new branch:
-  
-  ```shell
-  git push public train-XYZ:train-XYZ-uplift
-  ```
-1. Open a PR in the public repo, targeting the public `train-XYZ` branch, for review and merge.
-
-1. Push the tag to the public repo:
-  
-  ```shell
-  git push public v1.XYZ.N
-  ```
-
-1. Merge the `train-XYZ` branch to main following the usual steps to release
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
 [bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15068002&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=Firefox%3A%3AFirefoxAccounts&query_format=advanced&component=Firefox%20Accounts&product=Firefox&known_name=Firefox%3A%3AFirefoxAccounts
