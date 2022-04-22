@@ -15,7 +15,7 @@ Triage owners rotate throughout the team, and at the time of writing the triage 
 
 ## I am the Triage Owner: How should I plan my Sprint?
 
-When taking on work for the sprint, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you're in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
+When taking on work for the sprint, if you’re on the FxA team, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re on the SubPlat team, consider taking on around 20% less than usual to assist with dependency updates or high priority bugs that come up, explained below. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
 
 :::tip
 If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat). Also, set up your VPN ([instructions are on Mana][mana-vpn]) so you can access the FxA Admin Panel, and request a license from the service desk. [See what LDAP groups you must be in][bugzilla-common-scenarios-ldap] to access the Admin Panel.
@@ -127,9 +127,9 @@ Keep in mind that Dependabot duty is shared between the FxA triage owner and the
 
 #### Dependabot PRs that Pass CI
 
-Generally speaking, if CI is green, the dependency is very likely fine to merge. However, also take a look at the number shown on the "checks" tab of the PR. If there's less than 4 checks, it might actually cause a problem somewhere in the codebase, and if there's not already an issue filed for that package, you may want to check that package's release notes to see if there's any notes about breaking changes, and/or ask the team if anyone thinks it may not be safe to merge.
+Generally speaking, if CI is green, the dependency is likely fine to merge. However, also take a look at the number shown on the "checks" tab of the PR. If there's less than 4 checks, our CI suite may not have ran on the PR. Comment on it with `@dependabot recreate` to rerun the test suite and make sure `test_pull_request` runs and completes without error.
 
-If CI is green, 4+ checks are shown, and none of the files changed looks out of the ordinary, approve the Dependabot PR and use the “squash and merge” option to combine bot commits so the package upgrades are easier to revert if problems arise. If you need Dependabot to rebase the change, comment on the PR with `@dependabot recreate`. We can't use `@dependabot rebase` because the PR is modified by Bananafox.
+If CI is green, `test_pull_request` was ran, and none of the files changed looks out of the ordinary, approve the Dependabot PR and merge the pull request. If you need Dependabot to rebase the change, comment on the PR with `@dependabot recreate`. We can't use `@dependabot rebase` because the PR is modified by Bananafox.
 
 :::caution
 Try not to merge dependency updates if we're planning on tagging a release the same day. If we merge something in and discover a dependency problem with or after the tag, we will need a dot release just to patch the bad dependency upgrade.
@@ -146,9 +146,26 @@ If a ticket has already been filed for a previous failure of the same package an
 
 #### Security Warnings
 
-Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical or high severity. You may also choose review these as a team in the triage meeting if you wish.
+Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical (or even high) severity. You may also choose review these as a team in the triage meeting if you wish, and it may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix.
 
-Be sure to timebox yourself on these fixes, but try to manually upgrade the dependency to the patched version shown in the alert. It may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix. Your commit message may begin with something similar to `chore(deps): Security <list affected packages>`.
+If Dependabot thinks it can automatically fix the alert for us, a "Create dependabot security update" button will be present. This is a good clue, as well as a "Dependabot can't update vulnerable dependencies without a lockfile" note, that the upgrade should be simple, but we'll need to manually resolve the alert since Dependabot doesn't have access to our `yarn.lock` file (see Bananafox info above). You can check what packages are affected by running `yarn why <package name>`. If there's only one or two affected packages, consider trying to manually upgrade the dependency to the patched version shown in the alert. 
+
+However, sometimes, security alerts are for deeply nested dependencies. In this case, we use [Yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/). To resolve the security warning:
+
+1. Copy the *patched version* from the security warning into the "resolutions" section of our root-level `package.json`, example:
+```
+"resolutions": {
+  "postcss": "^7.0.36",
+```
+
+1. Update the `yarn.lock` file by running `yarn install`
+1. Commit your changes in a PR titled `chore(deps): Upgrade <list affected packages>`
+1. Create a PR and request review
+1. If our CI suite passes, it probably means the dependency resolution is good to merge. However, keep in mind that like other dependency upgrades, something may break, and the dependency upgrade may need to be reverted.
+
+If the dependency needs to be reverted or if CI fails after the PR is created and it's not feasible to fix the failures at the moment, you may be able to determine that certain vulnerabilities don't affect FxA in production anyway, like if a dependency is a dev dependency or something ran at build-time. These kinds of alerts can usually be dismissed. This is also a good time to evaluate if we _need_ a dependency - maybe the fix is to uninstall the dependency if we use it sparingly, especially if it's an old and outdated package, rather than spend time upgrading it.
+
+Otherwise, [file an issue in Bugzilla](https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&component=Server%3A%20Firefox%20Accounts) for each critical issue, and mark them as "Confidential Mozilla Employee Bug (non-security)". While these are security issues, marking them as "security" requires more process and sign off from another team that we don't need for these alerts. File an issue in Jira, and reference only "Bugzilla #####" with the number, and in the issue body, add a link to the Bugzilla ticket without other context. The issue will then be triaged normally.
 
 ## Assist with New High Priority Bugs
 
@@ -168,7 +185,7 @@ Triage owners should occasionally check to see if they can answer any questions 
 [bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
 [labels-we-use]: ./development-process.md#labels-we-use
 [point-estimation]: ./development-process.md#estimation-and-point-values
-[oauth-integration]: ../../platform/firefox-accounts/integrating-with-fxa.md#oauth-integration
+[oauth-integration]: ../../relying-parties/tutorials/integrating-with-fxa.md#oauth-integration
 [fxa-prs]: https://github.com/mozilla/fxa/pulls
 [ecosystem-prs]: https://github.com/mozilla/ecosystem-platform/pulls
 [dependabot-yml]: https://github.com/mozilla/fxa/blob/main/.github/dependabot.yml
