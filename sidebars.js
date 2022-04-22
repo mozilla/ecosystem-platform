@@ -42,6 +42,7 @@ module.exports = {
                             'how-tos/connecting-to-a-local-mysql-db',
                             'how-tos/using-a-custom-profile-with-firefox',
                             'how-tos/working-with-metrics',
+                            'how-tos/using-sentry-locally',
                            ],
           'Reference':     [
                               {
