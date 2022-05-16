@@ -36,11 +36,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      hideableSidebar: true,
       colorMode: {
         defaultMode: "light",
         disableSwitch: true,
         respectPrefersColorScheme: true,
+      },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
       },
       navbar: {
         title: 'Firefox Ecosystem Platform',
