@@ -20,6 +20,11 @@ module.exports = {
                       'relying-parties/reference/sub-plat-features',            
                       'relying-parties/reference/sub-plat-coupons',
                       'relying-parties/reference/using-apis',
+                      {
+                        type: 'link',
+                        label: '⚙️ API Reference',
+                        href: '/api',
+                      }
                      ],
       },
       ]
