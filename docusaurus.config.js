@@ -34,12 +34,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     [
       'redocusaurus',
       ({
-        'specs': [
+        specs: [
           {
             spec: 'https://api.accounts.firefox.com/swagger.json',
             route: '/api',
           },
         ],
+        option: {
+          sortTagsAlphabetically: true,
+        }
       }),
     ],
   ],
