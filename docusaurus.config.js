@@ -37,7 +37,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
         specs: [
           {
             spec: 'https://api.accounts.firefox.com/swagger.json',
-            route: '/api',
+            route: '/api/auth-server',
           },
         ],
         option: {
