@@ -101,7 +101,7 @@ This is to protect their email address from being on a publicly accessible link 
 Sometimes all a user needs to resolve their issue, for example, and depending on what they report, is the date they enabled 2FA on their account so they can search their files to find saved recovery codes. You might consider providing users relevant info from the Admin Panel if there's nothing we can do on our end in case it rings any bells for them.
 :::
 
-If the reported bug is around an email bounce account block and you successfully clear it in the Admin Panel, go ahead and close the bug after you comment back. Many users don't report back after they've successfully logged in after being unblocked.
+If the reported bug is around an [email bounce account block][email-bounce-types] and you successfully clear it in the Admin Panel, go ahead and close the bug after you comment back. Many users don't report back after they've successfully logged in after being unblocked.
 
 You may need to file an issue in Jira for bugs in Bugzilla to surface issues to the team that would require changes in our codebase.
 
@@ -193,3 +193,4 @@ Triage owners should occasionally check to see if they can answer any questions 
 [dependabot-security-alerts]: https://github.com/mozilla/fxa/security/dependabot
 [wiki-cve]: https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures
 [matrix-fxa]: https://chat.mozilla.org/#/room/#fxa:mozilla.org
+[email-bounce-types]: ../emails.md#bounce-types
