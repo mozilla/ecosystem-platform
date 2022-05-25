@@ -6,7 +6,7 @@ The Firefox account admin panel provides access to key information about user ac
 
 # Menu Bar
 
-The menu bar located in the upper left provides two functions at the moment. [Account search ](#account-search) and [Permissions](#oermissions). Clicking on a menu item will bring up the corresponding view.
+The menu bar located in the upper left provides two functions at the moment. [Account search ](#account-search) and [Permissions](#permissions). Clicking on a menu item will bring up the corresponding view.
 
 
 # Account Search
@@ -214,7 +214,7 @@ Also fairly self explanatory, this section disables a users ability to log into 
 
 Once the account login has been disabled, it can be reenabled by selecting the ‘Enable’ action.
 
-![enable login screen capture](images/image15.png "image_tooltip")
+![enable login screen capture](../assets/admin-panel/image15.png "image_tooltip")
 
 
 # Permissions
