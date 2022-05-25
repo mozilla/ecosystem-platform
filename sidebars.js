@@ -100,5 +100,17 @@ module.exports = {
         'additional-docs',
     ]
     },
+    {
+      type: 'category',
+      label: 'For Support Agents',
+      collapsible: false,
+      items: [
+        {
+          'Reference': [
+            'reference/admin-panel',
+          ]
+        }
+      ]
+    }
   ],
 };
