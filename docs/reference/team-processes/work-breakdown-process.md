@@ -103,7 +103,7 @@ to proceed are roughly:
 TBD
 
 
-[estimation-guidelines]: https://mozilla.github.io/ecosystem-platform/reference/development-process#estimation-and-point-values
+[estimation-guidelines]: https://mozilla.github.io/ecosystem-platform/reference/team-processes/development-process#estimation-and-point-values
 [jira-multiproduct-support]: https://jira.mozilla.com/browse/FXA-457
 [on-writing-tech-specs]: https://codeburst.io/on-writing-tech-specs-6404c9791159
 [mozilla-templates]: https://docs.google.com/document/u/0/?tgif=d&ftv=1:whj
