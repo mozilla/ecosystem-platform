@@ -73,7 +73,7 @@ To view the hapi-swagger generated JSON file locally:
 To view the API documentation within Ecosystem Platform locally:
 
 - `yarn start` the [Ecosystem Platform](https://github.com/mozilla/ecosystem-platform) repository
-- Go to [localhost:3000/ecosystem-platform/api/auth-server](http://localhost:3000/ecosystem-platform/api/auth-server)
+- Go to [localhost:3000/ecosystem-platform/api](http://localhost:3000/ecosystem-platform/api)
 - If you are modifying the API documentation and would like to view it locally, use `http://localhost:9000/swagger.json` in the specs array within `docusaurus.config.js`
 
 While hapi-swagger also autogenerates API documentation as well, we opt to host our API documentation on the Ecosystem Platform with redocusaurus and, therefore, configure the hapi-swagger JSON file accordingly. See [Hapi-swagger documentation](#hapi-swagger-documentation) below for additional information.
@@ -93,7 +93,7 @@ The available sections of our API documentation (e.g., 'Account', 'Devices and S
 Be sure to include `'api'` in the tag's array for it to appear in the documentation.
 :::
 
-If you have created a new tag, you will also need to add it as an object in the `tags` property in `fxa-auth-server/docs/swagger/swagger-options.ts`. This ensures the tag is properly sorted within the sidebar of the documentation in redocusaurus. While `name` is the only required property in a tag's object, other properties include `description` and `externalDocs`. See [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#tag-object) for more information.
+If you have created a new tag, you will also need to add it in the array of the API doc it is to appear under in `fxa-auth-server/docs/swagger/swagger-options.ts`. If the tag includes a description, add the tag object to the `tags` property as well. While `name` is the only required property in a tag's object, other properties include `description` and `externalDocs`. See [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#tag-object) for more information.
 
 ### API documentation file
 
