@@ -229,7 +229,7 @@ A list of optional supported engines. If we are unsure whether an optional engin
 
 ##### Possible values (OAuth WebChannel Flow)
 
-See [`engines` capability in Fenix & WebExtensions](./fxa-oauth-webchannel-protocol#engines-capability).
+See [`engines` capability in Fenix & WebExtensions](./webchannels-in-fenix-webextensions#engines-capability).
 
 ### declinedSyncEngines, offeredSyncEngines
 

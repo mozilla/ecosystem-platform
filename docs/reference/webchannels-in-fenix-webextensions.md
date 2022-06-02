@@ -6,7 +6,7 @@ Current as of `December 2nd, 2019`
 
 # Communication with OAuth WebChannels
 
-OAuth WebChannels is an extension of the [FxA WebChannel Desktop Flow](./fxa-webchannel-protocol).
+OAuth WebChannels is an extension of the [FxA WebChannel Desktop Flow](./webchannels-in-firefox-desktop-fennec).
 It consists of similar messages as the Desktop Sync flow, however is more generic because of the use
 of OAuth in the background. Some behaviours in the OAuth flow are different.
 
@@ -16,7 +16,7 @@ This flow currently supports the following messages:
 -   `fxaccounts:oauth_login`
 
 The `fxaccounts:fxa_status` message in the OAuth flow supports specifying a custom list of Sync engines that the app supports.
-See [FxA WebChannel Desktop Flow](./fxa-webchannel-protocol) for details of engine capabilities.
+See [FxA WebChannel Desktop Flow](./webchannels-in-firefox-desktop-fennec) for details of engine capabilities.
 
 ## Communication with GeckoView applications
 
