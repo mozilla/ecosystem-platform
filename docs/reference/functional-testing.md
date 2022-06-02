@@ -10,7 +10,7 @@ End to end testing of the entire FxA ecosystem is provided by a [comprehensive s
 $ npm run test-functional
 ```
 
-The full set of functional tests is run on [CircleCI](./fxa-tests-circleci) on every checkin and every time a pull request is merged to main.
+The full set of functional tests is run on [CircleCI](./tests-in-circleci) on every checkin and every time a pull request is merged to main.
 This full set consist of a smoke test suite(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_smoke) which runs the high priority test cases first and upon success the full suite of regression tests(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_regression) are run. If there is a failure in the smoke test suite, the regression suite won't be run until the failures have been fixed.
 There is also a notification system in place for when these failures occur to alert the FxA team via Slack messaging.
 
@@ -239,11 +239,11 @@ When opening your page, specify the `forceExperiment` and `forceExperimentGroup`
 ```
 
 ### Simulate interaction with the browser, e.g., WebChannels
-Browser based integrations all require FxA to communicate with the browser. See [WebChannels in Desktop and Fennec](./fxa-webchannel-protocol) and [WebChannels in Fenix](./fxa-oauth-webchannel-protocol) for background information.
+Browser based integrations all require FxA to communicate with the browser. See [WebChannels in Desktop and Fennec](./webchannels-in-firefox-desktop-fennec) and [WebChannels in Fenix](./webchannels-in-fenix-webextensions) for background information.
 
 For example, every time Firefox Desktop loads, FxA asks Firefox for info
 on the user currently signed into Firefox as well as a list of "capabilities"
-the browser supports. This is done via the [fxaccounts:fxa_status](./fxa-webchannel-protocol#fxaccounts-fxa_status) WebChannel message.
+the browser supports. This is done via the [fxaccounts:fxa_status](./webchannels-in-firefox-desktop-fennec#fxaccounts-fxa_status) WebChannel message.
 
 Within functional tests, we do not want to actually drive the browser, nor depend on potentially unknown states. Instead we intercept messages sent to the browser and
 stub out responses. To ease development, default responses are hooked up for

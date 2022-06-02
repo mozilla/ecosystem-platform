@@ -37,8 +37,8 @@ While FxA is an [OAuth 2.0 authorization server](https://tools.ietf.org/html/rfc
 only one of several [integration types](#relying-party-integrations) supported by FxA.
 For more information about how FxA came to support so many non-standard integrations, see the [App Services and FxA Unofficial History](https://docs.google.com/document/d/1jixykayGuyIGU8ecThHvvUpTeC4yq84KRalGr0Jh0xg/).
 
-Detailed [Maps of the FxA Universe](./fxa-system-diagrams) outline how the various Firefox Accounts micro-services
-fit together. The [content-server centric view](./fxa-system-diagrams#fxa-content-server) will give an understanding
+Detailed [Maps of the FxA Universe](../reference/system-diagrams) outline how the various Firefox Accounts micro-services
+fit together. The [content-server centric view](../reference/system-diagrams#fxa-content-server) will give an understanding
 of which services communicate with FxA.
 
 ### Relying Party Integrations
@@ -65,7 +65,7 @@ reports.
 
 The client side is a [Backbone](https://backbonejs.org/) based Single Page Application (SPA) and responsible for screen rendering,
 handling user input, communicating with various FxA backend services, and communicating with RPs or browsers.
-The client app runs in modern Web capable systems, see [supported browsers](fxa-dev-process#browser-support) for up to date tier 1 support.
+The client app runs in modern Web capable systems, see [supported browsers](../reference/browser-support) for up to date tier 1 support.
 
 :::note
 Yes, FxA uses Backbone. React wasn't a thing when FxA started, and converting FxA to use React

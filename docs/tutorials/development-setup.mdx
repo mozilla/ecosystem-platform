@@ -31,7 +31,8 @@ import TabItem from '@theme/TabItem';
   `yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo:mozilla/fxa+filename:pm2.config.js+filename:infrastructure.config.js)). Doing so may result in errors.
   :::
 
-1. Once your services have all started up you should now be able to [visit FxA locally](http://localhost:3030). Next up you may want to [create an account](./local-accounts).
+1. Once your services have all started up you should now be able to [visit FxA
+locally](http://localhost:3030). Next up you may want to [create an account](../how-tos/creating-an-account-locally).
 
 :::tip
 FxA should only be accessed locally using the `localhost` host, and not via `127.0.0.1`.
@@ -61,7 +62,8 @@ yarn pm2 restart mysql
 yarn pm2 stop content
 ```
 
-Check out the [PM2 docs](https://github.com/Unitech/PM2) for more commands. If you're using VS Code there is also a [handy extension](./vscode-development) for managing PM2 services.
+Check out the [PM2 docs](https://github.com/Unitech/PM2) for more commands. If
+you're using VS Code there is also a [handy extension](../how-tos/using-vscode-with-fxa) for managing PM2 services.
 
 Additionally, be sure to check out the [`package.json`](https://github.com/mozilla/fxa/search?q=package.json) files in both the root and individual packages to see all available commands.
 
