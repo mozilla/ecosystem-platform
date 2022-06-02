@@ -6,5 +6,4 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 6
     labels:
-      - "maintenance"
       - "dependencies"
