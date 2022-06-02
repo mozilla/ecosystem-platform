@@ -4010,10 +4010,10 @@ dns-packet@^5.2.2:
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
-docusaurus-plugin-redoc@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/docusaurus-plugin-redoc/-/docusaurus-plugin-redoc-1.0.3.tgz#20f26da045b5685a54e4eb06a3847a81f35b416c"
-  integrity sha512-pLYBkyqRIdDsUx6Q9gTKlNkHZpVXYxXptDwTIK+FwMfW7chfdRTLLjlZ1oSqCVjNlb0L/CT1rpSh78pNKE95KQ==
+docusaurus-plugin-redoc@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/docusaurus-plugin-redoc/-/docusaurus-plugin-redoc-1.1.2.tgz#bd09e7fb8bfdc520a2acb9c2511c96aa7b3c512c"
+  integrity sha512-3IPNulKskFKT+GQ1yuzoImOTmr1viUf95b/ObiFqrfmkRWthZNtrFvnrGamRixzaSuyppFWvBhOKqVPvXedn7g==
   dependencies:
     "@docusaurus/types" "^2.0.0-beta.20"
     "@docusaurus/utils" "^2.0.0-beta.20"
@@ -4021,10 +4021,10 @@ docusaurus-plugin-redoc@1.0.3:
     joi "^17.5.0"
     redoc "2.0.0-rc.69"
 
-docusaurus-theme-redoc@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/docusaurus-theme-redoc/-/docusaurus-theme-redoc-1.1.0.tgz#94837f1c796403d2e2f9df6a463c179bdab1cfe6"
-  integrity sha512-hff4FnGjX8YPAWZpGJ2At9UFaG34e9rmBT4wScdYUFC0DaGz00oXDMfdIlDd7nrE3I7glBXZa2ygsnFcfLeiXA==
+docusaurus-theme-redoc@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/docusaurus-theme-redoc/-/docusaurus-theme-redoc-1.1.2.tgz#08e775cbc1d25321a171aae81ffae646e59b56ab"
+  integrity sha512-+7d+8YdiiJ/mivD3YaxZQBq2QWkPdcgcKnqLx2p4DOaYt8gMiKTwgPrjgAXr7Z63NfJWvqFKhyPVP+JyHbYn+w==
   dependencies:
     "@docusaurus/theme-common" "^2.0.0-beta.20"
     "@docusaurus/types" "^2.0.0-beta.20"
@@ -7170,14 +7170,14 @@ redoc@2.0.0-rc.69:
     swagger2openapi "^7.0.6"
     url-template "^2.0.8"
 
-redocusaurus@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/redocusaurus/-/redocusaurus-1.1.0.tgz#7e9905cdc2528288b06e45b97f56ed490f1132b5"
-  integrity sha512-3j5dOUIIMBSy7rYDC05i1goUkpqzGJSV7UIE/9K4xgrDf8l4YHmfPwYEaHSJL5oefhVFOY80ttjvsoVrCpJfIg==
+redocusaurus@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/redocusaurus/-/redocusaurus-1.1.2.tgz#447458825551d1a4b40f183c826c45aafc026b38"
+  integrity sha512-fxTYSCna5isvM8noW0ggtZnjRspuw8BslIfmDCq5A9w5FyHGwo2w5iYhb9sVPSDS+rg/mphw7BCz5E37bLkC2w==
   dependencies:
     "@docusaurus/types" "^2.0.0-beta.20"
-    docusaurus-plugin-redoc "1.0.3"
-    docusaurus-theme-redoc "1.1.0"
+    docusaurus-plugin-redoc "1.1.2"
+    docusaurus-theme-redoc "1.1.2"
 
 reftools@^1.1.9:
   version "1.1.9"
