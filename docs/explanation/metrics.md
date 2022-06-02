@@ -104,4 +104,4 @@ These are pretty old and may not be accurate
 [redux-actions]: https://redux.js.org/basics/actions
 [event-broker-readme]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#metrics
 [navigation-timing-2]: https://www.w3.org/TR/navigation-timing-2/
-[rp-metrics]: ../relying-parties/metrics-for-relying-parties.md
+[rp-metrics]: ../relying-parties/reference/metrics-for-relying-parties.md

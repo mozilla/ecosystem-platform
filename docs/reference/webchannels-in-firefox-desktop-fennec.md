@@ -8,7 +8,7 @@ Current as of `December 2nd, 2019`
 
 Firefox Accounts communicates with Firefox desktop and Fennec using [WebChannels](https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/WebChannel.jsm). WebChannels provide secure two-way communication between the browser and web content. Messages sent from content to the browser utilize `WebChannelMessageToChrome` custom events. Messages sent from the browser to content utilize `WebChannelMessageToContent` custom events.
 
-See [WebChannels in Fenix & WebExtensions](./fxa-oauth-webchannel-protocol) for details specific to those environments.
+See [WebChannels in Fenix & WebExtensions](./webchannels-in-fenix-webextensions) for details specific to those environments.
 
 ## Context
 
@@ -18,7 +18,7 @@ WebChannels are used to communicate Sync related information when
 
 - `fx_desktop_v3`
 - `fx_fennec_v1`
-- [`oauth_webchannel_v1`](./fxa-oauth-webchannel-protocol)
+- [`oauth_webchannel_v1`](./webchannels-in-fenix-webextensions)
 
 ## Commands
 
