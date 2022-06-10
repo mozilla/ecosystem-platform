@@ -51,7 +51,7 @@ Mailer.prototype.verifyLoginCodeEmail = async function (message) {
 }
 ```
 
-`layout` defaults to `fxa`. Pass in `layout: 'subscription'` at the same level `headers` and `template` is at (_outside_ of the `templateValues` object) for the SubPlat layout. 
+`layout` defaults to `fxa`. Pass in `layout: 'subscription'` at the same level `headers` and `template` is at (_outside_ of the `templateValues` object) for the SubPlat layout.
 
 Corresponding MJML/EJS:
 ```html
@@ -74,12 +74,12 @@ Emails have a "campaign" assigned to them in a key/value map in `email.js`, as w
 
 ### Previewing Emails and Storybook
 
-To quickly preview all emails, run `yarn storybook` in the auth-server. We maintain Storybook for all FxA emails as a single source of truth for documentation; every email should have a clear description noting when and why we send the email, and all email states should be accounted for when updating or creating a new email template.
+You can quickly preview all emails [here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-auth-server/index.html), or alternatively run `yarn storybook` in the auth-server. We maintain Storybook for all FxA emails as a single source of truth for documentation; every email should have a clear description noting when and why we send the email, and all email states should be accounted for when updating or creating a new email template.
 
 Check out our docs on [Storybook deploys with CircleCI](../reference/storybook-deploys-with-circleci.md) for details on how to preview changes in PRs or to send a link out to anyone who may need to see FxA email copy or documentation.
 
 :::note
-Emails previewed in HTML are meant to be a rough representation of what an email will look like in an email client. They're essentially identical and MJML helps us with consistency, but keep in mind you're previewing in a browser when emails may be viewed in email clients in practice. 
+Emails previewed in HTML are meant to be a rough representation of what an email will look like in an email client. They're essentially identical and MJML helps us with consistency, but keep in mind you're previewing in a browser when emails may be viewed in email clients in practice.
 :::
 
 We couple Storybook with the `merge-ftl` grunttask to display strings from our `en.ftl` files (see the l10n section for more details). At the time of writing, Storybook is our way to preview or manually check the English strings we ultimately pass to translators, and our tests cover the English fallback copy.

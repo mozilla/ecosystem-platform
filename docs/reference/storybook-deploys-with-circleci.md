@@ -4,6 +4,8 @@ title: Storybook Deploys with CircleCI
 
 Several of the packages in this repository use [Storybook](https://storybook.js.org/) to build and demonstrate user interface components (mostly in React). These notably include [fxa-settings](#UPDATE-ME), [fxa-payments-server](#UPDATE-ME), and [fxa-react](#UPDATE-ME).
 
+The latest Storybook builds on the main branch, can be found [here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/index.html).
+
 For most [test runs in CircleCI](https://github.com/mozilla/fxa/blob/main/.circleci/config.yml), a static build of each package's Storybook for the relevant commit is published to a website we host on Google Cloud Platform. [Click here](https://storage.googleapis.com/mozilla-storybooks-fxa/index.html) to view the index page.
 
 :::tip
