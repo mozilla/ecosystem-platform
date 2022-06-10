@@ -43,7 +43,6 @@ Valid hostnames for the FxA environments:
 
 - Production - `accounts.firefox.com`
 - Stage - `accounts.stage.mozaws.net`
-- Development - `latest.dev.lcip.org`
 
 Note that valid values for `productId` and `planId` will vary with environment as a different Stripe account is associated with each.
 
@@ -61,6 +60,22 @@ If your integration includes an application service, [subscription state notific
 #### Testing
 
 When integrated with the FxA stage or development environments, subscription sign-up's can be tested using [Stripe test cards](https://stripe.com/docs/testing#cards).
+
+
+## Evaluating the current user flow
+
+To see the user experience without setting up your localhost you can subscribe to any of the existing subscriptions that we have available. If you want to try out the upgrade flow please use MDN Plus. 
+
+- VPN - https://www-dev.allizom.org/en-US/products/vpn/#pricing
+- Relay Premium - https://stage.fxprivaterelay.nonprod.cloudops.mozgcp.net/
+- MDN Plus - https://developer.mozilla.org/en-US/plus#subscribe
+
+Once you selected a plan please create a new user. You can use the following Credit Card number: 4242424242424242 with any 3 digit CVC and a valid expiration date. NOTE: this is a test card and is only available on staging. Once you complete the subscription you can look at the email communications sent out by the SubPlat team. 
+
+To cancel your subscription simply go to https://accounts.stage.mozaws.net/subscriptions and press the cancel button. 
+
+To upgrade your subscription sign in to your accont using the step above and got to the MDN Plus link. The website will now display your current plan and the upgrade options. 
+
 
 
 [subscription request label]: https://github.com/mozilla/fxa/labels/Subscription%20Request
