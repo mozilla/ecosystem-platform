@@ -58,7 +58,7 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 
 | Key | Description |
 | --- | --- |
-| downloadURL                               | Required. The download or subscription success action URL for the product.                 |
+| ~~downloadURL~~                             | Deprecated. This field has been replaced by successActionButtonURL.                         |
 | product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.   |
 | product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
 | product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the "Legal Document Download URL Metadata" section below for more information.                                |
@@ -79,10 +79,11 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
 | product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
 | product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
-| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `downloadURL`. |
+| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButtonURL`. |
 | product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
 | promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
 | support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
+| successActionButtonURL                    | Required. The download or subscription success action URL for the product. (Replaces downloadURL) |
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 
 ###### Product Metadata defaults
