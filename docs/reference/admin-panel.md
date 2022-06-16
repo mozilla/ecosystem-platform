@@ -247,6 +247,4 @@ And here is a summary of each feature:
 
 ## Requesting Access / More Permissions
 
-In the event one of the features described above is not available, and you feel like you need to be in a different user group with more permissions, there is a process for requesting that you are added to a user group. 
-
-TBD
+In the event one of the features described above is not available, and you feel like you need to be in a different user group with more permissions, get in touch with the FxA team. 

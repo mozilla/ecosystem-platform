@@ -134,14 +134,6 @@ This is the base Dockerfile for the container used by most jobs. It includes mos
 
 **Note:** If you commit an update to this Dockerfile, try not to include changes to other parts of the project in the same Pull Request. Other jobs in the same test run are likely to lag behind and use the previous version of the fxa-circleci container, because the current test run will not have had a chance to finish deploying the new image.
 
-### \_scripts/gh-pages.sh
-
-Builds documentation and commits the result to [the gh-pages branch of the repo](https://github.com/mozilla/fxa/tree/gh-pages).
-
-This, in turn, publishes the result to mozilla.github.io/fxa - which currently includes:
-
-- [Storybook for fxa-payments-server](http://mozilla.github.io/fxa/fxa-payments-server/)
-
 ### .circleci/config.yml
 
 Contains general configuration, job definitions, and workflows orchestrating all the jobs.

@@ -2,14 +2,22 @@
 title: Storybook Deploys with CircleCI
 ---
 
-Several of the packages in this repository use [Storybook](https://storybook.js.org/) to build and demonstrate user interface components (mostly in React). These notably include [fxa-settings](#UPDATE-ME), [fxa-payments-server](#UPDATE-ME), and [fxa-react](#UPDATE-ME).
+import storybookCI from '../assets/storybook-circleci.png';
+
+Several of the packages in this repository use [Storybook](https://storybook.js.org/) to build and demonstrate user interface components (mostly in React). These notably include [fxa-settings](https://github.com/mozilla/fxa/tree/main/packages/fxa-settings), [fxa-payments-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-payments-server), [fxa-react](https://github.com/mozilla/fxa/tree/main/packages/fxa-react), and [fxa-auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/lib/senders/emails) which contains our emails.
+
+:::info
+The latest Storybook builds on the `main` branch can [be found here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/index.html).
+:::
 
 For most [test runs in CircleCI](https://github.com/mozilla/fxa/blob/main/.circleci/config.yml), a static build of each package's Storybook for the relevant commit is published to a website we host on Google Cloud Platform. [Click here](https://storage.googleapis.com/mozilla-storybooks-fxa/index.html) to view the index page.
 
-:::tip
 You can find the Storybook build associated with a given commit on GitHub by clicking the "Details" link next to a **storybooks: pull request** check, accessible via clicking the green check mark next to the commit title.
 
-![Example showing how to preview a Storybook build](../assets/storybook-circleci.png)
+<img src={storybookCI} alt="Example showing how to preview a Storybook build" width="400px" />
+
+:::tip
+Since Storybook builds per commit, it can be helpful to send Storybook links around to Product, UX, or anyone else that may want to preview UI changes for a PR you have up before it's approved and merged.
 :::
 
 ## Maintaining Storybook Builds

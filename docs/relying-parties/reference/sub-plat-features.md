@@ -16,7 +16,7 @@ Subscription Platform integrates with ZenDesk to provide staffed support. The Fx
 
 ## Data Reporting
 
-Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ticket data in addition to any telemetry you collect in your offering. Please see [this document](../../references/metrics) to understand access and status for all of these endpoints.
+Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ticket data in addition to any telemetry you collect in your offering. Please see [this document](./metrics-for-relying-parties.md) to understand access and status for all of these endpoints.
 
 ## Geo-Restrictions
 

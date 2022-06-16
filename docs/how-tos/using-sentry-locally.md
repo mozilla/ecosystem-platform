@@ -8,7 +8,7 @@ FxA uses [sentry.io](https://sentry.io) to monitor errors and performance in pro
 - Auditing performance / errors after exploratory testing, functional testing, or a load test.
 - Gaining a better understanding of calls made by a certain workflow or endpoint. 
 
-To enable sentry for local development, simply set these environment variables to their respective DSN settings. When these variables are defined, sentry will be activated. 
+To enable sentry for local development, simply set these environment variables in your root-level `.env` file (that you may need to create) to their respective DSN settings. When these variables are defined, sentry will be activated. 
 
 SENTRY_ENV=local
 [SENTRY_DSN_ADMIN_PANEL](https://sentry.io/settings/mozilla/projects/fxa-admin-panel/keys/)=?
@@ -23,7 +23,7 @@ SENTRY_ENV=local
 [SENTRY_DSN_BROWSERID](https://sentry.io/settings/mozilla/projects/fxa-browserid-verify/keys/)=?
 
 :::tip
-Each variable name links to the sentry.io page containing the DSN value. Asking a fellow engineer for the settings might be the fastest route though... 
+Each variable name links to the sentry.io page containing the DSN value you need to set. Asking a fellow engineer for a copy-and-paste of the environment variables and their values might be the fastest route though... 
 :::
 
 :::tip

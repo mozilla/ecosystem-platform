@@ -22,9 +22,19 @@ Importantly, subscriptions are not locked to any one FxA-attached product by def
 
 If a user cancels their subscription, this metadata goes away and your product can go back to treating them as a non-subscribed user.
 
+## Previews
+
+For a preview of the different pages and components that make up the Subscription Platform, as well as emails sent to customers, we have Storybook builds available.
+
+- [Pages and components](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html)
+  - [Checkout with existing Firefox Account](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/routes-product--subscribing-with-new-account)
+  - [Checkout without Firefox Account](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/routes-checkout--subscribing-with-a-new-account)
+  - [Subscription Management](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/routes-subscriptions--subscribed-with-web-subscription)
+- [Email templates](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-auth-server/index.html?path=/story/subplat-emails-templates)
+
 ## Terminology
 
-Before diving into [features](sub-plat-features.md) and [integration](integration-with-subscription-platform.md) how-tos, it's useful to align on key terminology.
+Before diving into [features](sub-plat-features.md) and [integration](../tutorials/integration-with-subscription-platform.md) how-tos, it's useful to align on key terminology.
 
 ### Relying Party
 

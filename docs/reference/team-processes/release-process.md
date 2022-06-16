@@ -123,10 +123,12 @@ There are a few different ways to handle a dot release. Git is a flexible tool h
     - A teammate to review exactly what's going into the release
     - Confirmation that CI will pass before tagging
 1. After approval and CI pass, merge the PR
-1. Ensure you have the latest from the train branch, including tags, especially if you did not perform the original release or previous dot release for this train. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`.
+1. Check back into the train branch and ensure you have the latest, including tags, especially if you did not perform the original release or previous dot release for this train. If `git fetch [remote]` doesn't reflect the latest tag, run `git fetch [remote] --tags`.
 1. Run `git log` to ensure you see the expected cherry-picked commit(s). The patch command assumes that the relevant commit has been merged into the train branch locally and bumps the the minor version on the last tag it finds in the tree from HEAD.
-1. Tag with the patch release command on the train branch, `./release.sh patch`
+1. Tag with the patch release command **on the train branch**, `./release.sh patch`
 1. Reference everything at and under the instructions beginning with "Do some manual checks" for [a regular release](#a-regular-release). Keep in mind the diff will be against `origin/train-###`, and instead of creating a new Bugzilla deploy bug, you'll copy the output and paste it in the existing bug.
+  - Be sure to open a PR from the train branch back into `main` and merge it once approved
+  - While we prefer one train branch PR into `main` per patch release for reviewing purposes, it's okay for there to be multiple releases in this PR if a previous patch release wasn't reviewed and merged back into `main` before tagging the new patch release
 
 <details>
     <summary>See a diagram of a patch release with the <code>uplift</code> approach, including what <code>./release.sh patch</code> does</summary>
