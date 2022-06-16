@@ -10,17 +10,23 @@ FxA uses [sentry.io](https://sentry.io) to monitor errors and performance in pro
 
 To enable sentry for local development, simply set these environment variables in your root-level `.env` file (that you may need to create) to their respective DSN settings. When these variables are defined, sentry will be activated. 
 
+```
 SENTRY_ENV=local
-[SENTRY_DSN_ADMIN_PANEL](https://sentry.io/settings/mozilla/projects/fxa-admin-panel/keys/)=?
-[SENTRY_DSN_AUTH](https://sentry.io/settings/mozilla/projects/fxa-auth/keys/)=?
-[SENTRY_DSN_CONTENT](https://sentry.io/settings/mozilla/projects/fxa-content/)=?
-[SENTRY_DSN_CUSTOMS](https://sentry.io/settings/mozilla/projects/fxa-customs/)=?
-[SENTRY_DSN_EVENT_BROKER](https://sentry.io/settings/mozilla/projects/fxa-event-broker/keys/)=?
-[SENTRY_DSN_GRAPHQL_API](https://sentry.io/settings/mozilla/projects/fxa-graphql-api/keys/)=?
-[SENTRY_DSN_PAYMENTS](https://sentry.io/settings/mozilla/projects/fxa-payments/keys/)=?
-[SENTRY_DSN_PROFILE](https://sentry.io/settings/mozilla/projects/fxa-profile/keys/)=?
-[SENTRY_DSN_SUPPPORT_PANEL](https://sentry.io/settings/mozilla/projects/fxa-support-panel/)=?
-[SENTRY_DSN_BROWSERID](https://sentry.io/settings/mozilla/projects/fxa-browserid-verify/keys/)=?
+SENTRY_DSN_ADMIN_PANEL=
+SENTRY_DSN_AUTH=
+SENTRY_DSN_CONTENT=
+SENTRY_DSN_CUSTOMS=
+SENTRY_DSN_EVENT_BROKER=
+SENTRY_DSN_GRAPHQL_API=
+SENTRY_DSN_PAYMENTS=
+SENTRY_DSN_PROFILE=
+SENTRY_DSN_SUPPPORT_PANEL=
+SENTRY_DSN_BROWSERID=
+```
+
+:::tip
+DSN settings can be found by going to sentry.io, navigating to the project's _settings_, and selecting _client keys_. For example, the setting for SENTRY_DSN_ADMIN_PANEL can be found [here](https://sentry.io/settings/mozilla/projects/fxa-admin-panel/keys/).
+:::
 
 :::tip
 Each variable name links to the sentry.io page containing the DSN value you need to set. Asking a fellow engineer for a copy-and-paste of the environment variables and their values might be the fastest route though... 
