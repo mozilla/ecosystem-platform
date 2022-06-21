@@ -9,6 +9,8 @@ It was developed to help detect and deter [fraud and abuse](https://wiki.mozilla
 
 Currently, only it is used by the [Firefox Accounts Auth Server](https://github.com/mozilla/fxa-auth-server).
 
+The Customs server uses a sliding window to keep track of the current count of a specific type of action and trims the count as needed.
+
 ### Policies
 
 There are two types of policies:
@@ -35,3 +37,70 @@ The data that these policies are based on is stored in a memcache instance (keye
 - `ip_record.js` handles blocking based only on the IP address
 
 The rate-limiting and blocking policies are conveyed to the auth server via the `block` property in the response to `/check`.
+
+### Usage in Auth-server
+
+In the auth-server, we utilized a helper library to make calls to the custom server api. The request could contain email, ip, and the action being performed.
+
+For example, the call `customs.check(request, email, 'accountCreate')` would increment the `accountCreate` event for the user coming from this ip address and email.
+
+Below are the current actions supported:
+
+```javascript
+// Actions that, if allowed, would allow an attacker
+// to try a candidtate password against an account.
+const PASSWORD_CHECKING_ACTION = {
+  accountLogin: true,
+  accountDestroy: true,
+  passwordChange: true,
+};
+
+// Actions that, if allowed, would allow an attacker
+// to try a guess at a randomly-generated security code.
+// Code are higher entropy so we can allow more of these,
+// but if you're doing it a lot, you're probably a baddie.
+const CODE_VERIFYING_ACTION = {
+  recoveryEmailVerifyCode: true,
+  passwordForgotVerifyCode: true,
+  verifyRecoveryCode: true,
+  verifySessionCode: true,
+  // not high entropy
+  // changes at 60 seconds
+  // limits by email
+  verifyTotpCode: true,
+};
+
+// Actions that, if allowed, would allow an attacker
+// to check whether an account exists or has certain
+// properties for a particular user.
+// Basically any unauthenticated endpoint that takes
+// an email address as input.
+const ACCOUNT_STATUS_ACTION = {
+  accountCreate: true,
+  accountLogin: true,
+  accountDestroy: true,
+  passwordChange: true,
+  passwordForgotSendCode: true,
+  accountStatusCheck: true,
+  sendUnblockCode: true,
+  recoveryKeyExists: true,
+};
+
+// Actions that send an email, and hence might make
+// us look like spammers if abused.
+const EMAIL_SENDING_ACTION = {
+  accountCreate: true,
+  createEmail: true,
+  recoveryEmailResendCode: true,
+  recoveryEmailSecondaryResendCode: true,
+  passwordForgotSendCode: true,
+  passwordForgotResendCode: true,
+  sendUnblockCode: true,
+};
+
+// Actions that can send sms, and could make us
+// very annoying to a user if abused.
+const SMS_SENDING_ACTION = {
+  connectDeviceSms: true,
+};
+```
