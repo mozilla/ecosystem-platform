@@ -82,6 +82,7 @@ module.exports = {
                             'reference/architectural-decision-records',
                             'reference/github-strategies',
                             'reference/third-party-authentication',
+                            'reference/rate-limiting',
                             'reference/using-swagger-for-api-documentation',
                             {
                               type: "link",
