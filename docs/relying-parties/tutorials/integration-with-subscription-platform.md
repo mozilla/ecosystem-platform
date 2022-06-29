@@ -68,7 +68,7 @@ To see the user experience without setting up your localhost you can subscribe t
 
 - VPN - https://www-dev.allizom.org/en-US/products/vpn/#pricing
 - Relay Premium - https://stage.fxprivaterelay.nonprod.cloudops.mozgcp.net/
-- MDN Plus - https://developer.mozilla.org/en-US/plus#subscribe
+- MDN Plus - https://developer.allizom.org/en-US/plus#subscribe
 
 Once you selected a plan please create a new user. You can use the following Credit Card number: 4242424242424242 with any 3 digit CVC and a valid expiration date. NOTE: this is a test card and is only available on staging. Once you complete the subscription you can look at the email communications sent out by the SubPlat team. 
 
