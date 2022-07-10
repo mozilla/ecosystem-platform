@@ -60,6 +60,15 @@ module.exports = {
                                   'reference/team-processes/release-process',
                                 ]
                             },
+                            {
+                              type: 'category',
+                              label: 'Style Guides',
+                              items: [
+                                'reference/style-guides/general-best-practices',
+                                'reference/style-guides/react-style-guide',
+                                'reference/style-guides/node-style-guide',
+                              ]
+                            },
                             'reference/browser-support',
                             'reference/incident-response',
                             'reference/emails',
