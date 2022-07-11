@@ -1,0 +1,239 @@
+{
+  "id": "34bd9547-9439-49e2-a1e9-068b2b2172b2",
+  "stripeProductId": "prod_JgtxyzGyabuRB0",
+  "active": true,
+  "capabilities": {
+    "*": ["mdn_regular"],
+    "e5xyzf23bb3ffc46": ["prod_JgtxyzGyabuRB0", "mdn_plus"],
+    "e7xyz84c2db34a09": ["mdn_plus"],
+    "b6xyz7233f7ef8ee": ["mdn_plus"]
+  },
+  "productSet": "devtools",
+  "promotionCodes": ["mdn22", "allthemoz"],
+  "styles": { "webIconBackground": "#15141A" },
+  "support": {
+    "app": ["iOS", "Android", "Windows", "Linux (Ubuntu)", "MacOS"]
+  },
+  "urls": {
+    "successActionButton": "https://developer.allizom.org/users/fxa/login/no-prompt/?next=/en-US/plus",
+    "webIcon": "https://accounts-static.cdn.mozilla.net/product-icons/mdn-plus-logo.svg",
+    "emailIcon": "https://accounts-static.cdn.mozilla.net/product-icons/mdn-plus-logo-email.png",
+    "termsOfService": "https://www.mozilla.org/about/legal/terms/mdn-plus/",
+    "termsOfServiceDownload": "https://accounts-static.cdn.mozilla.net/legal/mdn_plus_terms",
+    "privacyNotice": "https://www.mozilla.org/privacy/mdn-plus/",
+    "privacyNoticeDownload": "https://accounts-static.cdn.mozilla.net/legal/mdn_plus_privacy",
+    "cancellationSurvey": "https://survey.example.gg/s3/76945/cancellation"
+  },
+  "uiContent": {
+    "subtitle": "An MDN Premium Service",
+    "details": ["Page notifications", "Collections of articles", "MDN offline"],
+    "successActionButtonLabel": "Continue to MDN Plus",
+    "upgradeCTA": "Consider MDN++"
+  },
+  "locales": {
+    "tr": {
+      "uiContent": {
+        "subtitle": "Sayfa bildirimleri",
+        "details": [
+          "Toplanmış makaleler",
+          "MDN Plus'a devam edin",
+          "MDN çevrim dışı"
+        ],
+        "successActionButtonLabel": "Bir MDN Premium Hizmeti"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "sl": {
+      "uiContent": {
+        "subtitle": "Obvestila strani",
+        "details": [
+          "Zbirke člankov",
+          "Nadaljuj na MDN Plus",
+          "MDN brez povezave"
+        ],
+        "successActionButtonLabel": "Storitev MDN Premium"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "sk": {
+      "uiContent": {
+        "subtitle": "Upozornenia na stránke",
+        "details": ["Zbierky článkov", "Pokračujte na MDN Plus", "MDN offline"],
+        "successActionButtonLabel": "Služba MDN Premium"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "pt": {
+      "uiContent": {
+        "subtitle": "Notificações de página",
+        "details": [
+          "Coleções de artigos",
+          "Continuar para o MDN Plus",
+          "MDN Offline"
+        ],
+        "successActionButtonLabel": "Um Serviço Premium MDN"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "lv": {
+      "uiContent": {
+        "subtitle": "Lapas paziņojumi",
+        "details": [
+          "Rakstu apkopojumi",
+          "Turpināt ar MDN Plus",
+          "MDN bezsaistē"
+        ],
+        "successActionButtonLabel": "MDN Premium pakalpojums"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "lt": {
+      "uiContent": {
+        "subtitle": "Puslapio pranešimai",
+        "details": [
+          "Straipsnių rinkiniai",
+          "Tęsti su „MDN Plus“",
+          "MDN neprisijungus"
+        ],
+        "successActionButtonLabel": "MDN „Premium“ paslauga"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "et": {
+      "uiContent": {
+        "subtitle": "Lehe teavitused",
+        "details": [
+          "Artiklite kollektsioonid",
+          "Liikuge edasi MDN Plus teenuse juurde",
+          "MDN offline"
+        ],
+        "successActionButtonLabel": "MDN Premium Service"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "el": {
+      "uiContent": {
+        "subtitle": "Ειδοποιήσεις σελίδας",
+        "details": [
+          "Συλλογή άρθρων",
+          "MDN εκτός σύνδεσης",
+          "Συνέχεια σε MDN Plus"
+        ],
+        "successActionButtonLabel": "Μια Υπηρεσία MDN Premium"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "it-CH": {
+      "uiContent": {
+        "subtitle": "Un servizio Premium MDN",
+        "details": [
+          "Notifiche delle pagine",
+          "Raccolte di articoli",
+          "MDN offline"
+        ],
+        "successActionButtonLabel": "Prosegui su MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "fr-CH": {
+      "uiContent": {
+        "subtitle": "Un service MDN Premium",
+        "details": [
+          "Collections d’articles",
+          "MDN hors ligne",
+          "Notifications de la page"
+        ],
+        "successActionButtonLabel": "Continuer vers MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "de-CH": {
+      "uiContent": {
+        "subtitle": "Ein MDN-Premium-Dienst",
+        "details": [
+          "Artikelsammlung",
+          "MDN offline",
+          "Seitenbenachrichtigungen"
+        ],
+        "successActionButtonLabel": "Weiter zu MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "nl": {
+      "uiContent": {
+        "subtitle": "Een MDN Premium-service",
+        "details": [
+          "Verzamelingen artikelen",
+          "MDN offline",
+          "Paginameldingen"
+        ],
+        "successActionButtonLabel": "Doorgaan naar MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "it": {
+      "uiContent": {
+        "subtitle": "Un servizio Premium MDN",
+        "details": [
+          "Notifiche delle pagine",
+          "Raccolte di articoli",
+          "MDN offline"
+        ],
+        "successActionButtonLabel": "Prosegui su MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "fr": {
+      "uiContent": {
+        "subtitle": "Un service MDN Premium",
+        "details": [
+          "Collections d’articles",
+          "MDN hors ligne",
+          "Notifications de la page"
+        ],
+        "successActionButtonLabel": "Continuer vers MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "es": {
+      "uiContent": {
+        "subtitle": "Un servicio MDN prémium",
+        "details": [
+          "Notificaciones de página",
+          "Colecciones de artículos",
+          "MDN disponible sin conexión"
+        ],
+        "successActionButtonLabel": "Continuar a MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    },
+    "de": {
+      "uiContent": {
+        "subtitle": "Ein MDN-Premium-Dienst",
+        "details": [
+          "Seitenbenachrichtigungen",
+          "Artikelsammlung",
+          "MDN offline"
+        ],
+        "successActionButtonLabel": "Weiter zu MDN Plus"
+      },
+      "urls": {},
+      "support": {}
+    }
+  }
+}

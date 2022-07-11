@@ -1,0 +1,19 @@
+{
+  "id": "aa8d0fe6-7f25-4b27-92bf-5d1bb12bdef5",
+  "productConfigId": "34bd9547-9439-49e2-a1e9-068b2b2172b2",
+  "stripePriceId": "price_1JFoTYKb9q6OnNsLalexa03p",
+  "active": true,
+  "capabilities": {
+    "e7xyz84c2db34a09": ["mdn_plus_5m"],
+    "b6xyz7233f7ef8ee": ["mdn_plus_5m"]
+  },
+  "productOrder": 1,
+  "playSkuIds": [
+    "org.mozilla.excellent.product.1_month_subscription",
+    "org.mozilla.excellent.product.6_month_subscription"
+  ],
+  "appStoreProductIds": [
+    "org.mozilla.excellent.product.1_month_subscription",
+    "org.mozilla.excellent.product.6_month_subscription"
+  ]
+}
