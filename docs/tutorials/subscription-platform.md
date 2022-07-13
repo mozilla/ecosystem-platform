@@ -297,7 +297,7 @@ Unlike subscriptions created through the payments server website (referred to in
 
 ### Configuration
 
-The Google IAP integration is behind a feature flag; set `subscriptions.playApiServiceAccount.enabled` in `./config/secrets.json` (see below) or the environment variable `SUBSCRIPTIONS_PLAY_API_ENABLED` to `true` before starting the auth server.
+The Google IAP integration is behind a feature flag. Set `subscriptions.playApiServiceAccount.enabled` in `./config/secrets.json` (see below) or the environment variable `SUBSCRIPTIONS_PLAY_API_ENABLED` to `true` before starting the auth server.
 
 In `fxa-auth-server/config/secrets.json`, set the following config values under `subscriptions`:
 
@@ -338,7 +338,7 @@ At the time of writing, the overwhelming majority of subscriptions (> 95%) are w
 
 ### Configuration
 
-The Apple IAP integration is behind a feature flag; set `subscriptions.appStore.enabled` in `fxa-auth-server/config/secrets.json` or the environment variable `SUBSCRIPTIONS_APP_STORE_API_ENABLED` to `true` before starting the auth server.
+The Apple IAP integration is behind a feature flag. Set `subscriptions.appStore.enabled` in `fxa-auth-server/config/secrets.json` or the environment variable `SUBSCRIPTIONS_APP_STORE_API_ENABLED` to `true` before starting the auth server.
 
 In `fxa-auth-server/config/secrets.json`:
 
@@ -370,7 +370,7 @@ Replace the value for `issuerId`, `serverApiKey` and `serverApiKeyId` with crede
 * Each key under `credentials` is the App Store `bundleId` for an iOS app with the `.` replaced with `_` due to a [node-convict bug](https://github.com/mozilla/node-convict/issues/250). The `bundleId` can be found in App Store Connect for the given iOS app.
 :::
 
-To obtain these credentials for a given iOS app, file a bug in App Stores::App Store Access in Bugzilla ([example bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1710928)). You will need someone with an existing Admin or similar role in App Store Connect to vouch for you.
+To obtain these credentials for a given iOS app, file a bug in the `App Stores` product and `App Store Access` component in Bugzilla ([example bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1710928)). You will need someone with an existing Admin or similar role in App Store Connect to vouch for you.
 
 ### Notifications
 
@@ -382,7 +382,7 @@ Unfortunately, unlike Stripe webhooks, Apple does not store their server notific
 
 :::caution
 * If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
-* Only use this approach for Sandbox notifications, as the payloads are not encrypted.
+* Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.
 :::
 
 Before you begin, make sure you have App Store API credentials set up in the auth server config. These are needed to decode and process notifications (see "Configuration" above).
@@ -430,7 +430,7 @@ Step 3 will change once [FXA-5381](https://mozilla-hub.atlassian.net/browse/FXA-
 }
 ```
 5. Restart the auth server to point to the new Firestore instance
-    - We use a Firestore emulator by default for local development, but for IAP, we want to point fxa to the newly created Firestore instance. We can do this by unsetting the `FIRESTORE_EMULATOR_HOST` env var and restarting the auth server.
+    - We use a Firestore emulator by default for local development, but for IAP, we want to point our local FxA to the newly created Firestore instance. We can do this by unsetting the `FIRESTORE_EMULATOR_HOST` environment variable and restarting the auth server.
 
 ```
 FIRESTORE_EMULATOR_HOST='' pm2 restart auth --update-env
