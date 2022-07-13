@@ -326,6 +326,16 @@ The Subscription Platform supports RP integrations with Apple IAP (In-App Purcha
 
 Unlike subscriptions created through the payments server website (referred to internally as "web subscriptions"), Apple IAP subscriptions are managed and processed entirely outside of Stripe as required by Apple. Consequently, while SubPlat maintains an awareness of subscription state in Firestore, we rely on RPs to register an Apple IAP subscription for a particular FxA user when it's created, and we rely on [App Store Server notifications](https://developer.apple.com/documentation/appstoreservernotifications) to inform us of state changes, which we broadcast to RPs via the `fxa-event-broker`.
 
+### Terminology and Stripe analogs
+
+At the time of writing, the overwhelming majority of subscriptions (> 95%) are web subscriptions mediated all or in part by Stripe. Given that, it may be helpful to draw analogies between Stripe and Apple identifiers to better understand how Apple IAP subscriptions are processed.
+
+| Stripe ID | Apple ID |
+|--------------|--------------|
+| [`productId`](https://stripe.com/docs/api/products/object#product_object-id) | [`bundleId`](https://developer.apple.com/documentation/appstoreserverapi/bundleid) |
+| [`planId`](https://stripe.com/docs/api/plans/object#plan_object-id) | [`productId`](https://developer.apple.com/documentation/appstoreserverapi/productid) |
+| [`subscriptionId`](https://stripe.com/docs/api/subscriptions/object#subscription_object-id) | [`originalTransactionId`](https://developer.apple.com/documentation/appstoreserverapi/originaltransactionid) |
+
 ### Configuration
 
 The Apple IAP integration is behind a feature flag; set `subscriptions.appStore.enabled` in `fxa-auth-server/config/secrets.json` or the environment variable `SUBSCRIPTIONS_APP_STORE_API_ENABLED` to `true` before starting the auth server.
