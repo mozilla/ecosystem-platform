@@ -289,6 +289,181 @@ After the initial payment during subscription creation, the recurring payments f
 
 The script will make up to a configurable number of [attempts to pay](https://developer.paypal.com/docs/archive/express-checkout/ec-set-up-reference-transactions/#capture-future-payments) an invoice before cancelling the subscription.  This attempts count is saved to the invoice itself as metadata.  The invoice's metadata is also used to prevent sending multiple failed payment emails per invoice from the PayPal payment attempts.
 
+## Google IAP Integration
+
+The Subscription Platform supports RP integrations with Google IAP (In-App Purchases).
+
+Unlike subscriptions created through the payments server website (referred to internally as "web subscriptions"), Google IAP subscriptions are managed and processed entirely outside of Stripe as required by Google. Consequently, while SubPlat maintains an awareness of subscription state in Firestore, we rely on RPs to register a Google IAP subscription for a particular FxA user when it's created, and we rely on [Real-Time Developer Notifications](https://developer.android.com/google/play/billing/rtdn-reference) to inform us of state changes, which we broadcast to RPs via the `fxa-event-broker`.
+
+### Configuration
+
+The Google IAP integration is behind a feature flag. Set `subscriptions.playApiServiceAccount.enabled` in `./config/secrets.json` (see below) or the environment variable `SUBSCRIPTIONS_PLAY_API_ENABLED` to `true` before starting the auth server.
+
+In `fxa-auth-server/config/secrets.json`, set the following config values under `subscriptions`:
+
+```js
+{
+    // ...
+    "subscriptions": {
+        // ...
+        "playApiServiceAccount": {
+            "enabled": true,
+            "keyFilename": "",
+            "projectId": ""
+        }
+    }
+}
+```
+Use the same values for `keyFilename` and `projectId` as used for `authFirestore` config in [Testing IAP subscriptions locally](#testing-iap-subscriptions-locally).
+
+:::note
+To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account referenced by the keyfile [must have the API enabled](https://developers.google.com/android-publisher/authorization). This is not required for most Google IAP development, so consider skipping that step.
+:::
+
+## Apple IAP Integration
+
+The Subscription Platform supports RP integrations with Apple IAP (In-App Purchases).
+
+Unlike subscriptions created through the payments server website (referred to internally as "web subscriptions"), Apple IAP subscriptions are managed and processed entirely outside of Stripe as required by Apple. Consequently, while SubPlat maintains an awareness of subscription state in Firestore, we rely on RPs to register an Apple IAP subscription for a particular FxA user when it's created, and we rely on [App Store Server notifications](https://developer.apple.com/documentation/appstoreservernotifications) to inform us of state changes, which we broadcast to RPs via the `fxa-event-broker`.
+
+### Terminology and Stripe analogs
+
+At the time of writing, the overwhelming majority of subscriptions (> 95%) are web subscriptions mediated all or in part by Stripe. Given that, it may be helpful to draw analogies between Stripe and Apple identifiers to better understand how Apple IAP subscriptions are processed.
+
+| Stripe ID | Apple ID |
+|--------------|--------------|
+| [`productId`](https://stripe.com/docs/api/products/object#product_object-id) | [`bundleId`](https://developer.apple.com/documentation/appstoreserverapi/bundleid) |
+| [`planId`](https://stripe.com/docs/api/plans/object#plan_object-id) | [`productId`](https://developer.apple.com/documentation/appstoreserverapi/productid) |
+| [`subscriptionId`](https://stripe.com/docs/api/subscriptions/object#subscription_object-id) | [`originalTransactionId`](https://developer.apple.com/documentation/appstoreserverapi/originaltransactionid) |
+
+### Configuration
+
+The Apple IAP integration is behind a feature flag. Set `subscriptions.appStore.enabled` in `fxa-auth-server/config/secrets.json` or the environment variable `SUBSCRIPTIONS_APP_STORE_API_ENABLED` to `true` before starting the auth server.
+
+In `fxa-auth-server/config/secrets.json`:
+
+```js
+{
+    // ...
+    "subscriptions": {
+        // ...
+        "appStore": {
+            "credentials": {
+                // one set of credentials for each RP iOS app
+                "org_mozilla_ios_FirefoxVPN": {
+                    "issuerId": "",
+                    "serverApiKey": "",
+                    "serverApiKeyId": ""
+                }
+            },
+            "enabled": true,
+            "sandbox": true
+        }
+    }
+}
+```
+
+Replace the value for `issuerId`, `serverApiKey` and `serverApiKeyId` with credentials from the respective app's [App Store Connect](https://appstoreconnect.apple.com/) account.
+
+:::note
+* These credentials are only needed for making API calls to the [App Store Server API](https://developer.apple.com/documentation/appstoreserverapi). Consider omitting or stubbing them if your work does not require it.
+* Each key under `credentials` is the App Store `bundleId` for an iOS app with the `.` replaced with `_` due to a [node-convict bug](https://github.com/mozilla/node-convict/issues/250). The `bundleId` can be found in App Store Connect for the given iOS app.
+:::
+
+To obtain these credentials for a given iOS app, file a bug in the `App Stores` product and `App Store Access` component in Bugzilla ([example bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1710928)). You will need someone with an existing Admin or similar role in App Store Connect to vouch for you.
+
+### Notifications
+
+We use [V2 App Store Server Notifications](https://developer.apple.com/documentation/appstoreservernotifications/app_store_server_notifications_v2) which are compatible with [StoreKit](https://developer.apple.com/documentation/storekit) 1 and StoreKit 2 iOS apps.
+
+Unfortunately, unlike Stripe webhooks, Apple does not store their server notifications anywhere (even temporarily) for debugging. Further, Sandbox subscriptions can only be made with an iOS device via [TestFlight](https://developer.apple.com/testflight/), so it can be difficult as a developer to generate test notifications.
+
+#### Debugging sandbox notifications
+
+:::caution
+* If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
+* Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.
+:::
+
+Before you begin, make sure you have App Store API credentials set up in the auth server config. These are needed to decode and process notifications (see "Configuration" above).
+
+1. Set up a reverse proxy with [`ngrok`](https://ngrok.com/).
+    - The `ngrok` URL is a public URL, so try not to leave this running for more than a couple of hours.
+2. Temporarily [forward V2 Sandbox App Store Server notifications](https://help.apple.com/app-store-connect/#/dev0067a330b) to your local FxA using the `ngrok` URL from #1 as the base URL (i.e. `${ngrok_base_URL}/v1/oauth/subscriptions/iap/app-store-notification`).
+    - Let the team know that you are temporarily changing the Sandbox notification URL, as this will affect any Apple IAP testing in Stage.
+3. Ask QA to trigger the desired scenarios using TestFlight.
+4. Restore the Sandbox notification URL in App Store Connect.
+
+## Testing IAP subscriptions locally
+
+The test subscriptions described in this section are not true IAP subscriptions (i.e. there is no record of them in Apple or Google's databases), but rather, they are representations in SubPlat's Firestore database, which we use internally. As such, this approach can only be used to test code that assumes the IAP subscription is already cached in our database.
+
+### Configure the auth server and set up a GCP project
+
+:::note
+Step 3 will change once [FXA-5381](https://mozilla-hub.atlassian.net/browse/FXA-5381) is resolved.
+:::
+
+1. Configure the `fxa-auth-server` for IAP
+    - Enable the IAP integration and provide the needed credentials. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
+2. Get access to Mozilla's `firefox.gcp.mozilla.com` organization.
+    - Part of this access should include read access to FxA Firestore stage ([example ticket](https://mozilla-hub.atlassian.net/browse/FXA-4031)). 
+3. Create a new GCP project with Firestore
+    - Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
+    - [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
+    - Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
+4. Link the GCP project's Firestore instance to the auth server in `fxa-auth-server/config/secrets.json`.
+      - Add the below configuration key/value pairs under `subscriptions`.
+      - Replace the value for `keyFilename` with the absolute path to the keyfile created in step 3.
+      - Replace the value for `projectId` with the project ID for the GCP project created in step 3.
+
+```js
+{
+    // ...
+    "subscriptions": {
+        // ...
+    },
+    "authFirestore": {
+        "keyFilename": "",
+        "projectId": ""
+    }
+}
+```
+5. Restart the auth server to point to the new Firestore instance
+    - We use a Firestore emulator by default for local development, but for IAP, we want to point our local FxA to the newly created Firestore instance. We can do this by unsetting the `FIRESTORE_EMULATOR_HOST` environment variable and restarting the auth server.
+
+```
+FIRESTORE_EMULATOR_HOST='' pm2 restart auth --update-env
+```
+
+### Put the subscription in Firestore
+
+#### Google IAP
+
+1. In the GCP project, create a new Firestore collection named `${authFirestore.prefix}iap-play-purchases`. You can find the default prefix in `fxa-auth-server/config/index.ts`.
+2. Copy a test Google IAP subscription purchase object from the `fxa-auth-stage-iap-play-purchases` collection in [FxA stage Firestore](https://console.cloud.google.com/firestore/data/fxa-auth-stage-iap-play-purchases?project=moz-fx-fxa-nonprod-375e) as a new document in the new collection.
+3. Manually edit `expiryTimeMillis` to be a date in the distant future.
+4. Create a new FxA user locally and set their user id as the `userId` value.
+
+See [Verify it worked](#verify-it-worked) to confirm everything works correctly.
+
+#### Apple IAP
+
+1. In the GCP project, create a new Firestore collection named `${authFirestore.prefix}iap-app-store-purchases`. You can find the default prefix in `fxa-auth-server/config/index.ts`.
+2. After [QA-1391](https://mozilla-hub.atlassian.net/browse/QA-1391) is resolved, copy a test Apple IAP subscription purchase object from the `fxa-auth-stage-iap-app-store-purchases` collection in [FxA stage Firestore](https://console.cloud.google.com/firestore/data/fxa-auth-stage-iap-play-purchases?project=moz-fx-fxa-nonprod-375e) into the new collection.
+3. Manually edit `expiresDate` to be a date in the distant future and set `status` to `1`.
+4. Create a new FxA user locally and set their user id as the `userId` value.
+
+See [Verify it worked](#verify-it-worked) to confirm everything works correctly.
+
+### Verify it worked
+
+There are many ways this can be verified locally after following the steps above once logged in as the user with the test IAP subscription.
+
+The easiest method is to go directly to the Subscription Management page: `localhost:${PORT}/subscriptions`, where `PORT` is defined in `fxa-payments-server/pm2.config.js`.
+
+If things were set up correctly, you'll see the IAP subscription listed.
+
 ## Ladder Diagrams of Payment Interactions
 
 ### PayPal Checkout
