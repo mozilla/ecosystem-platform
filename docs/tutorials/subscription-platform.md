@@ -54,14 +54,14 @@ If you are using a new Stripe account, you will need to setup a product and its 
 Product Names are the canonical displayed name shown in Sub Plat UI. In some cases these may be paired with a plan's billing interval. Plan names are not displayed to users.
 :::
 
-##### Product Metadata
+##### Product Metadata {#stripe-product-metadata}
 
 | Key | Description |
 | --- | --- |
 | ~~downloadURL~~                             | Deprecated. This field has been replaced by successActionButtonURL.                         |
 | product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.   |
 | product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
-| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the "Legal Document Download URL Metadata" section below for more information.                                |
+| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information.                                |
 | webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>.          |
 | webIconBackground                         | Optional. A valid css color, color name or gradient for display behind your product icon on the web. Defaults to `#20123a`         |
 | capabilities                              | Required if `capabilities:{clientID}` is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.                                                                                                   |
@@ -109,14 +109,115 @@ Some of the metadata properties listed above [have defaults][product-details-def
 
 [product-details-defaults]: https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/subscriptions/metadata.ts#L14
 
-###### Legal Document Download URL Metadata
+##### Product Configuration Documents
 
-For the legal document download URL metadata,
-`product:termsOfServiceDownloadURL` and `product:privacyNoticeDownloadURL`,
-they can be in the form of an incomplete URL, as they will be handled by a
-redirect endpoint that tries to best match the user's locale to a localized
-version of the document.  For example, if the value of
-`product:termsOfServiceDownloadURL` is
+:::info
+This section is for an upcoming feature that is not yet in production.  Please
+continue to use [Stripe product metadata](#stripe-product-metadata) to
+configure your subscription products.
+:::
+
+While the [Stripe product and plan metadata](https://stripe.com/docs/api/metadata) has enable the Subscription Platform to quickly develop many features, it has multiple shortcomings.
+
+* There are limits on the number of entries and the size of the keys and
+  values.  The limit for the number of entries is rather low.
+* The strings only key-value pair format necessitates potentially confusing key
+  formats and key parsing in code.
+* A reliance on Stripe metadata for subscription product configurations means
+  the Subscription Platform need to define plans in Stripe for subscription
+  plans that are not Stripe based (e.g. App Store subscriptions).
+
+The overcome these limits, the team is moving to [JSON](https://www.json.org)
+document based product configurations.  For readability, the configuration is
+described below in multiple sections.  To see the overall format of the
+configuration documents, take a look at the following sample documents:
+* [Sample Product Configuration Document](../assets/product-configs/sample-product-config-doc.json)
+* [Sample Plan Configuration Document](../assets/product-configs/sample-plan-config-doc.json)
+
+:::tip
+A value in a plan configuration can be used to override the product configuration value.  Another way to think of this is that the values in the product configuration are the defaults for the product's plans.
+:::
+
+:::info
+The Subscription Platform team is currently developing the process to update these configuration documents.  Documentation for that is forthcoming.
+:::
+
+###### Top Level Configuration Document Values
+
+The configuration document is a JSON object.  The top level keys for that object are below.  A property is required unless otherwise noted.
+
+| Key                | Description |
+| ------------------ | ----------- |
+| id                 | Optional. An identifier for the system storing the document.  It's not intended for manual edits.|
+| productConfigId    | _Plan configuration only_.  The identifier of the product configuration document from which the plan configuration inherits its default values.  It's not intended for manual edits.|
+| stripeProductId    | Optional. _Product configuration only_.  The [id of the Stripe product](https://stripe.com/docs/api/products/object#product_object-id) for which this document is providing configuration. |
+| stripePriceId      | Optional. _Plan configuration only_. The [id of the Stripe price](https://stripe.com/docs/api/prices/object#price_object-id) for which this document is providing configuration. |
+| active             | Boolean.  A status to indicate whether the product or plan is accepting new subscriptions. |
+| capabilities       | Object.  See [Capabilities Configuration](#production-config-capabilities) below.      |
+| productSet         | Optional.  An arbitrary string used to group products in a set of upgrades & downgrades. |
+| productOrder       | Optional.  _Plan configuration only_.  A number used to determine a subscription change is an upgrade or a downgrade within the productSet. |
+| appStoreProductIds | Optional.  Array of strings.  The IDs of the Apple App Store subscription products for which this configuration applies. |
+| playSkuIds         | Optional.  Array of strings.  The SKUs of the Google Play subscription products for which this configuration applies. |
+| promotionCodes     | Optional.  Array of strings.  A list of Stripe promotion codes that are valid for the product or plan. |
+| styles             | Object.  Currently the only key in this object is `webIconBackground`, and the value must be a valid CSS color, color name or gradient.  The background color is displayed behind the product icon from the [URLs](#product-config-urls) configuration. Defaults to `#20123a`. |
+| support            | Object.  Currently the only key in this object is `app`.  The value is an array of strings that are apps and services for the support form.  The form options will be in the same order the configuration.  These values shouldn't be too long as they are displayed in dropdown options of limited width.  The value is submitted to Zendesk. |
+| urls               | Object.  See [URLs Configuration](#product-config-urls) below. |
+| uiContent          | Object.  See [UI Content Configuration](#product-config-ui-content) below. |
+| locales            | Object.  See [Locales Configuration](#product-config-locales). |
+
+###### Capabilities Configuration {#production-config-capabilities}
+
+See [Capabilities](./../relying-parties/reference/sub-plat-overview.md#capability) for an overview.
+
+This is an object where the keys are: `*` or a relying party client ID.  The values are arrays of capabilities.  At least one key must be present.
+
+| Key                | Description |
+| ------------------ | ----------- |
+| * | Array.  Capabilities enabled by this product for all Relying Parties. |
+| {clientID} | Array.  Capabilities enabled by this product for the Relying Party identified by {clientID}. |
+
+###### URLs Configuration {#product-config-urls}
+
+An object where the values are URLs used in the subscription experience.
+
+| Key                | Description |
+| ------------------ | ----------- |
+| appStore | Optional. The App Store download URL for the product. |
+| playStore | Optional. The Google Play store download URL for the product. |
+| webIcon | Image URL for the product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
+| emailIcon | Optional. Image URL for the product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
+| successActionButton | The download or subscription success action URL for the product after a successful subscription sign-up. |
+| privacyNotice | The URL for the webpage containing the Privacy Notice for the product offering. |
+| privacyNoticeDownload | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as `termsOfServiceDownload` (see below). |
+| termsOfService | The URL for the webpage containing the Terms of Service for the product offering. |
+| termsOfServiceDownload | The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information. |
+| cancellationSurvey | Optional. Override URL for the Cancellation Survey for the product offering. It is used as a link in the email sent to the customer when their subscription is cancelled. |
+
+###### UI Content Configuration {#product-config-ui-content}
+
+An object with configuration values used as web UI content.
+
+| Key                | Description |
+| ------------------ | ----------- |
+| subtitle | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
+| details | Optional. An array of bullet-point feature details for the product.  The list items will be displayed in the order they appear in the array. |
+| successActionButtonLabel | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButton` in the [URLs](#product-config-urls).|
+| upgradeCTA | Optional. HTML content string describing available upgrades from this plan. By convention, it should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
+
+###### Locales Configuration {#product-config-locales}
+
+An optional object used for localisation.  It uses language tags as keys (e.g. `en`, `en-CA`, `es`) and the value is an object with the keys `support`, `uiContent`, and `urls`.
+
+| Key                | Description |
+| ------------------ | ----------- |
+| {language-tag}     | Object with the follow key to value mapping: `support` - the support configuration object, `uiContent` - the [UI content configuration](#product-config-ui-content), `urls` - the [URLs configuration object](#product-config-urls). |
+
+###### Legal Document Download URL {#legal-document-download-url}
+
+For the legal document download URL configurations values, they can be in the
+form of an incomplete URL, as they will be handled by a redirect endpoint that
+tries to best match the user's locale to a localized version of the document.
+For example, if the value of the Terms of Service URL is
 'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos' and the user's
 locale is `de`, then the endpoint will redirect the user to
 <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf>.
