@@ -3,6 +3,7 @@ title: Additional Docs
 ---
 
 # Additional Documentation
+
 In addition to the ecosystem docs, each package has it's own README.md and some have a `docs/` directory with info specific to that project.
 
 - 123done [README](https://github.com/mozilla/fxa/blob/main/packages/123done/README.md)
@@ -13,7 +14,7 @@ In addition to the ecosystem docs, each package has it's own README.md and some 
 - fxa-auth-client [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-client/README.md)
 - fxa-auth-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs)
 - fxa-content-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs)
-- fxa-customs-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/docs)
+- fxa-customs-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/docs)
 - fxa-dev-launcher [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-dev-launcher/README.md)
 - fxa-event-broker [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/docs)
 - fxa-geodb [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-geodb/README.md)
