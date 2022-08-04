@@ -16,13 +16,65 @@ Note: When ever possible there should be an eslint rule enforcing the styles dis
   - However, multiple Stateless, or Pure, Components are allowed per file. eslint: react/no-multi-comp.
 - Always use TSX syntax.
 
-## Function over Class components
+## Hooks and Function Components over Class Components  
 
-Regardless of whether or not the component has state, it is encouraged to always use function components over Class components.
+Regardless of whether or not the component has state, it is encouraged to always use function components over Class components except in rare instances where we need access to underlying lifecycle methods [unavailable to hooks](https://reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes).
 
-If your component does have state, make use of the [useState hook](https://reactjs.org/docs/hooks-state.html).
+If your component does have state, consider making use of the React provided [useState hook](https://reactjs.org/docs/hooks-state.html).
 
 To perform any side effects, such as the React class lifecycle methods, make use of the [useEffect hook](https://reactjs.org/docs/hooks-effect.html).
+
+### Custom Hooks
+
+When you write stateful logic with hooks that you need to duplicate in another component, or you need to implement logic already present in another component, follow the DRY principle and extract it into a more generic "custom" hook. Components using a shared custom hook don't actually share state because all state and effects inside of each call are isolated, similar to using React hooks like `useState` across components.
+
+:::info
+Read the [React documentation on custom hooks](https://reactjs.org/docs/hooks-custom.html) for more explanations and examples.
+:::
+
+For example, we have multiple components in our codebase that need to execute something on escape keypress, like hiding a modal. We wrote the logic to "dismiss" a modal on keypress like so...
+
+```jsx
+// ... component setup and creation of a function called `onDismiss` that utilizes `useState` ...
+
+useEffect(() => {
+  const handler = ({ key }: KeyboardEvent) => {
+    if (key === 'Escape') {
+      onDismiss();
+    }
+  };
+  window.addEventListener('keydown', handler);
+  return () => window.removeEventListener('keydown', handler);
+}, [onDismiss]);
+```
+
+This calls the function `onDismiss` when the `'Escape'` key is pressed. Because we later had multiple modals and other components that we want to execute a function on `'Escape'` keypress, to avoid copying and pasting this logic into every component it was extracted into `lib/hooks.tsx` with a slightly more generic function name to be executed:
+
+```jsx
+export function useEscKeydownEffect(onEscKeydown: Function) {
+  useEffect(() => {
+    const handler = ({ key }: KeyboardEvent) => {
+      if (key === 'Escape') {
+        onEscKeydown();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onEscKeydown]);
+}
+```
+
+Now each component can define its own function to be executed on this keypress, and we can easily use it across our components by passing in that function:
+
+```jsx
+// ... component setup and creation of a function called `onDismiss` that utilizes `useState` ...
+
+useEscKeydownEffect(onDismiss);
+```
+
+Custom hook extraction also eliminates duplicate tests since tests can be written for the hook instead of testing similar logic across various components.
+
+If `hooks.tsx` grows to be too large, consider storing them in a `hooks/` directory instead.
 
 ## Mixins
 
@@ -515,3 +567,30 @@ Ordering for function components.
 ## Import organizing
 
 Your file imports should be organized using the `organizeImports` feature of the TypeScript language service API via [prettier-plugin-organize-imports](https://www.npmjs.com/package/prettier-plugin-organize-imports)
+
+## Context
+
+[React Context](https://reactjs.org/docs/context.html) provides a way to make certain state or prop values "global" to React applications or to portions of React apps. This is most commonly used when deeply nested components are present and "prop drilling", or passing props through many intermediate elements, is a maintenance and development burden. Prop drilling can be alleviated through a pattern of Context "providers" which provide access to data stored in Context objects that are then consumed by components that need the data, skipping prop drilling from intermediate elements. 
+
+For example, we could have one `AppContext` object for app-global data and add user data into it. If an `<AppContext.Provider>` is wrapped around entire application, any component should be able to consume that user data like `const { uid } = useContext(AppContext)`. We could also have a different provider wrapping only a portion of the application.
+
+We can also abstract away pulling in `useContext` and `AppContext` for all consumers of `AppContext` by creating a simple custom hook to do this for us. For example, in Settings, we created a custom hook like so:
+
+```jsx
+export function useAccount() {
+  const { account } = useContext(AppContext);
+  if (!account) {
+    throw new Error('Are you forgetting an AppContext.Provider?');
+  }
+  return account;
+}
+```
+This allows us to more simply pull in `useAccount` and retrieve data with `const { uid } = useAccount();` in consuming components, and additionally gives developers a clue when the expected value isn't present which is especially useful in testing.
+
+### Pitfalls
+
+Using Context isn't free. Every time the value of a Context object changes, any consumers of that component will rerender. Therefore, it should be used for pieces of data that update infrequently.
+
+New Context Providers should be created with thoughtfulness to the ["Before You Use Context"](https://reactjs.org/docs/context.html#before-you-use-context) section of the React docs.
+
+Additionally, consider consuming Context values in a parent component and passing those values down one level into child components rather than calling `useContext` in every child component which can be heavy.
