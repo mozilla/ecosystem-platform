@@ -40,12 +40,9 @@ Once the local environment is configured, stop and start the FxA stack and proce
 
 Keep in mind that developers share the local environment in sentry, so it’s best practice to leave these DSN environment variables undefined when sentry is not actively being used. Doing so will reduce noise in the sentry 'local' environment and make the developer experience better for those who are actively using sentry.
 
-To easily enable / disable sentry for local development, defining the SENTRY_DSN_* environment variables in the .env file in the root of FXA is a good approach. This file is git ignored, so the settings won’t accidentally get leaked, and the [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) utility makes managing this trivial. Here’s a quick example of temporarily running the FxA stack with sentry enabled via the .env file.
+To easily enable / disable sentry for local development, defining the SENTRY_DSN_* environment variables in the .env file in the root of FXA is a good approach. This file is git ignored, so the settings won’t accidentally get leaked, and the [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) utility makes managing this trivial. *You must install dotenv-cli globally for this to work!* Here’s a quick example of temporarily running the FxA stack with sentry enabled via the .env file.
 
 ```
-# If you don’t already have dotenv installed, install it.
-yarn dlx dotenv-cli
-
 # Double check that the .env file has the proper SENTRY_DSN_* values configured.
 cat .env
 
