@@ -9,7 +9,7 @@ sidebar_label: Integration with Subscription Platform
 
 #### File A ticket
 
-First thing's first. File an FxA ticket in GitHub. This ticket can be used to track documentation for your subscription. You can use the label `Subscription Request` but otherwise, don't worry too much about format for your issue. We will use this request to set up an initial meeting and get the ball rolling. We will track your subscription setup in Mana in order to keep sensitive details such as price and release dates and market confidential.
+First thing's first. File an FxA ticket in Jira. This ticket can be used to track documentation for your subscription. You can use the component "Subscription Platform" but otherwise, don't worry too much about format for your issue. We will use this request to set up an initial meeting and get the ball rolling. We will track your subscription setup in Confluence in order to keep sensitive details such as price and release dates and market confidential.
 
 #### Have a kickoff meeting
 
@@ -17,9 +17,9 @@ Once your ticket is filed, you should have had a RRA-style meeting with the Fire
 
 We will use this meeting to do the following:
 
-1. Set up a Mana page to track basic info about your product such as name & capability string or strings
-2. Get a rough estimate of your shipping timeline (don't worry if this isn't 100% pinned down)
-3. Get a staging subscription set up for you to start testing with
+1. Set up a Confluence page to track basic info about your product such as name & capability string or strings
+3. Get a rough estimate of your shipping timeline (don't worry if this isn't 100% pinned down)
+4. Get a staging subscription set up for you to start testing with
 
 ### Development
 
@@ -29,7 +29,7 @@ If your integration includes an application service, it will need a webhook hand
 
 #### Demoing Subscription Flows
 
-The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various Sub Plat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of Sub Plat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
+The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various SubPlat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of SubPlat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
 
 #### Setting up your marketing pages
 
@@ -74,11 +74,10 @@ Once you selected a plan please create a new user. You can use the following Cre
 
 To cancel your subscription simply go to https://accounts.stage.mozaws.net/subscriptions and press the cancel button. 
 
-To upgrade your subscription sign in to your accont using the step above and got to the MDN Plus link. The website will now display your current plan and the upgrade options. 
+To upgrade your subscription sign in to your account using the step above and go to the MDN Plus link. The website will now display your current plan and the upgrade options. 
 
 
 
-[subscription request label]: https://github.com/mozilla/fxa/labels/Subscription%20Request
 [relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
