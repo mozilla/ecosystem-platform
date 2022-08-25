@@ -8,9 +8,13 @@ sidebar_label: Subscription Coupons
 
 You can now reduce the amount charged to a customer by discounting their subscription with a coupon. A coupon can reduce a subscription by a flat amount or a percentage. Coupon configuration is done in Stripe.
 
+## Required preparation
+
+Any plans to create a new coupons should be verified by the Relying Party Product Manager, Finance, and any additional stakeholders as identified by the RP PM. Subscription Platform should be notified of new coupons via email including plan deck to subscription-platform@mozilla.com.
+
 ## Creating coupons
 
-Coupons can be created in Stripe and assigned to different Product Subscriptions or Price plans using the metadata section.
+Coupons can be created in Stripe and assigned to different Product Subscriptions or Price plans using the metadata section. You must have "Analyst" level access to Stripe to create these coupons, which is typically reserved to few individuals (specific members of Relying Party Product or Technical teams, Marketing, and the Subscription Platform team). If you need access, request from Finance in the following document: https://docs.google.com/document/d/1Hf8LR9ajlkVuRqt6WytO3YrBDjgXP5Abb2aZi0N3E1s/edit#
 
 ### Navigation
 
