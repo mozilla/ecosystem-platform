@@ -18,17 +18,16 @@ Triage owners rotate throughout the team, and at the time of writing the triage 
 When taking on work for the sprint, if you’re on the FxA team, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re on the SubPlat team, consider taking on around 20% less than usual to assist with dependency updates or high priority bugs that come up, explained below. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
 
 :::tip
-If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat). Also, set up your VPN ([instructions are on Mana][mana-vpn]) so you can access the FxA Admin Panel, and request a license from the service desk. [See what LDAP groups you must be in][bugzilla-common-scenarios-ldap] to access the Admin Panel.
+If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat). Also, set up your VPN ([instructions are on Confluence][mana-vpn]) so you can access the FxA Admin Panel, and request a license from the service desk. [See what LDAP groups you must be in][bugzilla-common-scenarios-ldap] to access the Admin Panel.
 :::
 
 ## What are the Triage Owner Responsibilities?
 
-At a high level, the triage owner is responsible for:
+At a high level, the FxA triage owner is responsible for:
 
 * Hosting the weekly triage meeting
   * Triaging any new issues in Jira as a team
   * Triaging any new issues in Sentry as a team
-  * If SubPlat triage owner, triage new issues in Stripe as a team
 * If FxA triage owner, triage new issues in FxA Bugzilla near-daily (as a team if there is time in the triage meeting)
 * Checking if there's any PRs, from team members or contributors, that don't have a reviewer, that you can help move along
 * Helping with Dependabot PRs
@@ -36,6 +35,21 @@ At a high level, the triage owner is responsible for:
 * Hanging out in the #fxa Matrix room
 
 In all cases, a call needs to be made about the urgency of new issues. It’s fine to not be sure and to rely on the team's general consensus, either in the triage meeting or async in Slack.
+
+At a high level, the SubPlat triage owner is responsible for:
+
+* Hosting the weekly triage meeting
+ * Triaging new bugs in our Triage board
+ * Grooming Maintenance backlog
+
+* Asynchronous triage activities
+ * File bugs for concerning Subscriptions-related issues identified in review of Stripe Webhooks Events, Sentry,and Payments success/failures metrics
+ * Triage new tickets for high priority requests or bugs, picking up the highest priority items as deemed appropriate
+ * Picking up tickets from the top of the Maintenance and/or Bug backlogs
+
+In all cases, a call needs to be made about the urgency of new issues. It’s fine to not be sure and to rely on the team's general consensus, either in the triage meeting or async in Slack.
+
+Any issues picked up as Triage Owner which land within a Sprint boundary should be added to that Sprint in Jira. This sets clear expectations on when a ticket is available for testing in Staging and Production across Engineering and QA.
 
 :::note
 If someone reports an error, issue, work request etc. to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
