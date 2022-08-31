@@ -34,8 +34,6 @@ At a high level, the FxA triage owner is responsible for:
 * Assisting with any high priority bugs that come up during the sprint
 * Hanging out in the #fxa Matrix room
 
-In all cases, a call needs to be made about the urgency of new issues. It’s fine to not be sure and to rely on the team's general consensus, either in the triage meeting or async in Slack.
-
 At a high level, the SubPlat triage owner is responsible for:
 
 * Hosting the weekly triage meeting
