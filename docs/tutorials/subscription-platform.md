@@ -86,28 +86,12 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | successActionButtonURL                    | Required. The download or subscription success action URL for the product. (Replaces downloadURL) |
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 
-###### Product Metadata defaults
+##### Plan Metadata {#stripe-plan-metadata}
+| Key | Description |
+| --- | --- |
+| appStoreProductIds                        | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. |
+| playSkuIds                                | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. |
 
-Some of the metadata properties listed above [have defaults][product-details-defaults] that are used when they're not defined in Stripe:
-
-```json
-  subtitle: 'Full-device VPN',
-  details: [
-    'Device-level encryption',
-    'Servers in 30+ countries',
-    'Connect 5 devices with one subscription',
-    'Available for Windows, iOS and Android',
-  ],
-  termsOfServiceURL:
-    'https://www.mozilla.org/about/legal/terms/firefox-private-network',
-  termsOfServiceDownloadURL:
-    'https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf',
-  privacyNoticeURL: 'https://www.mozilla.org/privacy/firefox-private-network',
-  privacyNoticeDownloadURL:
-    'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_privacy_notice/en-US.pdf',
-```
-
-[product-details-defaults]: https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/subscriptions/metadata.ts#L14
 
 ##### Product Configuration Documents
 
@@ -156,8 +140,8 @@ The configuration document is a JSON object.  The top level keys for that object
 | capabilities       | Object.  See [Capabilities Configuration](#production-config-capabilities) below.      |
 | productSet         | Optional.  An arbitrary string used to group products in a set of upgrades & downgrades. |
 | productOrder       | Optional.  _Plan configuration only_.  A number used to determine a subscription change is an upgrade or a downgrade within the productSet. |
-| appStoreProductIds | Optional.  Array of strings.  The IDs of the Apple App Store subscription products for which this configuration applies. |
-| playSkuIds         | Optional.  Array of strings.  The SKUs of the Google Play subscription products for which this configuration applies. |
+| appStoreProductIds | Optional. _Plan configuration only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. |
+| playSkuIds         | Optional. _Plan configuration only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. |
 | promotionCodes     | Optional.  Array of strings.  A list of Stripe promotion codes that are valid for the product or plan. |
 | styles             | Object.  Currently the only key in this object is `webIconBackground`, and the value must be a valid CSS color, color name or gradient.  The background color is displayed behind the product icon from the [URLs](#product-config-urls) configuration. Defaults to `#20123a`. |
 | support            | Object.  Currently the only key in this object is `app`.  The value is an array of strings that are apps and services for the support form.  The form options will be in the same order the configuration.  These values shouldn't be too long as they are displayed in dropdown options of limited width.  The value is submitted to Zendesk. |
