@@ -10,10 +10,10 @@ module.exports = {
                         'relying-parties/tutorials/integration-with-fxa',
                         'relying-parties/tutorials/integration-with-subscription-platform',
                         'relying-parties/tutorials/pairing',                        
-                     ],
+                    ],
         'How-to Guides': [
                           'relying-parties/how-twos/end-to-end-encryption',
-                         ],
+                        ],
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
                       'relying-parties/reference/sub-plat-overview',
@@ -22,10 +22,20 @@ module.exports = {
                       'relying-parties/reference/using-apis',
                       {
                         type: 'link',
-                        label: '⚙️ API Reference',
+                        label: '⚙️ Auth Server API Reference',
                         href: '/api',
+                      },
+                      {
+                        type: 'link',
+                        label: '⚙️ OAuth Server API Reference',
+                        href: '/api#tag/OAuth-Server-API-Overview',
+                      },
+                      {
+                        type: 'link',
+                        label: '⚙️ Customs Server API Reference',
+                        href: '/api-customs-server',
                       }
-                     ],
+                    ],
       },
       ]
     },
@@ -37,7 +47,7 @@ module.exports = {
         {
           'Tutorials': ['tutorials/development-setup',
                         'tutorials/subscription-platform',
-                       ],
+                      ],
           'How-to Guides': [
                             'how-tos/creating-an-account-locally',
                             'how-tos/local-emails-with-maildev',
@@ -48,7 +58,7 @@ module.exports = {
                             'how-tos/using-a-custom-profile-with-firefox',
                             'how-tos/working-with-metrics',
                             'how-tos/using-sentry-locally',
-                           ],
+                          ],
           'Reference':     [
                               {
                                 type: 'category',
@@ -98,14 +108,14 @@ module.exports = {
                               label: "Telemetry Data Docs",
                               href: "https://docs.telemetry.mozilla.org/datasets/fxa.html"
                             },
-                           ],
+                          ],
           'Explanation':   [
                             'explanation/metrics',                
                             'explanation/onepw-protocol',
                             'explanation/scoped-keys',
                             'explanation/content-server-architecture',
                             'explanation/session-tokens',
-                           ],
+                        ],
         },
         'additional-docs',
     ]
