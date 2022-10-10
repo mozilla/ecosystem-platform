@@ -15,7 +15,9 @@ Triage owners rotate throughout the team, and at the time of writing the triage 
 
 ## I am the Triage Owner: How should I plan my Sprint?
 
-When taking on work for the sprint, if you’re on the FxA team, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re on the SubPlat team, consider taking on around 20% less than usual to assist with dependency updates or high priority bugs that come up, explained below. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
+When taking on work for the sprint, if you’re on the FxA team, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
+
+If you’re on the SubPlat team, you will not be assigned any tickets at Sprint Planning, instead focusing on high priority bugs, dependency updates, or maintenance tasks as time allows, explained below.
 
 :::tip
 If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat). Also, set up your VPN ([instructions are on Confluence][mana-vpn]) so you can access the FxA Admin Panel, and request a license from the service desk. [See what LDAP groups you must be in][bugzilla-common-scenarios-ldap] to access the Admin Panel.
