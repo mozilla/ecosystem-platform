@@ -79,6 +79,8 @@ If you're new to release ownership, check that you have access to the [`fxa-priv
     1. Links to pertinent changelogs.
 
 1. Finally, when your train PR into `main` is approved and the deploy to stage has finished, merge the PR. If CI fails and it appears to be a flaky test, rerun the test from failed. If it continues failing, let the team know. There may be a problem that warrants a dot release, or if the fix is non-trivial, we may need to roll back the release with SRE coordination.
+    1. If CI passes but the deploy fails, ask SRE to look at the deploy logs and paste any errors they find. There could be more than one error, so be sure to check and include all fixes into any planned, subsequent dot release.
+    1. If a dot release is needed, it is possible to tag the dot release shortly (i.e. >= 20 minutes) after the major release. Check with SRE before any further tagging to ensure they are available to provide support as needed.
 
 ### SRE staff will take it from there...
 
