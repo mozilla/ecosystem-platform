@@ -91,7 +91,7 @@ If you’re finishing Sentry triage by yourself because there wasn't enough time
 
 ### Stripe Triage (Skip for FxA)
 
-Stripe issues are currently triaged twice a week - once in the team triage meeting, and another time async. 
+Stripe issues are currently triaged twice a week - once in the team triage meeting, and another time async.
 
 [TODO: better document this section, FXA-4271]
 
@@ -104,7 +104,7 @@ Users file issues in Bugzilla for various reasons, the most common that we handl
 If a Bugzilla bug includes a user's email address or any PII (personal identifiable information) in the bug description, then do the following:
 
 * Click the “edit bug” button
-* Scroll down to “Security (public)” 
+* Scroll down to “Security (public)”
 * Check the box "Confidential Mozilla Employee Bug (non-security)" and save
 
 This is to protect their email address from being on a publicly accessible link and users will be able to see their own issues even if they’re marked confidential.
@@ -133,8 +133,6 @@ If there's an open, unreviewed or unassigned pull request, consider reviewing it
 
 FxA uses Dependabot to automate dependency updates for us. Every day, it checks our dependency files for outdated requirements and opens individual PRs for any it finds with a daily limit we set. Our Dependabot config lives in [`dependabot.yml`][dependabot-yml].
 
-You'll see an additional commit from "Bananafox" on Dependabot PRs. Bananafox is a bot we made that commits a `yarn.lock` update automatically for us on any PR if a package dependency changed without the corresponding `yarn.lock` update because [Dependabot doesn't support Yarn 2][dependabot-yarn2] yet.
-
 :::tip
 Keep in mind that Dependabot duty is shared between the FxA triage owner and the SubPlat triage owner. Try to move these PRs along at least once or twice a week, but also be sure to timebox yourself.
 :::
@@ -143,7 +141,7 @@ Keep in mind that Dependabot duty is shared between the FxA triage owner and the
 
 Generally speaking, if CI is green, the dependency is likely fine to merge. However, also take a look at the number shown on the "checks" tab of the PR. If there's less than 4 checks, our CI suite may not have ran on the PR. Comment on it with `@dependabot recreate` to rerun the test suite and make sure `test_pull_request` runs and completes without error.
 
-If CI is green, `test_pull_request` was ran, and none of the files changed looks out of the ordinary, approve the Dependabot PR and merge the pull request. If you need Dependabot to rebase the change, comment on the PR with `@dependabot recreate`. We can't use `@dependabot rebase` because the PR is modified by Bananafox.
+If CI is green, `test_pull_request` was ran, and none of the files changed looks out of the ordinary, approve the Dependabot PR and merge the pull request. If you need Dependabot to rebase the change, comment on the PR with `@dependabot rebase`.
 
 :::caution
 Try not to merge dependency updates if we're planning on tagging a release the same day. If we merge something in and discover a dependency problem with or after the tag, we will need a dot release just to patch the bad dependency upgrade.
@@ -162,7 +160,7 @@ If a ticket has already been filed for a previous failure of the same package an
 
 Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical (or even high) severity. You may also choose review these as a team in the triage meeting if you wish, and it may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix.
 
-If Dependabot thinks it can automatically fix the alert for us, a "Create dependabot security update" button will be present. This is a good clue, as well as a "Dependabot can't update vulnerable dependencies without a lockfile" note, that the upgrade should be simple, but we'll need to manually resolve the alert since Dependabot doesn't have access to our `yarn.lock` file (see Bananafox info above). You can check what packages are affected by running `yarn why <package name>`. If there's only one or two affected packages, consider trying to manually upgrade the dependency to the patched version shown in the alert. 
+If Dependabot thinks it can automatically fix the alert for us, a "Create dependabot security update" button will be present. This is a good clue, as well as a "Dependabot can't update vulnerable dependencies without a lockfile" note, that the upgrade should be simple. You can check what packages are affected by running `yarn why <package name>`. If there's only one or two affected packages, consider trying to manually upgrade the dependency to the patched version shown in the alert.
 
 However, sometimes, security alerts are for deeply nested dependencies. In this case, we use [Yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/). To resolve the security warning:
 
