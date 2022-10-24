@@ -1,0 +1,40 @@
+---
+id: verify-totp
+title: verifyTotp
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Verifies the current session if the passed TOTP code is valid.
+
+```graphql
+verifyTotp(
+  input: VerifyTotpInput!
+): VerifyTotpPayload!
+```
+
+
+### Arguments
+
+#### [<code style={{ fontWeight: 'normal' }}>verifyTotp.<b>input</b></code>](#)<Bullet />[`VerifyTotpInput!`](/gql-api/inputs/verify-totp-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/>
+> 
+> 
+
+### Type
+
+#### [`VerifyTotpPayload`](/gql-api/objects/verify-totp-payload) <Badge class="secondary" text="object"/>
+> 
+> 
+
+
+
+
+

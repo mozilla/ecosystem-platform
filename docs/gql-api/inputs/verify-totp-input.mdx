@@ -1,0 +1,48 @@
+---
+id: verify-totp-input
+title: VerifyTotpInput
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+input VerifyTotpInput {
+  clientMutationId: String
+  code: String!
+  service: String
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>VerifyTotpInput.<b>clientMutationId</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="secondary" text="scalar"/>
+> A unique identifier for the client performing the mutation.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>VerifyTotpInput.<b>code</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> The TOTP code to check
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>VerifyTotpInput.<b>service</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="secondary" text="scalar"/>
+> 
+> 
+
+
+
+### Member of
+
+[`verifyTotp`](/gql-api/mutations/verify-totp)  <Badge class="secondary" text="mutation"/>
+
+
+

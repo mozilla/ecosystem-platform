@@ -1,0 +1,43 @@
+---
+id: email-input
+title: EmailInput
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+input EmailInput {
+  clientMutationId: String
+  email: String!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>EmailInput.<b>clientMutationId</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="secondary" text="scalar"/>
+> A unique identifier for the client performing the mutation.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>EmailInput.<b>email</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> The email address to apply this operation to.
+> 
+
+
+
+### Member of
+
+[`createSecondaryEmail`](/gql-api/mutations/create-secondary-email)  <Badge class="secondary" text="mutation"/><Bullet />[`deleteSecondaryEmail`](/gql-api/mutations/delete-secondary-email)  <Badge class="secondary" text="mutation"/><Bullet />[`resendSecondaryEmailCode`](/gql-api/mutations/resend-secondary-email-code)  <Badge class="secondary" text="mutation"/><Bullet />[`updatePrimaryEmail`](/gql-api/mutations/update-primary-email)  <Badge class="secondary" text="mutation"/>
+
+
+

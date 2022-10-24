@@ -1,0 +1,357 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BasicPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+type Avatar {
+  """url for the user's avatar."""
+  url: String
+
+  """ID for the user's avatar."""
+  id: String
+}
+
+type UpdateDisplayNamePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Updated display name. Null if an error occurred."""
+  displayName: String
+}
+
+type ChangeRecoveryCodesPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  recoveryCodes: [String!]!
+}
+
+type CreateTotpPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  qrCodeUrl: String!
+  secret: String!
+  recoveryCodes: [String!]!
+}
+
+type VerifyTotpPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  success: Boolean!
+  recoveryCodes: [String!]
+}
+
+type Location {
+  city: String
+  country: String
+  state: String
+  stateCode: String
+}
+
+type AttachedClient {
+  clientId: String
+  sessionTokenId: String
+  refreshTokenId: String
+  deviceId: String
+  deviceType: String
+  isCurrentSession: Boolean!
+  name: String
+  createdTime: Float
+  createdTimeFormatted: String
+  lastAccessTime: Float
+  lastAccessTimeFormatted: String
+  approximateLastAccessTime: Float
+  approximateLastAccessTimeFormatted: String
+  scope: [String!]
+  location: Location
+  userAgent: String!
+  os: String
+}
+
+type Email {
+  email: String!
+  isPrimary: Boolean!
+  verified: Boolean!
+}
+
+type Subscription {
+  created: Float
+  currentPeriodEnd: Float!
+  currentPeriodStart: Float!
+  cancelAtPeriodEnd: Boolean!
+  endAt: Float!
+  latestInvoice: String!
+  planId: String!
+  productName: String!
+  productId: String!
+  status: String!
+  subscriptionId: String!
+}
+
+"""Two-factor authentication configuration (TOTP)."""
+type Totp {
+  """Whether a TOTP token exists for the user."""
+  exists: Boolean!
+
+  """Whether the current session was verified with the TOTP token."""
+  verified: Boolean!
+}
+
+type LinkedAccount {
+  providerId: Float!
+  enabled: Boolean!
+  authAt: Float!
+}
+
+"""The current authenticated user's Firefox Account record."""
+type Account {
+  """Firefox Account User ID."""
+  uid: ID!
+
+  """Timestamp when the account was created."""
+  accountCreated: Float!
+
+  """Timestamp the password was created or last changed."""
+  passwordCreated: Float!
+
+  """Display name the user has set."""
+  displayName: String
+  avatar: Avatar!
+
+  """User locale."""
+  locale: String
+
+  """Active subscriptions for the user."""
+  subscriptions: [Subscription!]!
+  totp: Totp!
+
+  """Whether the user has had an account recovery key issued."""
+  recoveryKey: Boolean!
+
+  """Whether metrics are enabled and may be reported"""
+  metricsEnabled: Boolean!
+
+  """Email addresses for the user."""
+  emails: [Email!]!
+
+  """Client sessions attached to the user."""
+  attachedClients: [AttachedClient!]!
+
+  """Linked accounts"""
+  linkedAccounts: [LinkedAccount!]!
+}
+
+"""Session (token) info"""
+type Session {
+  """Whether the current session is verified"""
+  verified: Boolean!
+}
+
+type Query {
+  account: Account
+  session: Session!
+}
+
+type Mutation {
+  """Creates a new password for a user and overrides encryption keys"""
+  createPassword(input: CreatePassword!): BasicPayload!
+
+  """
+  Create a new randomly generated TOTP token for a user if they do not currently have one.
+  """
+  createTotp(input: CreateTotpInput!): CreateTotpPayload!
+
+  """Verifies the current session if the passed TOTP code is valid."""
+  verifyTotp(input: VerifyTotpInput!): VerifyTotpPayload!
+
+  """Deletes the current TOTP token for the user."""
+  deleteTotp(input: DeleteTotpInput!): BasicPayload!
+
+  """Deletes the current TOTP token for the user."""
+  deleteRecoveryKey(input: DeleteRecoveryKeyInput!): BasicPayload!
+
+  """Return new backup authentication codes while removing old ones."""
+  changeRecoveryCodes(input: ChangeRecoveryCodesInput!): ChangeRecoveryCodesPayload!
+
+  """Update the display name."""
+  updateDisplayName(input: UpdateDisplayNameInput!): UpdateDisplayNamePayload!
+
+  """Delete the avatar."""
+  deleteAvatar(input: DeleteAvatarInput!): BasicPayload!
+
+  """Create a secondary email for the signed in account."""
+  createSecondaryEmail(input: EmailInput!): BasicPayload!
+
+  """Reset the verification code to a secondary email."""
+  resendSecondaryEmailCode(input: EmailInput!): BasicPayload!
+
+  """Verify the email address with a code."""
+  verifySecondaryEmail(input: VerifyEmailInput!): BasicPayload!
+
+  """Remove the secondary email for the signed in account."""
+  deleteSecondaryEmail(input: EmailInput!): BasicPayload!
+
+  """
+  Change users primary email address, this email address must belong to the user and be verified.
+  """
+  updatePrimaryEmail(input: EmailInput!): BasicPayload!
+
+  """
+  Destroy all tokens held by a connected client, disconnecting it from the user's account.
+  """
+  attachedClientDisconnect(input: AttachedClientDisconnectInput!): BasicPayload!
+
+  """Send a session verification email."""
+  sendSessionVerificationCode(input: SendSessionVerificationInput!): BasicPayload!
+
+  """Verify the session via an email code."""
+  verifySession(input: VerifySessionInput!): BasicPayload!
+
+  """Set the metrics opt in or out state"""
+  metricsOpt(input: MetricsOptInput!): BasicPayload!
+
+  """Logs out the current session"""
+  destroySession(input: DestroySessionInput!): BasicPayload!
+}
+
+input CreatePassword {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Users email, used to hash password"""
+  email: String!
+
+  """The new password"""
+  password: String!
+}
+
+input CreateTotpInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  metricsContext: MetricsContext
+}
+
+"""Metrics context."""
+input MetricsContext {
+  """The id of the client's device record, if it has registered one."""
+  deviceId: String
+  entrypoint: String
+  entrypointExperiment: String
+  entrypointVariation: String
+  flowId: String
+  flowBeginTime: Float
+  productId: String
+  planId: String
+  utmCampaign: String
+  utmContent: String
+  utmMedium: String
+  utmSource: String
+  utmTerm: String
+}
+
+input VerifyTotpInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The TOTP code to check"""
+  code: String!
+  service: String
+}
+
+input DeleteTotpInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+input DeleteRecoveryKeyInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+input ChangeRecoveryCodesInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+input UpdateDisplayNameInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Updated display name."""
+  displayName: String
+}
+
+input DeleteAvatarInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The avatar id to delete."""
+  id: String!
+}
+
+input EmailInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The email address to apply this operation to."""
+  email: String!
+}
+
+input VerifyEmailInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The email to verify"""
+  email: String!
+
+  """The code to check"""
+  code: String!
+}
+
+input AttachedClientDisconnectInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The OAuth client_id of the connected application."""
+  clientId: String
+
+  """The id of the sessionToken held by that client, if any."""
+  sessionTokenId: String
+
+  """The id of the OAuth refreshToken held by that client, if any."""
+  refreshTokenId: String
+
+  """The id of the client's device record, if it has registered one."""
+  deviceId: String
+}
+
+input SendSessionVerificationInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+input VerifySessionInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The code to check"""
+  code: String!
+}
+
+input MetricsOptInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """
+  The desired state: "in" or "out"
+  """
+  state: String!
+}
+
+input DestroySessionInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}

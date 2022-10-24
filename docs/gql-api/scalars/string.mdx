@@ -1,0 +1,34 @@
+---
+id: string
+title: String
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+
+```graphql
+scalar String
+```
+
+
+
+
+### Returned by
+
+[`latestInvoice`](/gql-api/subscriptions/latest-invoice)  <Badge class="secondary" text="subscription"/><Bullet />[`planId`](/gql-api/subscriptions/plan-id)  <Badge class="secondary" text="subscription"/><Bullet />[`productId`](/gql-api/subscriptions/product-id)  <Badge class="secondary" text="subscription"/><Bullet />[`productName`](/gql-api/subscriptions/product-name)  <Badge class="secondary" text="subscription"/><Bullet />[`status`](/gql-api/subscriptions/status)  <Badge class="secondary" text="subscription"/><Bullet />[`subscriptionId`](/gql-api/subscriptions/subscription-id)  <Badge class="secondary" text="subscription"/>
+
+### Member of
+
+[`Account`](/gql-api/objects/account)  <Badge class="secondary" text="object"/><Bullet />[`AttachedClient`](/gql-api/objects/attached-client)  <Badge class="secondary" text="object"/><Bullet />[`AttachedClientDisconnectInput`](/gql-api/inputs/attached-client-disconnect-input)  <Badge class="secondary" text="input"/><Bullet />[`Avatar`](/gql-api/objects/avatar)  <Badge class="secondary" text="object"/><Bullet />[`BasicPayload`](/gql-api/objects/basic-payload)  <Badge class="secondary" text="object"/><Bullet />[`ChangeRecoveryCodesInput`](/gql-api/inputs/change-recovery-codes-input)  <Badge class="secondary" text="input"/><Bullet />[`ChangeRecoveryCodesPayload`](/gql-api/objects/change-recovery-codes-payload)  <Badge class="secondary" text="object"/><Bullet />[`CreatePassword`](/gql-api/inputs/create-password)  <Badge class="secondary" text="input"/><Bullet />[`CreateTotpInput`](/gql-api/inputs/create-totp-input)  <Badge class="secondary" text="input"/><Bullet />[`CreateTotpPayload`](/gql-api/objects/create-totp-payload)  <Badge class="secondary" text="object"/><Bullet />[`DeleteAvatarInput`](/gql-api/inputs/delete-avatar-input)  <Badge class="secondary" text="input"/><Bullet />[`DeleteRecoveryKeyInput`](/gql-api/inputs/delete-recovery-key-input)  <Badge class="secondary" text="input"/><Bullet />[`DeleteTotpInput`](/gql-api/inputs/delete-totp-input)  <Badge class="secondary" text="input"/><Bullet />[`deprecated`](/gql-api/directives/deprecated)  <Badge class="secondary" text="directive"/><Bullet />[`DestroySessionInput`](/gql-api/inputs/destroy-session-input)  <Badge class="secondary" text="input"/><Bullet />[`Email`](/gql-api/objects/email)  <Badge class="secondary" text="object"/><Bullet />[`EmailInput`](/gql-api/inputs/email-input)  <Badge class="secondary" text="input"/><Bullet />[`Location`](/gql-api/objects/location)  <Badge class="secondary" text="object"/><Bullet />[`MetricsContext`](/gql-api/inputs/metrics-context)  <Badge class="secondary" text="input"/><Bullet />[`MetricsOptInput`](/gql-api/inputs/metrics-opt-input)  <Badge class="secondary" text="input"/><Bullet />[`SendSessionVerificationInput`](/gql-api/inputs/send-session-verification-input)  <Badge class="secondary" text="input"/><Bullet />[`specifiedBy`](/gql-api/directives/specified-by)  <Badge class="secondary" text="directive"/><Bullet />[`UpdateDisplayNameInput`](/gql-api/inputs/update-display-name-input)  <Badge class="secondary" text="input"/><Bullet />[`UpdateDisplayNamePayload`](/gql-api/objects/update-display-name-payload)  <Badge class="secondary" text="object"/><Bullet />[`VerifyEmailInput`](/gql-api/inputs/verify-email-input)  <Badge class="secondary" text="input"/><Bullet />[`VerifySessionInput`](/gql-api/inputs/verify-session-input)  <Badge class="secondary" text="input"/><Bullet />[`VerifyTotpInput`](/gql-api/inputs/verify-totp-input)  <Badge class="secondary" text="input"/><Bullet />[`VerifyTotpPayload`](/gql-api/objects/verify-totp-payload)  <Badge class="secondary" text="object"/>
+
+
+
