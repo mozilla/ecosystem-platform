@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="generator" content="Docusaurus v2.0.0-beta.21">
 <link rel="search" type="application/opensearchdescription+xml" title="Firefox Ecosystem Platform" href="/ecosystem-platform/opensearch.xml"><title data-rh="true">Firefox Accounts API Documentation | Firefox Ecosystem Platform</title><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mozilla.github.io/ecosystem-platform/api"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Firefox Accounts API Documentation | Firefox Ecosystem Platform"><meta data-rh="true" name="description" content="[**DISCLAIMER**]: This information may not be up-to-date - it may be worth verifying information in the source code before acting on anything you read here."><meta data-rh="true" property="og:description" content="[**DISCLAIMER**]: This information may not be up-to-date - it may be worth verifying information in the source code before acting on anything you read here."><link data-rh="true" rel="icon" href="/ecosystem-platform/img/firefox-logo.png"><link data-rh="true" rel="canonical" href="https://mozilla.github.io/ecosystem-platform/api"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/api" hreflang="en"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/api" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://RFM5H13DFK-dsn.algolia.net" crossorigin="anonymous"><link rel="stylesheet" href="/ecosystem-platform/assets/css/styles.58bd7732.css">
-<link rel="preload" href="/ecosystem-platform/assets/js/runtime~main.3c8761bf.js" as="script">
-<link rel="preload" href="/ecosystem-platform/assets/js/main.eb306d11.js" as="script">
+<link rel="preload" href="/ecosystem-platform/assets/js/runtime~main.2bed639b.js" as="script">
+<link rel="preload" href="/ecosystem-platform/assets/js/main.d698976e.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
@@ -101,12 +101,12 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>104</td>
-<td>Unverified account</td>
+<td>Unconfirmed account</td>
 </tr>
 <tr>
 <td>400</td>
 <td>105</td>
-<td>Invalid authentication code</td>
+<td>Invalid confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
@@ -316,12 +316,12 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>152</td>
-<td>Invalid token authentication code</td>
+<td>Invalid token confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
 <td>153</td>
-<td>Expired token authentication code</td>
+<td>Expired token confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
@@ -396,32 +396,142 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>169</td>
-<td>Requested scopes are not allowed</td>
-</tr>
-<tr>
-<td>400</td>
-<td>170</td>
 <td>Public clients require PKCE OAuth parameters</td>
 </tr>
 <tr>
 <td>400</td>
-<td>171</td>
+<td>170</td>
 <td>Required Authentication Context Reference values could not be satisfied</td>
+</tr>
+<tr>
+<td>400</td>
+<td>171</td>
+<td>Incorrect client_secret</td>
+</tr>
+<tr>
+<td>400</td>
+<td>172</td>
+<td>Unknown authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>173</td>
+<td>Mismatched authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>174</td>
+<td>Expired authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>175</td>
+<td>Public clients require PKCE OAuth parameters</td>
 </tr>
 <tr>
 <td>404</td>
 <td>176</td>
+<td>Unknown customer</td>
+</tr>
+<tr>
+<td>404</td>
+<td>177</td>
 <td>Unknown subscription</td>
 </tr>
 <tr>
 <td>400</td>
-<td>177</td>
+<td>178</td>
 <td>Unknown subscription plan</td>
 </tr>
 <tr>
 <td>400</td>
-<td>178</td>
+<td>179</td>
 <td>Subscription payment token rejected</td>
+</tr>
+<tr>
+<td>400</td>
+<td>180</td>
+<td>Subscription has already been cancelled</td>
+</tr>
+<tr>
+<td>400</td>
+<td>181</td>
+<td>Customer update rejected</td>
+</tr>
+<tr>
+<td>400</td>
+<td>182</td>
+<td>Unknown refresh token</td>
+</tr>
+<tr>
+<td>400</td>
+<td>183</td>
+<td>Invalid or expired confirmation code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>184</td>
+<td>Subscription has already been cancelled</td>
+</tr>
+<tr>
+<td>400</td>
+<td>185</td>
+<td>Subscription plan is not a valid update</td>
+</tr>
+<tr>
+<td>400</td>
+<td>186</td>
+<td>Payment method failed</td>
+</tr>
+<tr>
+<td>409</td>
+<td>187</td>
+<td>User already subscribed</td>
+</tr>
+<tr>
+<td>500</td>
+<td>188</td>
+<td>Failed to find a subscription associated with Stripe source</td>
+</tr>
+<tr>
+<td>400</td>
+<td>192</td>
+<td>Billing agreement already on file for this customer</td>
+</tr>
+<tr>
+<td>400</td>
+<td>193</td>
+<td>PayPal payment token is missing</td>
+</tr>
+<tr>
+<td>400</td>
+<td>194</td>
+<td>PayPal billing agreement is missing for the existing subscriber</td>
+</tr>
+<tr>
+<td>400</td>
+<td>195</td>
+<td>Account for this email has an active subscription</td>
+</tr>
+<tr>
+<td>400</td>
+<td>196</td>
+<td>Invalid token</td>
+</tr>
+<tr>
+<td>500</td>
+<td>197</td>
+<td>IAP Internal Error</td>
+</tr>
+<tr>
+<td>404</td>
+<td>198</td>
+<td>Unknown app name</td>
+</tr>
+<tr>
+<td>400</td>
+<td>199</td>
+<td>Invalid promotion code</td>
 </tr>
 <tr>
 <td>503</td>
@@ -437,6 +547,31 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <td>500</td>
 <td>203</td>
 <td>A backend service request failed.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>204</td>
+<td>This client has been temporarily disabled</td>
+</tr>
+<tr>
+<td>500</td>
+<td>205</td>
+<td>Could not login with third party account, please try again later</td>
+</tr>
+<tr>
+<td>400</td>
+<td>206</td>
+<td>Can not create password, password already set.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>207</td>
+<td>Account creation rejected.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>208</td>
+<td>Purchase has been registered to another user.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -757,12 +892,12 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>104</td>
-<td>Unverified account</td>
+<td>Unconfirmed account</td>
 </tr>
 <tr>
 <td>400</td>
 <td>105</td>
-<td>Invalid authentication code</td>
+<td>Invalid confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
@@ -972,12 +1107,12 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>152</td>
-<td>Invalid token authentication code</td>
+<td>Invalid token confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
 <td>153</td>
-<td>Expired token authentication code</td>
+<td>Expired token confirmation code</td>
 </tr>
 <tr>
 <td>400</td>
@@ -1052,32 +1187,142 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <tr>
 <td>400</td>
 <td>169</td>
-<td>Requested scopes are not allowed</td>
-</tr>
-<tr>
-<td>400</td>
-<td>170</td>
 <td>Public clients require PKCE OAuth parameters</td>
 </tr>
 <tr>
 <td>400</td>
-<td>171</td>
+<td>170</td>
 <td>Required Authentication Context Reference values could not be satisfied</td>
+</tr>
+<tr>
+<td>400</td>
+<td>171</td>
+<td>Incorrect client_secret</td>
+</tr>
+<tr>
+<td>400</td>
+<td>172</td>
+<td>Unknown authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>173</td>
+<td>Mismatched authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>174</td>
+<td>Expired authorization code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>175</td>
+<td>Public clients require PKCE OAuth parameters</td>
 </tr>
 <tr>
 <td>404</td>
 <td>176</td>
+<td>Unknown customer</td>
+</tr>
+<tr>
+<td>404</td>
+<td>177</td>
 <td>Unknown subscription</td>
 </tr>
 <tr>
 <td>400</td>
-<td>177</td>
+<td>178</td>
 <td>Unknown subscription plan</td>
 </tr>
 <tr>
 <td>400</td>
-<td>178</td>
+<td>179</td>
 <td>Subscription payment token rejected</td>
+</tr>
+<tr>
+<td>400</td>
+<td>180</td>
+<td>Subscription has already been cancelled</td>
+</tr>
+<tr>
+<td>400</td>
+<td>181</td>
+<td>Customer update rejected</td>
+</tr>
+<tr>
+<td>400</td>
+<td>182</td>
+<td>Unknown refresh token</td>
+</tr>
+<tr>
+<td>400</td>
+<td>183</td>
+<td>Invalid or expired confirmation code</td>
+</tr>
+<tr>
+<td>400</td>
+<td>184</td>
+<td>Subscription has already been cancelled</td>
+</tr>
+<tr>
+<td>400</td>
+<td>185</td>
+<td>Subscription plan is not a valid update</td>
+</tr>
+<tr>
+<td>400</td>
+<td>186</td>
+<td>Payment method failed</td>
+</tr>
+<tr>
+<td>409</td>
+<td>187</td>
+<td>User already subscribed</td>
+</tr>
+<tr>
+<td>500</td>
+<td>188</td>
+<td>Failed to find a subscription associated with Stripe source</td>
+</tr>
+<tr>
+<td>400</td>
+<td>192</td>
+<td>Billing agreement already on file for this customer</td>
+</tr>
+<tr>
+<td>400</td>
+<td>193</td>
+<td>PayPal payment token is missing</td>
+</tr>
+<tr>
+<td>400</td>
+<td>194</td>
+<td>PayPal billing agreement is missing for the existing subscriber</td>
+</tr>
+<tr>
+<td>400</td>
+<td>195</td>
+<td>Account for this email has an active subscription</td>
+</tr>
+<tr>
+<td>400</td>
+<td>196</td>
+<td>Invalid token</td>
+</tr>
+<tr>
+<td>500</td>
+<td>197</td>
+<td>IAP Internal Error</td>
+</tr>
+<tr>
+<td>404</td>
+<td>198</td>
+<td>Unknown app name</td>
+</tr>
+<tr>
+<td>400</td>
+<td>199</td>
+<td>Invalid promotion code</td>
 </tr>
 <tr>
 <td>503</td>
@@ -1093,6 +1338,31 @@ is <code>https://api.accounts.firefox.com/v1</code>.</li>
 <td>500</td>
 <td>203</td>
 <td>A backend service request failed.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>204</td>
+<td>This client has been temporarily disabled</td>
+</tr>
+<tr>
+<td>500</td>
+<td>205</td>
+<td>Could not login with third party account, please try again later</td>
+</tr>
+<tr>
+<td>400</td>
+<td>206</td>
+<td>Can not create password, password already set.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>207</td>
+<td>Account creation rejected.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>208</td>
+<td>Purchase has been registered to another user.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -2283,7 +2553,7 @@ Add a secondary email address to the logged-in account. The created address will
 </div></div></div></td></tr><tr class="last undefined"><td class="sc-hAZoDl sc-fEOsli grwJZw bnZPxp" kind="field" title="assertion"><span class="sc-idiyUo ftOGwl"></span><span>assertion</span></td><td class="sc-bjUoiL czLlfj"><div><div><span class="sc-lbxAil sc-iNWwEs lfhyVw jQVdcm"></span><span class="sc-lbxAil sc-jfmDQi lfhyVw jvMGVM">string</span><span> <span class="sc-lbxAil sc-fbPSWO lfhyVw cDTyMh"> <!-- -->[ 50 .. 10240 ] characters<!-- --> </span></span><span class="sc-lbxAil sc-lbOyJj lfhyVw hfUAfp">^[a-zA-Z0-9_\-\.~=]+$</span></div> <div><div class="sc-iIPllB sc-ciZhAO kVWksa fPccGo"><p>A FxA assertion for the signed-in user.</p>
 </div></div></div></td></tr></tbody></table><div><h3 class="sc-jGprRt ewVeHC">Responses</h3><div><button class="sc-eGAhfa bdQJSE"><svg class="sc-evZas jcznrM" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg><strong class="sc-dWINGa czEcKr">200<!-- --> </strong><span class="sc-jdAMXn jCANeS"><p>A valid 200 response will return an empty JSON object.</p>
 </span></button></div></div></div><div class="sc-jSMfEi sc-gKXOVf kGJqig jSfEKO"><div class="sc-fIavCj cDXMWM"><button class="sc-dkdnUF iaTQmt"><span type="post" class="sc-WCkqM eDLBuw http-verb post">post</span><span class="sc-duzrYq bzMevE">/authorized-clients/destroy</span><svg class="sc-evZas dtQqE" style="margin-right:-25px" version="1.1" viewBox="0 0 24 24" x="0" xmlns="http://www.w3.org/2000/svg" y="0" aria-hidden="true"><polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon></svg></button><div aria-hidden="true" class="sc-ikjQzJ dHYCwf"><div class="sc-tsFYE FyTGF"><div class="sc-iIPllB sc-ciZhAO kVWksa fPccGo"></div><div tabindex="0" role="button"><div class="sc-bhVIhj hxzPUr"><span>https://api.accounts.firefox.com/v1</span>/authorized-clients/destroy</div></div></div></div></div><div><h3 class="sc-kDDrLX bphuUp"> <!-- -->Request samples<!-- --> </h3><div class="sc-cxabCf kBGHPE" data-rttabs="true"><ul class="react-tabs__tab-list" role="tablist"><li class="react-tabs__tab react-tabs__tab--selected" role="tab" id="react-tabs-482" aria-selected="true" aria-disabled="false" aria-controls="react-tabs-483" tabindex="0" data-rttab="true">Payload</li><li class="react-tabs__tab" role="tab" id="react-tabs-484" aria-selected="false" aria-disabled="false" aria-controls="react-tabs-485" data-rttab="true">JavaScript</li></ul><div class="react-tabs__tab-panel react-tabs__tab-panel--selected" role="tabpanel" id="react-tabs-483" aria-labelledby="react-tabs-482"><div><div class="sc-BeQoi goaScV"><span class="sc-cOFTSb ffeMEW">Content type</span><div class="sc-bBXxYQ lgEJMw">application/json</div></div><div class="sc-jgbSNz gMMBTc"><div class="sc-jOrMOR gDNHHZ"><div class="sc-gicCDI iCAxWZ"><button><div class="sc-bZnhIo AlGJd">Copy</div></button></div><div class="sc-iIPllB kVWksa sc-dPyBCJ efMzV"><div class="redoc-json"><code><button class="collapser" aria-label="collapse"></button><span class="token punctuation">{</span><span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property token string">"client_id"</span>: <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span></div></li><li><div class="hoverable"><span class="property token string">"refresh_token_id"</span>: <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span></div></li><li><div class="hoverable"><span class="property token string">"assertion"</span>: <span class="token string">&quot;stringstringstringstringstringstringstringstringst&quot;</span></div></li></ul><span class="token punctuation">}</span></code></div></div></div></div></div></div><div class="react-tabs__tab-panel" role="tabpanel" id="react-tabs-485" aria-labelledby="react-tabs-484"></div></div></div></div></div></div></div><div class="sc-eXBvqI hFDFIM"></div></div></div></div><footer class="footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 Mozilla Corporation.</div></div></div></footer></div>
-<script src="/ecosystem-platform/assets/js/runtime~main.3c8761bf.js"></script>
-<script src="/ecosystem-platform/assets/js/main.eb306d11.js"></script>
+<script src="/ecosystem-platform/assets/js/runtime~main.2bed639b.js"></script>
+<script src="/ecosystem-platform/assets/js/main.d698976e.js"></script>
 </body>
 </html>
