@@ -48,6 +48,8 @@ module.exports = {
                             'how-tos/using-a-custom-profile-with-firefox',
                             'how-tos/working-with-metrics',
                             'how-tos/using-sentry-locally',
+                            'how-tos/using-tracing-locally',
+                            'how-tos/using-tracing-in-gcp',
                            ],
           'Reference':     [
                               {
@@ -86,6 +88,7 @@ module.exports = {
                             'reference/experiments-ab-testing',
                             'reference/system-diagrams',
                             'reference/application-logging',
+                            'reference/application-tracing',
                             'reference/scheduled-maintenance',
                             'reference/mobile-specifics',
                             'reference/architectural-decision-records',
