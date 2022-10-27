@@ -7,8 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   tagline: 'Documentation for Firefox Accounts, Sync and more',
   url: 'https://mozilla.github.io',
   baseUrl: '/ecosystem-platform/',
-  onBrokenLinks: 'error',
-  onBrokenMarkdownLinks: 'error',
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/firefox-logo.png',
   organizationName: 'mozilla',
   projectName: 'ecosystem-platform',
@@ -36,7 +36,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       ({
         specs: [
           {
-            spec: 'https://api.accounts.firefox.com/swagger.json',
+            // Comes from https://api.accounts.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, but also it is pulled in on build time so we'd need to rebuild periodically anyway
+            spec: 'api-swagger.json',
             route: '/api',
           },
         ],
