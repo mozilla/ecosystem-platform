@@ -2,6 +2,8 @@ name: Pull API Definitions
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   pull-api-definitions:
@@ -10,7 +12,8 @@ jobs:
       - name: Clone ecosystem-docs code repository
         uses: actions/checkout@v3
 
-      - name: Pull latest API definitions
+      - name: Set up Git
+        id: setup
         run: |
           # Setup git
           git config --global user.name "Application Services"
@@ -18,13 +21,34 @@ jobs:
 
           # Checkout branch
           git checkout -b pull-api-definitions
+
+      - name: Pull latest API definitions
+        id: update
+        run: |
           # Run script to pull docs
           curl https://api.accounts.firefox.com/swagger.json -o api-swagger.json
 
-          # Add changes and push to Github
+      - name: See if anything changed
+        id: diff
+        run: |
+          git diff --exit-code
+      
+      - name: Exit ramp
+        id: maybe-exit
+        if: steps.diff.outcome == 'success' # Success here, is a '0' exit for the diff step
+        run: |
+          echo "::notice:: No changes detected."
+        # GH Actions doesn't have a way to exit early (!?) so instead we have to put an if() on all the rest of the steps...
+      
+      - name: Commit changes
+        id: commit
+        if: steps.diff.outcome == 'failure'
+        run: |
           git add api-swagger.json
           git commit -m "[skip ci] New API definition"
           git push origin pull-api-definitions -f
+
       - name: create pull request
+        if: steps.diff.outcome == 'failure'
         run: |
           gh pr create -B main -H pull-api-definitions --title "[skip ci] New API definition" --body "Here are some new API defintions"
