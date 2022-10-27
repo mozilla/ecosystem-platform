@@ -10,11 +10,13 @@ Setting the following environment variables which can easily be done by adding t
 
 1. If you don’t already have dotenv installed, [install it](https://www.npmjs.com/package/dotenv-cli). 
 1. Next add these settings to a the .env file in fxa root:
-    - TRACING_SAMPLE_RATE=1
-    - TRACING_BATCH_PROCESSING=false
-    - TRACING_OTEL_EXPORTER_ENABLED=true
-    - TRACING_OTEL_COLLECTOR_ENABLED=true
-    - TRACING_OTEL_COLLECTOR_JAEGER_ENABLED=true
+   ```bash
+        TRACING_SAMPLE_RATE=1
+        TRACING_BATCH_PROCESSING=false
+        TRACING_OTEL_EXPORTER_ENABLED=true
+        TRACING_OTEL_COLLECTOR_ENABLED=true
+        TRACING_OTEL_COLLECTOR_JAEGER_ENABLED=true
+    ```
 1. Now stop the dev stack with `yarn stop`.
 1. Now start the dev stack with `dotenv —- yarn start`.
 1. Once the dev stack has started. Run `pm2 status`. Both the otel-collector and the Jaeger service should be in an ‘online’ status. 
