@@ -1,5 +1,8 @@
 name: Pull API Definitions
 
+on:
+  workflow_dispatch:
+
 jobs:
   pull-api-definitions:
     runs-on: ubuntu-latest
