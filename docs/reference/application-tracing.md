@@ -80,7 +80,7 @@ In all likelihood, viewing traces and setting a few configuration options is all
 
 ### Custom Instrumentation
 
-Instrumentation is the process of hooking into existing code so traces can be captured. This is mostly automatic. The [@opentelemetry/auto-instrumentations-node]() provides ‘auto’ instrumentation which allows us to easily instrument most aspects of node applications. For example, auto instrumentation will capture all outbound HTTP requests, and sql queries.
+Instrumentation is the process of hooking into existing code so traces can be captured. This is mostly automatic. The [@opentelemetry/auto-instrumentations-node library](https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node) provides ‘auto’ instrumentation which allows us to easily instrument most aspects of node applications. For example, auto instrumentation will capture all outbound HTTP requests, and sql queries.
 
 By default, all instrumentations are enabled. In the future we may want to prefer more targeted instrumentation, as this would result in a smaller number of dependent packages; however, at the time of writing, the ability to easily instrument and gain awareness of all the things that can be traced outweighs the desire to have reduced dependencies.
 
@@ -98,7 +98,7 @@ In open telemetry filtering can happen in two ways. Some instrumentations suppor
 
 #### Some final guidelines for filtering PII are:
 - Be proactive about removing PII from traces. If you see something in a trace that could uniquely identify a user, file a ticket calling it out!
-- Ideally we still leave as much of the data intact as possible. For example, if there is a sql query containing an email address, if possible, leave the query intact and only filter out the email. E.g { query: ‘select * from users where email = [FILTERED]’ }  as opposed to { query: ‘[FILTERED]’ }
+- Ideally we still leave as much of the data intact as possible. For example, if there is a sql query containing an email address, if possible, leave the query intact and only filter out the email. E.g { query: `select * from users where email = [FILTERED]` }  as opposed to { query: `[FILTERED]` }
 - Be mindful of performance. If a data field is to be processed, consider truncating it. - If there are an extremely large number of elements to loop through, consider short circuiting and remove elements that can’t be processed. 
 - Keep in mind the goal is to provide as much info in the trace as possible while still being pragmatic about removing PII.
 
@@ -110,11 +110,13 @@ In the event that trace export isn’t working properly on stage or production, 
 1. Make sure you’ve authenticated with gcloud locally, in order to export data. Once you have gcloud install, simply login with this command:
 `gcloud auth application-default login`
 1. Set your .env file up like this:
-    - TRACING_SAMPLE_RATE=1
-    - TRACING_BATCH_PROCESSING=false
-    - TRACING_OTEL_EXPORTER_ENABLED=true
-    - TRACING_OTEL_COLLECTOR_ENABLED=true
-    - TRACING_OTEL_COLLECTOR_GCP_ENABLED=true
+   ```bash
+        TRACING_SAMPLE_RATE=1
+        TRACING_BATCH_PROCESSING=false
+        TRACING_OTEL_EXPORTER_ENABLED=true
+        TRACING_OTEL_COLLECTOR_ENABLED=true
+        TRACING_OTEL_COLLECTOR_GCP_ENABLED=true
+   ```
 1. Stop pm2 `yarn stop`
 1. Start up the stack again with the .env file applied, `dotenv —- yarn start`
 1. Check the logs for the collector service, you should see mention of google cloud trace being supported, `pm2 log otel-collector`
