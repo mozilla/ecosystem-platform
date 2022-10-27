@@ -1,0 +1,27 @@
+name: Pull API Definitions
+
+jobs:
+  pull-api-definitions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone ecosystem-docs code repository
+        uses: actions/checkout@v3
+
+      - name: Pull latest API definitions
+        run: |
+          # Setup git
+          git config --global user.name "Application Services"
+          git config --global user.email "application-services@mozilla.com"
+
+          # Checkout branch
+          git checkout -b pull-api-definitions
+          # Run script to pull docs
+          curl https://api.accounts.firefox.com/swagger.json -o api-swagger.json
+
+          # Add changes and push to Github
+          git add api-swagger.json
+          git commit -m "[skip ci] New API definition"
+          git push origin pull-api-definitions -f
+      - name: create pull request
+        run: |
+          gh pr create -B main -H pull-api-definitions --title "[skip ci] New API definition" --body "Here are some new API defintions"
