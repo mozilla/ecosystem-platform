@@ -401,11 +401,22 @@ In `fxa-auth-server/config/secrets.json`, set the following config values under 
     }
 }
 ```
-Use the same values for `keyFilename` and `projectId` as used for `authFirestore` config in [Testing IAP subscriptions locally](#testing-iap-subscriptions-locally).
 
-:::note
-To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account referenced by the keyfile [must have the API enabled](https://developers.google.com/android-publisher/authorization). This is not required for most Google IAP development, so consider skipping that step.
-:::
+You can stop here if you're only going to use the [mock IAP script](#testing-iap-subscriptions-locally) for your local development and do not need a real connection to the Play API.
+This is not required for most Google IAP development, so consider skipping the following section.
+
+#### Connecting to a Play API Service Account
+
+1. Get access to Mozilla's `firefox.gcp.mozilla.com` organization.
+2. Create a new GCP project with Firestore
+    - Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
+    - [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
+    - To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account [must have the API enabled](https://developers.google.com/android-publisher/authorization).
+    - Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
+3. Link the GCP project's Firestore instance to the auth server in `fxa-auth-server/config/secrets.json`.
+      - Add the below configuration key/value pairs in `playApiServiceAccount`.
+      - Replace the value for `keyFilename` with the absolute path to the keyfile created in step 2.
+      - Replace the value for `projectId` with the project ID for the GCP project created in step 2.
 
 ## Apple IAP Integration
 
@@ -485,63 +496,18 @@ Before you begin, make sure you have App Store API credentials set up in the aut
 
 The test subscriptions described in this section are not true IAP subscriptions (i.e. there is no record of them in Apple or Google's databases), but rather, they are representations in SubPlat's Firestore database, which we use internally. As such, this approach can only be used to test code that assumes the IAP subscription is already cached in our database.
 
-### Configure the auth server and set up a GCP project
-
-:::note
-Step 3 will change once [FXA-5381](https://mozilla-hub.atlassian.net/browse/FXA-5381) is resolved.
-:::
+### Configure the auth server and create mock IAP subscriptions
 
 1. Configure the `fxa-auth-server` for IAP
-    - Enable the IAP integration and provide the needed credentials. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
-2. Get access to Mozilla's `firefox.gcp.mozilla.com` organization.
-    - Part of this access should include read access to FxA Firestore stage ([example ticket](https://mozilla-hub.atlassian.net/browse/FXA-4031)). 
-3. Create a new GCP project with Firestore
-    - Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
-    - [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
-    - Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
-4. Link the GCP project's Firestore instance to the auth server in `fxa-auth-server/config/secrets.json`.
-      - Add the below configuration key/value pairs under `subscriptions`.
-      - Replace the value for `keyFilename` with the absolute path to the keyfile created in step 3.
-      - Replace the value for `projectId` with the project ID for the GCP project created in step 3.
-
-```js
-{
-    // ...
-    "subscriptions": {
-        // ...
-    },
-    "authFirestore": {
-        "keyFilename": "",
-        "projectId": ""
-    }
-}
-```
-5. Restart the auth server to point to the new Firestore instance
-    - We use a Firestore emulator by default for local development, but for IAP, we want to point our local FxA to the newly created Firestore instance. We can do this by unsetting the `FIRESTORE_EMULATOR_HOST` environment variable and restarting the auth server.
-
-```
-FIRESTORE_EMULATOR_HOST='' pm2 restart auth --update-env
-```
-
-### Put the subscription in Firestore
-
-#### Google IAP
-
-1. In the GCP project, create a new Firestore collection named `${authFirestore.prefix}iap-play-purchases`. You can find the default prefix in `fxa-auth-server/config/index.ts`.
-2. Copy a test Google IAP subscription purchase object from the `fxa-auth-stage-iap-play-purchases` collection in [FxA stage Firestore](https://console.cloud.google.com/firestore/data/fxa-auth-stage-iap-play-purchases?project=moz-fx-fxa-nonprod-375e) as a new document in the new collection.
-3. Manually edit `expiryTimeMillis` to be a date in the distant future.
-4. Create a new FxA user locally and set their user id as the `userId` value.
-
-See [Verify it worked](#verify-it-worked) to confirm everything works correctly.
-
-#### Apple IAP
-
-1. In the GCP project, create a new Firestore collection named `${authFirestore.prefix}iap-app-store-purchases`. You can find the default prefix in `fxa-auth-server/config/index.ts`.
-2. After [QA-1391](https://mozilla-hub.atlassian.net/browse/QA-1391) is resolved, copy a test Apple IAP subscription purchase object from the `fxa-auth-stage-iap-app-store-purchases` collection in [FxA stage Firestore](https://console.cloud.google.com/firestore/data/fxa-auth-stage-iap-play-purchases?project=moz-fx-fxa-nonprod-375e) into the new collection.
-3. Manually edit `expiresDate` to be a date in the distant future and set `status` to `1`.
-4. Create a new FxA user locally and set their user id as the `userId` value.
-
-See [Verify it worked](#verify-it-worked) to confirm everything works correctly.
+    - Enable the IAP integration. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
+    - Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
+2. Setup a price for IAP
+    - Create a price within Stripe.
+    - Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata]($stripe-plan-metadata) for these fields.
+3. Create a local fxa user
+    - Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
+4. Run the mock IAP subscription creation script
+    - Within auth-server, run `yarn run create-mock-iap --uid USER_ID --appStoreProductId SKU --playSkuId SKU` replacing USER_ID with the value from step 3, and SKU with the values from step 2.
 
 ### Verify it worked
 
