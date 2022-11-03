@@ -30,6 +30,7 @@ jobs:
 
       - name: See if anything changed
         id: diff
+        continue-on-error: true
         run: |
           git diff --exit-code
       
