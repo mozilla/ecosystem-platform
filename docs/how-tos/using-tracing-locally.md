@@ -25,7 +25,7 @@ Setting the following environment variables which can easily be done by adding t
 #### Some sanity checks to ensure that tracing is working
 - Jaeger and otel-collector pm2 service will be online
 - Applications will log a `trace initialized` message
-- Traces will start showing up in Jaeger UI
+- Traces will start showing up in [Jaeger UI](http://localhost:16686)
 - You should also see logs in the otel collector. They should indicate a connection to jaeger was setup.
 - If you start using the application, you should also see requests going to http://localhost:4318/v1/traces coming from the client side.
 
