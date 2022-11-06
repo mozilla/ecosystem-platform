@@ -52,6 +52,6 @@ jobs:
       - name: create pull request
         if: steps.diff.outcome == 'failure'
         run: |
-          gh pr create -B main -H pull-api-definitions --title "[skip ci] New API definition" --body "Here is a new API defintion" --reviewer clouserw
+          gh pr create -B master -H pull-api-definitions --title "[skip ci] New API definition" --body "Here is a new API defintion" --reviewer clouserw
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
