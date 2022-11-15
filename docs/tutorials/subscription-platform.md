@@ -81,8 +81,8 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
 | product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
 | product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
-| successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButtonURL`. |
-| successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
+| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButtonURL`. |
+| product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
 | promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
 | support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
 | successActionButtonURL                    | Required. The download or subscription success action URL for the product. (Replaces downloadURL) |
