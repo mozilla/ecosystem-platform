@@ -6948,15 +6948,9 @@ definitions:
         type: number
       inclusive:
         type: boolean
-      name:
-        type: string
-      percentage:
-        type: number
     required:
       - amount
       - inclusive
-      - name
-      - percentage
   discount:
     type: object
     properties:
