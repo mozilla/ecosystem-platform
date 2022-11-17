@@ -1194,6 +1194,7 @@ paths:
     get:
       summary: /oauth/subscriptions/clients
       operationId: getOauthSubscriptionsClients
+      description: 🔒 Authenticated with OAuth bearer token
       tags:
         - Subscriptions
       responses:
@@ -1205,10 +1206,7 @@ paths:
     get:
       summary: /oauth/subscriptions/plans
       operationId: getOauthSubscriptionsPlans
-      description: |-
-        🔒 Authenticated with OAuth bearer token
-
-        Returns a list of available subscription plans.
+      description: Returns a list of available subscription plans.
       tags:
         - Subscriptions
       responses:
@@ -1283,6 +1281,7 @@ paths:
     get:
       summary: /oauth/subscriptions/invoice/preview-subsequent
       operationId: getOauthSubscriptionsInvoicePreviewsubsequent
+      description: 🔒 Authenticated with OAuth bearer token
       tags:
         - Subscriptions
       responses:
@@ -3764,7 +3763,7 @@ definitions:
         type: string
         maxLength: 255
         pattern: >-
-          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?:\:\d+)?(\/.*)?$
+          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?::\d+)?(\/.*)?$
         x-format:
           uri:
             scheme: https
@@ -3879,7 +3878,7 @@ definitions:
         type: string
         maxLength: 255
         pattern: >-
-          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?:\:\d+)?(\/.*)?$
+          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?::\d+)?(\/.*)?$
         x-format:
           uri:
             scheme: https
@@ -4375,6 +4374,16 @@ definitions:
         $ref: '#/definitions/subscriptions'
     required:
       - subscriptions
+  tax:
+    type: object
+    properties:
+      amount:
+        type: number
+      inclusive:
+        type: boolean
+    required:
+      - amount
+      - inclusive
   Model33:
     type: object
     properties:
@@ -4384,6 +4393,8 @@ definitions:
         type: number
       total:
         type: number
+      tax:
+        $ref: '#/definitions/tax'
     required:
       - subscriptionId
       - period_start
@@ -5306,7 +5317,7 @@ definitions:
         type: string
         maxLength: 255
         pattern: >-
-          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?:\:\d+)?(\/.*)?$
+          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?::\d+)?(\/.*)?$
         x-format:
           uri:
             scheme: https
@@ -5348,7 +5359,7 @@ definitions:
         type: string
         maxLength: 255
         pattern: >-
-          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?:\:\d+)?(\/.*)?$
+          ^https:\/\/[a-zA-Z0-9._-]+(\.services\.mozilla\.com|autopush\.dev\.mozaws\.net|autopush\.stage\.mozaws\.net)(?::\d+)?(\/.*)?$
         x-format:
           uri:
             scheme: https
@@ -6941,16 +6952,6 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/Model132'
-  tax:
-    type: object
-    properties:
-      amount:
-        type: number
-      inclusive:
-        type: boolean
-    required:
-      - amount
-      - inclusive
   discount:
     type: object
     properties:
