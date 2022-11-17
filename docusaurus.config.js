@@ -36,9 +36,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       ({
         specs: [
           {
-            // Comes from https://api.accounts.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, but also it is pulled in on build time so we'd need to rebuild periodically anyway
+            // Comes from https://api.accounts.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, we pull updates in via a github action
             spec: 'api-swagger.json',
             route: '/api',
+          },
+          {
+            // Comes from https://graphql.accounts.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, we pull updates in via a github action
+            spec: 'api-customs.json',
+            route: '/customs-api',
           },
         ],
         option: {

@@ -71,6 +71,11 @@ module.exports = {
                                 'reference/style-guides/node-style-guide',
                               ]
                             },
+                            {
+                              type: 'link',
+                              label: '⚙️ Customs API Reference',
+                              href: '/customs-api',
+                            },
                             'reference/browser-support',
                             'reference/incident-response',
                             'reference/emails',
