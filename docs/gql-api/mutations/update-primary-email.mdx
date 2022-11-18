@@ -1,0 +1,40 @@
+---
+id: update-primary-email
+title: updatePrimaryEmail
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Change users primary email address, this email address must belong to the user and be verified.
+
+```graphql
+updatePrimaryEmail(
+  input: EmailInput!
+): BasicPayload!
+```
+
+
+### Arguments
+
+#### [<code style={{ fontWeight: 'normal' }}>updatePrimaryEmail.<b>input</b></code>](#)<Bullet />[`EmailInput!`](/gql-api/inputs/email-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/>
+> 
+> 
+
+### Type
+
+#### [`BasicPayload`](/gql-api/objects/basic-payload) <Badge class="secondary" text="object"/>
+> 
+> 
+
+
+
+
+

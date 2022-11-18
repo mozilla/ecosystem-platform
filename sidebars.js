@@ -9,7 +9,7 @@ module.exports = {
         'Tutorials': [
                         'relying-parties/tutorials/integration-with-fxa',
                         'relying-parties/tutorials/integration-with-subscription-platform',
-                        'relying-parties/tutorials/pairing',                        
+                        'relying-parties/tutorials/pairing',
                      ],
         'How-to Guides': [
                           'relying-parties/how-twos/end-to-end-encryption',
@@ -17,13 +17,18 @@ module.exports = {
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
                       'relying-parties/reference/sub-plat-overview',
-                      'relying-parties/reference/sub-plat-features',            
+                      'relying-parties/reference/sub-plat-features',
                       'relying-parties/reference/sub-plat-coupons',
                       'relying-parties/reference/using-apis',
                       {
                         type: 'link',
                         label: '⚙️ API Reference',
                         href: '/api',
+                      },
+                      {
+                        type: 'link',
+                        label: '⚙️  GQL API Reference',
+                        href: '/gql-api',
                       }
                      ],
       },
@@ -108,7 +113,7 @@ module.exports = {
                             },
                            ],
           'Explanation':   [
-                            'explanation/metrics',                
+                            'explanation/metrics',
                             'explanation/onepw-protocol',
                             'explanation/scoped-keys',
                             'explanation/content-server-architecture',
@@ -131,4 +136,5 @@ module.exports = {
       ]
     }
   ],
+  ...require("./docs/gql-api/sidebar-schema.js"),
 };

@@ -14,6 +14,20 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   projectName: 'ecosystem-platform',
   trailingSlash: false,
 
+  plugins: [
+      [
+          "@graphql-markdown/docusaurus",
+          {
+              baseURL: "gql-api",
+              rootPath: "./docs",
+              schema: "api-gql.gql",
+              loaders: {
+                GraphQLFileLoader: "@graphql-tools/graphql-file-loader"
+              }
+          }
+      ],
+  ],
+
   presets: [
     [
       '@docusaurus/preset-classic',
