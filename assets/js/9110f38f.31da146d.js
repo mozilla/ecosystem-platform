@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfirefox_ecosystem_platform=self.webpackChunkfirefox_ecosystem_platform||[]).push([[6411],{7831:e=>{e.exports={}}}]);
