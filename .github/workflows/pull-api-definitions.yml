@@ -9,8 +9,9 @@ jobs:
   pull-api-definitions:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone ecosystem-docs code repository
+      - name: Clone ecosystem-docs code repository and setup npm
         uses: actions/checkout@v3
+        uses: actions/setup-node@v3
 
       - name: Set up Git
         id: setup
@@ -27,6 +28,8 @@ jobs:
         run: |
           # Run script to pull docs
           curl https://api.accounts.firefox.com/swagger.json -o api-swagger.json
+          curl https://graphql.accounts.firefox.com/swagger.json -o api-customs.json
+          curl https://accounts-static.cdn.mozilla.net/fxa-graphql-api/schema.gql -o api-gql.gql
 
       - name: See if anything changed
         id: diff
@@ -45,13 +48,14 @@ jobs:
         id: commit
         if: steps.diff.outcome == 'failure'
         run: |
-          git add api-swagger.json
-          git commit -m "[skip ci] New API definition"
+          npm run docusaurus graphql-to-doc
+          git add api-swagger.json api-customs.json api-gql.gql docs/gql-api
+          git commit -m "[skip ci] New API definitions"
           git push origin pull-api-definitions -f
 
       - name: create pull request
         if: steps.diff.outcome == 'failure'
         run: |
-          gh pr create -B master -H pull-api-definitions --title "[skip ci] New API definition" --body "Here is a new API defintion" --reviewer clouserw
+          gh pr create -B master -H pull-api-definitions --title "[skip ci] New API definition" --body "Updated APIs detected.  Here are some new docs." --reviewer clouserw
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
