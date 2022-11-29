@@ -1624,34 +1624,34 @@
   resolved "https://registry.yarnpkg.com/@exodus/schemasafe/-/schemasafe-1.0.0-rc.9.tgz#56b9c6df627190f2dcda15f81f25d68826d9be4d"
   integrity sha512-dGGHpb61hLwifAu7sotuHFDBw6GTdpG8aKC0fsK17EuTzMRvUrH7lEAr6LTJ+sx3AZYed9yZ77rltVDHyg2hRg==
 
-"@graphql-markdown/core@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.0.1.tgz#4f833120f9bc19bb8c06fa192d5e9196c6587881"
-  integrity sha512-ELNG0MUFLhD1rhGYzzLGJRl8u7olLL5+ZKbW5TlU6uAE5ZpV4/ARgVXUlnF7ttviUnZsQ2vF12U+R+GKzxgRrg==
+"@graphql-markdown/core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.1.1.tgz#0024b18898616b3135fb8352fa858dfc36a30b1a"
+  integrity sha512-KEaZpFoaUsaVHTu2mYhJ4WkQK4rHX1iYE087h0VoZKv1bGNyE2DgGyVF7BjLPgIMW9yTw7Kp6dEecM+HNpTHrA==
   dependencies:
-    "@graphql-markdown/utils" "^1.0.1"
+    "@graphql-markdown/utils" "^1.1.0"
 
-"@graphql-markdown/docusaurus@^1.14.0":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.15.1.tgz#93ec360439fada59a0fc6dbb9908ba811db96b5d"
-  integrity sha512-sP6FU/WTrS2wit3fE5FHNgr7Arf3PVmKJWZr8WDTONgUmT9dOENuf0coVDhl8ldJm8/8uQoR78rthFgyMs7NZg==
+"@graphql-markdown/docusaurus@^1.16.1":
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.16.1.tgz#03b85a5b1ea0f2311bbef6f7f533711934bf34d0"
+  integrity sha512-e20kNZw5Mv83jsgiwRuJ1FU2KmkC5FlJ9Fz3mIdWh4X1chRNLSDPvCL4aZc+uxx1vdUmjoPn7K6btJ+YLHRO9g==
   dependencies:
-    "@graphql-markdown/core" "^1.0.1"
-    "@graphql-markdown/printer-legacy" "^1.0.1"
+    "@graphql-markdown/core" "^1.1.1"
+    "@graphql-markdown/printer-legacy" "^1.1.1"
 
-"@graphql-markdown/printer-legacy@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.0.1.tgz#73eae495a6ec1ec35f946a694cd57bcd9144c253"
-  integrity sha512-oSI0GtMMsXGLCGFhUw7JsC+EiWlmZYxjlQHLhBPQY6SaogPwIgLO0gh1v8B+4VDcPo3+rxrJAzq08piUbqcP3g==
+"@graphql-markdown/printer-legacy@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.1.1.tgz#8662c4a51139ff0251c7ac5eb8a2f993d8f61f58"
+  integrity sha512-0rzNIDbJOJ/oZb/P8otL+gbRkZcJdDxEAdwJt7oDJFE/uTIpCQY0YhTdNztjEoqHKK/Vf/e9D/61IHOLVjQxYQ==
   dependencies:
-    "@graphql-markdown/utils" "1.0.1"
+    "@graphql-markdown/utils" "^1.1.0"
 
-"@graphql-markdown/utils@1.0.1", "@graphql-markdown/utils@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/utils/-/utils-1.0.1.tgz#888d33a4be7d910d0e8003fe9c6a9e0e38edb4d2"
-  integrity sha512-Gu1b+JqgkwuNHOjA4meB3gULQwgk8cZIBlsoVo4XF6UHinIe7INoGQjYSoY/VLIYhQevOrobowMstMqUkNRUOA==
+"@graphql-markdown/utils@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/utils/-/utils-1.1.0.tgz#29968f901c610705907eacd383aa9a70dd6efe98"
+  integrity sha512-dkN8JY5Gns3v7lbWxXDJyn8y6dGNwwsPoOJyO10DzAu4Dqm+nUmzVT71hQqWoShJxjV7QLkhWm0vfyg+fvR5EQ==
   dependencies:
-    "@graphql-tools/load" "^7.7.7"
+    "@graphql-tools/load" "^7.8.6"
 
 "@graphql-tools/graphql-file-loader@^7.5.11":
   version "7.5.11"
@@ -1673,7 +1673,7 @@
     resolve-from "5.0.0"
     tslib "^2.4.0"
 
-"@graphql-tools/load@^7.7.7":
+"@graphql-tools/load@^7.8.6":
   version "7.8.6"
   resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.8.6.tgz#f0c5d7852337f8c7e4b88a9a7d63255d29d98395"
   integrity sha512-yFDM5hVhV0eOom3SGyc+mjL8FvEb+0PZTZ/OSc4zrs3m/ABiQFHm2ilhzNS+OsMCpOsfGl2kXguEdt86QPp60Q==
