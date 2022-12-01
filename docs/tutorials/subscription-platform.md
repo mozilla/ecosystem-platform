@@ -91,8 +91,8 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 ##### Plan Metadata {#stripe-plan-metadata}
 | Key | Description |
 | --- | --- |
-| appStoreProductIds                        | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. |
-| playSkuIds                                | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. |
+| appStoreProductIds                        | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. There must only be one Stripe plan per App Store `productId` per environment (development/stage/production). |
+| playSkuIds                                | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. There must only be one Stripe plan per Google Play product SKU per environment (development/stage/production). |
 
 
 ##### Product Configuration Documents
