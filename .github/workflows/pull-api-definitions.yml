@@ -50,6 +50,7 @@ jobs:
         id: commit
         if: steps.diff.outcome == 'failure'
         run: |
+          npm install @graphql-markdown/docusaurus graphql
           npx docusaurus graphql-to-doc
           git add api-swagger.json api-customs.json api-gql.gql docs/gql-api
           git commit -m "[skip ci] New API definitions"
