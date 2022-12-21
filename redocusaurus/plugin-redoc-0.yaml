@@ -687,7 +687,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model141'
+            $ref: '#/definitions/Model143'
           description: Successful
   /recovery_emails:
     get:
@@ -3334,6 +3334,26 @@ paths:
           schema:
             $ref: '#/definitions/Model128'
           description: Successful
+  /oauth/subscriptions/iap/app-store-notification:
+    post:
+      summary: /oauth/subscriptions/iap/app-store-notification
+      operationId: postOauthSubscriptionsIapAppstorenotification
+      description: |-
+        🔒 payload validated against Apple certificates
+
+        Update stored purchase information with latest subscription status.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model130'
+      tags:
+        - Subscriptions
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
   /oauth/subscriptions/iap/rtdn:
     post:
       summary: /oauth/subscriptions/iap/rtdn
@@ -3342,7 +3362,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model130'
+            $ref: '#/definitions/Model131'
       tags:
         - Subscriptions
       responses:
@@ -3358,13 +3378,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model131'
+            $ref: '#/definitions/Model132'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model133'
+            $ref: '#/definitions/Model134'
           description: Successful
   /oauth/subscriptions/invoice/retry:
     post:
@@ -3378,13 +3398,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model134'
+            $ref: '#/definitions/Model135'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model135'
+            $ref: '#/definitions/Model136'
           description: Successful
   /oauth/subscriptions/paymentmethod/billing-agreement:
     post:
@@ -3395,7 +3415,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model136'
+            $ref: '#/definitions/Model137'
       tags:
         - Subscriptions
       responses:
@@ -3417,7 +3437,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model138'
       tags:
         - Subscriptions
       responses:
@@ -3440,7 +3460,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model138'
+            $ref: '#/definitions/Model139'
           description: Successful
   /oauth/subscriptions/stripe/event:
     post:
@@ -3451,6 +3471,32 @@ paths:
           name: stripe-signature
           in: header
           required: true
+      tags:
+        - Subscriptions
+      responses:
+        default:
+          schema:
+            type: string
+          description: Successful
+  /oauth/subscriptions/iap/app-store-transaction/{appName}:
+    post:
+      summary: /oauth/subscriptions/iap/app-store-transaction/{appName}
+      operationId: postOauthSubscriptionsIapAppstoretransactionAppname
+      description: >-
+        🔒 authenticated with OAuth bearer token
+
+
+        Validate and store an App Store Original Transaction ID for the given
+        user. Returns token validity.
+      parameters:
+        - type: string
+          name: appName
+          in: path
+          required: true
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model140'
       tags:
         - Subscriptions
       responses:
@@ -3476,7 +3522,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model139'
+            $ref: '#/definitions/Model141'
       tags:
         - Subscriptions
       responses:
@@ -3493,13 +3539,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model138'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model140'
+            $ref: '#/definitions/Model142'
           description: Successful
   /oauth/subscriptions/active/{subscriptionId}:
     put:
@@ -3515,7 +3561,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model142'
+            $ref: '#/definitions/Model144'
       tags:
         - Subscriptions
       responses:
@@ -6908,6 +6954,13 @@ definitions:
     required:
       - priceId
       - idempotencyKey
+  Model130:
+    type: object
+    properties:
+      signedPayload:
+        type: string
+    required:
+      - signedPayload
   message:
     type: object
     properties:
@@ -6915,14 +6968,14 @@ definitions:
         type: string
     required:
       - data
-  Model130:
+  Model131:
     type: object
     properties:
       message:
         $ref: '#/definitions/message'
     required:
       - message
-  Model131:
+  Model132:
     type: object
     properties:
       priceId:
@@ -6932,7 +6985,7 @@ definitions:
         type: string
     required:
       - priceId
-  Model132:
+  Model133:
     type: object
     properties:
       amount:
@@ -6951,7 +7004,7 @@ definitions:
   line_items:
     type: array
     items:
-      $ref: '#/definitions/Model132'
+      $ref: '#/definitions/Model133'
   discount:
     type: object
     properties:
@@ -6965,7 +7018,7 @@ definitions:
       - amount
       - amount_off
       - percent_off
-  Model133:
+  Model134:
     type: object
     properties:
       line_items:
@@ -6982,7 +7035,7 @@ definitions:
       - line_items
       - subtotal
       - total
-  Model134:
+  Model135:
     type: object
     properties:
       invoiceId:
@@ -6996,7 +7049,7 @@ definitions:
       - invoiceId
       - paymentMethodId
       - idempotencyKey
-  Model135:
+  Model136:
     type: object
     properties:
       id:
@@ -7008,7 +7061,7 @@ definitions:
           - $ref: '#/x-alt-definitions/payment_intent'
     required:
       - id
-  Model136:
+  Model137:
     type: object
     properties:
       token:
@@ -7016,7 +7069,7 @@ definitions:
         maxLength: 30
     required:
       - token
-  Model137:
+  Model138:
     type: object
     properties:
       paymentMethodId:
@@ -7024,7 +7077,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model138:
+  Model139:
     type: object
     properties:
       client_secret:
@@ -7049,7 +7102,14 @@ definitions:
     required:
       - created
       - status
-  Model139:
+  Model140:
+    type: object
+    properties:
+      originalTransactionId:
+        type: string
+    required:
+      - originalTransactionId
+  Model141:
     type: object
     properties:
       sku:
@@ -7059,7 +7119,7 @@ definitions:
     required:
       - sku
       - token
-  Model140:
+  Model142:
     type: object
     properties:
       id:
@@ -7067,12 +7127,12 @@ definitions:
         maxLength: 30
     required:
       - id
-  Model141:
+  Model143:
     type: object
     properties:
       success:
         type: boolean
-  Model142:
+  Model144:
     type: object
     properties:
       planId:
