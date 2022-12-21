@@ -7,6 +7,62 @@ type BasicPayload {
   clientMutationId: String
 }
 
+type ChangeRecoveryCodesPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  recoveryCodes: [String!]!
+}
+
+type CreateTotpPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  qrCodeUrl: String!
+  secret: String!
+  recoveryCodes: [String!]!
+}
+
+type PasswordForgotSendCodePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  passwordForgotToken: String!
+}
+
+type PasswordForgotVerifyCodePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  accountResetToken: String!
+}
+
+type PasswordForgotCodeStatusPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  tries: Float!
+  ttl: Float!
+}
+
+type AccountResetPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String
+  sessionToken: String
+  verified: Boolean
+  authAt: Float
+  keyFetchToken: String
+}
+
+type SignedInAccountPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  sessionToken: String!
+  verified: Boolean!
+  authAt: Float!
+  metricsEnabled: Boolean!
+  keyFetchToken: String
+  verificationMethod: String
+  verificationReason: String
+}
+
 type Avatar {
   """url for the user's avatar."""
   url: String
@@ -21,20 +77,6 @@ type UpdateDisplayNamePayload {
 
   """Updated display name. Null if an error occurred."""
   displayName: String
-}
-
-type ChangeRecoveryCodesPayload {
-  """A unique identifier for the client performing the mutation."""
-  clientMutationId: String
-  recoveryCodes: [String!]!
-}
-
-type CreateTotpPayload {
-  """A unique identifier for the client performing the mutation."""
-  clientMutationId: String
-  qrCodeUrl: String!
-  secret: String!
-  recoveryCodes: [String!]!
 }
 
 type VerifyTotpPayload {
@@ -213,6 +255,21 @@ type Mutation {
   """Set the metrics opt in or out state"""
   metricsOpt(input: MetricsOptInput!): BasicPayload!
 
+  """Send a password reset email."""
+  passwordForgotSendCode(input: PasswordForgotSendCodeInput!): PasswordForgotSendCodePayload!
+
+  """Verify password forgot token, returns account reset token"""
+  passwordForgotVerifyCode(input: PasswordForgotVerifyCodeInput!): PasswordForgotVerifyCodePayload!
+
+  """Verify password forgot token, returns account reset token"""
+  passwordForgotCodeStatus(input: PasswordForgotCodeStatusInput!): PasswordForgotCodeStatusPayload!
+
+  """Resets an account"""
+  accountReset(input: AccountResetInput!): AccountResetPayload!
+
+  """Call auth-server to sign in an account"""
+  signIn(input: SignInInput!): SignedInAccountPayload!
+
   """Logs out the current session"""
   destroySession(input: DestroySessionInput!): BasicPayload!
 }
@@ -349,6 +406,71 @@ input MetricsOptInput {
   The desired state: "in" or "out"
   """
   state: String!
+}
+
+input PasswordForgotSendCodeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Users email"""
+  email: String!
+  metricsContext: MetricsContext
+  resume: String
+  service: String
+  lang: String
+  redirectTo: String
+}
+
+input PasswordForgotVerifyCodeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Password forgot token"""
+  token: String!
+
+  """Code"""
+  code: String!
+}
+
+input PasswordForgotCodeStatusInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """Password forgot token"""
+  token: String!
+}
+
+input AccountResetInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  accountResetToken: String!
+  email: String!
+  newPassword: String!
+  options: AccountResetInputOptions
+}
+
+input AccountResetInputOptions {
+  keys: Boolean
+  sessionToken: Boolean
+}
+
+input SignInInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  authPW: String!
+  email: String!
+  options: SignInOptionsInput!
+}
+
+input SignInOptionsInput {
+  keys: Boolean
+  service: String
+  reason: String
+  redirectTo: String
+  resume: String
+  verificationMethod: String
+  unblockCode: String
+  metricsContext: MetricsContext
 }
 
 input DestroySessionInput {
