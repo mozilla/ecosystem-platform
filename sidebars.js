@@ -13,6 +13,7 @@ module.exports = {
                      ],
         'How-to Guides': [
                           'relying-parties/how-twos/end-to-end-encryption',
+                          'relying-parties/how-twos/apple-iap',
                          ],
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
