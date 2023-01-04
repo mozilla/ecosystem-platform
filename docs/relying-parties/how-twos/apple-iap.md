@@ -26,8 +26,8 @@ This document represents a list of App Store plans (identified uniquely by their
 2. Create a configuration document similar in form to https://api.accounts.firefox.com/v1/oauth/subscriptions/iap/plans/guardian-vpn (omitting Android plans) including a `bundleId` property. This can be in a Google document for now.
     * Note: The only information SubPlat uses from the VPN document currently is the `productId` and `platform`. The VPN configuration document is structured in this way for historical reasons. We may change how this information is structured for future integrations.
 3. File a ticket in the [FXA Jira project](https://mozilla-hub.atlassian.net/browse/FXA) to create a new document in SubPlat's "IAP config" Firestore collection, and provide the document from Step 2 along with an `appName`.
-    * `appName` is a human-readable name that SubPlat will use internally to uniquely identify your app in our system (e.g. `"guardian-vpn"` is the `appName` for the Mozilla VPN in the link above).
-    When the ticket is complete, you should be able to view your configuration at https://api.accounts.firefox.com/v1/oauth/subscriptions/iap/plans/${appName}.
+    * `appName` is a human-readable name that SubPlat uses to uniquely identify your app in our system (e.g. `"guardian-vpn"` is the `appName` for the Mozilla VPN in the link above).
+    When the ticket is complete and deployed, you should be able to view your configuration at https://api.accounts.firefox.com/v1/oauth/subscriptions/iap/plans/${appName}.
 
 ### Add App Store Server API keys in SubPlat
 
