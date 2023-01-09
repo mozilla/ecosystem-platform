@@ -1624,34 +1624,34 @@
   resolved "https://registry.yarnpkg.com/@exodus/schemasafe/-/schemasafe-1.0.0-rc.9.tgz#56b9c6df627190f2dcda15f81f25d68826d9be4d"
   integrity sha512-dGGHpb61hLwifAu7sotuHFDBw6GTdpG8aKC0fsK17EuTzMRvUrH7lEAr6LTJ+sx3AZYed9yZ77rltVDHyg2hRg==
 
-"@graphql-markdown/core@^1.1.1":
+"@graphql-markdown/core@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.1.2.tgz#20313f6c5d17cbd44a22f919dfebad333f9aed8f"
+  integrity sha512-jD9cuUHnK0VRP+OccIlz6OnghNn6SJGhz9M5MIz1spB0F5m5zjVqRHCgD4Mb37YFQr4NrubZkeQ1jCyE2B5SBw==
+  dependencies:
+    "@graphql-markdown/utils" "^1.1.1"
+
+"@graphql-markdown/docusaurus@^1.16.2":
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.16.2.tgz#1627376aa28f5a8c1ce71cc096faef3ad57d414e"
+  integrity sha512-Fts3fkSd93AjQmy6rfsM2yUCXPUJEPodpHjjpWKUIO6E4UnbtzHjezAEo2JPXctTkeqBQtsBFJhLLxaCEVJ7Iw==
+  dependencies:
+    "@graphql-markdown/core" "^1.1.2"
+    "@graphql-markdown/printer-legacy" "^1.1.2"
+
+"@graphql-markdown/printer-legacy@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.1.2.tgz#53732e001adf0ac53f79355622f80c8faef5768d"
+  integrity sha512-gKrIMaUVbArMBaig5/XdCbLxMkDkMKNW71MS1frlBqGSpLBn4XfIeMXnlhM94w5ia4n9RidwrRNxUczyEKpaxQ==
+  dependencies:
+    "@graphql-markdown/utils" "^1.1.1"
+
+"@graphql-markdown/utils@^1.1.1":
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.1.1.tgz#0024b18898616b3135fb8352fa858dfc36a30b1a"
-  integrity sha512-KEaZpFoaUsaVHTu2mYhJ4WkQK4rHX1iYE087h0VoZKv1bGNyE2DgGyVF7BjLPgIMW9yTw7Kp6dEecM+HNpTHrA==
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/utils/-/utils-1.1.1.tgz#933629e0e7cc7653cc9649de4d35f11192caddbc"
+  integrity sha512-khWQgdeQWWOFlX9CzbkvkJV0rKlcFfQjOXAZLbKNvoXjXkioJQ6Ce8QybRAcCA1sVdrIZVhlrtxrP3FD2lrZ/A==
   dependencies:
-    "@graphql-markdown/utils" "^1.1.0"
-
-"@graphql-markdown/docusaurus@^1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.16.1.tgz#03b85a5b1ea0f2311bbef6f7f533711934bf34d0"
-  integrity sha512-e20kNZw5Mv83jsgiwRuJ1FU2KmkC5FlJ9Fz3mIdWh4X1chRNLSDPvCL4aZc+uxx1vdUmjoPn7K6btJ+YLHRO9g==
-  dependencies:
-    "@graphql-markdown/core" "^1.1.1"
-    "@graphql-markdown/printer-legacy" "^1.1.1"
-
-"@graphql-markdown/printer-legacy@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.1.1.tgz#8662c4a51139ff0251c7ac5eb8a2f993d8f61f58"
-  integrity sha512-0rzNIDbJOJ/oZb/P8otL+gbRkZcJdDxEAdwJt7oDJFE/uTIpCQY0YhTdNztjEoqHKK/Vf/e9D/61IHOLVjQxYQ==
-  dependencies:
-    "@graphql-markdown/utils" "^1.1.0"
-
-"@graphql-markdown/utils@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/utils/-/utils-1.1.0.tgz#29968f901c610705907eacd383aa9a70dd6efe98"
-  integrity sha512-dkN8JY5Gns3v7lbWxXDJyn8y6dGNwwsPoOJyO10DzAu4Dqm+nUmzVT71hQqWoShJxjV7QLkhWm0vfyg+fvR5EQ==
-  dependencies:
-    "@graphql-tools/load" "^7.8.6"
+    "@graphql-tools/load" "^7.8.8"
 
 "@graphql-tools/graphql-file-loader@^7.5.11":
   version "7.5.11"
@@ -1673,31 +1673,31 @@
     resolve-from "5.0.0"
     tslib "^2.4.0"
 
-"@graphql-tools/load@^7.8.6":
-  version "7.8.6"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.8.6.tgz#f0c5d7852337f8c7e4b88a9a7d63255d29d98395"
-  integrity sha512-yFDM5hVhV0eOom3SGyc+mjL8FvEb+0PZTZ/OSc4zrs3m/ABiQFHm2ilhzNS+OsMCpOsfGl2kXguEdt86QPp60Q==
+"@graphql-tools/load@^7.8.8":
+  version "7.8.8"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.8.8.tgz#e55aaca84a9e6348a730d92ba4cb3ec17cee45df"
+  integrity sha512-gMuQdO2jXmI0BNUc1MafxRQTWVMUtuH500pZAQtOdDdNJppV7lJdY6mMhITQ2qnhYDuMrcZPHhIkcftyQfkgUg==
   dependencies:
-    "@graphql-tools/schema" "9.0.10"
-    "@graphql-tools/utils" "9.1.1"
+    "@graphql-tools/schema" "9.0.12"
+    "@graphql-tools/utils" "9.1.3"
     p-limit "3.1.0"
     tslib "^2.4.0"
 
-"@graphql-tools/merge@8.3.12":
-  version "8.3.12"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-8.3.12.tgz#e3f2e5d8a7b34fb689cda66799d845cbc919e464"
-  integrity sha512-BFL8r4+FrqecPnIW0H8UJCBRQ4Y8Ep60aujw9c/sQuFmQTiqgWgpphswMGfaosP2zUinDE3ojU5wwcS2IJnumA==
+"@graphql-tools/merge@8.3.14":
+  version "8.3.14"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-8.3.14.tgz#d4d0a645656691d35e90e0686a6fa3d4091a34da"
+  integrity sha512-zV0MU1DnxJLIB0wpL4N3u21agEiYFsjm6DI130jqHpwF0pR9HkF+Ni65BNfts4zQelP0GjkHltG+opaozAJ1NA==
   dependencies:
-    "@graphql-tools/utils" "9.1.1"
+    "@graphql-tools/utils" "9.1.3"
     tslib "^2.4.0"
 
-"@graphql-tools/schema@9.0.10":
-  version "9.0.10"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-9.0.10.tgz#77ba3dfab241f0232dc0d3ba03201663b63714e2"
-  integrity sha512-lV0o4df9SpPiaeeDAzgdCJ2o2N9Wvsp0SMHlF2qDbh9aFCFQRsXuksgiDm2yTgT3TG5OtUes/t0D6uPjPZFUbQ==
+"@graphql-tools/schema@9.0.12":
+  version "9.0.12"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-9.0.12.tgz#73910fab315bd16098b989db22f967a1dc7f93dd"
+  integrity sha512-DmezcEltQai0V1y96nwm0Kg11FDS/INEFekD4nnVgzBqawvznWqK6D6bujn+cw6kivoIr3Uq//QmU/hBlBzUlQ==
   dependencies:
-    "@graphql-tools/merge" "8.3.12"
-    "@graphql-tools/utils" "9.1.1"
+    "@graphql-tools/merge" "8.3.14"
+    "@graphql-tools/utils" "9.1.3"
     tslib "^2.4.0"
     value-or-promise "1.0.11"
 
@@ -1705,6 +1705,13 @@
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-9.1.1.tgz#b47ea8f0d18c038c5c1c429e72caa5c25039fbab"
   integrity sha512-DXKLIEDbihK24fktR2hwp/BNIVwULIHaSTNTNhXS+19vgT50eX9wndx1bPxGwHnVBOONcwjXy0roQac49vdt/w==
+  dependencies:
+    tslib "^2.4.0"
+
+"@graphql-tools/utils@9.1.3":
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-9.1.3.tgz#861f87057b313726136fa6ddfbd2380eae906599"
+  integrity sha512-bbJyKhs6awp1/OmP+WKA1GOyu9UbgZGkhIj5srmiMGLHohEOKMjW784Sk0BZil1w2x95UPu0WHw6/d/HVCACCg==
   dependencies:
     tslib "^2.4.0"
 
