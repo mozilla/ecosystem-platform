@@ -63,6 +63,18 @@ type SignedInAccountPayload {
   verificationReason: String
 }
 
+type SessionReauthedAccountPlayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  verified: Boolean!
+  authAt: Float!
+  metricsEnabled: Boolean!
+  keyFetchToken: String
+  verificationMethod: String
+  verificationReason: String
+}
+
 type Avatar {
   """url for the user's avatar."""
   url: String
@@ -84,6 +96,21 @@ type VerifyTotpPayload {
   clientMutationId: String
   success: Boolean!
   recoveryCodes: [String!]
+}
+
+type AccountStatusPayload {
+  """Whether or not the account exists"""
+  exists: Boolean!
+}
+
+type SignedUpAccountPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  sessionToken: String!
+  keyFetchToken: String
+  authAt: Float!
+  verificationMethod: String
 }
 
 type Location {
@@ -186,15 +213,46 @@ type Account {
   linkedAccounts: [LinkedAccount!]!
 }
 
+type FinishedSetupAccountPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  sessionToken: String!
+  verified: Boolean!
+}
+
 """Session (token) info"""
 type Session {
   """Whether the current session is verified"""
   verified: Boolean!
 }
 
+"""Session status"""
+type SessionStatus {
+  """uid of the account"""
+  uid: String!
+
+  """Whether the current session is verified"""
+  state: String!
+}
+
 type Query {
   account: Account
+
+  """
+  Check the status of an account using session token or uid. This query is equivalent to the GET /account/status endpoint in auth-server.
+  """
+  accountStatus(input: AccountStatusInput!): AccountStatusPayload!
   session: Session!
+  sessionStatus: SessionStatus!
+}
+
+input AccountStatusInput {
+  """The uid to apply this operation to."""
+  uid: String
+
+  """The token id to apply this operation to."""
+  token: String
 }
 
 type Mutation {
@@ -267,11 +325,34 @@ type Mutation {
   """Resets an account"""
   accountReset(input: AccountResetInput!): AccountResetPayload!
 
+  """Call auth-server to sign up an account"""
+  SignUp(input: SignUpInput!): SignedUpAccountPayload!
+
+  """Call auth-server to finish signing up a "stub" account"""
+  finishSetup(input: FinishSetupInput!): FinishedSetupAccountPayload!
+
   """Call auth-server to sign in an account"""
   signIn(input: SignInInput!): SignedInAccountPayload!
 
+  """
+  Used to reject and report unblock codes that were not requested by the user.
+  """
+  rejectUnblockCode(input: RejectUnblockCodeInput!): BasicPayload!
+
+  """Used to verify a users primary email address."""
+  emailVerifyCode(input: VerifyEmailCodeInput!): BasicPayload!
+
   """Logs out the current session"""
   destroySession(input: DestroySessionInput!): BasicPayload!
+
+  """Re-authenticate an existing session token."""
+  reauthSession(input: SessionReauthInput!): SessionReauthedAccountPlayload!
+
+  """Resend a verify code."""
+  resendVerifyCode(input: BasicMutationInput!): BasicPayload!
+
+  """Verify a OTP code."""
+  verifyCode(input: SessionVerifyCodeInput!): BasicPayload!
 }
 
 input CreatePassword {
@@ -454,6 +535,31 @@ input AccountResetInputOptions {
   sessionToken: Boolean
 }
 
+input SignUpInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  authPW: String!
+  email: String!
+  options: SignUpOptionsInput!
+}
+
+input SignUpOptionsInput {
+  keys: Boolean
+  service: String
+  redirectTo: String
+  resume: String
+  verificationMethod: String
+  preVerified: String
+  metricsContext: MetricsContext
+}
+
+input FinishSetupInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  token: String!
+  authPW: String!
+}
+
 input SignInInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -473,7 +579,66 @@ input SignInOptionsInput {
   metricsContext: MetricsContext
 }
 
+input RejectUnblockCodeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  unblockCode: String!
+}
+
+input VerifyEmailCodeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The code to check"""
+  code: String!
+
+  """Account uid"""
+  uid: String!
+  service: String
+}
+
 input DestroySessionInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
+}
+
+input SessionReauthInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  authPW: String!
+  email: String!
+  options: SessionReauthOptionsInput!
+  sessionToken: String!
+}
+
+input SessionReauthOptionsInput {
+  keys: Boolean
+  service: String
+  reason: String
+  redirectTo: String
+  resume: String
+  verificationMethod: String
+  unblockCode: String
+  metricsContext: MetricsContext
+}
+
+input BasicMutationInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+input SessionVerifyCodeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """The code to check"""
+  code: String!
+  options: SessionVerifyCodeOptionsInput!
+}
+
+input SessionVerifyCodeOptionsInput {
+  service: String
+  scopes: [String!]
+  newsletters: [String!]
 }
