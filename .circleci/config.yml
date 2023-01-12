@@ -7,7 +7,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "08:7d:0c:05:81:94:71:a8:57:03:40:ec:6c:fc:98:cf"
+            - "cc:4c:4f:b8:68:5f:da:6c:fc:fd:58:85:78:5f:38:86"
       - checkout
       - run:
           name: Build and publish the docs portal
