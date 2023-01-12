@@ -1,0 +1,38 @@
+---
+id: account-status-payload
+title: AccountStatusPayload
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+type AccountStatusPayload {
+  exists: Boolean!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>AccountStatusPayload.<b>exists</b></code>](#)<Bullet />[`Boolean!`](/gql-api/scalars/boolean) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> Whether or not the account exists
+> 
+
+
+
+### Returned by
+
+[`accountStatus`](/gql-api/queries/account-status)  <Badge class="secondary" text="query"/>
+
+
+

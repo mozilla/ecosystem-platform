@@ -1,0 +1,43 @@
+---
+id: session-status
+title: SessionStatus
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+Session status
+
+```graphql
+type SessionStatus {
+  uid: String!
+  state: String!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>SessionStatus.<b>uid</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> uid of the account
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SessionStatus.<b>state</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> Whether the current session is verified
+> 
+
+
+
+### Returned by
+
+[`sessionStatus`](/gql-api/queries/session-status)  <Badge class="secondary" text="query"/>
+
+
+
