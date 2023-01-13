@@ -1653,23 +1653,23 @@
   dependencies:
     "@graphql-tools/load" "^7.8.6"
 
-"@graphql-tools/graphql-file-loader@^7.5.11":
-  version "7.5.11"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-file-loader/-/graphql-file-loader-7.5.11.tgz#19c44ea9021d3220c7ed1cef6cfa0afbb40fd9a4"
-  integrity sha512-E4/YYLlM/T/VDYJ3MfQzJSkCpnHck+xMv2R6QTjO3khUeTCWJY4qsLDPFjAWE0+Mbe9NanXi/yL8Bz0yS/usDw==
+"@graphql-tools/graphql-file-loader@^7.5.14":
+  version "7.5.14"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/graphql-file-loader/-/graphql-file-loader-7.5.14.tgz#6c6527e353cf9adcbda2cdc8a85face03ad8fe04"
+  integrity sha512-JGer4g57kq4wtsvqv8uZsT4ZG1lLsz1x5yHDfSj2OxyiWw2f1jFkzgby7Ut3H2sseJiQzeeDYZcbm06qgR32pg==
   dependencies:
-    "@graphql-tools/import" "6.7.12"
-    "@graphql-tools/utils" "9.1.1"
+    "@graphql-tools/import" "6.7.15"
+    "@graphql-tools/utils" "9.1.4"
     globby "^11.0.3"
     tslib "^2.4.0"
     unixify "^1.0.0"
 
-"@graphql-tools/import@6.7.12":
-  version "6.7.12"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/import/-/import-6.7.12.tgz#173d2ce94304d1930e8674857d4ffe3cd52cfdd5"
-  integrity sha512-3+IV3RHqnpQz0o+0Liw3jkr0HL8LppvsFROKdfXihbnCGO7cIq4S9QYdczZ2DAJ7AosyzSu8m36X5dEmOYY6WA==
+"@graphql-tools/import@6.7.15":
+  version "6.7.15"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/import/-/import-6.7.15.tgz#7553e48140797255588b26d423a89aa042196928"
+  integrity sha512-WNhvauAt2I2iUg+JdQK5oQebKLXqUZWe8naP13K1jOkbTQT7hK3P/4I9AaVmzt0KXRJW5Uow3RgdHZ7eUBKVsA==
   dependencies:
-    "@graphql-tools/utils" "9.1.1"
+    "@graphql-tools/utils" "9.1.4"
     resolve-from "5.0.0"
     tslib "^2.4.0"
 
@@ -1705,6 +1705,13 @@
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-9.1.1.tgz#b47ea8f0d18c038c5c1c429e72caa5c25039fbab"
   integrity sha512-DXKLIEDbihK24fktR2hwp/BNIVwULIHaSTNTNhXS+19vgT50eX9wndx1bPxGwHnVBOONcwjXy0roQac49vdt/w==
+  dependencies:
+    tslib "^2.4.0"
+
+"@graphql-tools/utils@9.1.4":
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-9.1.4.tgz#2c9e0aefc9655dd73247667befe3c850ec014f3f"
+  integrity sha512-hgIeLt95h9nQgQuzbbdhuZmh+8WV7RZ/6GbTj6t3IU4Zd2zs9yYJ2jgW/krO587GMOY8zCwrjNOMzD40u3l7Vg==
   dependencies:
     tslib "^2.4.0"
 
