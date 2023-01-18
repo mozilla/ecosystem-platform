@@ -56,6 +56,7 @@ module.exports = {
                             'how-tos/using-sentry-locally',
                             'how-tos/using-tracing-locally',
                             'how-tos/using-tracing-in-gcp',
+                            'how-tos/ci-guidelines'
                            ],
           'Reference':     [
                               {
@@ -78,6 +79,16 @@ module.exports = {
                               ]
                             },
                             {
+                              type: 'category',
+                              label: 'CI and Test Automation', 
+                              items: [
+                                'reference/tests-in-circleci',
+                                'reference/functional-testing',
+                                'reference/automation-testplan',
+                                'reference/continuous-integration-for-monorepos'
+                              ]
+                            },
+                            {
                               type: 'link',
                               label: '⚙️ Customs API Reference',
                               href: '/customs-api',
@@ -92,9 +103,6 @@ module.exports = {
                             'reference/storybook-deploys-with-circleci',
                             'reference/webchannels-in-firefox-desktop-fennec',
                             'reference/webchannels-in-fenix-webextensions',
-                            'reference/tests-in-circleci',
-                            'reference/functional-testing',
-                            'reference/automation-testplan',
                             'reference/internal-api-documentation',
                             'reference/experiments-ab-testing',
                             'reference/system-diagrams',
