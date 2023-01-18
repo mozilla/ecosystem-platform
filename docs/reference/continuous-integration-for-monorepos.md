@@ -104,9 +104,9 @@ Finally, it’s good to know that integration tests are actually a hybrid approa
 
 
 ## In Summary
-These are the approaches we’ve taken to improve CI performance for a mono repo. There’s actually way more nuance that can be read about in this internal [document](https://docs.google.com/document/d/1WM4sLc0qQDzvq_0bX_nfZ1o2BM4M6YzmP33n36NB49Q/edit#heading=h.2jo3ou7ec55z) that is a retrospective on CI performance optimizations and some of the other issues that were encountered along the way. At a higher level this reference probably all that an engineer really needs to know. 
+These are the approaches we’ve taken to improve CI performance for a mono repo. There’s actually way more nuance that can be read about in this internal [document](https://docs.google.com/document/d/1WM4sLc0qQDzvq_0bX_nfZ1o2BM4M6YzmP33n36NB49Q/edit#heading=h.2jo3ou7ec55z) that is a retrospective on CI performance optimizations and some of the other issues that were encountered along the way. At a higher level this reference is probably all that an engineer really needs to know. 
 
-There is still room for more improvement, but for the pass this is where we are at. Ideas for future improvements are:
+There is still room for more improvement, but for the present this is where we are at. Ideas for future improvements are:
 
 - Dedicated CI runners could further reduce CI startup time by caching our docker layer images more effectively than circle CI does, this however would involve SRE. 
 - Restructuring yarn workspace packages, so that workspaces are broken down into smaller components with clearer dependencies chains. This may result in more skipped tests and faster pipelines. 
