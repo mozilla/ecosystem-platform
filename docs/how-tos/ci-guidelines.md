@@ -89,4 +89,4 @@ We have a lot of tests. No one really wants to dig through command line output t
 Test reports are fairly easy to export. Most testing frameworks will export a json format, typically in the junit reporter format, which can be interpreted by CircleCI. Any test report that ultimately ends up in the artifacts/tests will be accessible in the tests tab in circle ci as depicted above.
 
 ## Review the CI Workflows
-The CI workflows in FxA have been crafted to address some of the side effects that mono repos can have on CI. Checkout the [Continuous Integration](/ecosystem-platform/reference/continuous-integration) reference to learn more about how our CI design attempts to address some of these issues.
+The CI workflows in FxA have been crafted to address some of the side effects that mono repos can have on CI. Checkout the [Continuous Integration](../reference/continuous-integration-for-monorepos) reference to learn more about how our CI design attempts to address some of these issues.
