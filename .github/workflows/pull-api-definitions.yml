@@ -50,14 +50,15 @@ jobs:
         id: commit
         if: steps.diff.outcome == 'failure'
         run: |
-          npm run docusaurus graphql-to-doc
+          npm install @graphql-markdown/docusaurus graphql
+          npx docusaurus graphql-to-doc
           git add api-swagger.json api-customs.json api-gql.gql docs/gql-api
-          git commit -m "[skip ci] New API definitions"
+          git commit -m "New API definitions"
           git push origin pull-api-definitions -f
 
       - name: create pull request
         if: steps.diff.outcome == 'failure'
         run: |
-          gh pr create -B master -H pull-api-definitions --title "[skip ci] New API definition" --body "Updated APIs detected.  Here are some new docs." --reviewer clouserw
+          gh pr create -B master -H pull-api-definitions --title "New API definitions" --body "Updated APIs detected.  Here are some new docs." --reviewer clouserw
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

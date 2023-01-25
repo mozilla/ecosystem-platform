@@ -1,6 +1,6 @@
 ---
-id: specified-by
-title: specifiedBy
+id: sign-in
+title: signIn
 hide_table_of_contents: false
 ---
 
@@ -13,19 +13,25 @@ export const SpecifiedBy = (props) => <>Specification<a className="link" style={
 export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
 
 
-Exposes a URL that specifies the behavior of this scalar.
+Call auth-server to sign in an account
 
 ```graphql
-directive @specifiedBy(
-  url: String!
-) on SCALAR
+signIn(
+  input: SignInInput!
+): SignedInAccountPayload!
 ```
 
 
 ### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>specifiedBy.<b>url</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
-> The URL that specifies the behavior of this scalar.
+#### [<code style={{ fontWeight: 'normal' }}>signIn.<b>input</b></code>](#)<Bullet />[`SignInInput!`](/gql-api/inputs/sign-in-input) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="input"/>
+> 
+> 
+
+### Type
+
+#### [`SignedInAccountPayload`](/gql-api/objects/signed-in-account-payload) <Badge class="secondary" text="object"/>
+> 
 > 
 
 

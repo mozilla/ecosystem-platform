@@ -57,6 +57,8 @@ The Test Engineering team will be responsible for maintaining the existing tests
 ## Flaky Tests
 Along with the failures, all the flaky tests(i.e tests that are not consistently failing but are still failing 50% of the time) will be reported as well in Jira. Any consistent failures or flaky tests will be disabled(but not removed) until fixed and then re-enabled afterwards.
 
+If you encounter flakiness, please report it in this [document](https://docs.google.com/document/d/1f3ryLaluribglKdhCKNfCnCrzL__LnwRzDsq2ZtPb9E/edit?usp=sharing). Actual user reports are very helpful for seeing and prioritizing flakiness. 
+
 ## Sign Off
 List of people who have reviewed and agreed to the above listed guidelines. Note that this list should be the same as the the major stakeholders in building and maintaining the automated tests for the project
 

@@ -1,6 +1,6 @@
 ---
-id: specified-by
-title: specifiedBy
+id: basic-mutation-input
+title: BasicMutationInput
 hide_table_of_contents: false
 ---
 
@@ -13,22 +13,26 @@ export const SpecifiedBy = (props) => <>Specification<a className="link" style={
 export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
 
 
-Exposes a URL that specifies the behavior of this scalar.
+No description
 
 ```graphql
-directive @specifiedBy(
-  url: String!
-) on SCALAR
+input BasicMutationInput {
+  clientMutationId: String
+}
 ```
 
 
-### Arguments
+### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>specifiedBy.<b>url</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
-> The URL that specifies the behavior of this scalar.
+#### [<code style={{ fontWeight: 'normal' }}>BasicMutationInput.<b>clientMutationId</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="secondary" text="scalar"/>
+> A unique identifier for the client performing the mutation.
 > 
 
 
+
+### Member of
+
+[`resendVerifyCode`](/gql-api/mutations/resend-verify-code)  <Badge class="secondary" text="mutation"/>
 
 
 

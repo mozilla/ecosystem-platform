@@ -76,7 +76,9 @@ To cancel your subscription simply go to https://accounts.stage.mozaws.net/subsc
 
 To upgrade your subscription sign in to your account using the step above and go to the MDN Plus link. The website will now display your current plan and the upgrade options. 
 
+## Integration with Apple IAP
 
+To integrate your iOS app with the Subscription Platform, please see [Apple IAP](/ecosystem-platform/relying-parties/how-twos/apple-iap).
 
 [relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change

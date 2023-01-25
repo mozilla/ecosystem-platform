@@ -1,0 +1,43 @@
+---
+id: account-reset-input-options
+title: AccountResetInputOptions
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+input AccountResetInputOptions {
+  keys: Boolean
+  sessionToken: Boolean
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>AccountResetInputOptions.<b>keys</b></code>](#)<Bullet />[`Boolean`](/gql-api/scalars/boolean) <Badge class="secondary" text="scalar"/>
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>AccountResetInputOptions.<b>sessionToken</b></code>](#)<Bullet />[`Boolean`](/gql-api/scalars/boolean) <Badge class="secondary" text="scalar"/>
+> 
+> 
+
+
+
+### Member of
+
+[`AccountResetInput`](/gql-api/inputs/account-reset-input)  <Badge class="secondary" text="input"/>
+
+
+
