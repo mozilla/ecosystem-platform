@@ -63,7 +63,6 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
 | product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information.                                |
 | webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. Product icon will be resized to 64x64 pixels.           |
-| productSet                                | Required. An arbitrary string used to group products in a set of upgrades & downgrades. |
 | webIconBackground                         | Optional. A valid css color, color name or gradient for display behind your product icon on the web. Defaults to `#20123a`         |
 | product:name                              | Optional. Title string override for the product name.  |
 | product:name:{locale}                     | Optional. Localized title string override for the product name.  |
@@ -72,6 +71,7 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
 | appStoreLink                              | Optional. The App store download URL for the product. |
 | playStoreLink                             | Optional. The google play store download URL for the product. |
+| productSet                                | Required.  A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `productSet` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product. |
 | productOrder                              | Optional. A number used for sorting products in a set. |
 | product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. This parameter is used as a hyperlink in emails sent to the customer when their subscription is cancelled due, manual cancellation, FxA Account deletion, or failed payment.|
 | product:details:{n}                       | Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points. |
@@ -136,11 +136,12 @@ The configuration document is a JSON object.  The top level keys for that object
 | ------------------ | ----------- |
 | id                 | Optional. An identifier for the system storing the document.  It's not intended for manual edits.|
 | productConfigId    | _Plan configuration only_.  The identifier of the product configuration document from which the plan configuration inherits its default values.  It's not intended for manual edits.|
-| productSet         | An arbitrary string used to group products in a set of upgrades & downgrades. |
 | stripeProductId    | Optional. _Product configuration only_.  The [id of the Stripe product](https://stripe.com/docs/api/products/object#product_object-id) for which this document is providing configuration. |
 | stripePriceId      | Optional. _Plan configuration only_. The [id of the Stripe price](https://stripe.com/docs/api/prices/object#price_object-id) for which this document is providing configuration. |
 | active             | Boolean.  A status to indicate whether the product or plan is accepting new subscriptions. |
 | capabilities       | Object.  See [Capabilities Configuration](#production-config-capabilities) below.      |
+| productSet         | A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `
+` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product. |
 | productOrder       | Optional.  _Plan configuration only_.  A number used to determine a subscription change is an upgrade or a downgrade within the productSet. |
 | appStoreProductIds | Optional. _Plan configuration only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. |
 | playSkuIds         | Optional. _Plan configuration only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. |
