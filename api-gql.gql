@@ -50,11 +50,10 @@ type AccountResetPayload {
   keyFetchToken: String
 }
 
-type SignedInAccountPayload {
+type SessionReauthedAccountPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   uid: String!
-  sessionToken: String!
   verified: Boolean!
   authAt: Float!
   metricsEnabled: Boolean!
@@ -63,7 +62,7 @@ type SignedInAccountPayload {
   verificationReason: String
 }
 
-type SessionReauthedAccountPlayload {
+type SignedInAccountPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   uid: String!
@@ -73,6 +72,7 @@ type SessionReauthedAccountPlayload {
   keyFetchToken: String
   verificationMethod: String
   verificationReason: String
+  sessionToken: String!
 }
 
 type Avatar {
@@ -101,6 +101,21 @@ type VerifyTotpPayload {
 type AccountStatusPayload {
   """Whether or not the account exists"""
   exists: Boolean!
+}
+
+type RecoveryKeyBundlePayload {
+  recoveryData: String!
+}
+
+type PasswordChangePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  uid: String!
+  sessionToken: String!
+  verified: Boolean!
+  authAt: Float!
+  unwrapBKey: String
+  keyFetchToken: String
 }
 
 type SignedUpAccountPayload {
@@ -175,6 +190,12 @@ type LinkedAccount {
   authAt: Float!
 }
 
+type SecurityEvent {
+  name: String!
+  createdAt: Float!
+  verified: Boolean
+}
+
 """The current authenticated user's Firefox Account record."""
 type Account {
   """Firefox Account User ID."""
@@ -211,6 +232,9 @@ type Account {
 
   """Linked accounts"""
   linkedAccounts: [LinkedAccount!]!
+
+  """Security events"""
+  securityEvents: [SecurityEvent!]!
 }
 
 type FinishedSetupAccountPayload {
@@ -243,6 +267,11 @@ type Query {
   Check the status of an account using session token or uid. This query is equivalent to the GET /account/status endpoint in auth-server.
   """
   accountStatus(input: AccountStatusInput!): AccountStatusPayload!
+
+  """
+  Retrieves a user recovery key bundle from its recovery key id. The bundle contains an encrypted copy for the sync key.
+  """
+  getRecoveryKeyBundle(input: RecoveryKeyBundleInput!): RecoveryKeyBundlePayload!
   session: Session!
   sessionStatus: SessionStatus!
 }
@@ -253,6 +282,14 @@ input AccountStatusInput {
 
   """The token id to apply this operation to."""
   token: String
+}
+
+input RecoveryKeyBundleInput {
+  """Account reset token"""
+  accountResetToken: String!
+
+  """Recovery key to check"""
+  recoveryKeyId: String!
 }
 
 type Mutation {
@@ -342,11 +379,16 @@ type Mutation {
   """Used to verify a users primary email address."""
   emailVerifyCode(input: VerifyEmailCodeInput!): BasicPayload!
 
+  """
+  Change a user's password. The client is required to compute authPW since we don't send the clear password to our server.
+  """
+  passwordChange(input: PasswordChangeInput!): PasswordChangePayload!
+
   """Logs out the current session"""
   destroySession(input: DestroySessionInput!): BasicPayload!
 
   """Re-authenticate an existing session token."""
-  reauthSession(input: SessionReauthInput!): SessionReauthedAccountPlayload!
+  reauthSession(input: SessionReauthInput!): SessionReauthedAccountPayload!
 
   """Resend a verify code."""
   resendVerifyCode(input: BasicMutationInput!): BasicPayload!
@@ -596,6 +638,22 @@ input VerifyEmailCodeInput {
   """Account uid"""
   uid: String!
   service: String
+}
+
+input PasswordChangeInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  email: String!
+  oldPasswordAuthPW: String!
+  newPasswordAuthPW: String!
+  oldUnwrapBKey: String!
+  newUnwrapBKey: String!
+  options: PasswordChangeInputOptions
+}
+
+input PasswordChangeInputOptions {
+  keys: Boolean
+  sessionToken: String
 }
 
 input DestroySessionInput {

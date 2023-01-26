@@ -1,0 +1,38 @@
+---
+id: recovery-key-bundle-payload
+title: RecoveryKeyBundlePayload
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span class={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+type RecoveryKeyBundlePayload {
+  recoveryData: String!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>RecoveryKeyBundlePayload.<b>recoveryData</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> 
+> 
+
+
+
+### Returned by
+
+[`getRecoveryKeyBundle`](/gql-api/queries/get-recovery-key-bundle)  <Badge class="secondary" text="query"/>
+
+
+
