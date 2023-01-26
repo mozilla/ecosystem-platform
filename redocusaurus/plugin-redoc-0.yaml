@@ -4217,6 +4217,8 @@ definitions:
         $ref: '#/definitions/authenticationMethods'
       appStoreProductIds:
         $ref: '#/definitions/authenticationMethods'
+    required:
+      - productSet
   Model24:
     type: object
     properties:
