@@ -93,6 +93,7 @@ module.exports = {
                               label: '⚙️ Customs API Reference',
                               href: '/customs-api',
                             },
+                            'reference/database-structure',
                             'reference/browser-support',
                             'reference/incident-response',
                             'reference/emails',
