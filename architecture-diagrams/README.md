@@ -40,7 +40,7 @@ password: password
 
 1. In structurizr, click on `Diagrams` on the right side
 2. In the top menu, click the `PNG` icon to export
-3. Select the following options and click `Export all diagrams`:
-   a. Include diagram title, description, and metadata
-   b. Automatically download
+3. Select the following options and click `Export all diagrams` with:
+   - Include diagram title, description, and metadata
+   - Automatically download
 4. Copy images into `static/diagrams` directory

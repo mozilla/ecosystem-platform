@@ -8,6 +8,8 @@ Current as of `February 1st, 2023`
 
 The software architecture diagrams in FxA and SubPlat use the [c4 model](https://c4model.com) to separate layers and [structurizr](https://structurizr.com/) to render them.
 
+Instructions for working on these can be found in the [architecture README](https://github.com/mozilla/ecosystem-platform/tree/master/architecture-diagrams).
+
 ## System Landscapes (Level 1)
 
 System Landscapes Key:
