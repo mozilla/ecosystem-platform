@@ -2,15 +2,17 @@
 title: Pull Request review guidelines
 ---
 
-## Pull requests are hard
+:::note
+Subscription Platform Only - Currently these guidelines apply to the Subscription Platform team only
+:::
 
-The guidelines provided below will hopefully make your pull requests reviews a little easier.
+Pull requests are hard!! The guidelines provided below will hopefully make your pull requests reviews a little easier.
 
 ## Why we do reviews
 
-- Reduce churn and ship faster
+- Reduce [code churn](https://www.pluralsight.com/blog/tutorials/code-churn "Code that is rewritten or deleted shortly after being written") and ship completed features faster
 - Reduce regressions
-  - The better the pull request review, the less likely it is that a regression
+  - The better the pull request review, the less likely it is a regression
     will be introduced
 - Keep up code quality
 - Learn something new
@@ -35,14 +37,20 @@ The guidelines provided below will hopefully make your pull requests reviews a l
 - Test your changes locally
 - Get pull requests up early in the sprint
   - Don't expect pull requests put up later than Tuesday morning before
-    Sprint end, to get reviewed
+    sprint end, to get reviewed in time to get merged before sprint end.
+- A PR opened late in the sprint, to improve your chances of merging, consider the following
+  - Let the reviewer know as soon as possible that it won't be ready until the last minute.
+  - Share a WIP as soon as possible.
+  - Consider a live review.
+  - Mentally prepare that it still may not happen.
 
 #### When creating the pull request
 
 - Clear title and description, following [Git Commit Guidelines](https://github.com/mozilla/fxa/blob/main/CONTRIBUTING.md#git-commit-guidelines)
 - Keep pull requests short
 - Add the reviewer and notify them on Slack
-- Add Steps To Reproduce (STRs) for tickets requiring QA review
+- Ensure that the `qa+` label is added to the Jira ticket if QA review is needed
+- Add Steps To Reproduce (STRs) for tickets requiring QA review and when it helps the reviewer test locally
 - Add screenshots for Frontend work
 - If necessary, inform impacted parties of the change. QA, FxA, RPs
 - Provide helpful notes, or provide non-obvious context
@@ -51,6 +59,8 @@ The guidelines provided below will hopefully make your pull requests reviews a l
 ### Pull Request - Reviewer
 
 - Start the review within 8 hours of request
+  - If you can't start the review within 8 hours, let the assignee know, and if needed
+    help find another reviewer
 - Consider code complexity
   - Consider the following questions during review. Is the code overly complex? Can
     it be broken up into smaller, more reusable modules?
@@ -63,3 +73,5 @@ The guidelines provided below will hopefully make your pull requests reviews a l
 - Do not provide style notes
   - Style notes should be enforced by the linter or style guide. If you would like to
     change a style, create a new pull request to update the linter or style guide
+  - [React style guide](/ecosystem-platform/reference/style-guides/react-style-guide)
+  - [Node style guide](/ecosystem-platform/reference/style-guides/node-style-guide)
