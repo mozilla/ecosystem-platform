@@ -67,6 +67,7 @@ module.exports = {
                                   'reference/team-processes/work-breakdown-process',
                                   'reference/team-processes/triage-process',
                                   'reference/team-processes/release-process',
+                                  'reference/team-processes/pull-request-review-guidelines',
                                 ]
                             },
                             {
