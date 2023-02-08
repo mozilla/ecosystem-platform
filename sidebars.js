@@ -13,6 +13,7 @@ module.exports = {
                      ],
         'How-to Guides': [
                           'relying-parties/how-tos/end-to-end-encryption',
+                          'relying-parties/how-tos/google-iap',
                           'relying-parties/how-tos/apple-iap',
                           'relying-parties/how-tos/device-registration',
                          ],

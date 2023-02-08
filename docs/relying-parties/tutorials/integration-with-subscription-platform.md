@@ -3,6 +3,7 @@ id: integration-with-subscription-platform
 title: Integration with Subscription Platform
 sidebar_label: Integration with Subscription Platform
 ---
+
 ## Setting up A Subscription
 
 ### Pre-Development
@@ -18,8 +19,8 @@ Once your ticket is filed, you should have had a RRA-style meeting with the Fire
 We will use this meeting to do the following:
 
 1. Set up a Confluence page to track basic info about your product such as name & capability string or strings
-3. Get a rough estimate of your shipping timeline (don't worry if this isn't 100% pinned down)
-4. Get a staging subscription set up for you to start testing with
+2. Get a rough estimate of your shipping timeline (don't worry if this isn't 100% pinned down)
+3. Get a staging subscription set up for you to start testing with
 
 ### Development
 
@@ -61,7 +62,6 @@ If your integration includes an application service, [subscription state notific
 
 When integrated with the FxA stage or development environments, subscription sign-up's can be tested using [Stripe test cards](https://stripe.com/docs/testing#cards).
 
-
 ## Evaluating the current user flow
 
 To see the user experience without setting up your localhost you can subscribe to any of the existing subscriptions that we have available. If you want to try out the upgrade flow please use MDN Plus.
@@ -75,6 +75,10 @@ Once you selected a plan please create a new user. You can use the following Cre
 To cancel your subscription simply go to https://accounts.stage.mozaws.net/subscriptions and press the cancel button.
 
 To upgrade your subscription sign in to your account using the step above and go to the MDN Plus link. The website will now display your current plan and the upgrade options.
+
+## Integration with Google IAP
+
+To integrate your android app with the Subscription Platform, please see [Google IAP](/ecosystem-platform/relying-parties/how-tos/google-iap).
 
 ## Integration with Apple IAP
 
