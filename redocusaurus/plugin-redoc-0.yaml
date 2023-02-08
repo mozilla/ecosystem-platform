@@ -478,6 +478,13 @@ paths:
     get:
       summary: /.well-known/browserid
       operationId: getWellknownBrowserid
+      description: >-
+        Verifies a user is who they say they are using
+        [BrowserID](https://hacks.mozilla.org/2011/07/introducing-browserid-easier-and-safer-authentication-on-the-web/).
+
+
+        It has been deprecated in newer version of Firefox desktop, though some
+        clients still use it.
       tags:
         - Miscellaneous
       responses:
@@ -489,6 +496,9 @@ paths:
     get:
       summary: /.well-known/public-keys
       operationId: getWellknownPublickeys
+      description: >-
+        Used by clients to generate JSON web tokens, and allows FxA to verify
+        those tokens.
       tags:
         - Miscellaneous
       responses:
@@ -500,7 +510,10 @@ paths:
     get:
       summary: /account
       operationId: getAccount
-      description: 🔒 Authenticated with session token
+      description: |-
+        🔒 Authenticated with session token
+
+        Returns account data including subscriptions.
       tags:
         - Miscellaneous
       responses:
@@ -540,13 +553,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model36'
+            $ref: '#/definitions/Model37'
       tags:
         - OAuth Server API Overview
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model37'
+            $ref: '#/definitions/Model38'
           description: >-
             A valid request will return a 200 response, with JSON containing the
             `redirect` to follow.
@@ -683,7 +696,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model144'
+            $ref: '#/definitions/Model146'
           description: Successful
   /recovery_emails:
     get:
@@ -958,13 +971,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model66'
+            $ref: '#/definitions/Model68'
       tags:
         - Account
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model67'
+            $ref: '#/definitions/Model69'
           description: Successful
   /client/{client_id}:
     get:
@@ -1190,7 +1203,12 @@ paths:
     get:
       summary: /oauth/subscriptions/clients
       operationId: getOauthSubscriptionsClients
-      description: 🔒 Authenticated with OAuth bearer token
+      description: >-
+        🔒 [Authenticated with OAuth bearer
+        token](https://github.com/mozilla/fxa/blob/95cded6e96e2b20f7593153a428d158001bb8d3b/packages/fxa-shared/oauth/constants.ts#L5)
+
+
+        Returns a list of clients and their capabilities.
       tags:
         - Subscriptions
       responses:
@@ -1214,8 +1232,14 @@ paths:
     get:
       summary: /oauth/subscriptions/productname
       operationId: getOauthSubscriptionsProductname
+      description: >-
+        Returns the product name of a valid Stripe `productId` (does not apply
+        to IAP).
       parameters:
         - type: string
+          description: >-
+            A unique identifier for the
+            [product](https://stripe.com/docs/api/products/object) purchased.
           name: productId
           in: query
           required: true
@@ -1230,7 +1254,7 @@ paths:
     get:
       summary: /oauth/support-panel/subscriptions
       operationId: getOauthSupportpanelSubscriptions
-      description: 🔒 Authenticated with support panel secret
+      description: This endpoint is deprecated.
       parameters:
         - type: string
           name: uid
@@ -1243,6 +1267,7 @@ paths:
           schema:
             $ref: '#/definitions/Model30'
           description: Successful
+      deprecated: true
   /password/forgot/status:
     get:
       summary: /password/forgot/status
@@ -1265,25 +1290,35 @@ paths:
     get:
       summary: /oauth/mozilla-subscriptions/customer/billing-and-subscriptions
       operationId: getOauthMozillasubscriptionsCustomerBillingandsubscriptions
-      description: 🔒 Authenticated with OAuth bearer token
+      description: |-
+        🔒 Authenticated with OAuth bearer token
+
+        Returns a customer billing details and subscriptions.
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model32'
+            $ref: '#/definitions/Model33'
           description: Successful
   /oauth/subscriptions/invoice/preview-subsequent:
     get:
       summary: /oauth/subscriptions/invoice/preview-subsequent
       operationId: getOauthSubscriptionsInvoicePreviewsubsequent
-      description: 🔒 Authenticated with OAuth bearer token
+      description: >-
+        🔒 Authenticated with OAuth bearer token
+
+
+        Previews a list of subsequent invoices based on existing subscriptions
+        and the customer's `subscriptionId`; includes estimated tax (based on
+        the customer's last known geolocation) and any discount from a promotion
+        code.
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model35'
+            $ref: '#/definitions/Model36'
           description: Successful
   /oauth/mozilla-subscriptions/customer/plan-eligibility/{planId}:
     get:
@@ -1297,6 +1332,9 @@ paths:
         'create'|'upgrade'|'downgrade'|'blocked_iap'|'invalid'.
       parameters:
         - type: string
+          description: >-
+            A unique identifier for the
+            [plan](https://stripe.com/docs/api/plans/object).
           maxLength: 255
           name: planId
           in: path
@@ -1338,13 +1376,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model38'
+            $ref: '#/definitions/Model39'
       tags:
         - OAuth Server API Overview
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model41'
+            $ref: '#/definitions/Model42'
           description: >-
             A valid 200 response will be a JSON array.
 
@@ -1421,7 +1459,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model42'
+            $ref: '#/definitions/Model43'
       tags:
         - OAuth Server API Overview
       responses:
@@ -1470,13 +1508,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model43'
+            $ref: '#/definitions/Model44'
       tags:
         - OAuth Server API Overview
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model44'
+            $ref: '#/definitions/Model45'
           description: |-
             A valid request will return a JSON response.
             <br />
@@ -1511,7 +1549,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model45'
+            $ref: '#/definitions/Model46'
       tags:
         - OAuth Server API Overview
       responses:
@@ -1520,7 +1558,7 @@ paths:
             type: object
             properties:
               string:
-                $ref: '#/definitions/Model46'
+                $ref: '#/definitions/Model47'
           description: >-
             A valid response will return JSON the scoped key information for
             every scope that has scoped keys.
@@ -1561,7 +1599,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model47'
+            $ref: '#/definitions/Model48'
       tags:
         - Miscellaneous
       responses:
@@ -1586,7 +1624,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model48'
+            $ref: '#/definitions/Model49'
       tags:
         - Account recovery key
       responses:
@@ -1622,7 +1660,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model49'
+            $ref: '#/definitions/Model50'
       tags:
         - Emails
       responses:
@@ -1675,13 +1713,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model50'
+            $ref: '#/definitions/Model51'
       tags:
         - OAuth Server API Overview
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model51'
+            $ref: '#/definitions/Model52'
           description: |-
             A valid request will return a JSON response.
             <br />
@@ -1721,13 +1759,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model52'
+            $ref: '#/definitions/Model53'
       tags:
         - OAuth Server API Overview
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model53'
+            $ref: '#/definitions/Model54'
           description: |-
             A valid request will return a JSON response.
 
@@ -1789,13 +1827,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model54'
+            $ref: '#/definitions/Model55'
       tags:
         - Account
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model55'
+            $ref: '#/definitions/Model56'
           description: Successful
         '400':
           description: >-
@@ -1820,7 +1858,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model56'
+            $ref: '#/definitions/Model57'
       tags:
         - Account
       responses:
@@ -1860,13 +1898,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model57'
+            $ref: '#/definitions/Model59'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model58'
+            $ref: '#/definitions/Model60'
           description: Successful
         '400':
           description: >-
@@ -1888,7 +1926,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model59'
+            $ref: '#/definitions/Model61'
       tags:
         - Account
       responses:
@@ -1941,13 +1979,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model60'
+            $ref: '#/definitions/Model62'
       tags:
         - Account
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model61'
+            $ref: '#/definitions/Model63'
           description: Successful
         '400':
           description: >-
@@ -2005,7 +2043,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model62'
+            $ref: '#/definitions/Model64'
       tags:
         - Account
       responses:
@@ -2029,7 +2067,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model63'
+            $ref: '#/definitions/Model65'
       tags:
         - Oauth
       responses:
@@ -2067,13 +2105,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model64'
+            $ref: '#/definitions/Model66'
       tags:
         - Account
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model65'
+            $ref: '#/definitions/Model67'
           description: Successful
         '400':
           description: >-
@@ -2089,7 +2127,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model68'
+            $ref: '#/definitions/Model70'
       tags:
         - Account
       responses:
@@ -2108,7 +2146,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model69'
+            $ref: '#/definitions/Model71'
       tags:
         - OAuth Server API Overview
       responses:
@@ -2185,7 +2223,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model70'
+            $ref: '#/definitions/Model72'
       tags:
         - Sign
       responses:
@@ -2207,7 +2245,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model71'
+            $ref: '#/definitions/Model73'
       tags:
         - Third Party Authentication
       responses:
@@ -2224,7 +2262,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model72'
+            $ref: '#/definitions/Model74'
       tags:
         - Third Party Authentication
       responses:
@@ -2252,13 +2290,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model73'
+            $ref: '#/definitions/Model75'
       tags:
         - Oauth
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model74'
+            $ref: '#/definitions/Model76'
           description: Successful
   /oauth/destroy:
     post:
@@ -2280,7 +2318,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model75'
+            $ref: '#/definitions/Model77'
       tags:
         - Oauth
       responses:
@@ -2304,17 +2342,22 @@ paths:
     post:
       summary: /oauth/id-token-verify
       operationId: postOauthIdtokenverify
+      description: >-
+        Verifies an OIDC ID Token (FxA returns this token at the end of the
+        OAuth flow). The id token contains the user's identification number
+        (uid) plus [other
+        fields](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model76'
+            $ref: '#/definitions/Model78'
       tags:
         - Miscellaneous
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model77'
+            $ref: '#/definitions/Model79'
           description: Successful
   /oauth/token:
     post:
@@ -2343,13 +2386,13 @@ paths:
           in: body
           name: body
           schema:
-            $ref: '#/definitions/Model78'
+            $ref: '#/definitions/Model80'
       tags:
         - Oauth
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model79'
+            $ref: '#/definitions/Model81'
             x-alternatives:
               - $ref: '#/x-alt-definitions/Model4'
               - $ref: '#/x-alt-definitions/Model5'
@@ -2381,7 +2424,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model80'
+            $ref: '#/definitions/Model82'
       tags:
         - Password
       responses:
@@ -2403,13 +2446,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model81'
+            $ref: '#/definitions/Model83'
       tags:
         - Account recovery key
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model82'
+            $ref: '#/definitions/Model84'
           description: Successful
   /recoveryKey/verify:
     post:
@@ -2420,7 +2463,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model83'
+            $ref: '#/definitions/Model85'
       tags:
         - Account recovery key
       responses:
@@ -2440,7 +2483,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model84'
+            $ref: '#/definitions/Model86'
       tags:
         - Emails
       responses:
@@ -2491,7 +2534,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model85'
+            $ref: '#/definitions/Model87'
       tags:
         - Emails
       responses:
@@ -2516,7 +2559,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model86'
+            $ref: '#/definitions/Model88'
       tags:
         - Emails
       responses:
@@ -2551,7 +2594,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model87'
+            $ref: '#/definitions/Model89'
       tags:
         - Emails
       responses:
@@ -2576,7 +2619,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model88'
+            $ref: '#/definitions/Model90'
       tags:
         - Session
       responses:
@@ -2601,7 +2644,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model89'
+            $ref: '#/definitions/Model91'
       tags:
         - Session
       responses:
@@ -2644,13 +2687,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model90'
+            $ref: '#/definitions/Model92'
       tags:
         - Session
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model91'
+            $ref: '#/definitions/Model93'
           description: Successful
         '400':
           description: >-
@@ -2693,7 +2736,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model92'
+            $ref: '#/definitions/Model94'
       tags:
         - Session
       responses:
@@ -2708,17 +2751,20 @@ paths:
       description: >-
         🔒 Authenticated with support secret or authenticated with OAuth bearer
         token
+
+
+        Creates a support ticket using the Zendesk client.
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model93'
+            $ref: '#/definitions/Model95'
       tags:
         - Miscellaneous
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model94'
+            $ref: '#/definitions/Model96'
           description: Successful
   /totp/create:
     post:
@@ -2734,13 +2780,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model95'
+            $ref: '#/definitions/Model97'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model96'
+            $ref: '#/definitions/Model98'
           description: Successful
   /totp/destroy:
     post:
@@ -2778,7 +2824,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model97'
+            $ref: '#/definitions/Model99'
       tags:
         - Devices and Sessions
       responses:
@@ -2801,7 +2847,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model98'
+            $ref: '#/definitions/Model100'
       tags:
         - Devices and Sessions
       responses:
@@ -2828,13 +2874,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model99'
+            $ref: '#/definitions/Model101'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model100'
+            $ref: '#/definitions/Model102'
           description: Successful
         '400':
           description: >-
@@ -2862,7 +2908,7 @@ paths:
           in: body
           name: body
           schema:
-            $ref: '#/definitions/Model102'
+            $ref: '#/definitions/Model104'
       tags:
         - Devices and Sessions
       responses:
@@ -2893,7 +2939,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model103'
+            $ref: '#/definitions/Model105'
       tags:
         - Unblock codes
       responses:
@@ -2910,7 +2956,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model104'
+            $ref: '#/definitions/Model106'
       tags:
         - Unblock codes
       responses:
@@ -2964,17 +3010,18 @@ paths:
     post:
       summary: /oauth/subscriptions/coupon
       operationId: postOauthSubscriptionsCoupon
+      description: Retrieves coupon details of a valid plan and promotion code.
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model105'
+            $ref: '#/definitions/Model107'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model106'
+            $ref: '#/definitions/Model108'
           description: Successful
   /oauth/subscriptions/customer:
     post:
@@ -2988,23 +3035,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model107'
-      tags:
-        - Subscriptions
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/Model113'
-          description: Successful
-  /oauth/subscriptions/paypal-checkout:
-    post:
-      summary: /oauth/subscriptions/paypal-checkout
-      operationId: postOauthSubscriptionsPaypalcheckout
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/Model114'
+            $ref: '#/definitions/Model109'
       tags:
         - Subscriptions
       responses:
@@ -3012,16 +3043,40 @@ paths:
           schema:
             $ref: '#/definitions/Model115'
           description: Successful
-  /oauth/subscriptions/reactivate:
+  /oauth/subscriptions/paypal-checkout:
     post:
-      summary: /oauth/subscriptions/reactivate
-      operationId: postOauthSubscriptionsReactivate
-      description: 🔒 Authenticated with OAuth bearer token
+      summary: /oauth/subscriptions/paypal-checkout
+      operationId: postOauthSubscriptionsPaypalcheckout
+      description: >-
+        Retrieves token authorizing transaction to move to the next stage of
+        PayPal checkout.
       parameters:
         - in: body
           name: body
           schema:
             $ref: '#/definitions/Model116'
+      tags:
+        - Subscriptions
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model117'
+          description: Successful
+  /oauth/subscriptions/reactivate:
+    post:
+      summary: /oauth/subscriptions/reactivate
+      operationId: postOauthSubscriptionsReactivate
+      description: >-
+        🔒 Authenticated with OAuth bearer token
+
+
+        Reactivate valid Stripe/PayPal customer subscription (does not apply to
+        IAP).
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model118'
       tags:
         - Subscriptions
       responses:
@@ -3050,7 +3105,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model117'
+            $ref: '#/definitions/Model119'
       tags:
         - Password
       responses:
@@ -3072,7 +3127,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model118'
+            $ref: '#/definitions/Model120'
       tags:
         - Password
       responses:
@@ -3112,13 +3167,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model119'
+            $ref: '#/definitions/Model121'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model120'
+            $ref: '#/definitions/Model122'
           description: Successful
   /password/forgot/send_code:
     post:
@@ -3167,13 +3222,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model121'
+            $ref: '#/definitions/Model123'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model120'
+            $ref: '#/definitions/Model122'
           description: Successful
         '400':
           description: >-
@@ -3199,13 +3254,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model122'
+            $ref: '#/definitions/Model124'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model123'
+            $ref: '#/definitions/Model125'
           description: Successful
         '400':
           description: >-
@@ -3225,7 +3280,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model124'
+            $ref: '#/definitions/Model126'
       tags:
         - Emails
       responses:
@@ -3250,7 +3305,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model125'
+            $ref: '#/definitions/Model127'
       tags:
         - Emails
       responses:
@@ -3286,13 +3341,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model126'
+            $ref: '#/definitions/Model128'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model127'
+            $ref: '#/definitions/Model129'
           description: Successful
   /oauth/subscriptions/active/new:
     post:
@@ -3306,29 +3361,30 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model128'
-      tags:
-        - Subscriptions
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/Model129'
-          description: Successful
-  /oauth/subscriptions/active/new-paypal:
-    post:
-      summary: /oauth/subscriptions/active/new-paypal
-      operationId: postOauthSubscriptionsActiveNewpaypal
-      parameters:
-        - in: body
-          name: body
-          schema:
             $ref: '#/definitions/Model130'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model129'
+            $ref: '#/definitions/Model131'
+          description: Successful
+  /oauth/subscriptions/active/new-paypal:
+    post:
+      summary: /oauth/subscriptions/active/new-paypal
+      operationId: postOauthSubscriptionsActiveNewpaypal
+      description: Create subscription for the provided customer using PayPal.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model132'
+      tags:
+        - Subscriptions
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model131'
           description: Successful
   /oauth/subscriptions/iap/app-store-notification:
     post:
@@ -3342,7 +3398,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model131'
+            $ref: '#/definitions/Model133'
       tags:
         - Subscriptions
       responses:
@@ -3354,11 +3410,12 @@ paths:
     post:
       summary: /oauth/subscriptions/iap/rtdn
       operationId: postOauthSubscriptionsIapRtdn
+      description: Handles a Google Play Real-time Developer Notification.
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model132'
+            $ref: '#/definitions/Model134'
       tags:
         - Subscriptions
       responses:
@@ -3370,17 +3427,22 @@ paths:
     post:
       summary: /oauth/subscriptions/invoice/preview
       operationId: postOauthSubscriptionsInvoicePreview
+      description: >-
+        Previews an invoice for a new plan where the user is not yet subscribed
+        (and therefore there is no `subscriptionId`); includes estimated tax
+        (based on the user's geolocation) and any discount from a promotion
+        code.
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model133'
+            $ref: '#/definitions/Model135'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model135'
+            $ref: '#/definitions/Model137'
           description: Successful
   /oauth/subscriptions/invoice/retry:
     post:
@@ -3394,30 +3456,33 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model136'
-      tags:
-        - Subscriptions
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/Model137'
-          description: Successful
-  /oauth/subscriptions/paymentmethod/billing-agreement:
-    post:
-      summary: /oauth/subscriptions/paymentmethod/billing-agreement
-      operationId: postOauthSubscriptionsPaymentmethodBillingagreement
-      description: 🔒 Authenticated with OAuth bearer token
-      parameters:
-        - in: body
-          name: body
-          schema:
             $ref: '#/definitions/Model138'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model113'
+            $ref: '#/definitions/Model139'
+          description: Successful
+  /oauth/subscriptions/paymentmethod/billing-agreement:
+    post:
+      summary: /oauth/subscriptions/paymentmethod/billing-agreement
+      operationId: postOauthSubscriptionsPaymentmethodBillingagreement
+      description: |-
+        🔒 Authenticated with OAuth bearer token
+
+        Updates the billing agreement for a user with a new PayPal token.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model140'
+      tags:
+        - Subscriptions
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/Model115'
           description: Successful
   /oauth/subscriptions/paymentmethod/default:
     post:
@@ -3433,13 +3498,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model139'
+            $ref: '#/definitions/Model141'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model113'
+            $ref: '#/definitions/Model115'
           description: Successful
   /oauth/subscriptions/setupintent/create:
     post:
@@ -3456,12 +3521,15 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model140'
+            $ref: '#/definitions/Model142'
           description: Successful
   /oauth/subscriptions/stripe/event:
     post:
       summary: /oauth/subscriptions/stripe/event
       operationId: postOauthSubscriptionsStripeEvent
+      description: >-
+        Handles webhook events from Stripe by pre-processing the incoming event
+        and dispatching to the appropriate sub-handler.
       parameters:
         - type: string
           name: stripe-signature
@@ -3492,7 +3560,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model141'
+            $ref: '#/definitions/Model143'
       tags:
         - Subscriptions
       responses:
@@ -3518,7 +3586,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model142'
+            $ref: '#/definitions/Model144'
       tags:
         - Subscriptions
       responses:
@@ -3530,26 +3598,40 @@ paths:
     post:
       summary: /oauth/subscriptions/paymentmethod/failed/detach
       operationId: postOauthSubscriptionsPaymentmethodFailedDetach
-      description: 🔒 Authenticated with OAuth bearer token
+      description: >-
+        🔒 Authenticated with OAuth bearer token
+
+
+        Detaches a payment method from a Stripe customer without any
+        subscriptions. This is only for Stripe customers; excludes customers
+        using PayPal, Apple, Google, etc).
       parameters:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model139'
+            $ref: '#/definitions/Model141'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model143'
+            $ref: '#/definitions/Model145'
           description: Successful
   /oauth/subscriptions/active/{subscriptionId}:
     put:
       summary: /oauth/subscriptions/active/{subscriptionId}
       operationId: putOauthSubscriptionsActiveSubscriptionid
-      description: 🔒 Authenticated with OAuth bearer token
+      description: >-
+        🔒 Authenticated with OAuth bearer token
+
+
+        Updates an active subscription for Stripe customer based on their Stripe
+        `subscriptionId` (does not apply to IAP).
       parameters:
         - type: string
+          description: >-
+            A unique identifier for the Stripe
+            [subscription](https://stripe.com/docs/api/subscriptions/object).
           maxLength: 255
           name: subscriptionId
           in: path
@@ -3557,7 +3639,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model145'
+            $ref: '#/definitions/Model147'
       tags:
         - Subscriptions
       responses:
@@ -3574,6 +3656,9 @@ paths:
         Cancel an active subscription for the user.
       parameters:
         - type: string
+          description: >-
+            A unique identifier for the Stripe
+            [subscription](https://stripe.com/docs/api/subscriptions/object).
           maxLength: 255
           name: subscriptionId
           in: path
@@ -3595,12 +3680,18 @@ definitions:
           - web
       created:
         type: number
+        description: This is the date the subscription was created.
       current_period_end:
         type: number
+        description: This is the end date of the current billing cycle.
       current_period_start:
         type: number
+        description: This is the start date of the current billing cycle.
       cancel_at_period_end:
         type: boolean
+        description: >-
+          True if the subscription will not automatically renew at the end of
+          the current billing period. Else false.
       end_at:
         type: number
         x-alternatives:
@@ -3608,27 +3699,54 @@ definitions:
           - type: string
       failure_code:
         type: string
+        description: Reason for the failure (e.g. insufficient funds, closed, frozen).
       failure_message:
         type: string
+        description: >-
+          Message from Stripe for the client making the request to further
+          explain the reason for top-up failure if available.
+
+
+          For more information about failure codes and messages from Stripe to
+          the client, see [Stripe docs](https://stripe.com/docs/api/errors). It
+          is suggested that the [error
+          type](https://stripe.com/docs/api/errors#errors-message) of `type:
+          card_error` is shown directly to the customer.
       latest_invoice:
         type: string
+        description: The most recent invoice this subscription has generated from Stripe.
       plan_id:
         type: string
+        description: >-
+          A unique identifier for the
+          [plan](https://stripe.com/docs/api/plans/object).
         maxLength: 255
       product_id:
         type: string
+        description: >-
+          A unique identifier for the
+          [product](https://stripe.com/docs/api/products/object) purchased.
         maxLength: 255
       product_name:
         type: string
+        description: The name of the product purchased.
       status:
         type: string
+        description: >-
+          The status of the product (e.g. `active`, `canceled`, `trialing`,
+          `unpaid`, etc).
       subscription_id:
         type: string
+        description: >-
+          A unique identifier for the Stripe
+          [subscription](https://stripe.com/docs/api/subscriptions/object).
         maxLength: 255
       promotion_code:
         type: string
+        description: A customer-redeemable code for a coupon.
       promotion_duration:
         type: string
+        description: Indicates how long the coupon is valid for.
       promotion_end:
         type: number
     required:
@@ -4075,14 +4193,22 @@ definitions:
     properties:
       uid:
         type: string
+        description: The user id.
       subscriptionId:
         type: string
+        description: >-
+          A unique identifier for the Stripe
+          [subscription](https://stripe.com/docs/api/subscriptions/object).
         maxLength: 255
       productId:
         type: string
+        description: >-
+          A unique identifier for the
+          [product](https://stripe.com/docs/api/products/object) purchased.
         maxLength: 255
       createdAt:
         type: number
+        description: This is the date the subscription was created.
       cancelledAt:
         type: number
         x-alternatives:
@@ -4097,17 +4223,39 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/Model20'
+  capabilities:
+    type: array
+    description: >-
+      An array of RP-defined strings that represent a certain level of access to
+      their product/service.
+    items:
+      type: string
   Model22:
     type: object
     properties:
       clientId:
         type: string
+        description: >-
+          The OAuth client identifier for the requesting client application
+          (provided by the connecting client application)
       capabilities:
-        $ref: '#/definitions/authenticationMethods'
+        $ref: '#/definitions/capabilities'
   Model23:
     type: array
     items:
       $ref: '#/definitions/Model22'
+  plan_metadata:
+    type: object
+    description: >-
+      Set of key-value pairs used to store additional information about the
+      plan. For more information, see [Ecosystem
+      Platform](https://mozilla.github.io/ecosystem-platform/tutorials/subscription-platform#stripe-plan-metadata)
+  product_metadata:
+    type: object
+    description: >-
+      Set of key-value pairs used to store additional information about the
+      product. For more information, see [Ecosystem
+      Platform](https://mozilla.github.io/ecosystem-platform/tutorials/subscription-platform#stripe-product-metadata)
   urls:
     type: object
     properties:
@@ -4224,28 +4372,48 @@ definitions:
     properties:
       plan_id:
         type: string
+        description: >-
+          A unique identifier for the
+          [plan](https://stripe.com/docs/api/plans/object).
         maxLength: 255
       plan_metadata:
-        $ref: '#/definitions/subscriptionsByClientId'
+        $ref: '#/definitions/plan_metadata'
       product_id:
         type: string
+        description: >-
+          A unique identifier for the
+          [product](https://stripe.com/docs/api/products/object) purchased.
         maxLength: 255
       product_name:
         type: string
+        description: The name of the product purchased.
       plan_name:
         type: string
+        description: The name of the plan.
       product_metadata:
-        $ref: '#/definitions/subscriptionsByClientId'
+        $ref: '#/definitions/product_metadata'
       interval:
         type: string
+        description: >-
+          The frequency at which a subscription is billed (e.g. day, week,
+          month, year).
       interval_count:
         type: number
+        description: >-
+          The number of intervals between subscription billings (e.g.
+          `interval=month` and `interval_count=3` bills every 3 months).
       amount:
         type: number
+        description: >-
+          Amount intended to be collected. A positive integer representing how
+          much to charge in the smallest currency unit (e.g. 100 cents to charge
+          $1.00 or 100 to charge ¥100, a zero-decimal currency).
       currency:
         type: string
+        description: The three-letter ISO currency code, in lowercase.
       active:
         type: boolean
+        description: Whether the price can be used for new purchases. Defaults to true.
       configuration:
         $ref: '#/definitions/configuration'
     required:
@@ -4267,6 +4435,7 @@ definitions:
     properties:
       product_name:
         type: string
+        description: The name of the product purchased.
     required:
       - product_name
   Model27:
@@ -4274,10 +4443,13 @@ definitions:
     properties:
       created:
         type: number
+        description: This is the date the subscription was created.
       current_period_end:
         type: number
+        description: This is the end date of the current billing cycle.
       current_period_start:
         type: number
+        description: This is the start date of the current billing cycle.
       plan_changed:
         type: number
         x-alternatives:
@@ -4290,10 +4462,17 @@ definitions:
           - type: string
       product_name:
         type: string
+        description: The name of the product purchased.
       status:
         type: string
+        description: >-
+          The status of the product (e.g. `active`, `canceled`, `trialing`,
+          `unpaid`, etc).
       subscription_id:
         type: string
+        description: >-
+          A unique identifier for the Stripe
+          [subscription](https://stripe.com/docs/api/subscriptions/object).
         maxLength: 255
     required:
       - created
@@ -4386,10 +4565,18 @@ definitions:
       ttl:
         type: number
   Model32:
+    type: array
+    description: A list of all subscriptions (including web and IAP).
+    items:
+      $ref: '#/definitions/Model1'
+  Model33:
     type: object
     properties:
       customerId:
         type: string
+        description: >-
+          A unique identifier for the Stripe/PayPal
+          [customer](https://stripe.com/docs/api/customers/object).
       billing_name:
         type: string
         x-alternatives:
@@ -4397,28 +4584,39 @@ definitions:
           - type: string
       exp_month:
         type: number
+        description: Two-digit number representing the card's expiration month.
       exp_year:
         type: number
+        description: Four-digit number representing the card's expiration year.
       last4:
         type: string
+        description: The last four digits of the card.
       payment_provider:
         type: string
+        description: The payment processors (e.g. PayPal, Stripe).
       payment_type:
         type: string
+        description: >-
+          The type of the payment method (e.g., `credit`, `debit`, `prepaid`, or
+          `unknown`).
       paypal_payment_error:
         type: string
+        description: The payment error from PayPal encountered.
       brand:
         type: string
+        description: >-
+          Card brand (e.g. `amex`, `diners`, `discover`, `jcb`, `mastercard`,
+          `unionpay`, `visa`, or `unknown`).
       billing_agreement_id:
         type: string
         x-alternatives:
           - type: string
           - type: string
       subscriptions:
-        $ref: '#/definitions/subscriptions'
+        $ref: '#/definitions/Model32'
     required:
       - subscriptions
-  Model33:
+  Model34:
     type: object
     properties:
       amount:
@@ -4433,8 +4631,8 @@ definitions:
   tax:
     type: array
     items:
-      $ref: '#/definitions/Model33'
-  Model34:
+      $ref: '#/definitions/Model34'
+  Model35:
     type: object
     properties:
       subscriptionId:
@@ -4458,11 +4656,11 @@ definitions:
       - subtotal_excluding_tax
       - total
       - total_excluding_tax
-  Model35:
+  Model36:
     type: array
     items:
-      $ref: '#/definitions/Model34'
-  Model36:
+      $ref: '#/definitions/Model35'
+  Model37:
     type: object
     properties:
       client_id:
@@ -4595,7 +4793,7 @@ definitions:
       - assertion
       - scope
       - code_challenge_method
-  Model37:
+  Model38:
     type: object
     properties:
       redirect:
@@ -4651,7 +4849,7 @@ definitions:
       expires_in:
         type: number
         description: The number of seconds until the access token will expire.
-  Model38:
+  Model39:
     type: object
     properties:
       assertion:
@@ -4662,7 +4860,7 @@ definitions:
         pattern: ^[a-zA-Z0-9_\-\.~=]+$
     required:
       - assertion
-  Model39:
+  Model40:
     type: array
     description: >-
       A space-separated list of scope values that the user has authorized, or is
@@ -4672,7 +4870,7 @@ definitions:
       confirmation dialog before being sent to this endpoint.
     items:
       type: string
-  Model40:
+  Model41:
     type: object
     properties:
       client_id:
@@ -4701,18 +4899,18 @@ definitions:
         description: Integer last-access time for the token.
         minimum: 0
       scope:
-        $ref: '#/definitions/Model39'
+        $ref: '#/definitions/Model40'
     required:
       - client_id
       - client_name
       - created_time
       - last_access_time
       - scope
-  Model41:
+  Model42:
     type: array
     items:
-      $ref: '#/definitions/Model40'
-  Model42:
+      $ref: '#/definitions/Model41'
+  Model43:
     type: object
     properties:
       client_id:
@@ -4755,7 +4953,7 @@ definitions:
         pattern: ^(?:[0-9a-f]{2})+$
         x-constraint:
           length: 64
-  Model43:
+  Model44:
     type: object
     properties:
       token:
@@ -4774,12 +4972,12 @@ definitions:
           - refresh_token
     required:
       - token
-  Model44:
+  Model45:
     type: object
     properties:
       active:
         type: boolean
-        description: Boolean indicator of weather the presented token is active.
+        description: Boolean indicator of whether the presented token is active.
       scope:
         type: string
         description: >-
@@ -4823,7 +5021,7 @@ definitions:
         description: ' Integer time when this token is last used.'
     required:
       - active
-  Model45:
+  Model46:
     type: object
     properties:
       client_id:
@@ -4852,7 +5050,7 @@ definitions:
       - client_id
       - assertion
       - scope
-  Model46:
+  Model47:
     type: object
     properties:
       identifier:
@@ -4876,14 +5074,14 @@ definitions:
         - take-action-for-the-internet
         - test-pilot
         - mozilla-and-you
-  Model47:
+  Model48:
     type: object
     properties:
       newsletters:
         $ref: '#/definitions/newsletters'
     required:
       - newsletters
-  Model48:
+  Model49:
     type: object
     properties:
       recoveryKeyId:
@@ -4903,7 +5101,7 @@ definitions:
         default: true
     required:
       - recoveryData
-  Model49:
+  Model50:
     type: object
     properties:
       email:
@@ -4914,7 +5112,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model50:
+  Model51:
     type: object
     properties:
       client_id:
@@ -5053,7 +5251,7 @@ definitions:
       - code
       - refresh_token
       - assertion
-  Model51:
+  Model52:
     type: object
     properties:
       access_token:
@@ -5135,7 +5333,7 @@ definitions:
       - scope
       - token_type
       - expires_in
-  Model52:
+  Model53:
     type: object
     properties:
       token:
@@ -5153,7 +5351,7 @@ definitions:
             pattern: ^([a-zA-Z0-9\-_]+)\.([a-zA-Z0-9\-_]+)\.([a-zA-Z0-9\-_]+)$
     required:
       - token
-  Model53:
+  Model54:
     type: object
     properties:
       user:
@@ -5165,7 +5363,7 @@ definitions:
           The OAuth client identifier for the requesting client application
           (provided by the connecting client application)
       scope:
-        $ref: '#/definitions/Model39'
+        $ref: '#/definitions/Model40'
       generation:
         type: number
         minimum: 0
@@ -5232,7 +5430,7 @@ definitions:
       planId:
         type: string
         maxLength: 128
-  Model54:
+  Model55:
     type: object
     properties:
       email:
@@ -5292,7 +5490,7 @@ definitions:
     required:
       - email
       - authPW
-  Model55:
+  Model56:
     type: object
     properties:
       uid:
@@ -5332,7 +5530,7 @@ definitions:
     required:
       - uid
       - sessionToken
-  Model56:
+  Model57:
     type: object
     properties:
       email:
@@ -5350,13 +5548,13 @@ definitions:
     required:
       - email
       - authPW
-  capabilities:
+  Model58:
     type: array
     x-constraint:
       length: 0
     items:
       type: string
-  Model57:
+  Model59:
     type: object
     properties:
       id:
@@ -5395,8 +5593,8 @@ definitions:
             type: string
             maxLength: 2048
       capabilities:
-        $ref: '#/definitions/capabilities'
-  Model58:
+        $ref: '#/definitions/Model58'
+  Model60:
     type: object
     properties:
       id:
@@ -5440,7 +5638,7 @@ definitions:
             maxLength: 2048
     required:
       - id
-  Model59:
+  Model61:
     type: object
     properties:
       token:
@@ -5454,7 +5652,7 @@ definitions:
           length: 64
     required:
       - authPW
-  Model60:
+  Model62:
     type: object
     properties:
       email:
@@ -5527,7 +5725,7 @@ definitions:
     required:
       - email
       - authPW
-  Model61:
+  Model63:
     type: object
     properties:
       uid:
@@ -5570,7 +5768,7 @@ definitions:
       - sessionToken
       - verified
       - metricsEnabled
-  Model62:
+  Model64:
     type: object
     properties:
       authPW:
@@ -5595,7 +5793,7 @@ definitions:
           `false`.
     required:
       - authPW
-  Model63:
+  Model65:
     type: object
     properties:
       client_id:
@@ -5624,7 +5822,7 @@ definitions:
       - identifier
       - keyRotationSecret
       - keyRotationTimestamp
-  Model64:
+  Model66:
     type: object
     properties:
       authPW:
@@ -5642,7 +5840,7 @@ definitions:
         pattern: ^[a-zA-Z0-9\-]*$
     required:
       - authPW
-  Model65:
+  Model67:
     type: object
     properties:
       sessionToken:
@@ -5658,7 +5856,7 @@ definitions:
     required:
       - sessionToken
       - uid
-  Model66:
+  Model68:
     type: object
     properties:
       email:
@@ -5670,7 +5868,7 @@ definitions:
         type: string
     required:
       - email
-  Model67:
+  Model69:
     type: object
     properties:
       exists:
@@ -5679,7 +5877,7 @@ definitions:
         type: boolean
     required:
       - exists
-  Model68:
+  Model70:
     type: object
     properties:
       email:
@@ -5697,7 +5895,7 @@ definitions:
     required:
       - email
       - clientId
-  Model69:
+  Model71:
     type: object
     properties:
       client_id:
@@ -5750,7 +5948,7 @@ definitions:
         type: string
     required:
       - algorithm
-  Model70:
+  Model72:
     type: object
     properties:
       publicKey:
@@ -5765,7 +5963,7 @@ definitions:
     required:
       - publicKey
       - duration
-  Model71:
+  Model73:
     type: object
     properties:
       idToken:
@@ -5784,7 +5982,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - provider
-  Model72:
+  Model74:
     type: object
     properties:
       provider:
@@ -5795,7 +5993,7 @@ definitions:
         maxLength: 256
     required:
       - provider
-  Model73:
+  Model75:
     type: object
     properties:
       response_type:
@@ -5893,7 +6091,7 @@ definitions:
     required:
       - client_id
       - state
-  Model74:
+  Model76:
     type: object
     properties:
       redirect:
@@ -5903,7 +6101,7 @@ definitions:
       state:
         type: string
         maxLength: 512
-  Model75:
+  Model77:
     type: object
     properties:
       client_id:
@@ -5955,7 +6153,7 @@ definitions:
         maxLength: 64
     required:
       - client_id
-  Model76:
+  Model78:
     type: object
     properties:
       client_id:
@@ -5968,7 +6166,7 @@ definitions:
     required:
       - client_id
       - id_token
-  Model77:
+  Model79:
     type: object
     properties:
       acr:
@@ -5991,7 +6189,7 @@ definitions:
         type: string
       sub:
         type: string
-  Model78:
+  Model80:
     type: object
     properties:
       grant_type:
@@ -6080,7 +6278,7 @@ definitions:
     required:
       - client_id
       - code
-  Model79:
+  Model81:
     type: object
     properties:
       access_token:
@@ -6152,12 +6350,12 @@ definitions:
       - token_type
       - expires_in
       - auth_at
-  Model80:
+  Model82:
     type: object
     properties:
       authPW:
         type: string
-  Model81:
+  Model83:
     type: object
     properties:
       email:
@@ -6165,21 +6363,21 @@ definitions:
         maxLength: 255
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
-  Model82:
+  Model84:
     type: object
     properties:
       exists:
         type: boolean
     required:
       - exists
-  Model83:
+  Model85:
     type: object
     properties:
       recoveryKeyId:
         type: string
         maxLength: 32
         pattern: ^(?:[a-fA-F0-9]{2})+$
-  Model84:
+  Model86:
     type: object
     properties:
       email:
@@ -6190,7 +6388,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model85:
+  Model87:
     type: object
     properties:
       email:
@@ -6223,7 +6421,7 @@ definitions:
         maxLength: 32
         x-format:
           alphanum: true
-  Model86:
+  Model88:
     type: object
     properties:
       email:
@@ -6234,7 +6432,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model87:
+  Model89:
     type: object
     properties:
       uid:
@@ -6272,7 +6470,7 @@ definitions:
     required:
       - uid
       - code
-  Model88:
+  Model90:
     type: object
     properties:
       customSessionToken:
@@ -6281,13 +6479,13 @@ definitions:
         minLength: 64
         maxLength: 64
         pattern: ^(?:[a-fA-F0-9]{2})+$
-  Model89:
+  Model91:
     type: object
     properties:
       reason:
         type: string
         maxLength: 16
-  Model90:
+  Model92:
     type: object
     properties:
       email:
@@ -6335,7 +6533,7 @@ definitions:
     required:
       - email
       - authPW
-  Model91:
+  Model93:
     type: object
     properties:
       uid:
@@ -6365,7 +6563,7 @@ definitions:
       type: string
       maxLength: 256
       pattern: ^[a-zA-Z0-9 _\/.:-]*$
-  Model92:
+  Model94:
     type: object
     properties:
       code:
@@ -6381,7 +6579,7 @@ definitions:
         type: boolean
       newsletters:
         $ref: '#/definitions/newsletters'
-  Model93:
+  Model95:
     type: object
     properties:
       email:
@@ -6411,7 +6609,7 @@ definitions:
       - productName
       - topic
       - message
-  Model94:
+  Model96:
     type: object
     properties:
       success:
@@ -6422,12 +6620,12 @@ definitions:
         type: string
     required:
       - success
-  Model95:
+  Model97:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model96:
+  Model98:
     type: object
     properties:
       qrCodeUrl:
@@ -6440,7 +6638,7 @@ definitions:
       - qrCodeUrl
       - secret
       - recoveryCodes
-  Model97:
+  Model99:
     type: object
     properties:
       clientId:
@@ -6461,7 +6659,7 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 32
-  Model98:
+  Model100:
     type: object
     properties:
       id:
@@ -6474,7 +6672,7 @@ definitions:
   payload:
     type: object
     description: Opaque payload to be forwarded to the device.
-  Model99:
+  Model101:
     type: object
     properties:
       target:
@@ -6501,7 +6699,7 @@ definitions:
       - target
       - command
       - payload
-  Model100:
+  Model102:
     type: object
     properties:
       enqueued:
@@ -6520,12 +6718,12 @@ definitions:
       pattern: ^(?:[a-fA-F0-9]{2})+$
       x-constraint:
         length: 32
-  Model101:
+  Model103:
     type: object
     description: >-
       Push payload, validated against
       [**pushpayloads.schema.json**](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/lib/pushpayloads.schema.json).
-  Model102:
+  Model104:
     type: object
     properties:
       to:
@@ -6542,7 +6740,7 @@ definitions:
       excluded:
         $ref: '#/definitions/excluded'
       payload:
-        $ref: '#/definitions/Model101'
+        $ref: '#/definitions/Model103'
       TTL:
         type: integer
         description: Push notification TTL, defaults to `0`.
@@ -6550,7 +6748,7 @@ definitions:
     required:
       - to
       - payload
-  Model103:
+  Model105:
     type: object
     properties:
       uid:
@@ -6567,7 +6765,7 @@ definitions:
     required:
       - uid
       - unblockCode
-  Model104:
+  Model106:
     type: object
     properties:
       email:
@@ -6580,18 +6778,22 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model105:
+  Model107:
     type: object
     properties:
       priceId:
         type: string
+        description: >-
+          A unique identifier for the
+          [price](https://stripe.com/docs/api/prices/object).
         maxLength: 255
       promotionCode:
         type: string
+        description: A customer-redeemable code for a coupon.
     required:
       - priceId
       - promotionCode
-  Model106:
+  Model108:
     type: object
     properties:
       promotionCode:
@@ -6615,7 +6817,7 @@ definitions:
       - valid
       - expired
       - maximallyRedeemed
-  Model107:
+  Model109:
     type: object
     properties:
       displayName:
@@ -6632,7 +6834,7 @@ definitions:
         type: string
     required:
       - id
-  Model108:
+  Model110:
     type: object
     properties:
       id:
@@ -6645,18 +6847,18 @@ definitions:
       - id
       - created
       - price
-  Model109:
+  Model111:
     type: array
     items:
-      $ref: '#/definitions/Model108'
+      $ref: '#/definitions/Model110'
   items:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Model109'
+        $ref: '#/definitions/Model111'
     required:
       - data
-  Model110:
+  Model112:
     type: object
     properties:
       id:
@@ -6673,12 +6875,18 @@ definitions:
           - type: string
       cancel_at_period_end:
         type: boolean
+        description: >-
+          True if the subscription will not automatically renew at the end of
+          the current billing period. Else false.
       created:
         type: number
+        description: This is the date the subscription was created.
       current_period_end:
         type: number
+        description: This is the end date of the current billing cycle.
       current_period_start:
         type: number
+        description: This is the start date of the current billing cycle.
       ended_at:
         type: number
         x-alternatives:
@@ -6693,6 +6901,9 @@ definitions:
           - $ref: '#/x-alt-definitions/latest_invoice'
       status:
         type: string
+        description: >-
+          The status of the product (e.g. `active`, `canceled`, `trialing`,
+          `unpaid`, etc).
     required:
       - id
       - cancel_at_period_end
@@ -6700,49 +6911,53 @@ definitions:
       - current_period_end
       - current_period_start
       - status
-  Model111:
+  Model113:
     type: array
     items:
-      $ref: '#/definitions/Model110'
-  Model112:
+      $ref: '#/definitions/Model112'
+  Model114:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Model111'
+        $ref: '#/definitions/Model113'
     required:
       - data
-  Model113:
+  Model115:
     type: object
     properties:
       invoices_settings:
         $ref: '#/definitions/invoices_settings'
       subscriptions:
-        $ref: '#/definitions/Model112'
-  Model114:
+        $ref: '#/definitions/Model114'
+  Model116:
     type: object
     properties:
       currencyCode:
         type: string
+        description: The three-letter ISO currency code, in uppercase.
         x-convert:
           case: upper
     required:
       - currencyCode
-  Model115:
+  Model117:
     type: object
     properties:
       token:
         type: string
     required:
       - token
-  Model116:
+  Model118:
     type: object
     properties:
       subscriptionId:
         type: string
+        description: >-
+          A unique identifier for the Stripe
+          [subscription](https://stripe.com/docs/api/subscriptions/object).
         maxLength: 255
     required:
       - subscriptionId
-  Model117:
+  Model119:
     type: object
     properties:
       authPW:
@@ -6767,7 +6982,7 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
     required:
       - authPW
-  Model118:
+  Model120:
     type: object
     properties:
       email:
@@ -6785,47 +7000,6 @@ definitions:
     required:
       - email
       - oldAuthPW
-  Model119:
-    type: object
-    properties:
-      email:
-        type: string
-        description: Recovery email for the account.
-        maxLength: 255
-        pattern: >-
-          ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
-      service:
-        type: string
-        description: >-
-          Identifies the relying service the user was interacting with that
-          triggered the password reset.
-        maxLength: 16
-        pattern: ^[a-zA-Z0-9\-]*$
-      redirectTo:
-        type: string
-        description: >-
-          URL that the client should be redirected to after handling the
-          request.
-        maxLength: 2048
-      resume:
-        type: string
-        description: >-
-          Opaque URL-encoded string to be included in the verification link as a
-          query parameter.
-        maxLength: 2048
-    required:
-      - email
-  Model120:
-    type: object
-    properties:
-      passwordForgotToken:
-        type: string
-      ttl:
-        type: number
-      codeLength:
-        type: number
-      tries:
-        type: number
   Model121:
     type: object
     properties:
@@ -6854,11 +7028,52 @@ definitions:
           Opaque URL-encoded string to be included in the verification link as a
           query parameter.
         maxLength: 2048
+    required:
+      - email
+  Model122:
+    type: object
+    properties:
+      passwordForgotToken:
+        type: string
+      ttl:
+        type: number
+      codeLength:
+        type: number
+      tries:
+        type: number
+  Model123:
+    type: object
+    properties:
+      email:
+        type: string
+        description: Recovery email for the account.
+        maxLength: 255
+        pattern: >-
+          ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
+      service:
+        type: string
+        description: >-
+          Identifies the relying service the user was interacting with that
+          triggered the password reset.
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
+      redirectTo:
+        type: string
+        description: >-
+          URL that the client should be redirected to after handling the
+          request.
+        maxLength: 2048
+      resume:
+        type: string
+        description: >-
+          Opaque URL-encoded string to be included in the verification link as a
+          query parameter.
+        maxLength: 2048
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model122:
+  Model124:
     type: object
     properties:
       code:
@@ -6871,12 +7086,12 @@ definitions:
         type: boolean
     required:
       - code
-  Model123:
+  Model125:
     type: object
     properties:
       accountResetToken:
         type: string
-  Model124:
+  Model126:
     type: object
     properties:
       email:
@@ -6887,7 +7102,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model125:
+  Model127:
     type: object
     properties:
       email:
@@ -6904,7 +7119,7 @@ definitions:
     required:
       - email
       - code
-  Model126:
+  Model128:
     type: object
     properties:
       code:
@@ -6918,56 +7133,71 @@ definitions:
         pattern: ^[a-zA-Z0-9\-]*$
     required:
       - code
-  Model127:
+  Model129:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model128:
+  Model130:
     type: object
     properties:
       priceId:
         type: string
+        description: >-
+          A unique identifier for the
+          [price](https://stripe.com/docs/api/prices/object).
       paymentMethodId:
         type: string
+        description: >-
+          A unique identifier for the payment method in Stripe; does not apply
+          to IAP subscriptions.
         maxLength: 30
       promotionCode:
         type: string
+        description: A customer-redeemable code for a coupon.
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
       - priceId
-  Model129:
+  Model131:
     type: object
     properties:
       subscription:
-        $ref: '#/definitions/Model110'
+        $ref: '#/definitions/Model112'
       sourceCountry:
         type: string
         x-constraint:
           length: 2
     required:
       - sourceCountry
-  Model130:
+  Model132:
     type: object
     properties:
       priceId:
         type: string
+        description: >-
+          A unique identifier for the
+          [price](https://stripe.com/docs/api/prices/object).
       promotionCode:
         type: string
+        description: A customer-redeemable code for a coupon.
       token:
         type: string
         maxLength: 30
       idempotencyKey:
         type: string
+        description: >-
+          The idempotency key transmitted during the request, if any. For more
+          information, see [Stripe
+          docs](https://stripe.com/docs/error-low-level#idempotency)
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
       - priceId
       - idempotencyKey
-  Model131:
+  Model133:
     type: object
     properties:
       signedPayload:
@@ -6981,24 +7211,28 @@ definitions:
         type: string
     required:
       - data
-  Model132:
+  Model134:
     type: object
     properties:
       message:
         $ref: '#/definitions/message'
     required:
       - message
-  Model133:
+  Model135:
     type: object
     properties:
       priceId:
         type: string
+        description: >-
+          A unique identifier for the
+          [price](https://stripe.com/docs/api/prices/object).
         maxLength: 255
       promotionCode:
         type: string
+        description: A customer-redeemable code for a coupon.
     required:
       - priceId
-  Model134:
+  Model136:
     type: object
     properties:
       amount:
@@ -7017,7 +7251,7 @@ definitions:
   line_items:
     type: array
     items:
-      $ref: '#/definitions/Model134'
+      $ref: '#/definitions/Model136'
   discount:
     type: object
     properties:
@@ -7031,7 +7265,7 @@ definitions:
       - amount
       - amount_off
       - percent_off
-  Model135:
+  Model137:
     type: object
     properties:
       line_items:
@@ -7054,21 +7288,32 @@ definitions:
       - subtotal_excluding_tax
       - total
       - total_excluding_tax
-  Model136:
+  Model138:
     type: object
     properties:
       invoiceId:
         type: string
+        description: >-
+          A unique identifer for an
+          [invoice](https://stripe.com/docs/api/invoices/object) to
+          Stripe/PayPal customers whose subscriptions are managed by Stripe.
       paymentMethodId:
         type: string
+        description: >-
+          A unique identifier for the payment method in Stripe; does not apply
+          to IAP subscriptions.
         maxLength: 30
       idempotencyKey:
         type: string
+        description: >-
+          The idempotency key transmitted during the request, if any. For more
+          information, see [Stripe
+          docs](https://stripe.com/docs/error-low-level#idempotency)
     required:
       - invoiceId
       - paymentMethodId
       - idempotencyKey
-  Model137:
+  Model139:
     type: object
     properties:
       id:
@@ -7080,7 +7325,7 @@ definitions:
           - $ref: '#/x-alt-definitions/payment_intent'
     required:
       - id
-  Model138:
+  Model140:
     type: object
     properties:
       token:
@@ -7088,21 +7333,28 @@ definitions:
         maxLength: 30
     required:
       - token
-  Model139:
+  Model141:
     type: object
     properties:
       paymentMethodId:
         type: string
+        description: >-
+          A unique identifier for the payment method in Stripe; does not apply
+          to IAP subscriptions.
         maxLength: 30
     required:
       - paymentMethodId
-  Model140:
+  Model142:
     type: object
     properties:
       client_secret:
         type: string
+        description: >-
+          The OAuth client secret for the requesting client application.
+          Required for confidential clients, forbidden for public clients.
       created:
         type: number
+        description: This is the date the subscription was created.
       payment_method:
         type: string
         x-alternatives:
@@ -7118,17 +7370,20 @@ definitions:
           - type: string
       status:
         type: string
+        description: >-
+          The status of the product (e.g. `active`, `canceled`, `trialing`,
+          `unpaid`, etc).
     required:
       - created
       - status
-  Model141:
+  Model143:
     type: object
     properties:
       originalTransactionId:
         type: string
     required:
       - originalTransactionId
-  Model142:
+  Model144:
     type: object
     properties:
       sku:
@@ -7138,24 +7393,30 @@ definitions:
     required:
       - sku
       - token
-  Model143:
+  Model145:
     type: object
     properties:
       id:
         type: string
+        description: >-
+          A unique identifier for the payment method in Stripe; does not apply
+          to IAP subscriptions.
         maxLength: 30
     required:
       - id
-  Model144:
+  Model146:
     type: object
     properties:
       success:
         type: boolean
-  Model145:
+  Model147:
     type: object
     properties:
       planId:
         type: string
+        description: >-
+          A unique identifier for the
+          [plan](https://stripe.com/docs/api/plans/object).
         maxLength: 255
     required:
       - planId
@@ -7542,8 +7803,12 @@ x-alt-definitions:
     properties:
       client_secret:
         type: string
+        description: >-
+          The OAuth client secret for the requesting client application.
+          Required for confidential clients, forbidden for public clients.
       created:
         type: number
+        description: This is the date the subscription was created.
       payment_method:
         type: string
         x-alternatives:
@@ -7559,6 +7824,9 @@ x-alt-definitions:
           - type: string
       status:
         type: string
+        description: >-
+          The status of the product (e.g. `active`, `canceled`, `trialing`,
+          `unpaid`, etc).
     required:
       - created
       - status
