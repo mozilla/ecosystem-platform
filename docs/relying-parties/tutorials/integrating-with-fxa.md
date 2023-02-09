@@ -72,6 +72,10 @@ We communicate with our relying parties via the [firefox-accounts-notices group]
 
 ### Development
 
+:::note
+You are encouraged to use [our staging servers](https://accounts.stage.mozaws.net/) to develop against.  Our staging server has a persistent database and changes made there are saved.  Spot testing and some new accounts are fine but you are expected to clean up any significant amount of data (eg. accounts made from automated testing).  If you're using PyFxA [here is an example](https://pypi.org/project/PyFxA/#testing-email-addresses) using `destroy_account()`.
+:::
+
 0. Review the [OAuth 2.0][oauth] documentation.
 0. Register for staging OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
 0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
