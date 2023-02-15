@@ -8,11 +8,11 @@ Before reading this page, it will be useful to have a grounding in Sub Plat term
 
 ## Payment Methods
 
-The Subscription Platform currently supports payments with major credit cards.
+The Subscription Platform currently supports payments with major credit cards through Stripe and Paypal. Supported Products with Mobile products may also integrate to Apple and Google IAP through the Subscription Platform.
 
 ## Staffed Support
 
-Subscription Platform integrates with ZenDesk to provide staffed support. The FxA team partners with the Support Team to manage ZenDesk. The Support team is directly responsible for provisioning resourcing for support and setting up SLAs for your subscription offerings.
+Subscription Platform integrates with ZenDesk to provide staffed support. The Subscription Platform team partners with the Support Team to manage ZenDesk. The Support team is directly responsible for provisioning resourcing for support and setting up SLAs for your subscription offerings.
 
 ## Data Reporting
 
@@ -24,11 +24,12 @@ Data reporting consists of standard FxA funnel metrics, Stripe data & ZenDesk ti
 
 ## Currency & Market Support
 
-The Subscription Platform supports a number of currencies including USD, CAD, NZD, Singapore Dollars, Swiss Franc, Euros, Great British Pounds, and Malaysian Ringgit. Practically speaking, any currency supported by Stripe is available through Sub Plat. Please be aware that if you wish to ship a product in a currency other than the ones listed above, you may wish to run QA on our staging environment.
+The Subscription Platform currently supports several [currencies and markets](https://mozilla-hub.atlassian.net/l/cp/MMwzvYV4).
 
-Importantly, If you wish to offer your product in multiple different currencies, you will have to configure your marketing page to correctly route different users to different plans depending on their region.You will also need to set up individual stripe plans for each currency.
+Importantly, if you wish to offer your product in multiple different currencies, you will have to configure your marketing page to correctly route different users to different plans depending on their region. You will also need to set up individual stripe plans for each currency.
 
-As you think about what markets you want to launch in, consult with legal and finance teams to ensure you are abiding by any legal or regulatory requirements for your product.
+Reach out to the Subscription Platform team in Slack at #subscription-platform to request additional market support so that we may advise you on next steps toward coverage.
+
 
 ### Billing intervals
 
