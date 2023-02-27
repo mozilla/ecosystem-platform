@@ -22,7 +22,7 @@
   "dependencies": {
     "@docusaurus/core": "^2.1.0",
     "@docusaurus/preset-classic": "^2.1.0",
-    "@docusaurus/theme-search-algolia": "^2.1.0",
+    "@docusaurus/theme-search-algolia": "^2.3.1",
     "@graphql-markdown/docusaurus": "^1.16.6",
     "@graphql-tools/graphql-file-loader": "^7.5.11",
     "@mdx-js/react": "^1.6.21",
