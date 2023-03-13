@@ -4,7 +4,29 @@ title: Metrics for Relying Parties
 sidebar_label: Metrics
 ---
 
-Last updated: `January 26th, 2022`
+Last updated: `March 15th, 2023`
+
+## Subscriptions Services Data Sources
+Subscription Platform provides product metrics by obtaining subscriptions data from the following sources: Stripe, mobile app store providers, and FxA logs.
+
+### Stripe
+The bulk of Subscriptions Services data comes from Stripe and is synced to BigQuery using FiveTran and its Stripe connector. This data reflects the current subscription state of all active subscriptions paid for via Stripe or PayPal. It includes information, such as the customer's start and end dates of a subscription, etc.
+
+Other information includes customers' postal code, state, and country for a subscription, which helps resolve issues for customers across a particular dimension (e.g., country, payment provider, etc.). As the data intentionally excludes any personal identifiable information of customers (e.g., name, street address, phone number, email address), it makes it challenging to use this data to help on an individual customer level. Other uses for this data is for retrieving time counts (e.g., total number of active subscriptions).
+
+While FiveTran does not support capturing subscription change events, it preserves historical data within `subscription_history` by comparing the current state of the subscription with the most recent record in the history table and adding a new record if they vary.
+
+### Mobile app store providers
+Subscriptions Services data is also obtained from two mobile app store providers: Apple and Google. This includes date of billing and expired dates, subscription change event, etc. Apple provides limited data - it does not provide the country, price, or currency of subscriptions.
+
+Subscription Platform handles getting Apple subscriptions from the Apple API and stores the latest state of active subscriptions in Firestore. Prior to December 2023, subscriptions data was managed by Guardian and stored in the Guardian database. As the historical state of Apple subscriptions has yet to be fully re-constructed within Firestore, Guardian is also used as a data source for historical purposes. 
+
+Similar to Apple, Subscription Platform also handles the current and historical state of Google subscriptions and it is synced to Firestore as well.
+
+The general use of this data is to understand what the subscription state was at the time an event occurred (e.g., when Stripe products and plans change) as well as sequences of events.
+
+### FxA logs
+FxA logs include event data that can help provide insights regarding the customers' journey through the FxA sign-in/sign-up process. It can also help identify potential drivers (e.g., call-to-action, medium, paid search term, etc.) that directed customers to a page for acquisition and attribution purposes, if query parameters are set up properly (see below for more information).
 
 ## Relying-Party Hosted Email Form
 
