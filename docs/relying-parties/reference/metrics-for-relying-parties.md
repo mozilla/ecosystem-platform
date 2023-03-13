@@ -4,7 +4,38 @@ title: Metrics for Relying Parties
 sidebar_label: Metrics
 ---
 
-Last updated: `January 26th, 2022`
+Last updated: `March 24th, 2023`
+
+## Subscriptions Services Data Sources
+Subscription Platform provides product metrics in BigQuery by obtaining subscriptions data from the following sources: Stripe, mobile app store providers, and FxA logs.
+
+### Stripe
+The bulk of Subscriptions Services data comes from Stripe and is synced to BigQuery using Fivetran and its [Stripe connector](https://fivetran.com/docs/applications/stripe). This data reflects the current subscription state of all active subscriptions paid for via Stripe or PayPal. It also includes information regarding subscriptions and customers, as well as products, plans, invoices, cards, charges, discounts, coupons, and promotion codes.
+
+Some of the customer information includes the customer's postal code, state, and country for a subscription, which helps resolve issues for customers across a particular dimension (e.g., country, payment provider, etc.). However, as it intentionally excludes any personal identifiable information of customers (e.g., name, street address, phone number, email address), it can be challenging to use to help on an individual customer level. Other uses for this data is for retrieving all-time counts (e.g., total number of active subscriptions).
+
+Fivetran preserves historical data within `subscription_history` by comparing the current state of the subscription with the most recent record in the history table and adding a new record if they vary. However, there are limitations with the Fivetran Stripe sync, as it only records historical state/changes for top-level subscription fields and not the associated subscription items which indicate the subscribed plan. As we have to rely on the subscription metadata fields `previous_plan_id` and `plan_change_date`, which only records the most recent plan change, we can potentially miss/lose history if there are any problems with the Fivetran sync.
+
+The Stripe Firestore DB was set up in October 2021. As of February 2023, Subscription Platform also syncs Stripe Firestore Customer and Subscriptions collections in BigQuery, including the latest data and changelogs.
+
+### Mobile app store providers
+Subscriptions Services data is also obtained from two mobile app store providers: Apple and Google. This includes current and historical IAP subscription states, as well as information, such as date of billing and expired dates, subscription change event, etc. Apple provides limited data - it does not provide the country, price, or currency of subscriptions.
+
+As of December 2022, Subscription Platform supports [Apple IAP][apple-iap-integration] subscriptions, and stores current subscription state from that point forward in the Firestore database and synced in BigQuery.
+
+Similar to Apple, Subscription Platform also handles the current state of Google IAP subscriptions, which are also stored in Firestore and synced in BigQuery.
+
+These collections of IAP subscriptions synced in BigQuery each have changelogs that also get synced into a BigQuery table. These changelogs contain the historical state for IAP subscriptions - there is a BigQuery view for each that represents the current state of the collection calculated based on the latest changelog for each document. Since the historical state and changes are only recorded by the BigQuery sync itself, there are only records of the changes that occurred after the BigQuery syncs were set up.
+
+:::note
+- Google IAP sync started 2021-10-18
+- Apple IAP sync started 2022-12-15
+:::
+
+The general use of this data is to understand what the subscription state was over time, as well as sequences of events.
+
+### FxA logs
+FxA logs include account and subscription management event data that can help provide insights regarding the customers' journey through the FxA sign-in/sign-up process. It can also help identify potential drivers (e.g., call-to-action, medium, paid search term, etc.) that directed customers to a page for acquisition and attribution purposes, if query parameters are set up properly (see below for more information).
 
 ## Relying-Party Hosted Email Form
 
@@ -76,6 +107,7 @@ Users may opt-out of metrics from the FxA settings page. If they do, FxA will no
 [amplitude-firstrun]: https://analytics.amplitude.com/mozilla-corp/chart/n8cd9no
 [amplitude-regform]: https://analytics.amplitude.com/mozilla-corp/chart/f5sz7kt
 [about:welcome]: about:welcome
+[apple-iap-integration]: ../../tutorials/subscription-platform.md#apple-iap-integration
 [param-example]: https://github.com/mozilla/activity-stream/blob/06aeeb331e9dd497e4d115d0e6cba51b9b25b36c/content-src/asrouter/templates/StartupOverlay/StartupOverlay.jsx#L30
 [flow-events]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/server/lib/flow-event.js
 [query-params]: https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/query-params.md
