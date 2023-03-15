@@ -696,7 +696,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model145'
+            $ref: '#/definitions/Model146'
           description: Successful
   /recovery_emails:
     get:
@@ -3442,7 +3442,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/latest_invoice_items'
+            $ref: '#/definitions/Model137'
           description: Successful
   /oauth/subscriptions/invoice/retry:
     post:
@@ -3456,13 +3456,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model138'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model138'
+            $ref: '#/definitions/Model139'
           description: Successful
   /oauth/subscriptions/paymentmethod/billing-agreement:
     post:
@@ -3476,7 +3476,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model139'
+            $ref: '#/definitions/Model140'
       tags:
         - Subscriptions
       responses:
@@ -3498,7 +3498,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model140'
+            $ref: '#/definitions/Model141'
       tags:
         - Subscriptions
       responses:
@@ -3521,7 +3521,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model141'
+            $ref: '#/definitions/Model142'
           description: Successful
   /oauth/subscriptions/stripe/event:
     post:
@@ -3560,7 +3560,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model142'
+            $ref: '#/definitions/Model143'
       tags:
         - Subscriptions
       responses:
@@ -3586,7 +3586,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model143'
+            $ref: '#/definitions/Model144'
       tags:
         - Subscriptions
       responses:
@@ -3609,13 +3609,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model140'
+            $ref: '#/definitions/Model141'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model144'
+            $ref: '#/definitions/Model145'
           description: Successful
   /oauth/subscriptions/active/{subscriptionId}:
     put:
@@ -3639,7 +3639,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model146'
+            $ref: '#/definitions/Model147'
       tags:
         - Subscriptions
       responses:
@@ -3740,9 +3740,7 @@ definitions:
     required:
       - line_items
       - subtotal
-      - subtotal_excluding_tax
       - total
-      - total_excluding_tax
   Model3:
     type: object
     properties:
@@ -7294,6 +7292,29 @@ definitions:
   Model137:
     type: object
     properties:
+      line_items:
+        $ref: '#/definitions/line_items'
+      subtotal:
+        type: number
+      subtotal_excluding_tax:
+        type: number
+      total:
+        type: number
+      total_excluding_tax:
+        type: number
+      tax:
+        $ref: '#/definitions/tax'
+      discount:
+        $ref: '#/definitions/discount'
+    required:
+      - line_items
+      - subtotal
+      - subtotal_excluding_tax
+      - total
+      - total_excluding_tax
+  Model138:
+    type: object
+    properties:
       invoiceId:
         type: string
         description: >-
@@ -7316,7 +7337,7 @@ definitions:
       - invoiceId
       - paymentMethodId
       - idempotencyKey
-  Model138:
+  Model139:
     type: object
     properties:
       id:
@@ -7328,7 +7349,7 @@ definitions:
           - $ref: '#/x-alt-definitions/payment_intent'
     required:
       - id
-  Model139:
+  Model140:
     type: object
     properties:
       token:
@@ -7336,7 +7357,7 @@ definitions:
         maxLength: 30
     required:
       - token
-  Model140:
+  Model141:
     type: object
     properties:
       paymentMethodId:
@@ -7347,7 +7368,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model141:
+  Model142:
     type: object
     properties:
       client_secret:
@@ -7379,14 +7400,14 @@ definitions:
     required:
       - created
       - status
-  Model142:
+  Model143:
     type: object
     properties:
       originalTransactionId:
         type: string
     required:
       - originalTransactionId
-  Model143:
+  Model144:
     type: object
     properties:
       sku:
@@ -7396,7 +7417,7 @@ definitions:
     required:
       - sku
       - token
-  Model144:
+  Model145:
     type: object
     properties:
       id:
@@ -7407,12 +7428,12 @@ definitions:
         maxLength: 30
     required:
       - id
-  Model145:
+  Model146:
     type: object
     properties:
       success:
         type: boolean
-  Model146:
+  Model147:
     type: object
     properties:
       planId:
