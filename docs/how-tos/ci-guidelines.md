@@ -89,4 +89,18 @@ We have a lot of tests. No one really wants to dig through command line output t
 Test reports are fairly easy to export. Most testing frameworks will export a json format, typically in the junit reporter format, which can be interpreted by CircleCI. Any test report that ultimately ends up in the artifacts/tests will be accessible in the tests tab in circle ci as depicted above.
 
 ## Review the CI Workflows
-The CI workflows in FxA have been crafted to address some of the side effects that mono repos can have on CI. Checkout the [Continuous Integration](../reference/continuous-integration-for-monorepos) reference to learn more about how our CI design attempts to address some of these issues.
+The CI workflows in FxA have been crafted to address some of the side effects that mono repos can have on CI. Checkout the [Continuous Integration](/ecosystem-platform/reference/continuous-integration) reference to learn more about how our CI design attempts to address some of these issues.
+
+
+## Updating CI Runner Images
+The day will come when it might be necessary to update the base images we use in our CI runners. A good example is upgrading a major version of node. When this happens we must update images to reference `cimg/node:$VER` and `node:$VER`. 
+
+Because CI images are built as changes land on main, it may seem as though there is a chicken egg problem. In order to produce new CI images we must land the changes we need on main, but in order to land changes on main we must test them in branch using our CI runner images. This can definitely be a quandary, but here’s how to deal with it:
+
+- In `.circleci/config.yml`, go to `commands > create-ci-images > build-ci-image > target`, and version those values. So the targets would become `test-runner-v2`, `builder-v2`, and `functional-test-runner-v2`.
+- In `.circleci/config.yml`, update all references to these images in the executor section.
+- In `.circleci/config.yml`, go to `workflows > deploy_ci_images > jobs > filters > branches` and add the name of the branch being worked on to the list.
+- Open the `_dev/docker/ci/Dockerfile` and change `cimg/node:16.3` to whatever `cimg/node:$version` needs to be targeted.
+- Push changes.
+
+This will end up triggering a new build. The tests will fail the first time. In fact you may as well cancel the `test_pull_request` workflow. The `deploy_ci_images` workflow will run (due to change in step 4) and push up the new image tags to docker hub that our CI runners use. On a rerun, or subsequent push, the image with node 18 should now be in place, and they will pass. And of course, it won’t break everyone else’s pipelines cause it’ll be using a different tag, and their configs still reference the original images.
