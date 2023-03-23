@@ -50,13 +50,15 @@ However, there are a bunch of other tables in there as well.  In short, only exp
 
 ## Auth server
 
-Activity events, flow events and amplitude events are all just mozlog-format log lines. There are functions for each of them in the module `lib/log.js`, respectively called `activityEvent`, `flowEvent` and `amplitudeEvent`. However, to reduce boilerplate in the codebase they’re actually invoked via calls to `request.emitMetricsEvent`. That function is defined in `lib/metrics/events.js` and is decorated onto the request object by some code in `lib/server.js`.
+Activity events, flow events, and amplitude events are all just mozlog-format log lines. There are functions for each of them in the module `lib/log.js`, respectively called `activityEvent`, `flowEvent` and `amplitudeEvent`. However, to reduce boilerplate in the codebase they’re actually invoked via calls to `request.emitMetricsEvent`. That function is defined in `lib/metrics/events.js` and is decorated onto the request object by code in `lib/server.js`.
 
 Activity events must have a `uid` property. Some call sites also set `device_id`. Properties containing user agent information and the OAuth client id are set automatically based on the request object.
 
-Flow events have their properties set automatically too, either from the request object or, if there is an authentication token of some kind, from data stored against the uid and token id in memcached. This data is widely referred to as `metricsContext` throughout the codebase and has a lifetime of 2 hours, which is kind of an arbitrary limit that allows us to fetch data for most flows while ignoring dubious data from stale or non-authentic sources. The `metricsContext` is written to memcached via calls to `request.stashMetricsContext` (where it’s copied from the request data) and `request.propagateMetricsContext` (where it’s copied from some other stashed data). Those functions are both defined in `lib/metrics/context.js` and decorated onto the request object in `lib/server.js`.
+Flow events have their properties set automatically as well, either from the request object or, if there is an authentication token of some kind, from data stored against the uid and token id in memcached. This data is widely referred to as `metricsContext` throughout the codebase and has a lifetime of 2 hours, which is an arbitrary limit that allows us to fetch data for most flows while ignoring dubious data from stale or non-authentic sources. The `metricsContext` is written to memcached via calls to `request.stashMetricsContext` (where it’s copied from the request data) and `request.propagateMetricsContext` (where it’s copied from some other stashed data). Those functions are both defined in `lib/metrics/context.js` and decorated onto the request object in `lib/server.js`.
 
 Amplitude events are not explicitly emitted (note the exception in [fxa-payments-server](#payments-server)), because they can all be mapped to from previously-existing activity or flow events. Those mappings are defined by structures called `EVENTS` and `FUZZY_EVENTS` in `lib/metrics/amplitude.js`. Any event matching a string key from `EVENTS` or a regex key from `FUZZY_EVENTS` gets transformed into the corresponding event by common code in the `fxa-shared` package (it’s also used by the content server). Most of the properties on those events are set automatically, although there are still some cases where data must be set explicitly at the call site.
+
+All events are validated against a shared schema, then logged accordingly to `docker-fxa-auth` or `stdout`. These logs are loaded into BigQuery into partitioned tables. As BigQuery uses schema auto-detection, if the BigQuery data type changes, the log line won't go to the partitioned table, but instead to an error table.
 
 StatsD is used to capture latency performance metrics on SQS calls, SNS calls, Stripe calls, and any HTTP API requests handled by `lib/backendService.js` (e.g. requests to our customs server).  It is also used to time the server's request handling on all routes.
 
@@ -74,17 +76,17 @@ StatsD is used to collect SQS processing latency metrics and message type counts
 
 ## Payments server
 
-One thing to keep in mind is that users should not access the pages on Payments directly.  The Content server will redirect them to the Payments server, along with metrics related query params.  Those query params are:
+Flow metrics are required, as metrics will not be recorded on the Payments server without them. As the Content server redirects users to the Payments server along with metrics-related query params, users should not directly access the pages on Payments. Those query params are as follows:
 
 - `flow_id`
 - `flow_begin_time`
 - `device_id`
 
-They are converted to `camelCase` once in Payments.
+These query params are converted to `camelCase` once in Payments.
 
 The main module on the front end for emitting events is `src/lib/flow-events.ts`.  Its `init` function is called in `src/App.tsx`, during which the three query params above are passed into the module.
 
-A call to `logAmplitudeEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server.
+A call to `logAmplitudeEvent` results in a `POST` to `/metrics`, which is handled by `server/lib/routes/post-metrics.js`.  The events are log lines in identitical formats to those emitted by Content server and are sent in batches using `navigator.sendBeacon`. Once validated at the request level and against a shared "amplitude" schema, the event is logged to `stdout`. These logs are loaded into BigQuery into partitioned tables. As BigQuery uses schema auto-detection, if the BigQuery data type changes, the log line won't go to the partitioned `stdout` table, but instead to an error table.
 
 The Payments frontend reports the timing data surfaced by [Navigation Timing Level 2][navigation-timing-2] back to the server side, which then sends the calculated performance metrics to our statsD server.  One major difference between these performance metrics and those in Redshift for Content Server is that these do not have a flow id to connect the timings into a performance overview for a particular request.
 
