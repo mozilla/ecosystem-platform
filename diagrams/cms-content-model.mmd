@@ -1,0 +1,135 @@
+erDiagram 
+    OFFERING-CONFIG {
+        string name
+        string description
+        string api_identifier
+        string defaultInterval
+        relation stripeProduct
+        relation capabilities
+        relation defaultPageConfig
+        relation experimentPageConfigs
+        relation planConfigs
+    }
+
+    PAGES-CONFIG {
+        string name
+        string description
+        relation checkoutPage
+        relation successPage
+        relation errorPage
+        relation emailConfig
+        relation intervalPlanMap
+        relation archivedPlans
+    }
+
+    INTERVAL_PLAN_MAP {
+        enum interval
+        relation stripePlan
+    }
+
+    OAUTH-CLIENT-CAPABILITY {
+        string service-name
+        string oauth-client-id
+        relation capabilities
+    }
+    
+    CAPABILITY {
+        string name
+        string description
+        relation oauth-client-capabilities
+        relation offering-configs
+    }
+
+    CHECKOUT_PAGE {
+        string name
+        relation product_content
+    }
+
+    UPGRADE_PAGE {
+        string name
+        relation product_content   
+    }
+
+    SUCCESS_PAGE {
+        string name
+        relation product_content
+        string successActionButtonLabel
+        string successActionButtonUrl
+    }
+
+    ERROR_PAGE {
+        string name
+        relation product_content
+        string playStoreUrl
+        string appStoreUrl
+    }
+
+    EMAIL_CONFIG {
+        string cancellationSurvey
+        string emailIcon
+    }
+
+    PRODUCT_CONTENT {
+        string details
+        string name
+        string subtitle
+        string webIcon
+    }
+
+    STRIPE-PLAN {    
+        string id
+        string product-id
+        string product-name
+        string product-description
+        string name
+        string description
+    }
+    
+    STRIPE-PROMOTION-CODE {
+        string id
+        string name
+        string code
+        string discount
+    }
+
+    UPGRADE-OFFERING-CONFIG {
+        string name
+        relation upgradeFromProduct
+        relation upgradeToProduct
+    }
+
+    COUPON_CONFIG {
+        string[] countries
+        relation stripe-promotion-codes
+    }
+
+    IAP_CONFIG {
+        string[] appleProductIds
+        string[] googleSKUs
+        relation stripePlan
+    }
+
+    OFFERING-CONFIG }|--|| PAGES-CONFIG : "default"
+    OFFERING-CONFIG }|--o{ PAGES-CONFIG : "experiments"
+    OFFERING-CONFIG }o--o{ COUPON_CONFIG: ""
+    
+    PAGES-CONFIG }o--|| CHECKOUT_PAGE : ""
+    PAGES-CONFIG }o--|| UPGRADE_PAGE : ""
+    PAGES-CONFIG }o--|| SUCCESS_PAGE : ""
+    PAGES-CONFIG }o--|| ERROR_PAGE : ""
+    PAGES-CONFIG }o--|| EMAIL_CONFIG : ""
+    PAGES-CONFIG }|--|| PRODUCT_CONTENT: ""
+    PAGES-CONFIG }o--o{ STRIPE-PLAN: "archived"
+    PAGES-CONFIG ||--|{ INTERVAL_PLAN_MAP: ""
+    
+    OAUTH-CLIENT-CAPABILITY }o--o{ CAPABILITY : "handles"
+    
+    CAPABILITY }|--|| OFFERING-CONFIG : ""
+
+    UPGRADE-OFFERING-CONFIG }o--|{ OFFERING-CONFIG: "upgrades from"
+    UPGRADE-OFFERING-CONFIG }o--|{ OFFERING-CONFIG: "upgrades to"
+
+    COUPON_CONFIG }o--o{ STRIPE-PROMOTION-CODE: ""
+
+    IAP_CONFIG ||--|{ STRIPE-PLAN: ""
+    INTERVAL_PLAN_MAP }|--|| STRIPE-PLAN: ""
