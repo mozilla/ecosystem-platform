@@ -1,0 +1,46 @@
+sequenceDiagram
+    participant B as Browser
+    participant P as Payments
+    participant F as FxA
+    participant D as DB
+    participant S as Stripe
+    participant C as CMS
+
+    B->>P: Navigate to /vpn?interval=monthly
+    Note over B,P: As FxA signed in user without Payments session
+    P->>F: Validate access token
+    F->>P: Access Token is valid
+    P->>F: Fetch Session by FxA UID
+    F->>P: No session found
+    alt createSessionWithAccessToken.mmd
+      P->>F: Create session
+      F->>D: Get Stripe CustomerId
+      D->>F: Return Stripe CustomerId
+      F->>S: Fetch Stripe Customer and Subscriptions
+      S->>F: Return Customer and Subscriptions
+      F->>D: Create session 
+      Note over F,D: With FxA Account, Stripe<br/>Customer and Subscriptions
+      D->>F: Return sessionId
+      F->>P: Return sessionId
+    end
+    P->>C: Fetch page content 
+    Note over P,C: Fetch Product: vpn, Interval: monthly
+    C->>P: Return CMS content
+    P->>F: Check customer state
+    Note over P,F: Using CMS and session data
+    F->>P: Existing FxA, no sub, load Checkout Page
+    P->>B: Return Checkout page
+    Note over P,B: With sessionId and stripePlanId
+    B->>F: Subscribe to plan
+    F->>S: Create subscription
+    S->>F: Return subscription success
+    F->>D: Update session
+    D->>F: Success
+    F->>B: Success
+    B->>P: Navigate to /vpn?interval=monthly
+    P->>C: Fetch page content 
+    Note over P,C: Fetch Product: vpn, Plan: monthly and Page: success
+    C->>P: Return CMS content
+    P->>F: Check customer state
+    F->>P: Existing FxA, sub exists for plan, load success
+    P->>B: Return Success page

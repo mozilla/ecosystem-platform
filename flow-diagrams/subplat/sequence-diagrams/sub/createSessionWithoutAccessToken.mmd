@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant P as Payments
+    participant F as FxA
+    participant D as DB
+
+    P->>F: Create session
+    F->>D: Create session 
+    Note over F,D: Empty session
+    D->>F: Return sessionId
+    F->>P: Return sessionId

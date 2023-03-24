@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant B as Browser
+    participant P as Payments
+    participant F as FxA
+    participant C as CMS
+
+    B->>P: Navigate to /vpn?interval=monthly
+    Note over B,P: New user without Payments session
+    P->>F: Validate access token
+    F->>P: Valid
+    P->>F: createSessionWithAccessToken.mmd
+    F->>P: Return sessionId
+    P->>C: Fetch page content 
+    Note over P,C: Fetch Product: vpn, Interval: monthly
+    C->>P: Return CMS content
+    P->>F: Check session state
+    F->>P: Existing sub, load success page
+    P->>B: Return Success page
+    Note over P,B: With sessionId

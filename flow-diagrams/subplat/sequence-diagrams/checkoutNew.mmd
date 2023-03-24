@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant B as Browser
+    participant P as Payments
+    participant F as FxA
+    participant C as CMS
+
+    B->>P: Navigate to /vpn?interval=monthly
+    Note over B,P: As a new user without Payments session
+    P->>F: createSessionWithoutAccessToken.mmd
+    F->>P: Return sessionId
+    P->>C: Fetch page content 
+    Note over P,C: Fetch Product: vpn, Plan: monthly
+    C->>P: Return CMS content
+    P->>F: Check customer state
+    Note over P,F: Using CMS and session data
+    F->>P: New customer, no sub, load checkout with email
+    P->>B: Return Checkout page
+    Note over P,B: With sessionId and stripePlanId

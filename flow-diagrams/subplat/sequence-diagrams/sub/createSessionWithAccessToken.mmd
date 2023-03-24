@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant P as Payments
+    participant F as FxA
+    participant D as DB
+    participant S as Stripe
+
+    P->>F: Validate access token
+    F->>F: Validate access token
+    F->>P: Access Token is valid
+    P->>F: Fetch Session by FxA UID
+    F->>P: No session found
+    P->>F: Create session
+    F->>D: Get Stripe CustomerId
+    F->>S: Fetch Stripe Customer and Subscriptions
+    S->>F: Return Customer and Subscriptions
+    F->>D: Create session 
+    Note over F,D: With FxA Account, Stripe<br/>Customer and Subscriptions
+    D->>F: Return sessionId
+    F->>P: Return sessionId
