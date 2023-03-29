@@ -32,8 +32,8 @@ erDiagram
         bigInt updatedAt "unsigned"
     }
     accountResetTokens {
-        binary tokenId PK "32 bytes"
-        binary tokenData "32 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary tokenData "32 bytes; CONFIDENTIAL"
         binary uid "Unique Key, 16 bytes"
         bigint createdAt "unsigned"
     }
@@ -41,12 +41,12 @@ erDiagram
         binary uid PK "16 bytes"
         varchar normalizedEmail
         varchar email
-        binary emailCode "16 bytes"
+        binary emailCode "16 bytes; CONFIDENTIAL, used to verify email"
         tinyint emailVerified
-        binary kA "CONFIDENTIAL, 32 bytes"
-        binary wrapWrapKb "CONFIDENTIAL, 32 bytes"
-        binary authSalt "CONFIDENTIAL, 32 bytes"
-        binary verifyHash "CONFIDENTIAL, 32 bytes"
+        binary kA "32 bytes; CONFIDENTIAL, master key for 'class-A' material"
+        binary wrapWrapKb "32 bytes; CONFIDENTIAL, key for 'class-B' material. Only unwrappable on the client."
+        binary authSalt "32 bytes; CONFIDENTIAL"
+        binary verifyHash "32 bytes; CONFIDENTIAL"
         tinyint verifierVersion
         bigint verifierSetAt
         bigint createdAt
@@ -73,21 +73,21 @@ erDiagram
         binary uid PK "16 bytes"
         binary deviceId "16 bytes"
         int commandId PK "unsigned"
-        varchar commandData
+        varchar commandData "CONFIDENTIAL, used to encrypt commands"
     }
     devices {
         binary uid PK "16 bytes"
         binary id PK "16 bytes"
-        binary sessionTokenId "32 bytes"
+        binary sessionTokenId "32 bytes; CONFIDENTIAL"
         varchar name
         varchar nameUtf8
         varchar type
         bigint createdAt "unsigned"
-        varchar callbackURL
+        varchar callbackURL "CONFIDENTIAL"
         char callbackPublicKey
         char callbackAuthKey
         tinyint callbackIsExpired
-        binary refreshTokenId "32 bytes"
+        binary refreshTokenId "32 bytes; CONFIDENTIAL"
     }
     emailBounces {
         varchar email PK
@@ -109,17 +109,17 @@ erDiagram
         varchar normalizedEmail
         varchar email
         binary uid "16 bytes"
-        binary emailCode
+        binary emailCode "CONFIDENTIAL"
         tinyint isVerified
         tinyint isPrimary
         bigint verifiedAt "unsigned"
         bigint createdAt "unsigned"
     }
     keyFetchTokens {
-        binary tokenId PK "32 bytes"
-        binary authKey "32 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary authKey "32 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
-        binary keyBundle "96 bytes"
+        binary keyBundle "96 bytes; CONFIDENTIAL"
         bigint createdAt "unsigned"
     }
     linkedAccounts {
@@ -133,16 +133,16 @@ erDiagram
 ```mermaid
 erDiagram
     passwordChangeTokens {
-        binary tokenId PK "32 bytes"
-        binary tokenData "32 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary tokenData "32 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
         bigint createdAt "unsigned"
     }
     passwordForgotTokens {
-        binary tokenId PK "32 bytes"
-        binary tokenData "32 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary tokenData "32 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
-        binary passcode "16 bytes"
+        binary passcode "16 bytes; CONFIDENTIAL"
         bigint createdAt "unsigned"
         smallint tries "unsigned"
     }
@@ -155,16 +155,16 @@ erDiagram
     }
     recoveryCodes {
         binary uid "16 bytes"
-        binary codeHash "32 bytes"
-        binary salt "32 bytes"
+        binary codeHash "32 bytes; CONFIDENTIAL"
+        binary salt "32 bytes; CONFIDENTIAL"
     }
 ```
 ```mermaid
 erDiagram
     recoveryKeys {
         binary uid PK "16 bytes"
-        text recoveryData
-        binary recoveryKeyIdHash "32 bytes"
+        text recoveryData "CONFIDENTIAL"
+        binary recoveryKeyIdHash "32 bytes; CONFIDENTIAL"
         bigint createdAt "unsigned"
         bigint verifiedAt "unsigned"
         tinyint enabled
@@ -194,8 +194,8 @@ erDiagram
 ```mermaid
 erDiagram
     sessionTokens {
-        binary tokenId PK "32 bytes"
-        binary tokenData "32 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary tokenData "32 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
         bigint createdAt "unsigned"
         varchar uaBrowser
@@ -211,7 +211,7 @@ erDiagram
         tinyint mustVerify
     }
     signinCodes {
-        binary hash PK "32 bytes"
+        binary hash PK "32 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
         bigint createdAt "unsigned"
         binary flowId "32 bytes"
@@ -219,25 +219,25 @@ erDiagram
     totp {
         binary uid "16 bytes"
         varchar sharedSecret "CONFIDENTIAL"
-        bigint epoch
+        bigint epoch "CONFIDENTIAL"
         bigint createdAt "unsigned"
         tinyint verified
         tinyint enabled
     }
     unblockCodes {
         binary uid PK "16 bytes"
-        binary unblockCodeHash PK "32 bytes"
+        binary unblockCodeHash PK "32 bytes; CONFIDENTIAL"
         bigint createdAt
     }
 ```
 ```mermaid
 erDiagram
     unverifiedTokens {
-        binary tokenId PK "32 bytes"
-        binary tokenVerificationId "16 bytes"
+        binary tokenId PK "32 bytes; CONFIDENTIAL"
+        binary tokenVerificationId "16 bytes; CONFIDENTIAL"
         binary uid "16 bytes"
         tinyint mustVerify
-        binary tokenVerificationCodeHash "32 bytes"
+        binary tokenVerificationCodeHash "32 bytes; CONFIDENTIAL"
         bigint tokenVerificationCodeExpiresAt "unsigned"
     }
     verificationReminders {
@@ -268,12 +268,12 @@ erDiagram
         timestamp createdAt
         tinyint trusted
         varchar allowedScopes
-        binary hashedSecret "32 bytes"
-        binary hashedSecretPrevious "32 bytes"
+        binary hashedSecret "32 bytes; CONFIDENTIAL"
+        binary hashedSecretPrevious "32 bytes; CONFIDENTIAL"
         text notes
     }
     codes {
-        binary code PK "32 bytes"
+        binary code PK "32 bytes; CONFIDENTIAL"
         binary clientId "8 bytes"
         binary userId "16 bytes"
         varchar scope
@@ -283,8 +283,8 @@ erDiagram
         tinyint aal
         tinyint offline
         varchar codeChallengeMethod
-        varchar codeChallenge
-        mediumtext keysJwe
+        varchar codeChallenge "CONFIDENTIAL"
+        mediumtext keysJwe "CONFIDENTIAL"
         bigint profileChangedAt
         binary sessionTokenId "32 bytes"
     }
@@ -301,7 +301,7 @@ erDiagram
         timestamp createdAt
     }
     refreshTokens {
-        binary token PK "32 bytes"
+        binary token PK "32 bytes; CONFIDENTIAL"
         binary clientId "8 bytes"
         binary userId "16 bytes"
         varchar scope
@@ -314,7 +314,7 @@ erDiagram
         tinyint hasScopedKeys
     }
     tokens {
-        binary token PK "32 bytes"
+        binary token PK "32 bytes; CONFIDENTIAL"
         binary clientId "8 bytes"
         binary userId "16 bytes"
         varchar type
