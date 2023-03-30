@@ -77,8 +77,8 @@ If an operation is general enough to be targeted in the CI, then put it in an np
 This is a very convenient way to execute various operations across packages in the mono repo. If scripts aren’t consistently named, then things get quite messy. Currently there are a few scripts we rely on heavily in the CI
 
 - `yarn workspaces foreach run compile`- Should compile typescript
-- `yarn workspaces foreach run test:unit` - Runs unit tests
-- `yarn workspaces foreach run test:integration` - Runs integration tests
+- `yarn workspaces foreach run test-unit` - Runs unit tests
+- `yarn workspaces foreach run test-integration` - Runs integration tests
 - `yarn workspaces foreach run postinstall` - Should prime the repo after running yarn install. We generally use this for pulling down and priming l10n content.
 
 ## Export Tests Reports
