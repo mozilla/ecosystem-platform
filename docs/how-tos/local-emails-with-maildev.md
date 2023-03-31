@@ -7,7 +7,7 @@ If you're interested in receiving emails locally you can use [MailDev](https://w
 1. Install the MailDev CLI globally:
 
     ```shell
-    yarn global add maildev
+    npm i -g maildev
     ```
 
 1. Assuming you have FxA running locally you'll need to stop the `inbox` service: 
