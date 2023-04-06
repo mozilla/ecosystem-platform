@@ -1,12 +1,10 @@
-
 ---
 title: Token Pruning
 ---
 
 # Prune Tokens Script
 
-
-The script itself goes through the following stages.
+The token pruning script is responsible cleaning or 'pruning' stale tokens in our system. The script itself goes through the following stages:
 
 
 1. Locates accounts with more than N sessions. (Where N is the maximum number of allowed sessions.)
@@ -17,7 +15,7 @@ The script itself goes through the following stages.
 6. Deletes these codes.
 
 
-_(Steps 3-6 are the legacy process described at the start of this document.)_
+_(Steps 3-6 are the legacy process described at the start of [this](/ecosystem-platform/explanation/session-tokens) document.)_
 
 
 Help for the script can be viewed by running `NODE_ENV=dev node prune-tokens.js --help`:
