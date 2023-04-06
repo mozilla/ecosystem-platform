@@ -118,6 +118,11 @@ type PasswordChangePayload {
   keyFetchToken: String
 }
 
+type LegalDoc {
+  """Document in markdown format"""
+  markdown: String!
+}
+
 type SignedUpAccountPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -274,6 +279,7 @@ type Query {
   getRecoveryKeyBundle(input: RecoveryKeyBundleInput!): RecoveryKeyBundlePayload!
   session: Session!
   sessionStatus: SessionStatus!
+  getLegalDoc(input: LegalInput!): LegalDoc!
 }
 
 input AccountStatusInput {
@@ -290,6 +296,14 @@ input RecoveryKeyBundleInput {
 
   """Recovery key to check"""
   recoveryKeyId: String!
+}
+
+input LegalInput {
+  """The requested l10n locale."""
+  locale: String
+
+  """The requested legal file."""
+  file: String!
 }
 
 type Mutation {

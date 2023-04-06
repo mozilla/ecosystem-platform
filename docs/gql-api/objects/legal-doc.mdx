@@ -1,0 +1,38 @@
+---
+id: legal-doc
+title: LegalDoc
+hide_table_of_contents: false
+---
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={'badge badge--' + props.class}>{props.text}</span></>
+
+
+No description
+
+```graphql
+type LegalDoc {
+  markdown: String!
+}
+```
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>LegalDoc.<b>markdown</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="secondary" text="non-null"/> <Badge class="secondary" text="scalar"/>
+> Document in markdown format
+> 
+
+
+
+### Returned by
+
+[`getLegalDoc`](/gql-api/queries/get-legal-doc)  <Badge class="secondary" text="query"/>
+
+
+
