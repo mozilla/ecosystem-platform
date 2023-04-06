@@ -100,6 +100,7 @@ module.exports = {
                             'reference/emails',
                             'reference/localization',
                             'reference/metrics',
+                            'reference/token-pruning',
                             'reference/token-types',
                             'reference/jwt-access-tokens',
                             'reference/storybook-deploys-with-circleci',
