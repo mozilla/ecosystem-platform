@@ -25,7 +25,7 @@
     "@docusaurus/theme-search-algolia": "^2.4.0",
     "@graphql-markdown/docusaurus": "^1.16.6",
     "@graphql-tools/graphql-file-loader": "^7.5.16",
-    "@mdx-js/react": "^1.6.21",
+    "@mdx-js/react": "^2.3.0",
     "@svgr/webpack": "^6.2.0",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
