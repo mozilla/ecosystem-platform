@@ -26,7 +26,7 @@
     "@graphql-markdown/docusaurus": "^1.16.6",
     "@graphql-tools/graphql-file-loader": "^7.5.16",
     "@mdx-js/react": "^1.6.21",
-    "@svgr/webpack": "^6.2.0",
+    "@svgr/webpack": "^7.0.0",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
     "graphql": "^16.6.0",
