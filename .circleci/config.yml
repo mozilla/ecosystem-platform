@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   Deploy to GitHub pages:
+    resource_class: medium+
     docker:
       - image: cimg/node:18.12
     steps:
