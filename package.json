@@ -20,9 +20,9 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.1.0",
-    "@docusaurus/preset-classic": "^2.3.1",
-    "@docusaurus/theme-search-algolia": "^2.1.0",
+    "@docusaurus/core": "^2.4.0",
+    "@docusaurus/preset-classic": "^2.4.0",
+    "@docusaurus/theme-search-algolia": "^2.4.0",
     "@graphql-markdown/docusaurus": "^1.16.6",
     "@graphql-tools/graphql-file-loader": "^7.5.16",
     "@mdx-js/react": "^1.6.21",
@@ -39,7 +39,7 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.3.1",
+    "@docusaurus/module-type-aliases": "^2.4.0",
     "@tsconfig/docusaurus": "^1.0.6",
     "@types/react": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
