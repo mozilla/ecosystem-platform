@@ -18,7 +18,7 @@ system [Pontoon][#pontoon] was gettext as the newer format based
 on [Fluent](https://projectfluent.org/) did not yet exist.
 
 ## Extraction process
-* Timed [cron job on Circle][#extraction-cron-job], runs on Thursday afternoons.
+* Timed [cron job on Circle](https://github.com/mozilla/fxa-content-server-l10n/blob/main/.github/workflows/l10n_extract.yaml), runs on Thursday afternoons.
 * Calls [extract-and-pull-request.sh][#extract-and-pull-request] which extracts strings and creates a branch with a random name.
   - In turn calls [extract_strings.sh][#extract-strings]
   - See [Extraction process deep dive](#extraction-process-deep-dive) for more info.
@@ -168,7 +168,6 @@ Unlike the rest of the FxA translations that are held in gettext .po files, the 
 [#extract-and-pull-request]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract-and-pull-request.sh
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/scripts/extract_strings.sh
 [#extract-strings]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/scripts/extract_strings.sh
-[#extraction-cron-job]: https://github.com/mozilla/fxa-content-server-l10n/blob/master/.circleci/config.yml#L62
 [#fxa-pp-source]: https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_PrivacyNotice
 [#fxa-tos-source]: https://github.com/mozilla/legal-docs/blob/master/en/firefox_cloud_services_tos.md
 [#gettext-comment-extraction-2]: https://github.com/mozilla/fxa-content-server-l10n/blob/ed36b87ccf22a4420fd7a65ecfd9f6eb89c45c15/locale/es/LC_MESSAGES/client.po#L2483

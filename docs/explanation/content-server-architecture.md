@@ -38,8 +38,7 @@ only one of several [integration types](#relying-party-integrations) supported b
 For more information about how FxA came to support so many non-standard integrations, see the [App Services and FxA Unofficial History](https://docs.google.com/document/d/1jixykayGuyIGU8ecThHvvUpTeC4yq84KRalGr0Jh0xg/).
 
 Detailed [Maps of the FxA Universe](../reference/system-diagrams) outline how the various Firefox Accounts micro-services
-fit together. The [content-server centric view](../reference/system-diagrams#fxa-content-server) will give an understanding
-of which services communicate with FxA.
+fit together.
 
 ### Relying Party Integrations
 
@@ -51,8 +50,8 @@ integrate with FxA. If portions of the architecture seem byzantine and complex, 
   - Firefox for Android (Fennec)
   - Firefox for Android (Fenix)
   - Firefox for iOS
-- WebExtensions such as Notes and the [Firefox Private Network "secure proxy" (FPN)](https://fpn.firefox.com/browser)
-- OAuth 2.0 such as [Monitor](https://monitor.firefox.com/) and [Send](https://send.firefox.com/)
+- WebExtensions such as Notes and the Firefox Private Network "secure proxy" (FPN)
+- OAuth 2.0 such as [Monitor](https://monitor.firefox.com/)
 - Native applications such as the [Firefox Private Network VPN](https://fpn.firefox.com/vpn)
 - "Direct access", i.e., users browsing directly to https://accounts.firefox.com
 
@@ -66,11 +65,6 @@ reports.
 The client side is a [Backbone](https://backbonejs.org/) based Single Page Application (SPA) and responsible for screen rendering,
 handling user input, communicating with various FxA backend services, and communicating with RPs or browsers.
 The client app runs in modern Web capable systems, see [supported browsers](../reference/browser-support) for up to date tier 1 support.
-
-:::note
-Yes, FxA uses Backbone. React wasn't a thing when FxA started, and converting FxA to use React
-will be a journey of tears. [Only attempt such a task piece by piece](#converting-to-react).
-:::
 
 :::note
 Our use of Backbone isn't strictly Model-View-Controller (MVC), ours is more like MVVM. We use Models and Views and have models for the Views.
@@ -145,7 +139,7 @@ Three primary types of Relier models exist:
 3. web (called relier)
 
 :::caution
-Any long lived data (e.g., email address, uid, client_id), coming from an RP or on the URL
+Any long lived data (e.g., email address, uid, `client_id`), coming from an RP or on the URL
 **MUST BE** validated and transformed within Reliers. While it seems natural to ingest and sanitize
 data in the Views, we are unable to control what users and malicious actors do. Assuming users always
 enter at `/`, or at `/complete_sign_up`, etc, _does not hold_. To prevent XSS, we would have to validate
@@ -358,16 +352,7 @@ appropriately.
 
 See [L10n in the content and auth servers](../reference/localization).
 
-## Settings
-
-Settings is a mess. Run away. [Rewrite this in React](#converting-to-react).
-
 ## Converting to react
-
-There have been rumblings of "let's rewrite the whole thing in React!", from me included (Shane). Stepping back,
-a *lot* of blood, sweat, and tears went into creating the content server, and a *lot* of non-obvious gotchas were
-solved. I'm not against a big rewrite, but doing so needs to be done with eyes wide open. It's going to be hard and
-require multiple man-quarters to complete.
 
 Conversion to React would primarily clean up the Views, however, Views are only one aspect of the the content-server's
 duties. Much more challenging than the Views are screen->screen transitions depending on the integration type, and

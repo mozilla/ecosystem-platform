@@ -73,6 +73,8 @@ is interacting with their account. However, web browsers that support signing in
 account-enabled browser features, may obtain a session token during the sigin flow and use it to communicate
 directly with the FxA server APIs.
 
+Session tokens in MySQL can be associated with a device record. “Device” is a misleading name here because it really means “Firefox instance”.
+
 #### Verified Sessions
 
 As an additional security measure against credential-stuffing attacks, FxA has the notion of a "verified session", 
@@ -297,3 +299,5 @@ tokens when their OAuth credentials are being provisioned.
 ## Token Pruning
 
 FxA has a [token pruning script](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/scripts/prune-tokens.ts) which runs via cron and is responsible for removing stale tokens in our system.  The actual token limits and values are variables which we may modify at any time and aren't in the repository.
+
+A session token that has a device record will never be pruned, because that would break Sync. So we only prune tokens if there’s no corresponding device in the db.
