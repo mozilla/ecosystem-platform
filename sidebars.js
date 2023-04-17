@@ -14,6 +14,7 @@ module.exports = {
         'How-to Guides': [
                           'relying-parties/how-twos/end-to-end-encryption',
                           'relying-parties/how-twos/apple-iap',
+                          'relying-parties/how-twos/device-registration',
                          ],
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
@@ -103,6 +104,7 @@ module.exports = {
                             'reference/metrics',
                             'reference/tokens',
                             'reference/storybook-deploys-with-circleci',
+                            'reference/oauth-details',
                             'reference/webchannels',
                             'reference/experiments-ab-testing',
                             'reference/system-diagrams',
