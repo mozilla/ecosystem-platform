@@ -66,6 +66,9 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
     These are generally marketing pages that include a link to start the
     subscription flow.
 
+0. **Will you utilize JWT tokens?**
+    This is rare.  [Learn more](../../reference/tokens#jwt-access-tokens).
+
 We communicate with our relying parties via the [firefox-accounts-notices group][firefox-accounts-notices].  Please join this list to avoid any surprises.
 
 ## OAuth Integration

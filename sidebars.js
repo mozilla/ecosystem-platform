@@ -56,7 +56,8 @@ module.exports = {
                             'how-tos/using-sentry-locally',
                             'how-tos/using-tracing-locally',
                             'how-tos/using-tracing-in-gcp',
-                            'how-tos/ci-guidelines'
+                            'how-tos/ci-guidelines',
+                            'how-tos/using-swagger-for-api-documentation',
                            ],
           'Reference':     [
                               {
@@ -100,13 +101,10 @@ module.exports = {
                             'reference/emails',
                             'reference/localization',
                             'reference/metrics',
-                            'reference/token-pruning',
-                            'reference/token-types',
-                            'reference/jwt-access-tokens',
+                            'reference/tokens',
                             'reference/storybook-deploys-with-circleci',
                             'reference/webchannels-in-firefox-desktop-fennec',
                             'reference/webchannels-in-fenix-webextensions',
-                            'reference/internal-api-documentation',
                             'reference/experiments-ab-testing',
                             'reference/system-diagrams',
                             'reference/application-logging',
@@ -117,7 +115,6 @@ module.exports = {
                             'reference/github-strategies',
                             'reference/third-party-authentication',
                             'reference/rate-limiting',
-                            'reference/using-swagger-for-api-documentation',
                             {
                               type: "link",
                               label: "Telemetry Data Docs",
