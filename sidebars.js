@@ -12,9 +12,9 @@ module.exports = {
                         'relying-parties/tutorials/pairing',
                      ],
         'How-to Guides': [
-                          'relying-parties/how-twos/end-to-end-encryption',
-                          'relying-parties/how-twos/apple-iap',
-                          'relying-parties/how-twos/device-registration',
+                          'relying-parties/how-tos/end-to-end-encryption',
+                          'relying-parties/how-tos/apple-iap',
+                          'relying-parties/how-tos/device-registration',
                          ],
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
@@ -83,7 +83,7 @@ module.exports = {
                             },
                             {
                               type: 'category',
-                              label: 'CI and Test Automation', 
+                              label: 'CI and Test Automation',
                               items: [
                                 'reference/tests-in-circleci',
                                 'reference/functional-testing',
@@ -121,7 +121,7 @@ module.exports = {
                             },
                            ],
           'Explanation':   [
-                            'explanation/architectural-decision-records',                                
+                            'explanation/architectural-decision-records',
                             'explanation/metrics',
                             'explanation/onepw-protocol',
                             'explanation/scoped-keys',

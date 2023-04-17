@@ -64,21 +64,21 @@ When integrated with the FxA stage or development environments, subscription sig
 
 ## Evaluating the current user flow
 
-To see the user experience without setting up your localhost you can subscribe to any of the existing subscriptions that we have available. If you want to try out the upgrade flow please use MDN Plus. 
+To see the user experience without setting up your localhost you can subscribe to any of the existing subscriptions that we have available. If you want to try out the upgrade flow please use MDN Plus.
 
 - VPN - https://www-dev.allizom.org/en-US/products/vpn/#pricing
 - Relay Premium - https://stage.fxprivaterelay.nonprod.cloudops.mozgcp.net/
 - MDN Plus - https://developer.allizom.org/en-US/plus#subscribe
 
-Once you selected a plan please create a new user. You can use the following Credit Card number: 4242424242424242 with any 3 digit CVC and a valid expiration date. NOTE: this is a test card and is only available on staging. Once you complete the subscription you can look at the email communications sent out by the SubPlat team. 
+Once you selected a plan please create a new user. You can use the following Credit Card number: 4242424242424242 with any 3 digit CVC and a valid expiration date. NOTE: this is a test card and is only available on staging. Once you complete the subscription you can look at the email communications sent out by the SubPlat team.
 
-To cancel your subscription simply go to https://accounts.stage.mozaws.net/subscriptions and press the cancel button. 
+To cancel your subscription simply go to https://accounts.stage.mozaws.net/subscriptions and press the cancel button.
 
-To upgrade your subscription sign in to your account using the step above and go to the MDN Plus link. The website will now display your current plan and the upgrade options. 
+To upgrade your subscription sign in to your account using the step above and go to the MDN Plus link. The website will now display your current plan and the upgrade options.
 
 ## Integration with Apple IAP
 
-To integrate your iOS app with the Subscription Platform, please see [Apple IAP](/ecosystem-platform/relying-parties/how-twos/apple-iap).
+To integrate your iOS app with the Subscription Platform, please see [Apple IAP](/ecosystem-platform/relying-parties/how-tos/apple-iap).
 
 [relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change
