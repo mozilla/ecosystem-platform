@@ -6,22 +6,21 @@ sidebar_label: Integration with FxA
 
 ## Overview
 
-Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OAuth 2.0][oauth], [OpenID Connect][openidconnect], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [**Relying Party (RP)**][relying-party].
+Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OAuth 2.0][oauth], [OpenID Connect][openidconnect], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party].
 
 ## Pre-Development
 
 Before starting integration, please send a request to fxa-staff[at]mozilla.com to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the email:
 
 0. **What type of Relying Party are you integrating?**
-    Examples would be, a web site, a native app, a browser, or an extension in
-    the browser.
+    Examples would be, a web site, a native app, a browser, or an extension in the browser.
 
 0. **Do you know how to implement OAuth?**
 
 0. **Will you need read access to a user’s profile data?**
     See [available profile data](#profile-data).
 
-0. **Will you need *ongoing* read access to a user’s profile data?**
+0. **Will you need *ongoing* read access to a user’s profile data even if the user isn't actively logging in?**
     If necessary, a relying party can use a _refresh token_ to query
     for a user's profile data, whether or not that user is logged in to the
     relying party.  For example, if a user changes their email address and
@@ -112,15 +111,13 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 ### Self Hosted Email-first Flow
 
 0. Initialize top of funnel metrics by calling [/metrics-flow request][metrics-flow-request] with the required query parameters:
-   0. `entrypoint` This is a string identifying the source of the request and
-      should be agreed upon by the Firefox Accounts team.
-   0. `form_type` This is either `email` or `button` depending on if you're
-[self hosted email-first flow](#self-hosted-email-first-flow)
-   0. `utm_source`
-   0. `utm_campaign`
+   1. `entrypoint` This is a string identifying the source of the request and should be agreed upon by the Firefox Accounts team.
+   1. `form_type` This is either `email` or `button` depending on if you're [self hosted email-first flow](#self-hosted-email-first-flow)
+   1. `utm_source`
+   1. `utm_campaign`
 0. Propagate the `email`, `flow_id` and `flow_begin_time` query parameters, which are returned from the [/metrics-flow request][metrics-flow-request], in the request to `/authentication`.
 
-To test without CORS errors using `https://stable.dev.lcip.org/`, your test application must have one of the following URLs:
+To test without CORS errors your test application must have one of the following URLs:
 
 - http://127.0.0.1:8001
 - http://localhost:8000
@@ -142,16 +139,12 @@ Firefox Accounts only stores core identity data and associated profile informati
 0. `client_id` (required)
 0. `scope` (required). This is a space separated string. Review the list of [scopes](#scopes).
 0. `state` (required).  This must be a randomly generated unguessable string.
-0. `entrypoint` (required).  This is for metrics purposes and should represent
-   the service making the request.  This should be agreed upon by the Firefox
-   Accounts team.
+0. `entrypoint` (required).  This is for metrics purposes and should represent the service making the request.  This should be agreed upon by the Firefox Accounts team.
 0. `email` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
 0. `flow_begin_time` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
 0. `flow_id` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
-0. `code_challenge` (required for PKCE) This is a hash of a randomly generated
-   string.
-0. `code_challenge_method` (required for PKCE) As of this writing only `s256`
-   is supported.
+0. `code_challenge` (required for PKCE) This is a hash of a randomly generated string.
+0. `code_challenge_method` (required for PKCE) As of this writing only `s256` is supported.
 0. `action` (suggested).  This should be either `email` or `force_auth`.
 0. `access_type` (suggested).  This should be either `online` or `offline`.
 0. `utm_campaign` (suggested)
@@ -161,17 +154,16 @@ Firefox Accounts only stores core identity data and associated profile informati
 
 ### Scopes
 
-This will probably just be `scope=profile` for most relying parties, but there is
-[further documentation][fxa-scope-documentation].
+This will probably just be `scope=profile` for most relying parties, but there is [further documentation](/reference/oauth-details#oauth-scopes).
 
 ### User Data Hygiene
 
 0. Accounts should use uid rather than email address as the primary key. An account’s primary email address can change.
-0. [Primary email changed notifications](https://github.com/mozilla/fxa-auth-server/blob/master/docs/service_notifications.md#change-of-primary-email-address-event) should update the contact email stored with the account.
+0. [Primary email changed notifications](https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#profile-change) should update the contact email stored with the account.
 0. If profile information is stored, register for [#webhook-events] events or periodically refresh the profile information by using refresh token to create a fresh access token that can fetch profile information.
-0. [Account deletion notifications](https://github.com/mozilla/fxa-auth-server/blob/master/docs/service_notifications.md#account-deletion-event) should remove any server side data related to the user.
+0. [Account deletion notifications](https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#delete-user) should remove any server side data related to the user.
 0. Profile information should not be shared with 3rd parties without explicit consent.
-0. [Destroy any outstanding access tokens and refresh tokens](https://github.com/mozilla/fxa-auth-server/blob/master/fxa-oauth-server/docs/api.md#post-v1destroy) whenever a user signals their session or account should be terminated, e.g., the user signs out of your site, closes their account on your site, or unsubscribes from all functionality.
+0. [Destroy any outstanding access tokens and refresh tokens](/api#tag/Oauth/operation/postOauthDestroy) whenever a user signals their session or account should be terminated, e.g., the user signs out of your site, closes their account on your site, or unsubscribes from all functionality.
 
 ### Webhook Events
 
