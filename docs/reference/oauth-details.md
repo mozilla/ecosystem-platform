@@ -143,6 +143,7 @@ The following URL scope values are currently recognized by FxA:
 
 - `https://identity.mozilla.com/apps/oldsync`: access to data in Firefox Sync.
 - `https://identity.mozilla.com/apps/notes`: access to data in Firefox Notes.
+- `https://identity.mozilla.com/account/subscriptions`: access to subscription data from Subscription Platform.
 
 ### Scope Matching and Implication
 
