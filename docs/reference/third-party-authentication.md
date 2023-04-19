@@ -1,5 +1,5 @@
 ---
-title: Third Party Authentication in FxA
+title: Third Party Authentication
 ---
 
 Last updated: `April 06th, 2022`
