@@ -23,7 +23,7 @@
     "@docusaurus/core": "^2.4.0",
     "@docusaurus/preset-classic": "^2.4.0",
     "@docusaurus/theme-search-algolia": "^2.4.0",
-    "@graphql-markdown/docusaurus": "^1.16.6",
+    "@graphql-markdown/docusaurus": "^1.18.0",
     "@graphql-tools/graphql-file-loader": "^7.5.16",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^6.2.0",
