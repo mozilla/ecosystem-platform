@@ -89,11 +89,11 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 
 ##### Plan Metadata {#stripe-plan-metadata}
+
 | Key | Description |
 | --- | --- |
 | appStoreProductIds                        | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. There must only be one Stripe plan per App Store `productId` per environment (development/stage/production). |
 | playSkuIds                                | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. There must only be one Stripe plan per Google Play product SKU per environment (development/stage/production). |
-
 
 ##### Product Configuration Documents
 
@@ -117,6 +117,7 @@ The overcome these limits, the team is moving to [JSON](https://www.json.org)
 document based product configurations.  For readability, the configuration is
 described below in multiple sections.  To see the overall format of the
 configuration documents, take a look at the following sample documents:
+
 * [Sample Product Configuration Document](../assets/product-configs/sample-product-config-doc.json)
 * [Sample Plan Configuration Document](../assets/product-configs/sample-plan-config-doc.json)
 
@@ -297,9 +298,9 @@ The PayPal paid subscriptions are still driven by Stripe's subscription and invo
 
 You need three types of PayPal accounts for development.
 
-- PayPal Developer Account: allows you to access the PayPal Developer Dashboard
-- Sandbox PayPal Personal Account: used for testing as the customer
-- Sandbox PayPal Business Account: used for testing
+* PayPal Developer Account: allows you to access the PayPal Developer Dashboard
+* Sandbox PayPal Personal Account: used for testing as the customer
+* Sandbox PayPal Business Account: used for testing
 
 To create a PayPal developer account, sign up at <https://developer.paypal.com/>.  Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account.  Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
 
@@ -377,6 +378,72 @@ After the initial payment during subscription creation, the recurring payments f
 
 The script will make up to a configurable number of [attempts to pay](https://developer.paypal.com/docs/archive/express-checkout/ec-set-up-reference-transactions/#capture-future-payments) an invoice before cancelling the subscription.  This attempts count is saved to the invoice itself as metadata.  The invoice's metadata is also used to prevent sending multiple failed payment emails per invoice from the PayPal payment attempts.
 
+## Contentful Integration
+
+### Environments
+
+The Subscription Platform makes use of three Contentful [environment aliases](https://www.contentful.com/developers/docs/concepts/environment-aliases/). The environment aliases are set up to match the current supported Stripe environments, and are listed below.
+
+* Prod (master)
+  * Production environment
+  * Stripe environment: Subscription Platform
+  * Refers to the Contentful “master” environment alias.
+* Stage
+  * Stage and QA environment
+  * Stripe environment: SUB_PLAT_STAGE
+* Dev
+  * Development
+  * Stripe environment: SUB_PLAT_DEV
+
+### Deployments
+
+Deployments will be handled manually and will make use of the [Merge app by Contentful](https://www.contentful.com/marketplace/app/merge/), following the steps discussed in the tutorial: [Merge content type changes with Merge app](https://www.contentful.com/developers/docs/tutorials/general/merge-app/).
+
+* For each merge, ensure you complete the optional step "Export migration script" and store the migration scripts in [the FxA monorepo](https://github.com/mozilla/fxa/tree/main/packages/db-migrations).
+
+:::caution
+Changes made in the [Appearance tab](https://www.contentful.com/help/content-modelling-basics/#the-appearance-tab) of a field of a content type, are not merged when using the Merge app, and therefore also not included in the migration script.
+:::
+
+#### Typical changes
+
+Changes are made in the `Dev` environment and follow the deployment path as shown below.
+
+```mermaid
+flowchart LR
+    Dev --> Stage --> Prod
+```
+
+For a typical change and deployment, the following steps should be taken.
+
+1. Make changes in the `Dev` environment
+1. After a regular FxA release has been deployed to Stage, using the Merge app, merge changes from the `Dev` environment alias to the `Stage` environment alias.
+1. Similarly, after a regular FxA release has been deployed to Production, using the Merge app, merge changes from the `Stage` environment alias to the `Prod` environment alias.
+
+#### Sensitive or large content model changes
+
+In cases where many changes or a technically sensitive change that could introduce breaking changes are made, it is recommended to make the changes in a new environment, for example `Feature`, before merging those changes to Dev.
+
+The resulting deployment path would be as follows.
+
+```mermaid
+flowchart LR
+    Feature --> Dev --> Stage --> Prod
+```
+
+For a sensitive or large content model change and deployment, the following steps should be taken.
+
+1. (Optional) Delete the existing `Feature` environment. (Check with Subscription Platform team first before doing this.)
+1. Create new a `Feature` environment from the `Dev` environment alias
+1. Make changes in the `Feature` environment
+1. Merge changes to the `Dev` environment alias and follow typical deployment path
+
+Once the changes in the `Feature` environment have been merged into the `Dev` environment alias, the `Feature` environment can be deleted.
+
+#### Hotfixes
+
+Hotfixes should follow either of the release paths discussed above, however merges to Stage and Prod do not need to follow the FxA release schedule.
+
 ## Google IAP Integration
 
 The Subscription Platform supports RP integrations with Google IAP (In-App Purchases).
@@ -410,14 +477,14 @@ This is not required for most Google IAP development, so consider skipping the f
 
 1. Get access to Mozilla's `firefox.gcp.mozilla.com` organization.
 2. Create a new GCP project with Firestore
-    - Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
-    - [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
-    - To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account [must have the API enabled](https://developers.google.com/android-publisher/authorization).
-    - Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
+    * Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
+    * [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
+    * To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account [must have the API enabled](https://developers.google.com/android-publisher/authorization).
+    * Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
 3. Link the GCP project's Firestore instance to the auth server in `fxa-auth-server/config/secrets.json`.
-      - Add the below configuration key/value pairs in `playApiServiceAccount`.
-      - Replace the value for `keyFilename` with the absolute path to the keyfile created in step 2.
-      - Replace the value for `projectId` with the project ID for the GCP project created in step 2.
+      * Add the below configuration key/value pairs in `playApiServiceAccount`.
+      * Replace the value for `keyFilename` with the absolute path to the keyfile created in step 2.
+      * Replace the value for `projectId` with the project ID for the GCP project created in step 2.
 
 ## Apple IAP Integration
 
@@ -465,6 +532,7 @@ In `fxa-auth-server/config/secrets.json`:
 Replace the value for `issuerId`, `serverApiKey` and `serverApiKeyId` with credentials from the respective app's [App Store Connect](https://appstoreconnect.apple.com/) account.
 
 :::note
+
 * These credentials are only needed for making API calls to the [App Store Server API](https://developer.apple.com/documentation/appstoreserverapi). Consider omitting or stubbing them if your work does not require it.
 * Each key under `credentials` is the App Store `bundleId` for an iOS app with the `.` replaced with `_` due to a [node-convict bug](https://github.com/mozilla/node-convict/issues/250). The `bundleId` can be found in App Store Connect for the given iOS app.
 :::
@@ -480,6 +548,7 @@ Unfortunately, unlike Stripe webhooks, Apple does not store their server notific
 #### Debugging sandbox notifications
 
 :::caution
+
 * If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
 * Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.
 :::
@@ -487,9 +556,9 @@ Unfortunately, unlike Stripe webhooks, Apple does not store their server notific
 Before you begin, make sure you have App Store API credentials set up in the auth server config. These are needed to decode and process notifications (see "Configuration" above).
 
 1. Set up a reverse proxy with [`ngrok`](https://ngrok.com/).
-    - The `ngrok` URL is a public URL, so try not to leave this running for more than a couple of hours.
+    * The `ngrok` URL is a public URL, so try not to leave this running for more than a couple of hours.
 2. Temporarily [forward V2 Sandbox App Store Server notifications](https://help.apple.com/app-store-connect/#/dev0067a330b) to your local FxA using the `ngrok` URL from #1 as the base URL (i.e. `${ngrok_base_URL}/v1/oauth/subscriptions/iap/app-store-notification`).
-    - Let the team know that you are temporarily changing the Sandbox notification URL, as this will affect any Apple IAP testing in Stage.
+    * Let the team know that you are temporarily changing the Sandbox notification URL, as this will affect any Apple IAP testing in Stage.
 3. Ask QA to trigger the desired scenarios using TestFlight.
 4. Restore the Sandbox notification URL in App Store Connect.
 
@@ -500,15 +569,15 @@ The test subscriptions described in this section are not true IAP subscriptions 
 ### Configure the auth server and create mock IAP subscriptions
 
 1. Configure the `fxa-auth-server` for IAP
-    - Enable the IAP integration. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
-    - Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
+    * Enable the IAP integration. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
+    * Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
 2. Setup a price for IAP
-    - Create a price within Stripe.
-    - Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata]($stripe-plan-metadata) for these fields.
+    * Create a price within Stripe.
+    * Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata]($stripe-plan-metadata) for these fields.
 3. Create a local fxa user
-    - Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
+    * Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
 4. Run the mock IAP subscription creation script
-    - Within auth-server, run `yarn run create-mock-iap --uid USER_ID --appStoreProductId SKU --playSkuId SKU` replacing USER_ID with the value from step 3, and SKU with the values from step 2.
+    * Within auth-server, run `yarn run create-mock-iap --uid USER_ID --appStoreProductId SKU --playSkuId SKU` replacing USER_ID with the value from step 3, and SKU with the values from step 2.
 
 ### Verify it worked
 
@@ -524,8 +593,8 @@ If things were set up correctly, you'll see the IAP subscription listed.
 
 Conditions for this flow:
 
-- User has no payment source on file, or is a new customer.
-- User clicks the displayed [PayPal Smart Button](https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons) to pay with PayPal.
+* User has no payment source on file, or is a new customer.
+* User clicks the displayed [PayPal Smart Button](https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons) to pay with PayPal.
 
 This diagram represents the activity after the PayPal button is clicked.
 
