@@ -469,7 +469,7 @@
                                 "description": "Uses"
                             }
                         ],
-                        "technology": "Node and Express",
+                        "technology": "Node and Hapi",
                         "documentation": {}
                     },
                     {
@@ -572,7 +572,7 @@
                                 "description": "Uses"
                             }
                         ],
-                        "technology": "Node and Express",
+                        "technology": "Node and Hapi",
                         "documentation": {}
                     },
                     {
@@ -779,7 +779,7 @@
                                 "description": "Uses"
                             }
                         ],
-                        "technology": "Node and Express",
+                        "technology": "Node and Hapi",
                         "documentation": {}
                     },
                     {
