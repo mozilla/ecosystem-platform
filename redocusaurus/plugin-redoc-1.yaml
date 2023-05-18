@@ -266,7 +266,7 @@ paths:
 
 
             - `block` indicates whether or not the action should be blocked and
-            `retyAfter` tells the client how long it should wait (in seconds)
+            `retryAfter` tells the client how long it should wait (in seconds)
             before attempting this action again.
           schema:
             type: string
