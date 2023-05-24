@@ -107,6 +107,7 @@ module.exports = {
                             'reference/localization',
                             'reference/metrics',
                             'reference/mobile-specifics',
+                            'reference/npm-scripts-and-nx',
                             'reference/oauth-details',
                             'reference/rate-limiting',
                             'reference/storybook-deploys-with-circleci',
