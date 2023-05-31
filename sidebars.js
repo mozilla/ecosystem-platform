@@ -126,6 +126,7 @@ module.exports = {
                             'explanation/content-server-architecture',
                             'explanation/metrics',
                             'explanation/onepw-protocol',
+                            'explanation/pairing-flow-architecture',
                             'explanation/scoped-keys',
 
                            ],
