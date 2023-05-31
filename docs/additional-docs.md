@@ -16,7 +16,7 @@ In addition to the ecosystem docs, each package has it's own README.md and some 
 - fxa-content-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs)
 - fxa-customs-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/README.md) / [API docs](https://mozilla.github.io/ecosystem-platform/customs-api)
 - fxa-dev-launcher [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-dev-launcher/README.md)
-- fxa-event-broker [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/docs)
+- fxa-event-broker [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/README.md)
 - fxa-geodb [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-geodb/README.md)
 - fxa-graphql-api [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-graphql-api/README.md)
 - fxa-metrics-processor [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-metrics-processor/README.md)
