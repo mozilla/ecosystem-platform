@@ -3693,6 +3693,16 @@ paths:
             type: string
           description: Successful
 definitions:
+  period:
+    type: object
+    properties:
+      end:
+        type: number
+      start:
+        type: number
+    required:
+      - end
+      - start
   Model1:
     type: object
     properties:
@@ -3704,11 +3714,14 @@ definitions:
         type: string
       name:
         type: string
+      period:
+        $ref: '#/definitions/period'
     required:
       - amount
       - currency
       - id
       - name
+      - period
   line_items:
     type: array
     items:
