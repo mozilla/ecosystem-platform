@@ -321,7 +321,7 @@ type Mutation {
   """Deletes the current TOTP token for the user."""
   deleteTotp(input: DeleteTotpInput!): BasicPayload!
 
-  """Deletes the current TOTP token for the user."""
+  """Deletes the current recovery key for the user."""
   deleteRecoveryKey(input: DeleteRecoveryKeyInput!): BasicPayload!
 
   """Return new backup authentication codes while removing old ones."""
