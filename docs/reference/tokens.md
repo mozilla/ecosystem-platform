@@ -113,7 +113,7 @@ Refresh tokens can only be created by authorizing them via a valid `sessionToken
 
 Refresh tokens should only ever be presented to the FxA OAuth server, and should **not** be used when
 talking to other resource servers. Instead, the RP should use the refresh token to generate a short-lived
-[access token][#oauth-access-tokens] and use that to communicate with resource servers.
+[access token](#oauth-access-tokens) and use that to communicate with resource servers.
 
 ### OAuth Access Tokens
 
@@ -134,7 +134,7 @@ See the [OIDC spec](https://openid.net/specs/openid-connect-core-1_0.html#IDToke
 
 This token, a JWT, proves that a user's been authenticated (in this case,
 with FxA). It can also be used as the `id_token_hint` query param value in a
-`prompt=none` flow ([additional information](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/prompt-none.md)]).
+`prompt=none` flow ([additional information](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/prompt-none.md)).
 
 This token is issued along with the access token and refresh token when the
 scope "openid" is present.
