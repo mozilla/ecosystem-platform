@@ -11,7 +11,7 @@ is responsible for displaying the authentication/authorization and account setti
 
 ## Helpful to know before starting
 
-At a high level, FxA is an [authentication (authn) and authorization (authz) system](https://stackoverflow.com/questions/6556522/authentication-versus-authorization). This means a Relying Party (RP) such as Firefox Sync or Send delegates
+At a high level, FxA is an [authentication (authn) and authorization (authz) system](https://stackoverflow.com/questions/6556522/authentication-versus-authorization). This means a Relying Party (RP) such as Firefox Sync delegates
 the responsibility for authenticating and authorizing users to Firefox Accounts. Once the user proves their
 identity to FxA, we return one or more tokens the RP can use to access a "protected resource".
 The [OAuth 2.0 spec](https://tools.ietf.org/html/rfc6749) does a good job of explaining these concepts.
@@ -64,11 +64,12 @@ reports.
 
 The client side is a [Backbone](https://backbonejs.org/) based Single Page Application (SPA) and responsible for screen rendering,
 handling user input, communicating with various FxA backend services, and communicating with RPs or browsers.
-The client app runs in modern Web capable systems, see [supported browsers](../reference/browser-support) for up to date tier 1 support.
+The client app runs in modern Web capable systems, see [supported browsers](../reference/browser-support) for up to date tier 1 support.  Our use of Backbone isn't strictly Model-View-Controller (MVC), ours is more like MVVM. We use Models and Views and have models for the Views.
 
 :::note
-Our use of Backbone isn't strictly Model-View-Controller (MVC), ours is more like MVVM. We use Models and Views and have models for the Views.
+**We're in the middle of a conversion to React which will obsolete Backbone.**  Read more details about [Phase II](https://mozilla-hub.atlassian.net/browse/FXA-6441).
 :::
+
 
 ## High Level Web Client Components
 
@@ -188,7 +189,7 @@ Communication with external servers are done via client libraries.
 
 #### fxa-js-client
 
-The [fxa-js-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-js-client) communicates with the Firefox Accounts [Auth Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
+The [fxa-auth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-client) communicates with the Firefox Accounts [Auth Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
 
 #### oauth-client
 
@@ -351,26 +352,6 @@ appropriately.
 ### Localization
 
 See [L10n in the content and auth servers](../reference/localization).
-
-## Converting to react
-
-Conversion to React would primarily clean up the Views, however, Views are only one aspect of the the content-server's
-duties. Much more challenging than the Views are screen->screen transitions depending on the integration type, and
-handling the myriad [integration types](#relying-party-integrations).
-
-I think a phased approach is possible:
-
-* Start with settings, split it off as a standalone app. Even this will be a challenge because settings
- has many distinct sub-panels and challenging behaviors. However, settings will allow us to learn how to do:
-  - query param validation
-  - session handling
-  - account management
-  - form submission and input validation
-  - communication with the browser
-  - l10n
-* Maybe the password reset flow next since it is fairly self contained.
-* Then maybe the signin/signup flows.
-
 
 
 
