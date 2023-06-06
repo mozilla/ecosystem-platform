@@ -19,6 +19,7 @@ module.exports = {
                          ],
         'Reference': [
                       'relying-parties/reference/metrics-for-relying-parties',
+                      'relying-parties/reference/query-parameters',
                       'relying-parties/reference/sub-plat-overview',
                       'relying-parties/reference/sub-plat-features',
                       'relying-parties/reference/sub-plat-coupons',
