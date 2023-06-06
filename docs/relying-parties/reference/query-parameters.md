@@ -1,5 +1,5 @@
 ---
-title: Relying Party Query Parameters
+title: Query Parameters
 ---
 
 Current as of `Nov 17th, 2022`
