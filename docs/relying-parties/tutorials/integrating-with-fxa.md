@@ -8,6 +8,10 @@ sidebar_label: Integration with FxA
 
 Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OAuth 2.0][oauth], [OpenID Connect][openidconnect], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party].
 
+:::note
+This tutorial will help you integrate with Firefox accounts but there are [additional requirements a relying party is expected to fulfill and maintain](/relying-parties/reference/integration-requirements).  Please ensure you're in compliance with expectations to continue uninterrupted service.
+:::
+
 ## Pre-Development
 
 Before starting integration, please send a request to fxa-staff[at]mozilla.com to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the email:
@@ -108,22 +112,6 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 0. client_id - a public identifier that is used to identify your service. Can be public.
 0. client_secret - a private secret that is sent from the backend when interacting with the OAuth server. Must not be shared publicly, checked into a public repository, or bundled with compiled code.
 
-### Self Hosted Email-first Flow
-
-0. Initialize top of funnel metrics by calling [/metrics-flow request][metrics-flow-request] with the required query parameters:
-   1. `entrypoint` This is a string identifying the source of the request and should be agreed upon by the Firefox Accounts team.
-   1. `form_type` This is either `email` or `button` depending on if you're [self hosted email-first flow](#self-hosted-email-first-flow)
-   1. `utm_source`
-   1. `utm_campaign`
-0. Propagate the `email`, `flow_id` and `flow_begin_time` query parameters, which are returned from the [/metrics-flow request][metrics-flow-request], in the request to `/authentication`.
-
-To test without CORS errors your test application must have one of the following URLs:
-
-- http://127.0.0.1:8001
-- http://localhost:8000
-- http://127.0.0.1:8000
-- Or be in the [`ALLOWED_METRICS_FLOW_ORIGINS` list][allowed-metrics-flow-origins]
-
 ### Profile Data
 Firefox Accounts only stores core identity data and associated profile information about users. Firefox Accounts does not store user data specific to relying services. Core identity data stored in Firefox Accounts includes:
 
@@ -155,15 +143,6 @@ Firefox Accounts only stores core identity data and associated profile informati
 ### Scopes
 
 This will probably just be `scope=profile` for most relying parties, but there is [further documentation](/reference/oauth-details#oauth-scopes).
-
-### User Data Hygiene
-
-0. Accounts should use uid rather than email address as the primary key. An account’s primary email address can change.
-0. [Primary email changed notifications](https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#profile-change) should update the contact email stored with the account.
-0. If profile information is stored, register for [#webhook-events] events or periodically refresh the profile information by using refresh token to create a fresh access token that can fetch profile information.
-0. [Account deletion notifications](https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#delete-user) should remove any server side data related to the user.
-0. Profile information should not be shared with 3rd parties without explicit consent.
-0. [Destroy any outstanding access tokens and refresh tokens](/api#tag/Oauth/operation/postOauthDestroy) whenever a user signals their session or account should be terminated, e.g., the user signs out of your site, closes their account on your site, or unsubscribes from all functionality.
 
 ### Webhook Events
 

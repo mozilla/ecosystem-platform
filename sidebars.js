@@ -18,6 +18,7 @@ module.exports = {
                           'relying-parties/how-tos/device-registration',
                          ],
         'Reference': [
+                      'relying-parties/reference/integration-requirements',
                       'relying-parties/reference/metrics-for-relying-parties',
                       'relying-parties/reference/query-parameters',
                       'relying-parties/reference/sub-plat-overview',
