@@ -37,7 +37,7 @@ const ROLLOUT_CONFIG = {
 };
 ```
 
-Note that this experiment is disabled by default. If you would like to go through the flow, load email-first screen and append query params `?forceExperiment=thirdPartyAuth&forceExperimentGroup=google`.
+Note that this experiment is disabled by default. If you would like to go through the flow, load email-first screen and append query params `?forceExperiment=thirdPartyAuth&forceExperimentGroup=treatment`.
 
 ### How to setup Google auth locally
 
