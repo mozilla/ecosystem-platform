@@ -3665,9 +3665,9 @@ paths:
       tags:
         - Subscriptions
       responses:
-        default:
+        '200':
           schema:
-            type: string
+            $ref: '#/definitions/Model145'
           description: Successful
     delete:
       summary: /oauth/subscriptions/active/{subscriptionid}
@@ -7371,6 +7371,11 @@ definitions:
         maxLength: 255
     required:
       - planId
+  Model145:
+    type: object
+    properties:
+      subscriptionId:
+        type: string
 x-alt-definitions:
   Model1:
     type: object
