@@ -1,46 +1,23 @@
 "use strict";
-exports.id = 316;
-exports.ids = [316];
+exports.id = 397;
+exports.ids = [397];
 exports.modules = {
 
-/***/ 96316:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 25397:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "diagram": () => (/* binding */ diagram)
 /* harmony export */ });
-/* harmony import */ var _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(87115);
+/* harmony import */ var _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(61011);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59373);
-/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(91619);
-/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(12281);
-/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(7201);
+/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91619);
+/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12281);
+/* harmony import */ var khroma__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7201);
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27484);
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _braintree_sanitize_url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17967);
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20683);
-/* harmony import */ var dagre_d3_es_src_dagre_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70277);
-/* harmony import */ var dagre_d3_es_src_graphlib_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(45625);
-/* harmony import */ var dagre_d3_es_src_graphlib_json_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(39354);
-/* harmony import */ var dagre_d3_es__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(91518);
-/* harmony import */ var dayjs_plugin_isoWeek_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(59542);
-/* harmony import */ var dayjs_plugin_isoWeek_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(dayjs_plugin_isoWeek_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var dayjs_plugin_customParseFormat_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(10285);
-/* harmony import */ var dayjs_plugin_customParseFormat_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(dayjs_plugin_customParseFormat_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var dayjs_plugin_advancedFormat_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(28734);
-/* harmony import */ var dayjs_plugin_advancedFormat_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(dayjs_plugin_advancedFormat_js__WEBPACK_IMPORTED_MODULE_10__);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -629,16 +606,16 @@ let currentTaskId = 0;
 const sections = [];
 const tasks = [];
 const rawTasks = [];
-const getCommonDb = () => _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.j;
+const getCommonDb = () => _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.I;
 const parseDirective = (statement, context, type) => {
-  (0,_mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.k)(globalThis, statement, context, type);
+  (0,_mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.J)(globalThis, statement, context, type);
 };
 const clear = function() {
   sections.length = 0;
   tasks.length = 0;
   currentSection = "";
   rawTasks.length = 0;
-  (0,_mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.m)();
+  (0,_mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.v)();
 };
 const addSection = function(txt) {
   currentSection = txt;
@@ -803,19 +780,19 @@ const drawLabel = function(elem, txtObject) {
   txtObject.x = txtObject.x + 0.5 * txtObject.labelMargin;
   drawText(elem, txtObject);
 };
-const drawSection = function(elem, section, conf2) {
+const drawSection = function(elem, section, conf) {
   const g = elem.append("g");
   const rect = getNoteRect();
   rect.x = section.x;
   rect.y = section.y;
   rect.fill = section.fill;
-  rect.width = conf2.width;
-  rect.height = conf2.height;
+  rect.width = conf.width;
+  rect.height = conf.height;
   rect.class = "journey-section section-type-" + section.num;
   rect.rx = 3;
   rect.ry = 3;
   drawRect(g, rect);
-  _drawTextCandidateFunc(conf2)(
+  _drawTextCandidateFunc(conf)(
     section.text,
     g,
     rect.x,
@@ -823,13 +800,13 @@ const drawSection = function(elem, section, conf2) {
     rect.width,
     rect.height,
     { class: "journey-section section-type-" + section.num },
-    conf2,
+    conf,
     section.colour
   );
 };
 let taskCount = -1;
-const drawTask = function(elem, task, conf2) {
-  const center = task.x + conf2.width / 2;
+const drawTask = function(elem, task, conf) {
+  const center = task.x + conf.width / 2;
   const g = elem.append("g");
   taskCount++;
   const maxHeight = 300 + 5 * 30;
@@ -843,14 +820,14 @@ const drawTask = function(elem, task, conf2) {
   rect.x = task.x;
   rect.y = task.y;
   rect.fill = task.fill;
-  rect.width = conf2.width;
-  rect.height = conf2.height;
+  rect.width = conf.width;
+  rect.height = conf.height;
   rect.class = "task task-type-" + task.num;
   rect.rx = 3;
   rect.ry = 3;
   drawRect(g, rect);
   task.x + 14;
-  _drawTextCandidateFunc(conf2)(
+  _drawTextCandidateFunc(conf)(
     task.task,
     g,
     rect.x,
@@ -858,7 +835,7 @@ const drawTask = function(elem, task, conf2) {
     rect.width,
     rect.height,
     { class: "task" },
-    conf2,
+    conf,
     task.colour
   );
 };
@@ -902,8 +879,8 @@ const _drawTextCandidateFunc = function() {
     const text = g.append("text").attr("x", x + width / 2).attr("y", y + height / 2 + 5).style("font-color", colour).style("text-anchor", "middle").text(content);
     _setTextAttrs(text, textAttrs);
   }
-  function byTspan(content, g, x, y, width, height, textAttrs, conf2, colour) {
-    const { taskFontSize, taskFontFamily } = conf2;
+  function byTspan(content, g, x, y, width, height, textAttrs, conf, colour) {
+    const { taskFontSize, taskFontFamily } = conf;
     const lines = content.split(/<br\s*\/?>/gi);
     for (let i = 0; i < lines.length; i++) {
       const dy = i * taskFontSize - taskFontSize * (lines.length - 1) / 2;
@@ -913,12 +890,12 @@ const _drawTextCandidateFunc = function() {
       _setTextAttrs(text, textAttrs);
     }
   }
-  function byFo(content, g, x, y, width, height, textAttrs, conf2) {
+  function byFo(content, g, x, y, width, height, textAttrs, conf) {
     const body = g.append("switch");
     const f = body.append("foreignObject").attr("x", x).attr("y", y).attr("width", width).attr("height", height).attr("position", "fixed");
     const text = f.append("xhtml:div").style("display", "table").style("height", "100%").style("width", "100%");
     text.append("div").attr("class", "label").style("display", "table-cell").style("text-align", "center").style("vertical-align", "middle").text(content);
-    byTspan(content, body, x, y, width, height, textAttrs, conf2);
+    byTspan(content, body, x, y, width, height, textAttrs, conf);
     _setTextAttrs(text, textAttrs);
   }
   function _setTextAttrs(toText, fromTextAttrsDict) {
@@ -928,8 +905,8 @@ const _drawTextCandidateFunc = function() {
       }
     }
   }
-  return function(conf2) {
-    return conf2.textPlacement === "fo" ? byFo : conf2.textPlacement === "old" ? byText : byTspan;
+  return function(conf) {
+    return conf.textPlacement === "fo" ? byFo : conf.textPlacement === "old" ? byText : byTspan;
   };
 }();
 const initGraphics = function(graphics) {
@@ -955,7 +932,7 @@ function wrap(text, width) {
     }
   });
 }
-const drawNode = function(elem, node, fullSection, conf2) {
+const drawNode = function(elem, node, fullSection, conf) {
   const section = fullSection % MAX_SECTIONS - 1;
   const nodeElem = elem.append("g");
   node.section = section;
@@ -967,7 +944,7 @@ const drawNode = function(elem, node, fullSection, conf2) {
   const textElem = nodeElem.append("g");
   const txt = textElem.append("text").text(node.descr).attr("dy", "1em").attr("alignment-baseline", "middle").attr("dominant-baseline", "middle").attr("text-anchor", "middle").call(wrap, node.width);
   const bbox = txt.node().getBBox();
-  const fontSize = conf2.fontSize && conf2.fontSize.replace ? conf2.fontSize.replace("px", "") : conf2.fontSize;
+  const fontSize = conf.fontSize && conf.fontSize.replace ? conf.fontSize.replace("px", "") : conf.fontSize;
   node.height = bbox.height + fontSize * 1.1 * 0.5 + node.padding;
   node.height = Math.max(node.height, node.maxHeight);
   node.width = node.width + 2 * node.padding;
@@ -975,11 +952,11 @@ const drawNode = function(elem, node, fullSection, conf2) {
   defaultBkg(bkgElem, node, section);
   return node;
 };
-const getVirtualNodeHeight = function(elem, node, conf2) {
+const getVirtualNodeHeight = function(elem, node, conf) {
   const textElem = elem.append("g");
   const txt = textElem.append("text").text(node.descr).attr("dy", "1em").attr("alignment-baseline", "middle").attr("dominant-baseline", "middle").attr("text-anchor", "middle").call(wrap, node.width);
   const bbox = txt.node().getBBox();
-  const fontSize = conf2.fontSize && conf2.fontSize.replace ? conf2.fontSize.replace("px", "") : conf2.fontSize;
+  const fontSize = conf.fontSize && conf.fontSize.replace ? conf.fontSize.replace("px", "") : conf.fontSize;
   textElem.remove();
   return bbox.height + fontSize * 1.1 * 0.5 + node.padding;
 };
@@ -1005,32 +982,30 @@ const svgDraw = {
   drawNode,
   getVirtualNodeHeight
 };
-const setConf = function(cnf) {
-  const keys = Object.keys(cnf);
-  keys.forEach(function(key) {
-    conf[key] = cnf[key];
-  });
-};
 const draw = function(text, id, version, diagObj) {
-  const conf2 = (0,_mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.g)();
-  const LEFT_MARGIN = conf2.leftMargin ? conf2.leftMargin : 50;
-  diagObj.db.clear();
+  var _a, _b, _c, _d;
+  const conf = (0,_mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.c)();
+  const LEFT_MARGIN = conf.leftMargin ?? 50;
+  (_b = (_a = diagObj.db).clear) == null ? void 0 : _b.call(_a);
   diagObj.parser.parse(text + "\n");
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("timeline", diagObj.db);
-  const securityLevel = conf2.securityLevel;
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("timeline", diagObj.db);
+  const securityLevel = conf.securityLevel;
   let sandboxElement;
   if (securityLevel === "sandbox") {
     sandboxElement = (0,d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)("#i" + id);
   }
-  const root = securityLevel === "sandbox" ? (0,d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)(sandboxElement.nodes()[0].contentDocument.body) : (0,d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)("body");
+  const root = securityLevel === "sandbox" ? (
+    // @ts-ignore d3 types are wrong
+    (0,d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)(sandboxElement.nodes()[0].contentDocument.body)
+  ) : (0,d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)("body");
   const svg = root.select("#" + id);
   svg.append("g");
   const tasks2 = diagObj.db.getTasks();
   const title = diagObj.db.getCommonDb().getDiagramTitle();
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("task", tasks2);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("task", tasks2);
   svgDraw.initGraphics(svg);
   const sections2 = diagObj.db.getSections();
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("sections", sections2);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("sections", sections2);
   let maxSectionHeight = 0;
   let maxTaskHeight = 0;
   let depthY = 0;
@@ -1049,13 +1024,13 @@ const draw = function(text, id, version, diagObj) {
       padding: 20,
       maxHeight: maxSectionHeight
     };
-    const sectionHeight = svgDraw.getVirtualNodeHeight(svg, sectionNode, conf2);
-    _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("sectionHeight before draw", sectionHeight);
+    const sectionHeight = svgDraw.getVirtualNodeHeight(svg, sectionNode, conf);
+    _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("sectionHeight before draw", sectionHeight);
     maxSectionHeight = Math.max(maxSectionHeight, sectionHeight + 20);
   });
   let maxEventCount = 0;
   let maxEventLineLength = 0;
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("tasks.length", tasks2.length);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("tasks.length", tasks2.length);
   for (const [i, task] of tasks2.entries()) {
     const taskNode = {
       number: i,
@@ -1065,8 +1040,8 @@ const draw = function(text, id, version, diagObj) {
       padding: 20,
       maxHeight: maxTaskHeight
     };
-    const taskHeight = svgDraw.getVirtualNodeHeight(svg, taskNode, conf2);
-    _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("taskHeight before draw", taskHeight);
+    const taskHeight = svgDraw.getVirtualNodeHeight(svg, taskNode, conf);
+    _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("taskHeight before draw", taskHeight);
     maxTaskHeight = Math.max(maxTaskHeight, taskHeight + 20);
     maxEventCount = Math.max(maxEventCount, task.events.length);
     let maxEventLineLengthTemp = 0;
@@ -1080,29 +1055,29 @@ const draw = function(text, id, version, diagObj) {
         padding: 20,
         maxHeight: 50
       };
-      maxEventLineLengthTemp += svgDraw.getVirtualNodeHeight(svg, eventNode, conf2);
+      maxEventLineLengthTemp += svgDraw.getVirtualNodeHeight(svg, eventNode, conf);
     }
     maxEventLineLength = Math.max(maxEventLineLength, maxEventLineLengthTemp);
   }
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("maxSectionHeight before draw", maxSectionHeight);
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("maxTaskHeight before draw", maxTaskHeight);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("maxSectionHeight before draw", maxSectionHeight);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("maxTaskHeight before draw", maxTaskHeight);
   if (sections2 && sections2.length > 0) {
     sections2.forEach((section) => {
+      const tasksForSection = tasks2.filter((task) => task.section === section);
       const sectionNode = {
         number: sectionNumber,
         descr: section,
         section: sectionNumber,
-        width: 150,
+        width: 200 * Math.max(tasksForSection.length, 1) - 50,
         padding: 20,
         maxHeight: maxSectionHeight
       };
-      _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("sectionNode", sectionNode);
+      _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("sectionNode", sectionNode);
       const sectionNodeWrapper = svg.append("g");
-      const node = svgDraw.drawNode(sectionNodeWrapper, sectionNode, sectionNumber, conf2);
-      _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("sectionNode output", node);
+      const node = svgDraw.drawNode(sectionNodeWrapper, sectionNode, sectionNumber, conf);
+      _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("sectionNode output", node);
       sectionNodeWrapper.attr("transform", `translate(${masterX}, ${sectionBeginY})`);
       masterY += maxSectionHeight + 50;
-      const tasksForSection = tasks2.filter((task) => task.section === section);
       if (tasksForSection.length > 0) {
         drawTasks(
           svg,
@@ -1111,7 +1086,7 @@ const draw = function(text, id, version, diagObj) {
           masterX,
           masterY,
           maxTaskHeight,
-          conf2,
+          conf,
           maxEventCount,
           maxEventLineLength,
           maxSectionHeight,
@@ -1131,7 +1106,7 @@ const draw = function(text, id, version, diagObj) {
       masterX,
       masterY,
       maxTaskHeight,
-      conf2,
+      conf,
       maxEventCount,
       maxEventLineLength,
       maxSectionHeight,
@@ -1139,21 +1114,22 @@ const draw = function(text, id, version, diagObj) {
     );
   }
   const box = svg.node().getBBox();
-  _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("bounds", box);
+  _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("bounds", box);
   if (title) {
     svg.append("text").text(title).attr("x", box.width / 2 - LEFT_MARGIN).attr("font-size", "4ex").attr("font-weight", "bold").attr("y", 20);
   }
   depthY = hasSections ? maxSectionHeight + maxTaskHeight + 150 : maxTaskHeight + 100;
   const lineWrapper = svg.append("g").attr("class", "lineWrapper");
   lineWrapper.append("line").attr("x1", LEFT_MARGIN).attr("y1", depthY).attr("x2", box.width + 3 * LEFT_MARGIN).attr("y2", depthY).attr("stroke-width", 4).attr("stroke", "black").attr("marker-end", "url(#arrowhead)");
-  (0,_mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.s)(
+  (0,_mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.p)(
     void 0,
     svg,
-    conf2.timeline.padding ? conf2.timeline.padding : 50,
-    conf2.timeline.useMaxWidth ? conf2.timeline.useMaxWidth : false
+    ((_c = conf.timeline) == null ? void 0 : _c.padding) ?? 50,
+    ((_d = conf.timeline) == null ? void 0 : _d.useMaxWidth) ?? false
   );
 };
-const drawTasks = function(diagram2, tasks2, sectionColor, masterX, masterY, maxTaskHeight, conf2, maxEventCount, maxEventLineLength, maxSectionHeight, isWithoutSections) {
+const drawTasks = function(diagram2, tasks2, sectionColor, masterX, masterY, maxTaskHeight, conf, maxEventCount, maxEventLineLength, maxSectionHeight, isWithoutSections) {
+  var _a;
   for (const task of tasks2) {
     const taskNode = {
       descr: task.task,
@@ -1163,18 +1139,18 @@ const drawTasks = function(diagram2, tasks2, sectionColor, masterX, masterY, max
       padding: 20,
       maxHeight: maxTaskHeight
     };
-    _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("taskNode", taskNode);
+    _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("taskNode", taskNode);
     const taskWrapper = diagram2.append("g").attr("class", "taskWrapper");
-    const node = svgDraw.drawNode(taskWrapper, taskNode, sectionColor, conf2);
+    const node = svgDraw.drawNode(taskWrapper, taskNode, sectionColor, conf);
     const taskHeight = node.height;
-    _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("taskHeight after draw", taskHeight);
+    _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("taskHeight after draw", taskHeight);
     taskWrapper.attr("transform", `translate(${masterX}, ${masterY})`);
     maxTaskHeight = Math.max(maxTaskHeight, taskHeight);
     if (task.events) {
       const lineWrapper = diagram2.append("g").attr("class", "lineWrapper");
-      let linelength = maxTaskHeight;
+      let lineLength = maxTaskHeight;
       masterY += 100;
-      linelength = linelength + drawEvents(diagram2, task.events, sectionColor, masterX, masterY, conf2);
+      lineLength = lineLength + drawEvents(diagram2, task.events, sectionColor, masterX, masterY, conf);
       masterY -= 100;
       lineWrapper.append("line").attr("x1", masterX + 190 / 2).attr("y1", masterY + maxTaskHeight).attr("x2", masterX + 190 / 2).attr(
         "y2",
@@ -1182,13 +1158,13 @@ const drawTasks = function(diagram2, tasks2, sectionColor, masterX, masterY, max
       ).attr("stroke-width", 2).attr("stroke", "black").attr("marker-end", "url(#arrowhead)").attr("stroke-dasharray", "5,5");
     }
     masterX = masterX + 200;
-    if (isWithoutSections && !(0,_mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.g)().timeline.disableMulticolor) {
+    if (isWithoutSections && !((_a = conf.timeline) == null ? void 0 : _a.disableMulticolor)) {
       sectionColor++;
     }
   }
   masterY = masterY - 10;
 };
-const drawEvents = function(diagram2, events, sectionColor, masterX, masterY, conf2) {
+const drawEvents = function(diagram2, events, sectionColor, masterX, masterY, conf) {
   let maxEventHeight = 0;
   const eventBeginY = masterY;
   masterY = masterY + 100;
@@ -1201,9 +1177,9 @@ const drawEvents = function(diagram2, events, sectionColor, masterX, masterY, co
       padding: 20,
       maxHeight: 50
     };
-    _mermaid_ae477ddf_js__WEBPACK_IMPORTED_MODULE_11__.l.debug("eventNode", eventNode);
+    _mermaid_b0ad2de1_js__WEBPACK_IMPORTED_MODULE_4__.l.debug("eventNode", eventNode);
     const eventWrapper = diagram2.append("g").attr("class", "eventWrapper");
-    const node = svgDraw.drawNode(eventWrapper, eventNode, sectionColor, conf2);
+    const node = svgDraw.drawNode(eventWrapper, eventNode, sectionColor, conf);
     const eventHeight = node.height;
     maxEventHeight = maxEventHeight + eventHeight;
     eventWrapper.attr("transform", `translate(${masterX}, ${masterY})`);
@@ -1213,17 +1189,18 @@ const drawEvents = function(diagram2, events, sectionColor, masterX, masterY, co
   return maxEventHeight;
 };
 const renderer = {
-  setConf,
+  setConf: () => {
+  },
   draw
 };
 const genSections = (options) => {
   let sections2 = "";
   for (let i = 0; i < options.THEME_COLOR_LIMIT; i++) {
     options["lineColor" + i] = options["lineColor" + i] || options["cScaleInv" + i];
-    if ((0,khroma__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z)(options["lineColor" + i])) {
-      options["lineColor" + i] = (0,khroma__WEBPACK_IMPORTED_MODULE_13__/* ["default"] */ .Z)(options["lineColor" + i], 20);
+    if ((0,khroma__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z)(options["lineColor" + i])) {
+      options["lineColor" + i] = (0,khroma__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z)(options["lineColor" + i], 20);
     } else {
-      options["lineColor" + i] = (0,khroma__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .Z)(options["lineColor" + i], 20);
+      options["lineColor" + i] = (0,khroma__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z)(options["lineColor" + i], 20);
     }
   }
   for (let i = 0; i < options.THEME_COLOR_LIMIT; i++) {
@@ -1296,57 +1273,6 @@ const diagram = {
   styles
 };
 
-//# sourceMappingURL=timeline-definition-8e5a9bc6.js.map
-
-
-/***/ }),
-
-/***/ 91619:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ is_dark)
-});
-
-// EXTERNAL MODULE: ./node_modules/khroma/dist/utils/index.js + 3 modules
-var utils = __webpack_require__(61691);
-// EXTERNAL MODULE: ./node_modules/khroma/dist/color/index.js + 4 modules
-var dist_color = __webpack_require__(71610);
-;// CONCATENATED MODULE: ./node_modules/khroma/dist/methods/luminance.js
-/* IMPORT */
-
-
-/* MAIN */
-//SOURCE: https://planetcalc.com/7779
-const luminance = (color) => {
-    const { r, g, b } = dist_color/* default.parse */.Z.parse(color);
-    const luminance = .2126 * utils/* default.channel.toLinear */.Z.channel.toLinear(r) + .7152 * utils/* default.channel.toLinear */.Z.channel.toLinear(g) + .0722 * utils/* default.channel.toLinear */.Z.channel.toLinear(b);
-    return utils/* default.lang.round */.Z.lang.round(luminance);
-};
-/* EXPORT */
-/* harmony default export */ const methods_luminance = (luminance);
-
-;// CONCATENATED MODULE: ./node_modules/khroma/dist/methods/is_light.js
-/* IMPORT */
-
-/* MAIN */
-const isLight = (color) => {
-    return methods_luminance(color) >= .5;
-};
-/* EXPORT */
-/* harmony default export */ const is_light = (isLight);
-
-;// CONCATENATED MODULE: ./node_modules/khroma/dist/methods/is_dark.js
-/* IMPORT */
-
-/* MAIN */
-const isDark = (color) => {
-    return !is_light(color);
-};
-/* EXPORT */
-/* harmony default export */ const is_dark = (isDark);
 
 
 /***/ })
