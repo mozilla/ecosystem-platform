@@ -5,19 +5,47 @@ hide_table_of_contents: false
 ---
 
 
-
 export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
 
 export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
 
-export const Badge = (props) => <><span className={'badge badge--' + props.class}>{props.text}</span></>
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
 
 
 The `Boolean` scalar type represents `true` or `false`.
 
+
 ```graphql
 scalar Boolean
 ```
+
+
 
 
 
@@ -29,6 +57,4 @@ scalar Boolean
 ### Member of
 
 [`Account`](/gql-api/objects/account)  <Badge class="secondary" text="object"/><Bullet />[`AccountResetInputOptions`](/gql-api/inputs/account-reset-input-options)  <Badge class="secondary" text="input"/><Bullet />[`AccountResetPayload`](/gql-api/objects/account-reset-payload)  <Badge class="secondary" text="object"/><Bullet />[`AccountStatusPayload`](/gql-api/objects/account-status-payload)  <Badge class="secondary" text="object"/><Bullet />[`AttachedClient`](/gql-api/objects/attached-client)  <Badge class="secondary" text="object"/><Bullet />[`Email`](/gql-api/objects/email)  <Badge class="secondary" text="object"/><Bullet />[`FinishedSetupAccountPayload`](/gql-api/objects/finished-setup-account-payload)  <Badge class="secondary" text="object"/><Bullet />[`include`](/gql-api/directives/include)  <Badge class="secondary" text="directive"/><Bullet />[`LinkedAccount`](/gql-api/objects/linked-account)  <Badge class="secondary" text="object"/><Bullet />[`PasswordChangeInputOptions`](/gql-api/inputs/password-change-input-options)  <Badge class="secondary" text="input"/><Bullet />[`PasswordChangePayload`](/gql-api/objects/password-change-payload)  <Badge class="secondary" text="object"/><Bullet />[`SecurityEvent`](/gql-api/objects/security-event)  <Badge class="secondary" text="object"/><Bullet />[`Session`](/gql-api/objects/session)  <Badge class="secondary" text="object"/><Bullet />[`SessionReauthedAccountPayload`](/gql-api/objects/session-reauthed-account-payload)  <Badge class="secondary" text="object"/><Bullet />[`SessionReauthOptionsInput`](/gql-api/inputs/session-reauth-options-input)  <Badge class="secondary" text="input"/><Bullet />[`SignedInAccountPayload`](/gql-api/objects/signed-in-account-payload)  <Badge class="secondary" text="object"/><Bullet />[`SignInOptionsInput`](/gql-api/inputs/sign-in-options-input)  <Badge class="secondary" text="input"/><Bullet />[`SignUpOptionsInput`](/gql-api/inputs/sign-up-options-input)  <Badge class="secondary" text="input"/><Bullet />[`skip`](/gql-api/directives/skip)  <Badge class="secondary" text="directive"/><Bullet />[`Totp`](/gql-api/objects/totp)  <Badge class="secondary" text="object"/><Bullet />[`VerifyTotpPayload`](/gql-api/objects/verify-totp-payload)  <Badge class="secondary" text="object"/>
-
-
 

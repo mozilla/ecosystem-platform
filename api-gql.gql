@@ -48,6 +48,7 @@ type AccountResetPayload {
   verified: Boolean
   authAt: Float
   keyFetchToken: String
+  unwrapBKey: String
 }
 
 type SessionReauthedAccountPayload {
