@@ -5837,6 +5837,9 @@ definitions:
         maxLength: 255
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
+      thirdPartyAuthStatus:
+        type: boolean
+        default: false
       checkDomain:
         type: string
     required:
@@ -5845,6 +5848,10 @@ definitions:
     type: object
     properties:
       exists:
+        type: boolean
+      hasLinkedAccount:
+        type: boolean
+      hasPassword:
         type: boolean
       invalidDomain:
         type: boolean
