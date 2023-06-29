@@ -5,19 +5,47 @@ hide_table_of_contents: false
 ---
 
 
-
 export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
 
 export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
 
-export const Badge = (props) => <><span className={'badge badge--' + props.class}>{props.text}</span></>
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
 
 
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 
+
 ```graphql
 scalar Float
 ```
+
+
 
 
 
@@ -29,6 +57,4 @@ scalar Float
 ### Member of
 
 [`Account`](/gql-api/objects/account)  <Badge class="secondary" text="object"/><Bullet />[`AccountResetPayload`](/gql-api/objects/account-reset-payload)  <Badge class="secondary" text="object"/><Bullet />[`AttachedClient`](/gql-api/objects/attached-client)  <Badge class="secondary" text="object"/><Bullet />[`LinkedAccount`](/gql-api/objects/linked-account)  <Badge class="secondary" text="object"/><Bullet />[`MetricsContext`](/gql-api/inputs/metrics-context)  <Badge class="secondary" text="input"/><Bullet />[`PasswordChangePayload`](/gql-api/objects/password-change-payload)  <Badge class="secondary" text="object"/><Bullet />[`PasswordForgotCodeStatusPayload`](/gql-api/objects/password-forgot-code-status-payload)  <Badge class="secondary" text="object"/><Bullet />[`SecurityEvent`](/gql-api/objects/security-event)  <Badge class="secondary" text="object"/><Bullet />[`SessionReauthedAccountPayload`](/gql-api/objects/session-reauthed-account-payload)  <Badge class="secondary" text="object"/><Bullet />[`SignedInAccountPayload`](/gql-api/objects/signed-in-account-payload)  <Badge class="secondary" text="object"/><Bullet />[`SignedUpAccountPayload`](/gql-api/objects/signed-up-account-payload)  <Badge class="secondary" text="object"/>
-
-
 
