@@ -71,6 +71,8 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 | emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
 | appStoreLink                              | Optional. The App store download URL for the product. |
 | playStoreLink                             | Optional. The google play store download URL for the product. |
+| newsletterSlug                            | Optional. Comma separated string array of slugs to send if a customer opts to signup for the newsletter. Valid values are `mozilla-accounts`, `security-privacy-news`, `hubs`, `mdnplus`, which can be combined into a comma separated string. Defaults to `mozilla-accounts`. |
+| newsletterLabelTextCode                   | Optional. A code used to determine which of the predefined labels to add to the newsletter checkbox. Valid values are `snp`, `hubs`, `mdnplus`. If no code is provided, the default label text is displayed. Examples of each string can be found on [Storybook here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/components-newuseremailform--default). |
 | productSet                                | Required.  A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `productSet` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product. |
 | productOrder                              | Optional. A number used for sorting products in a set. |
 | product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. This parameter is used as a hyperlink in emails sent to the customer when their subscription is cancelled due, manual cancellation, FxA Account deletion, or failed payment.|
@@ -206,7 +208,7 @@ For the legal document download URL configurations values, they can be in the
 form of an incomplete URL, as they will be handled by a redirect endpoint that
 tries to best match the user's locale to a localized version of the document.
 For example, if the value of the Terms of Service URL is
-'https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos' and the user's
+'<https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>' and the user's
 locale is `de`, then the endpoint will redirect the user to
 <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos.de.pdf>.
 
