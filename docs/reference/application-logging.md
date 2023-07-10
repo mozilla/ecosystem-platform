@@ -57,6 +57,14 @@ Accessing logs from the FxA Auth Server, FxA Auth Db MySQL Service, etc. require
 
 A full list of these tabale prefixes can be found in the [bigquery] console by clicking on the left side drop-down and expanding it under `fxa_stage_logs` (or prod). FxA services all start with `docker_fxa_`.
 
+For the newer moz-fx-fxa-nonprod and moz-fx-fxa-prod projects in GCP, logs are in [bigquery] with separate tables based on the type of log. These include events, export_errors, requests, stderr, and stdout.
+
+Below is an example of searching logs written to standard out for July 10, 2023. 
+
+```sql
+SELECT LogName, resource.type, resource.labels.project_id, resource.labels.pod_name, resource.labels.location, resource.labels.location, resource.labels.namespace_name, resource.labels.cluster_name, textPayload FROM `moz-fx-fxa-nonprod.gke_fxa_stage_log.stdout` WHERE TIMESTAMP_TRUNC(_PARTITIONTIME, DAY) = TIMESTAMP("2023-07-10") LIMIT 1000
+```
+
 [sentry]: https://sentry.io/
 [bigquery]: https://console.cloud.google.com/bigquery
 [mozlog]: https://github.com/mozilla/mozlog/
