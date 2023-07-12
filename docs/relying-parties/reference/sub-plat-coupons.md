@@ -28,12 +28,12 @@ After you land on the coupon page press the +New button to create a coupon. This
 
 - **Name** - This is the name of the coupon that will be displayed on the invoice. This should be user friendly.
 - **Type** - Choose the type of coupon you are creating ( % off or, fixed amount).
-- **Percent off** - If you have chosen a percentage dicount fill in the % box.
+- **Percent off** - If you have chosen a percentage discount, fill in the % box.
 - **Currency & Discount amount** - If you have chosen a fixed amount discount choose your currency and the discount amount.
-- **Apply to a specific products** - Do not use this field, leave in the default off position
+- **Apply to a specific products** - _Do not use this field._ Leave in the default off position
 - **Duration** - Select the duration of the coupon. This ties directly to the invoice. Forever means the coupon will be used for the first subscription and all renewals. Once means the coupon will only be valid for the initial subscritpion. Multiple months means that the coupon will be valid multiple times for a monthly subscription but only once for a yearly subscription unless the number of months is greater than 12.
-- **Redemprion limits** - Do not use this field. Leave both options unchecked.
-- **Codes** - This allows us to set short codes that the user will enter into the Discount field during checkout. Turn this toggle on
+- **Redemption limits** - _Do not use this field._ Leave both options unchecked.
+- **Codes** - This allows us to set short codes that the user will enter into the Discount field during checkout. Turn this toggle on.
 
 ![Coupon Creation](../../assets/coupons/create.png)
 
@@ -42,11 +42,11 @@ After you land on the coupon page press the +New button to create a coupon. This
 Once you turned on the codes toggle you will see a new section appear. You can make as many codes per coupon as you like, but keep in mind that the discount you set cannot be changed.
 
 - **Code** - Set a code for the coupon. This code will be used during the subscription checkout flow.
-- **Eligible for first-time orders only** - Do not use this field. This will prohibit customers that already have a subscription to another product from using the coupon on a new product (Ex: has VPN but wants Relay)
-- **Limit to a specific customer** - Do not use this field.
+- **Eligible for first-time orders only** - _Do not use this field._ This will prohibit customers that already have a subscription to another product from using the coupon on a new product (Ex: has VPN but wants Relay)
+- **Limit to a specific customer** - _Do not use this field._
 - **Limit the number of times this code can be redeemed** - Select this option and put in a limit if you want to limit the number of times this coupon can be used. (Ex: only the first 300 people who read our blog can use the coupon)
 - **Add an expiry date** - Select this option and enter a date time if you want this coupon to expire. (Ex: if the expiry of the coupon is Jan 1, 2022 9:00 PST users attempting to use this coupon on Jan 1, 2022 9:01 PST will see an error. )
-- **Require minimum order value** - Do not use this field. Instead be mindfull of which Products/ Prices you assign each coupon. (Ex: do not assign a $1USD off coupon to a $0.99USD subscription)
+- **Require minimum order value** - _Do not use this field._ Instead be mindful of which Products/ Prices you assign each coupon. (Ex: do not assign a $1USD off coupon to a $0.99USD subscription)
 
 ### Saving the coupon
 
@@ -70,11 +70,11 @@ In order for the coupons to work on local or staging you need to ensure to add t
 
 - **SUB_PLAT_STAGE** - Use this account in test mode to configure coupons that can be used on staging.
 - **SUB_PLAT_DEV** - Use this account in test mode to configure coupons that can be used on localhost.
-- **Subscriotion Platform** - Use this account to configure coupons for production use.
+- **Subscription Platform** - Use this account to configure coupons for production use.
 
 ## Coupon validation
 
-- **$0 Invoices** - The system will allow a user to use a 100% off coupon whether it is a percentage or currency based discount
+- **$0 Invoices** - The system will allow a user to use a 100% off coupon whether it is a percentage or currency based discount.
 - **Invoice Minimums** - Stripe has a list of minimum and maximum charge amounts. This means that a discount coupon that goes below/above the minimum/maximums allowed will not allow the user to complete the subscription process. [Stripe documentation](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts)
 - **Monthly Repeating Coupons** - Monthly repeating coupons can only be applied to subscriptions that are billed monthly or daily. This will ensure that the user has an accurate representation of future billings. Since the discount is applied to the invoice, monthly repeating coupons will not alter a yearly subscription unless they repeat for 13+ months. This is the same for 6 month subscriptions.
 
