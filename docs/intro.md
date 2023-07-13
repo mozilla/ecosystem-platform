@@ -7,7 +7,7 @@ slug: /
 
 **Welcome to the Ecosystem Platform docs.** The goal of this site is to serve as a documentation hub for Firefox Accounts and Subscription Platform. It provides detailed breakdowns of the various components that make up these services, including technical references, guides, concepts, deep-dives, and much more.
 
-If you are interested in integrating with Firefox Accounts or Subscription Platform please review the **For Relying Parties** section on the left.  Please note that currently Firefox Accounts only services clients internal to Mozilla.
+If you are interested in integrating with Firefox Accounts or Subscription Platform please review the **For Relying Parties** section on the left.  **Please note that currently Firefox Accounts only services clients internal to Mozilla.**
 
 :::note
 Need to reach us? Mozilla Employees can drop into [#fxa](https://mozilla.slack.com/archives/C4D36CAJW) in Slack, and other folks can reach us in the [Firefox Accounts Matrix chat room](https://chat.mozilla.org/#/room/#fxa:mozilla.org).
