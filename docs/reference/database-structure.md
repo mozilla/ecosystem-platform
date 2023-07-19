@@ -154,6 +154,7 @@ erDiagram
         bigint endedAt "unsigned"
     }
     recoveryCodes {
+        bigint id PK "unsigned"
         binary uid "16 bytes"
         binary codeHash "32 bytes; CONFIDENTIAL"
         binary salt "32 bytes; CONFIDENTIAL"
@@ -175,6 +176,7 @@ erDiagram
     }
     securityEvents }|--|| securityEventNames : named
     securityEvents {
+        bigint id PK "unsigned"
         binary uid "16 bytes"
         int nameId FK
         tinyint verified
@@ -217,6 +219,7 @@ erDiagram
         binary flowId "32 bytes"
     }
     totp {
+        bigint id PK "unsigned"
         binary uid "16 bytes"
         varchar sharedSecret "CONFIDENTIAL"
         bigint epoch "CONFIDENTIAL"
