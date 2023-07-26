@@ -397,7 +397,7 @@ export default function Foo {
 }
 ```
 
-Notes for use: Filter out unnecessary props when possible. Also, use [prop-types-exact](prop-types-exact) to help prevent bugs.
+Notes for use: Filter out unnecessary props when possible. Also, use `prop-types-exact` to help prevent bugs.
 
 ```javascript
 // good

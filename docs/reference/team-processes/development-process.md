@@ -6,11 +6,41 @@ We develop and deploy on a two-week cycle. Every other Wednesday we cut a releas
 
 ## Our weekly process
 
-![A visual map of our weekly process](../../assets/fxa-schedule.png)
+```mermaid
+---
+displayMode: compact
+---
+gantt
+    title       An example schedule for a standard sprint
+    axisFormat  %b %d
+    tickInterval 1day
+    Push to Stage      :milestone, m1, 2023-01-04, 1m
+    Push to Production :milestone, m2, 2023-01-11, 1m
 
-Above is a diagram illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  It's intention is to give an idea of timeframes:
-* Sprints are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
+    section QA
+    Exploratory Testing       :active,  qa1, 2023-01-01, 3d
+    Test Stage                :active,  qa2, after m1, 7d
+    Test Production           :active,  qa3, after m2, 1d
+    Exploratory Testing       :active,  qa4, after qa3, 3d
+
+    section Engineering
+    Work on the train         :active, eng1, 2023-01-01, 3d
+    Start a new train         :crit, done, eng2, after m1, 1d
+    Work on the new train     :active, eng3, after eng2, 10d
+
+    section Localization
+    Translate existing strings.  This can happen anytime and each deployment uses the newest strings. :active, l10n1, 2023-01-01, 14d
+
+    section SRE
+    Assist updating stage             :active, sre1, after m1, 1d
+    Assist updating production        :active, sre2, after m2, 1d
+
+```
+
+Above is a chart illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  Its intention is to give an idea of timeframes:
+* Sprint starts are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
 * Fixing regressions of the train on Stage is a higher priority than fixing new issues in the current train.  Depending on the regression's severity it may be picked to Stage, picked to Production, or just ride the train the following week.
+* The chart includes weekends because not everyone is in the same timezone.  People are not expected to work on weekends.
 
 
 ## Issue management
@@ -26,30 +56,21 @@ Issue status is reflected by the following:
 * The Type (in Jira) indicates whether the issue is a task, bug, or spike (research task). These are oftentimes housed in epics for feature work which may live in meta-epics of differing types.
 * The Severity (in Jira) for *bugs only* indicates the impact of the bug. ([more details][bug-severity])
 
-Issues, labels, and assignee are synchronized automatically between GitHub and Jira (a delay of a minute or two). Spikes and epics do not sync to Github, and it's best not to create an issue as a subtask for visibility reasons in Jira.
+Issues filed in GitHub (and comments on those issues) will sync to Jira automatically.  *This is a one-way sync and changes to the issues in Jira will not be reflected in GitHub.*
 
-We also have two relevant components in Bugzilla:
-* [Firefox :: Firefox Accounts][bugzilla-fxa]
-* [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server]
+We also have a component in Bugzilla: [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server] .  This component is generally no longer used except by teams who aren't using Jira yet.  For related info, see our [Bugzilla triage docs][bugzilla-triage].
 
-These components are used to help coordinate between other projects using Bugzilla and for issues relating to security. For related info, see our [Bugzilla triage docs][bugzilla-triage].
-
-If you're wondering where to file a bug, unless it's a security bug, please file in Jira.
+**If you're wondering where to file a bug, please file it in Jira.**  If it's a security bug set the `Security Level` field to `Accounts Security Access`.
 
 ### Labels we use
 
-This isn't a comprehensive list but is a good selection to be aware of.  You should know the synchronization between Jira and Github is a little picky (eg. it won't sync spaces) so some labels will sync slightly differently in regards to spaces, dashes, and colons.  For example, `good first issue` on Github is `good-first-issue` on Jira.
-
-We should use these labels any time they apply.
+This isn't a comprehensive list but is a good selection to be aware of.  We should use these labels any time they apply.
 
 * `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue.  When you use this label *leave a comment in the issue with context about how to test it*.
 * `qa-`: This is not something that should be tested by QA
 * `regression`: This used to work and now it doesn't
-* `good first issue` and `help wanted`: Use both of these labels at the same time when you come across an issue that would be good for a contributor.
-* `skill:*`: We have some labels like `skill:css` that we use in conjunction with the `help wanted` and `good first issue` labels
 * `maintenance`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code. Do not mistake this with the uppercase `Maintenance` label which is used by other teams.
 * `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
-* `cat:*`: A category the work falls under, such as `cat:a11y` or `cat:code-quality`.
 
 ## Product Planning
 
@@ -87,7 +108,7 @@ The amount of work we can accomplish in a sprint depends on how many people are 
 
 When considering what you can accomplish in a sprint, remember:
 * FxA is a complex project with a lot of moving parts.  If you're not familiar with the area, sometimes a simple patch can lead to a rabbit hole that soaks up your time.
-* All patches are reviewed by another team member who also has their own obligations that sprint.  Leave room in your schedule to review patches and consider that others might not get to your patch immediately.
+* All patches are reviewed by another team member who also have their own obligations that sprint.  Leave room in your schedule to review patches and consider that others might not get to your patch immediately.
 * Some patches may require additional review from, for example, the operations, security, localization, or data steward teams.  If that's the case it may not land in the same sprint it is written in.
 
 ### How do we decide what to work on?
@@ -98,7 +119,7 @@ We take input from many sources including our Product Managers, our QA team, our
 * Blocking bugs found in our staging site
 * Any high priority work that we didn't finish in the previous sprint (including helping a team member finish their work)
 * Any in-progress Epics
-* Starting on the next Epic (Epics are in priority order in Jira)
+* Starting on the next Epic
 
 In the midst of our regular process workflow bugs will be reported and found.  If they are important we'll add them to the sprint.  If they are part of an epic we're actively working on, we'll add them to that epic (and thus, they will be closed in short order).  If they aren't a high priority, they'll be put in the backlog.  Occasionally we may take a sprint and work on only bugs to help reduce our backlog.
 
@@ -264,7 +285,6 @@ The Firefox Accounts service is part of Mozilla's [bug bounty program][moz-bug-b
 
 
 [bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
-[bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15068002&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=Firefox%3A%3AFirefoxAccounts&query_format=advanced&component=Firefox%20Accounts&product=Firefox&known_name=Firefox%3A%3AFirefoxAccounts
 [bugzilla-fxa-server]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15067999&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=CloudServices%3A%3AServer%3AFirefoxAccounts&query_format=advanced&component=Server%3A%20Firefox%20Accounts&product=Cloud%20Services&known_name=CloudServices%3A%3AServer%3AFirefoxAccounts
 [fxa-calendar]: https://www.google.com/calendar/embed?src=mozilla.com_urbkla6jvphpk1t8adi5c12kic%40group.calendar.google.com
 [fxa-deploy-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit

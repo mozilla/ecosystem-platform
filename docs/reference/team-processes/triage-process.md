@@ -30,7 +30,7 @@ At a high level, the FxA triage owner is responsible for:
 * Hosting the weekly triage meeting
   * Triaging any new issues in Jira as a team
   * Triaging any new issues in Sentry as a team
-* If FxA triage owner, triage new issues in FxA Bugzilla near-daily (as a team if there is time in the triage meeting)
+* Triaging new issues in FxA Bugzilla (as a team if there is time in the triage meeting)
 * Checking if there's any PRs, from team members or contributors, that don't have a reviewer, that you can help move along
 * Helping with Dependabot PRs
 * Assisting with any high priority bugs that come up during the sprint
@@ -70,7 +70,7 @@ You’ll then look at each issue — though if you’re on the FxA team and the 
 * **Check that the issue is clear and ready to be worked on.** If more info or context is needed that an engineer in the triage meeting can provide, either leave a summary comment of what’s stated (if it’s quick) or ask them to comment on it, and otherwise, add the appropriate “needs” label (e.g. `needsdiscussion`, `needslegal`, `needsproduct`, `needsux`) and/or @ mention someone who may be able to answer pending questions. If more info is needed and the issue seems high priority, consider pinging someone directly about the issue after triage completes.
 * **Make sure the issue type is correct.** The default when filing in Jira or from GitHub is type “task” but it might need to be changed to “spike” if it’s a research task or work breakdown task, or “bug” in which case you will want to fill out the “Found in” (environment) and “[Severity][bug-severity]” (S1 is highest, S4 is lowest) fields.
 * **Add an initial estimated number of story points** if someone on the call can [estimate][point-estimation].
-* **If applicable, add the appropriate epic, labels, and/or issue links.** It’s uncommon for a new issue in triage to lack an epic if it should be associated with one, but it’s good to be aware of what epics exist and what the roadmap looks like. Some common labels to consider using are `maintenance` and  `good-first-issue`, but be sure to check out [labels we use][labels-we-use] to be aware of others. Issue links create a link between issues and can be “blocked by X issue,” “relates to X issue,” and more.
+* **If applicable, add the appropriate epic, labels, and/or issue links.** It’s uncommon for a new issue in triage to lack an epic if it should be associated with one, but it’s good to be aware of what epics exist and what the roadmap looks like. Some common labels to consider using are `maintenance` and  `qa-`, but be sure to check out [labels we use][labels-we-use] to be aware of others. Issue links create a link between issues and can be “blocked by X issue,” “relates to X issue,” and more.
 * **Move the issue out of the backlog section.** If the issue seems high priority or someone on the call asks to be assigned, it might belong in the current or following sprint (update the “sprint” field if so), or at the top of the “to do” list. Either way, drag and drop the task up and out of the backlog section (or manually change the status and refresh) and the issue status will change from “new” to “to do”.
 
 ### Sentry
@@ -99,7 +99,7 @@ Stripe issues are currently triaged twice a week - once in the team triage meeti
 
 If there's time left in the FxA triage meeting, Bugzilla can be looked at as a team that day. Ideally, the triage owner will check Bugzilla every day on their own.
 
-Users file issues in Bugzilla for various reasons, the most common that we handle in triage being helping users access their account. Check [Bugzilla FxA][bugzilla-fxa] and [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
+There is no longer much activity in our Bugzilla component to this won't take long.  Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
 
 If a Bugzilla bug includes a user's email address or any PII (personal identifiable information) in the bug description, then do the following:
 
@@ -119,7 +119,7 @@ If the reported bug is around an [email bounce account block][email-bounce-types
 
 You may need to file an issue in Jira for bugs in Bugzilla to surface issues to the team that would require changes in our codebase.
 
-If you see a bug filed requesting [OAuth client details][oauth-integration], post in the FxA team Slack channel. Reference the bug, and bring it to the attention of devops.
+If you see a bug filed requesting [OAuth client details][oauth-integration], post in the FxA team Slack channel. Reference the bug, and bring it to the attention of SRE.
 
 ## Pull Requests
 
@@ -192,7 +192,6 @@ Triage owners should occasionally check to see if they can answer any questions 
 [mana-vpn]: https://mana.mozilla.org/wiki/pages/viewpage.action?spaceKey=SD&title=VPN
 [bugzilla-common-scenarios]: https://docs.google.com/document/d/1z_Ob6z517iVzBEk-RUqJitszP8M982uIUvKJIN0P_UM/edit#
 [bugzilla-common-scenarios-ldap]: https://docs.google.com/document/d/1z_Ob6z517iVzBEk-RUqJitszP8M982uIUvKJIN0P_UM/edit#bookmark=id.uoiqp21qfgqx
-[bugzilla-fxa]: https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem&remaction=run&namedcmd=Firefox%3A%3AFirefoxAccounts&sharer_id=177149&list_id=15894251
 [bugzilla-fxa-cloud]: https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem&remaction=run&namedcmd=CloudServices%3A%3AServer%3AFirefoxAccounts&sharer_id=177149&list_id=15894255
 [bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
 [labels-we-use]: ./development-process.md#labels-we-use

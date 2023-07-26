@@ -2,7 +2,7 @@
 title: Database Structure
 ---
 
-Current as of `February 2nd, 2023`
+Current as of `July 22nd, 2023`
 
 Below you'll find some ER diagrams of the Firefox Accounts and Subscription
 Platform databases.  Some notes:

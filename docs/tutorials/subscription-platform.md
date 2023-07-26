@@ -575,7 +575,7 @@ The test subscriptions described in this section are not true IAP subscriptions 
     * Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
 2. Setup a price for IAP
     * Create a price within Stripe.
-    * Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata]($stripe-plan-metadata) for these fields.
+    * Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata](#stripe-plan-metadata) for these fields.
 3. Create a local fxa user
     * Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
 4. Run the mock IAP subscription creation script
