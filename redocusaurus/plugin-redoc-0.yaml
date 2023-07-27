@@ -3772,6 +3772,10 @@ definitions:
         $ref: '#/definitions/tax'
       discount:
         $ref: '#/definitions/discount'
+      one_time_charge:
+        type: number
+      prorated_amount:
+        type: number
     required:
       - line_items
       - subtotal
@@ -5049,6 +5053,8 @@ definitions:
         - mozilla-and-you
         - security-privacy-news
         - mozilla-accounts
+        - hubs
+        - mdnplus
   Model45:
     type: object
     properties:
@@ -7245,6 +7251,10 @@ definitions:
         $ref: '#/definitions/tax'
       discount:
         $ref: '#/definitions/discount'
+      one_time_charge:
+        type: number
+      prorated_amount:
+        type: number
     required:
       - line_items
       - subtotal
