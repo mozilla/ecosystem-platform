@@ -340,6 +340,10 @@ PAYPAL_NVP_PWD='your PayPal NVP API password' \
 PAYPAL_NVP_SIGNATURE='your PayPal NVP API signature'
 ```
 
+:::note
+Nx will always pull from `.env` files over others (e.g., `secrets.json`) by default - see [Nx documentation](https://nx.dev/recipes/tips-n-tricks/define-environment-variables) for more information.
+:::
+
 #### Payments Server
 
 The Payments frontend also does not offer PayPal as payment provider by default.  To enable the feature, set the following configuration options
