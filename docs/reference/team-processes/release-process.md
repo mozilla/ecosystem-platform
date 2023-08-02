@@ -30,7 +30,7 @@ If you're new to release ownership, check that you have access to the [`cloudops
 1. Ensure there are no critical patches for this tag that haven't landed yet
 1. If there are special steps in the deployment doc give the appropriate teams a heads up (e.g. probably SRE)
 1. Load the [Release Tag Action URL](https://github.com/mozilla/fxa/actions/workflows/tag-release.yml)
-1. Click "Run workflow" in the top right.  You'll be prompted for what the tag number you want to tag is.  It will be something like `275`.
+1. Click "Run workflow" in the top right.
 1. Watch the output of the action to make sure everything goes correctly.
 1. Check that all tests pass in [CircleCI](https://app.circleci.com/pipelines/github/mozilla/fxa).
 1. Once the code is tagged, all CI tests have passed, and the docker containers are built, you'll see messages in slack as it auto-deploys to our staging server.
