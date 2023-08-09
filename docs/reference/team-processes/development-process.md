@@ -130,6 +130,18 @@ We try to work on things as a team (vs individually).  Having more people work o
 * More people will have experience with more areas of the code
 * Epics will be closed out faster
 
+## Polish / Quick-Fix Pull Requests
+
+Developers are encouraged to make quick-fixes or polish existing code (re-naming a variable, moving a class to a more logical location, etc) to address nit's or as they find clean-ups/refactors that can be addressed expediently. These Pull Requests do not need Jira issues filed nor need to go through the Triage process and should be small in scope and time spent.
+
+Some examples of polish / quick-fix requests:
+
+* Variable rename to match style guide-lines
+* Addressing multiple nits from a recent PR
+* Refactor of a class/method/module
+
+Assigned issues during the sprint always take priority over these types of PR's.
+
 ## Estimation and Point Values
 Points are assigned to issues in Jira (ideally before starting work 😉) so that we can track our velocity over time, which aids in planning.
 
