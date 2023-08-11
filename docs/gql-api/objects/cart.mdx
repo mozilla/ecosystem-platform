@@ -1,0 +1,171 @@
+---
+id: cart
+title: Cart
+hide_table_of_contents: false
+---
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The Cart associated with a customer Subscription Platform checkout
+
+
+```graphql
+type Cart {
+  id: ID!
+  uid: ID
+  state: CartState!
+  errorReasonId: String
+  offeringConfigId: String!
+  interval: String!
+  experiment: String
+  taxAddress: TaxAddress
+  previousInvoice: Invoice!
+  nextInvoice: Invoice!
+  createdAt: Float!
+  updatedAt: Float!
+  couponCode: String
+  stripeCustomerId: String
+  email: String
+  amount: Float!
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>id</b></code>](#)<Bullet />[`ID!`](/gql-api/scalars/id) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Cart unique identifier
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>uid</b></code>](#)<Bullet />[`ID`](/gql-api/scalars/id) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Firefox Account User ID
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>state</b></code>](#)<Bullet />[`CartState!`](/gql-api/enums/cart-state) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="enum"/> 
+> 
+> 
+> State of the cart
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>errorReasonId</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Error reason ID
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>offeringConfigId</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Offering ID configured in the CMS
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>interval</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Interval
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>experiment</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Experiment associated with the cart
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>taxAddress</b></code>](#)<Bullet />[`TaxAddress`](/gql-api/objects/tax-address) <Badge class="badge badge--secondary" text="object"/> 
+> 
+> 
+> Tax address
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>previousInvoice</b></code>](#)<Bullet />[`Invoice!`](/gql-api/objects/invoice) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+> 
+> 
+> The previous invoice
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>nextInvoice</b></code>](#)<Bullet />[`Invoice!`](/gql-api/objects/invoice) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+> 
+> 
+> The next, also known as upcoming, invoice
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>createdAt</b></code>](#)<Bullet />[`Float!`](/gql-api/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Timestamp when the cart was created
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>updatedAt</b></code>](#)<Bullet />[`Float!`](/gql-api/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Timestamp the cart was last updated
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>couponCode</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Applied coupon code
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>stripeCustomerId</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Stripe customer ID of cart customer
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>email</b></code>](#)<Bullet />[`String`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Email set by customer
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>Cart.<b>amount</b></code>](#)<Bullet />[`Float!`](/gql-api/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> Amount of plan at checkout
+> 
+
+
+
+### Returned by
+
+[`cart`](/gql-api/queries/cart)  <Badge class="secondary" text="query"/><Bullet />[`checkoutCart`](/gql-api/mutations/checkout-cart)  <Badge class="secondary" text="mutation"/><Bullet />[`restartCart`](/gql-api/mutations/restart-cart)  <Badge class="secondary" text="mutation"/><Bullet />[`setupCart`](/gql-api/mutations/setup-cart)  <Badge class="secondary" text="mutation"/><Bullet />[`updateCart`](/gql-api/mutations/update-cart)  <Badge class="secondary" text="mutation"/>
+

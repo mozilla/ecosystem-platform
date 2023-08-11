@@ -1,6 +1,6 @@
 ---
-id: id
-title: ID
+id: tax-amount
+title: TaxAmount
 hide_table_of_contents: false
 ---
 
@@ -38,19 +38,36 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+Tax amounts used within the Cart
 
 
 ```graphql
-scalar ID
+type TaxAmount {
+  title: String!
+  amount: Float!
+}
 ```
 
 
 
 
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>TaxAmount.<b>title</b></code>](#)<Bullet />[`String!`](/gql-api/scalars/string) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>TaxAmount.<b>amount</b></code>](#)<Bullet />[`Float!`](/gql-api/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
 
 
 ### Member of
 
-[`Account`](/gql-api/objects/account)  <Badge class="secondary" text="object"/><Bullet />[`Cart`](/gql-api/objects/cart)  <Badge class="secondary" text="object"/>
+[`Invoice`](/gql-api/objects/invoice)  <Badge class="secondary" text="object"/>
 

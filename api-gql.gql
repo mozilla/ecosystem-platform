@@ -2,6 +2,87 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Tax amounts used within the Cart"""
+type TaxAmount {
+  title: String!
+  amount: Float!
+}
+
+type Invoice {
+  """Total of invoice"""
+  totalAmount: Float!
+
+  """Tax amounts of the invoice"""
+  taxAmounts: [TaxAmount!]!
+}
+
+"""The Cart associated with a customer Subscription Platform checkout"""
+type Cart {
+  """Cart unique identifier"""
+  id: ID!
+
+  """Firefox Account User ID"""
+  uid: ID
+
+  """State of the cart"""
+  state: CartState!
+
+  """Error reason ID"""
+  errorReasonId: String
+
+  """Offering ID configured in the CMS"""
+  offeringConfigId: String!
+
+  """Interval"""
+  interval: String!
+
+  """Experiment associated with the cart"""
+  experiment: String
+
+  """Tax address"""
+  taxAddress: TaxAddress
+
+  """The previous invoice"""
+  previousInvoice: Invoice!
+
+  """The next, also known as upcoming, invoice"""
+  nextInvoice: Invoice!
+
+  """Timestamp when the cart was created"""
+  createdAt: Float!
+
+  """Timestamp the cart was last updated"""
+  updatedAt: Float!
+
+  """Applied coupon code"""
+  couponCode: String
+
+  """Stripe customer ID of cart customer"""
+  stripeCustomerId: String
+
+  """Email set by customer"""
+  email: String
+
+  """Amount of plan at checkout"""
+  amount: Float!
+}
+
+enum CartState {
+  START
+  PROCESSING
+  SUCCESS
+  FAIL
+}
+
+"""The Tax Address associated with the Cart"""
+type TaxAddress {
+  """Country code for tax"""
+  countryCode: String
+
+  """Postal code for tax"""
+  postalCode: String!
+}
+
 type BasicPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -281,6 +362,7 @@ type Query {
   session: Session!
   sessionStatus: SessionStatus!
   getLegalDoc(input: LegalInput!): LegalDoc!
+  cart: Cart
 }
 
 input AccountStatusInput {
@@ -410,6 +492,10 @@ type Mutation {
 
   """Verify a OTP code."""
   verifyCode(input: SessionVerifyCodeInput!): BasicPayload!
+  setupCart(input: SetupCartInput!): Cart
+  restartCart(input: CartIdInput!): Cart
+  checkoutCart(input: CartIdInput!): Cart
+  updateCart(input: UpdateCartInput!): Cart
 }
 
 input CreatePassword {
@@ -714,4 +800,31 @@ input SessionVerifyCodeOptionsInput {
   service: String
   scopes: [String!]
   newsletters: [String!]
+}
+
+input SetupCartInput {
+  offeringConfigId: String!
+  interval: String
+
+  """Cart ID"""
+  id: String
+
+  """FxA UID"""
+  uid: String
+}
+
+input CartIdInput {
+  """Cart ID"""
+  id: String!
+}
+
+input UpdateCartInput {
+  offeringConfigId: String!
+  interval: String
+
+  """Cart ID"""
+  id: String!
+
+  """FxA UID"""
+  uid: String
 }
