@@ -21,6 +21,17 @@ Code should also follow the [Do's and Don'ts of TypeScript](https://www.typescri
 
 ### Structure
 
+#### Software Architecture
+
+The FxA repository uses [Nx](https://nx.dev/) to manage its monorepo, with a hybrid structure of legacy [package-based repos](https://nx.dev/concepts/integrated-vs-package-based#package-based-repos) while new applications and libraries are handled as if part of an [integrated repo](https://nx.dev/concepts/integrated-vs-package-based#integrated-repos). New libraries and applications should use a layered architecture separating domain logic from data access, keeping these libraries separate from application specific presentation logic (see [PresentationDomainDataLayering](https://martinfowler.com/bliki/PresentationDomainDataLayering.html) for additional background).
+
+From **bottom-up**, these layers should approximately map to:
+
+- Data Access - Database query code and types, Redis client/functions, Paypal client, Firestore client, etc. (following a [Repository](https://martinfowler.com/eaaCatalog/repository.html) style pattern).
+- Data Mapper - Domain/Feature specific logic around the Data Access layer, enforcing domain specific logic that returns its own types and errors, separating domain object logic from the underlying data store and access. These typically appear in the code-base as `*Manager` classes.
+- Domain Objects - Higher level business logic around a specific domain, they may utilize multiple data mappers or other domain objects. An example of a domain object would be a class that handles business logic about a customers subscription or is responsibile for loading, saving, and deleting accounts.
+- Services - NestJS specific Service classes that orchestrate multiple domain objects for a given domain/feature. An example would be an account service utilizing the account domain object, as well as other domain objects to trigger relying party notifications around account actions, sending email regarding an account state change, etc. Services will frequently be assembled in a heirarchy and require other services to perform their function.
+
 #### Organize by Feature
 
 (This is [present in the Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html#organize-by-feature), but bears repeating)
