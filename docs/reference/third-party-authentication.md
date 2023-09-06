@@ -2,7 +2,7 @@
 title: Third Party Authentication
 ---
 
-Last updated: `April 06th, 2022`
+Last updated: `Sep 06th, 2023`
 
 FxA currently supports Apple and Google as third party authentication providers. This feature
 was developed to support migrating Pocket users over to FxA. To maintain feature parity with Pocket, FxA added
@@ -16,7 +16,7 @@ libraries on our domain.
 
 At the end of the third party oauth flow, FxA receives an OpenID connect `id_token` and uses that to create
 the associated FxA account. After successfully creating a Firefox account, a session token is created
-and then the user is sent through the FxA OAuth flow and redirected back to the relying part. Note that 
+and then the user is sent through the FxA OAuth flow and redirected back to the relying party. Note that 
 at the end of this flow, the relying party gets an FxA OAuth token.
 
 Please reference the [feature doc](https://docs.google.com/document/d/1pFzugkDOIR6eoXrBCx9FWWJhfnxFgWnRtk2mWFOp8DQ/edit#heading=h.qrbb2drvq5dg) for 
@@ -24,20 +24,7 @@ additional design details and flow charts.
 
 ### How to enable third party authentication for relying party
 
-Third party authentication is currently enabled for our test client 123Done and Pocket. To enable for another
-client, you will need to add the `clientId` in the [feature flag](https://github.com/mozilla/fxa/blob/841743d8bdab55c0766289e89d5231550de97112/packages/fxa-content-server/app/scripts/lib/experiments/grouping-rules/third-party-auth.js#L22).
-
-```
-const ROLLOUT_CONFIG = {
-  // 123Done
-  dcdb5ae7add825d2: GROUPS,
-  // Pocket
-  '7377719276ad44ee': GROUPS,
-  '749818d3f2e7857f': GROUPS,
-};
-```
-
-Note that this experiment is disabled by default. If you would like to go through the flow, load email-first screen and append query params `?forceExperiment=thirdPartyAuth&forceExperimentGroup=treatment`.
+Third party authentication is currently enabled for all relying on parties (except Sync). If a user only has a linked third party account and no password then attempt to login to Sync, they will be prompted to create a password.
 
 ### How to setup Google auth locally
 
@@ -210,5 +197,4 @@ To enable auth and content server to run in https mode you will need to update [
 
 ### How Apple auth generates secrets
 
-To create a secret key please reference this [blog](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple). 
-In their example, you can use a Ruby script to generate the client secret. At some point in the future we will need to generate these secrets on [each request](https://bannister.me/blog/generating-a-client-secret-for-sign-in-with-apple-on-each-request) because manually generated ones expire in 6 months.
+All Apple login requests generate a secret just for that request. It follows the same process found in this [blog](https://developer.okta.com/blog/2019/06/04/what-the-heck-is-sign-in-with-apple).
