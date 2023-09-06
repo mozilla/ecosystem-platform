@@ -4,22 +4,26 @@ title: Integration with FxA
 sidebar_label: Integration with FxA
 ---
 
+Last updated: `September 7th, 2023`
+
 ## Overview
 
-Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OAuth 2.0][oauth], [OpenID Connect][openidconnect], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party].
+Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OpenID Connect (OIDC)][openidconnect], [OAuth 2.0][oauth], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party] and/or a [Resource Server (RS)][resource server] depending on the type of integration, with FxA assuming the role of an OpenID Provider.
 
 :::note
-This tutorial will help you integrate with Firefox accounts but there are [additional requirements a relying party is expected to fulfill and maintain](/relying-parties/reference/integration-requirements).  Please ensure you're in compliance with expectations to continue uninterrupted service.
+This tutorial will help you integrate with Firefox Accounts but there are [additional requirements a relying party is expected to fulfill and maintain](/relying-parties/reference/integration-requirements).  Please ensure you're in compliance with expectations to continue uninterrupted service.
 :::
 
 ## Pre-Development
 
 Before starting integration, please send a request to fxa-staff[at]mozilla.com to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the email:
 
-0. **What type of Relying Party are you integrating?**
-    Examples would be, a web site, a native app, a browser, or an extension in the browser.
+0. **What type of Relying Party / Resource Server are you integrating?**
+    Examples would be, a web site, a native app, a browser, an API, or an extension in the browser.
 
-0. **Do you know how to implement OAuth?**
+    Most integrations will be a Relying Party, not a Resource Server. [See below for clarification](#relying-party-vs-resource-server) on the differences.
+
+0. **Do you know how to implement OIDC/OAuth?**
 
 0. **Will you need read access to a user’s profile data?**
     See [available profile data](#profile-data).
@@ -74,7 +78,13 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
 
 We communicate with our relying parties via the [firefox-accounts-notices group][firefox-accounts-notices].  Please join this list to avoid any surprises.
 
-## OAuth Integration
+## OpenID Connect Integration
+
+### Relying Party vs. Resource Server
+
+A Relying Party (RP) is an application or website that outsources its user authentication functionality to an OpenID Provider, defined as part of the OpenID specifications. The user will be prompted to login to the Relying Party with their Firefox Account, and is able to see the login as a distinct [Connected Service][connected-services] in FxA Settings. OpenID Connect contains many specifications for a variety of identity exchange and authorization, based on the OAuth 2.0 framework of specifications.
+
+A Relying Party may also act as a Resource Server, an OAuth 2.0 term for an API server. In that case a user will never see a direct Relying Party login and will not see a distinct row in their Connected Devices list on the FxA Settings page. Services that are accessed via Firefox (Sync, Relay, etc.) using its OAuth token are all examples of Resource Servers. Their access shows up in FxA Settings as the browser session the user is logged into.
 
 ### Development
 
@@ -82,23 +92,23 @@ We communicate with our relying parties via the [firefox-accounts-notices group]
 You are encouraged to use [our staging servers](https://accounts.stage.mozaws.net/) to develop against.  Our staging server has a persistent database and changes made there are saved.  Spot testing and some new accounts are fine but you are expected to clean up any significant amount of data (eg. accounts made from automated testing).  If you're using PyFxA [here is an example](https://pypi.org/project/PyFxA/#testing-email-addresses) using `destroy_account()`.
 :::
 
-0. Review the [OAuth 2.0][oauth] documentation.
+0. Review the [OpenID Connect][how connect works] and [OAuth 2.0][oauth] documentation.
 0. Register for staging OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
 0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
-0. User authentication follows the [OAuth 2.0][oauth] protocol.
+0. User authentication follows the [OpenID Connect][openidconnect] protocol.
 0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Firefox Accounts.
 0. If you are [hosting your own login form](#self-hosted-email-first-flow) initialize and propagate the top of funnel metrics.
 0. [User data and account notifications are properly](#user-data-hygiene) handled and compliant with Firefox Account requirements.
-0. An icon suitable to display in Firefox Account’s [Devices & apps][devices-and-apps] list has been sent to Firefox Account developers.  Please confirm with Firefox Accounts what the current requirements are.
+0. An icon suitable to display in Firefox Account’s [Connected Services][connected-services] list has been sent to Firefox Account developers.  Please confirm with Firefox Accounts what the current requirements are.
 0. If multiple [Resource Servers][resource server] are accessed, create a distinct token for communicating with each server, limited to only the scopes required by that server.  This may mean dropping your initial access token and using a refresh token to get additional, less privileged access tokens.
 
 ### Preparing for Production
 
-0. Update your deployment bug asking for production OAuth credentials
+0. Update your deployment bug asking for production OAuth credentials and setup of your production [webhook endpoint](#register-for-webhooks).
 0. Production servers point to `https://oauth.accounts.firefox.com/`.  Additional endpoints can be discovered dynamically at `https://accounts.firefox.com/.well-known/openid-configuration`.
 0. Someone from the FxA team has reviewed the integration code and tested the flow.
 
-### User Authentication with OAuth 2.0 / OpenID Connect in a nutshell
+### User Authentication with OpenID Connect in a nutshell
 
 0. Create a state token (randomly generated and unguessable) and associate it with a local session.
 0. Send [/authentication request](#authorization-query-parameters) to Firefox Accounts. Upon completion, Firefox Accounts redirects back to your app with state and code.
@@ -108,6 +118,8 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 0. Associate the profile information with the local session and create an account in the local application database as needed.
 
 ### OAuth Credentials
+
+OAuth Client Credentials are needed for each application accessing FxA. For example, a website that users can login to with mobile applications for iOS and Android should request 3 sets of OAuth credentials, one for each mobile app/platform, and one for the web service.
 
 0. client_id - a public identifier that is used to identify your service. Can be public.
 0. client_secret - a private secret that is sent from the backend when interacting with the OAuth server. Must not be shared publicly, checked into a public repository, or bundled with compiled code.
@@ -142,13 +154,15 @@ Firefox Accounts only stores core identity data and associated profile informati
 
 ### Scopes
 
-This will probably just be `scope=profile` for most relying parties, but there is [further documentation](/reference/oauth-details#oauth-scopes).
+This will be `scope=profile` for most Relying Parties, but there is [further documentation](/reference/oauth-details#oauth-scopes) which integrations acting as a [Resource Server][resource server] should be aware of.
 
 ### Webhook Events
 
 If your integration includes an application service that stores profile information, you should create a [webhook] URL handler to handle [Security Event Tokens (SET)][set] for [Relying Party events][rp events]. These events will need to be verified using the FxA JWT keys that can be found from following the `jwks_uri` in the FxA well-known open-id configuration. For production, this URL is `https://accounts.firefox.com/.well-known/openid-configuration`.
 
 The FxA JWT public keys should be retrieved from this URL at start-up, and used to verify the webhook JWT. The [documentation on verifying a JWT](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html) for Step 1/2 are applicable to FxA JWT events.
+
+Integrations that are acting as a [Resource Server][resource server] will need to respond successfully with a 200 status code even if the user referenced has not used the integration.
 
 If you're using TypeScript, an example of verifying a JWT is shown here:
 
@@ -210,6 +224,8 @@ For additional documentation please reference the [readme](https://github.com/mo
 
 Once you have setup a service to receive webhook events, you can then register the webhook url by creating a pull request in [cloudops-infra](https://github.com/mozilla-services/cloudops-infra). To edit webhooks coming from FxA stage, you'll need to edit [projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf#L16-L77). To edit webhooks coming from FxA prod you'll need to edit [projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf#L16-L82). You'll need to add your client id to `endpoint_topic_config`, and your webhook url to `endpoint_subscription_config`. See an [example PR](https://github.com/mozilla-services/cloudops-infra/pull/3727).
 
+Integrations that are acting as a [Resource Server][resource server] should indicate their role when having their webhook URL endpoint configured by the FxA team, this is a separate option in the webhook configuration.
+
 ## Some flow diagrams
 
 ### A full oauth flow
@@ -244,12 +260,13 @@ end
 [allowed-metrics-flow-origins]: https://github.com/mozilla/fxa-dev/blob/docker/roles/content/tasks/main.yml#L56
 [api-docs]: https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#api-endpoints
 [deployment-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&bug_ignored=0&bug_severity=normal&bug_status=NEW&cf_fx_iteration=---&cf_fx_points=---&cf_status_firefox65=---&cf_status_firefox66=---&cf_status_firefox67=---&cf_status_firefox_esr60=---&cf_tracking_firefox65=---&cf_tracking_firefox66=---&cf_tracking_firefox67=---&cf_tracking_firefox_esr60=---&cf_tracking_firefox_relnote=---&component=Operations%3A%20Deployment%20Requests&contenttypemethod=list&contenttypeselection=text%2Fplain&defined_groups=1&flag_type-37=X&flag_type-5=X&flag_type-607=X&flag_type-708=X&flag_type-721=X&flag_type-737=X&flag_type-748=X&flag_type-787=X&flag_type-800=X&flag_type-803=X&flag_type-846=X&flag_type-864=X&flag_type-929=X&flag_type-935=X&form_name=enter_bug&groups=mozilla-employee-confidential&maketemplate=Remember%20values%20as%20bookmarkable%20template&op_sys=Unspecified&priority=--&product=Cloud%20Services&rep_platform=Unspecified&target_milestone=---&version=unspecified
-[devices-and-apps]: https://accounts.firefox.com/settings/clients
+[connected-services]: https://accounts.firefox.com/settings#connected-services
 [fxa-scope-documentation]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/scopes.md
 [firefox-accounts-notices]: https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices
 [metrics-flow-request]: https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow
 [oauth]: https://auth0.com/docs/protocols/oauth2
 [openidconnect]: https://openid.net/connect/
+[how connect works]: https://openid.net/developers/how-connect-works/
 [profile-data]: https://mozilla.github.io/application-services/docs/accounts/faq.html#what-information-does-firefox-accounts-store-about-the-user
 [resource server]: https://www.oauth.com/oauth2-servers/the-resource-server/
 [relying-party]: https://en.wikipedia.org/wiki/Relying_party
