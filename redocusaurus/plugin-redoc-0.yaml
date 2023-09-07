@@ -2331,6 +2331,9 @@ paths:
         This is the "token revocation endpoint" as defined in RFC7009 and should
         be used by clients to explicitly revoke any OAuth tokens that they are
         no longer using.
+
+
+        One of either an authorization header or a client_id is required.
       parameters:
         - type: string
           pattern: ^Basic\s+([a-zA-Z0-9+=\/]+)$
