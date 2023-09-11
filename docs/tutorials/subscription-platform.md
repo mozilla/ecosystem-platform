@@ -251,6 +251,16 @@ We use [Stripe Radar](https://stripe.com/docs/radar/rules) to block payments fro
 
 ## Interactions with Stripe
 
+### Forwarding Stripe Webhooks
+To forward Stripe webhooks to your local, you can use the [Stripe CLI](https://stripe.com/docs/stripe-cli).
+You'll need to `stripe login` to authenticate before you can start forwarding.
+
+To start webhook forwarding, run:
+
+    stripe listen --forward-to localhost:9000/v1/oauth/subscriptions/stripe/event
+
+The first time you run this, you'll need to grab the Stripe webhook secret displayed there, and add that to your secrets.json as described in [secrets](#secrets).
+
 ### Payments Server
 
 The payments server is an isolated service that serves all subscription related
@@ -289,6 +299,62 @@ Some Stripe webhooks will trigger emails.  These emails are behind a feature fla
 ```
 
 or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true".  In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://stripe.com/docs/stripe-cli/webhooks)'s event forwarding feature.  (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
+
+### Enabling Stripe Tax
+
+To enable Stripe Tax in the Auth server you can: enable `stripeAutomaticTax` in your `secrets.json` or through your environment variables with `SUBSCRIPTIONS_STRIPE_AUTOMATIC_TAX`
+
+Example using secrets.json:
+
+```json
+{
+  "subscriptions": {
+    "stripeAutomaticTax": {
+      "enabled": true
+    }
+  }
+}
+```
+
+or with a `.env` file and `dotenv`
+
+```
+SUBSCRIPTIONS_STRIPE_AUTOMATIC_TAX=true
+```
+
+### Overriding Geolocation With Stripe Tax
+
+When running the FxA stack locally, our geodb service needs an override to resolve a location. This override object takes the form of:
+
+```json
+{
+  "location": {
+    "countryCode": <2 letter country code string>,
+    "postalCode": <corresponding postal code string>
+  }
+}
+```
+
+and can be passed in either through your `secrets.json` or through your environment variables.
+
+Example using `secrets.json`:
+
+```json
+  "geodb": {
+    "locationOverride": {
+      "location": {
+        "countryCode": "US",
+        "postalCode": "98332"
+      }
+    }
+  },
+```
+
+or with a `.env` file using `dotenv`
+
+```
+GEODB_LOCATION_OVERRIDE= { "location": { "countryCode": "US", "postalCode": "85001"} }
+```
 
 ## PayPal Integration
 
