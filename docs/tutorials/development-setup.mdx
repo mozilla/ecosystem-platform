@@ -149,6 +149,13 @@ locally](http://localhost:3030). Next up you may want to [create an account](../
 FxA should only be accessed locally using the `localhost` host, and not via `127.0.0.1`.
 :::
 
+### Troubleshooting
+
+If a `NX - Daemon processes terminated and closed the connect` error message appears when attempting to start the stack, you may turn off the nx daemon locally by adding this setting to a .env file in fxa root: 
+```
+NX_DAEMON=FALSE
+```
+
 ### Handy commands
 
 [PM2](https://github.com/Unitech/PM2) is used to control services locally. Use the CLI to control and inspect services:
