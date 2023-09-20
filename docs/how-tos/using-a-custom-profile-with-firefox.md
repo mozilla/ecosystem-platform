@@ -13,3 +13,11 @@ Run `yarn start firefox`, which will open an instance of Firefox. It is configur
 | `FIREFOX_BIN` - Path to Firefox bin file | | `/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin` |
 | `FIREFOX_DEBUGGER` - Open the [Browser Toolbox](https://developer.mozilla.org/en-US/docs/Tools/Browser_Toolbox) | `true`, `false` | `false` |
 | `FXA_E10S` - Enable [Electrolysis](https://wiki.mozilla.org/Electrolysis) | `true`, `false` | `false` |
+
+## Firefox iOS with a custom profile
+
+1. From Firefox iOS, go to `Settings > About` and tap on the Firefox version number 10 times
+2. Under `Firefox Account` section, a new row will appear `Advance Sync Settings`, select row
+3. Toggle `Use stage servers` to `ON`
+
+To use a custom FxA server, toggle `Use Custom FxA Content Server` and set it to home url of FxA (ex. `https://accounts.firefox.com`)). 
