@@ -471,7 +471,7 @@ The Subscription Platform makes use of three Contentful [environment aliases](ht
 
 Deployments will be handled manually and will make use of the [Merge app by Contentful](https://www.contentful.com/marketplace/app/merge/), following the steps discussed in the tutorial: [Merge content type changes with Merge app](https://www.contentful.com/developers/docs/tutorials/general/merge-app/).
 
-* For each merge, ensure you complete the optional step "Export migration script" and store the migration scripts in [the FxA monorepo](https://github.com/mozilla/fxa/tree/main/packages/db-migrations).
+- For each merge, ensure you complete the optional step "Export migration script" and store the migration scripts in [the FxA monorepo](https://github.com/mozilla/fxa/tree/main/packages/db-migrations).
 
 :::caution
 Changes made in the [Appearance tab](https://www.contentful.com/help/content-modelling-basics/#the-appearance-tab) of a field of a content type, are not merged when using the Merge app, and therefore also not included in the migration script.
@@ -488,7 +488,14 @@ flowchart LR
 
 For a typical change and deployment, the following steps should be taken.
 
-1. Make changes in the `Dev` environment
+1. Make changes in the `Dev` environment, and store the migration script in the FxA monorepo mentioned above.
+1. Check that the environmental variables listed below are in your .env, and run `nx codegen shared-contentful`.
+   - `CONTENTFUL_GRAPHQL_API_KEY`
+   - `CONTENTFUL_GRAPHQL_API_URL`
+   - `CONTENTFUL_GRAPHQL_ENVIRONMENT`
+   - `CONTENTFUL_GRAPHQL_SPACE_ID`
+1. Submit a pull request with the changes made in the previous steps.
+   - If there were files updated from Step 2, announce that changes were made in the team channel once the PR has been merged, so the team can update their branches, if necessary. (Optionally: add a note in the Deploy doc with a comment that no action is required.)
 1. After a regular FxA release has been deployed to Stage, using the Merge app, merge changes from the `Dev` environment alias to the `Stage` environment alias.
 1. Similarly, after a regular FxA release has been deployed to Production, using the Merge app, merge changes from the `Stage` environment alias to the `Prod` environment alias.
 
@@ -506,9 +513,9 @@ flowchart LR
 For a sensitive or large content model change and deployment, the following steps should be taken.
 
 1. (Optional) Delete the existing `Feature` environment. (Check with Subscription Platform team first before doing this.)
-1. Create new a `Feature` environment from the `Dev` environment alias
-1. Make changes in the `Feature` environment
-1. Merge changes to the `Dev` environment alias and follow typical deployment path
+1. Create new a `Feature` environment from the `Dev` environment alias.
+1. Make changes in the `Feature` environment.
+1. Merge changes to the `Dev` environment alias and follow typical deployment path.
 
 Once the changes in the `Feature` environment have been merged into the `Dev` environment alias, the `Feature` environment can be deleted.
 

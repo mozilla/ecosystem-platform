@@ -43,6 +43,16 @@ For example, if someone were to execute `nx run fxa-auth-server:start`, which st
 
 These dependencies also work across packages. So if fxa-shared has changed, and we execute `nx run fxa-auth-server:restart`, a `prebuild` and `build` will happen on `fxa-shared`, prior to auth server being restarted!
 
+## Creating a library in NX
+The following command can be used to create a Nx library in the monorepo: `nx g @nx/node:library <name of library> --directory=<path/to> --buildable` 
+  - e.g. `nx g @nx/node:library capability --directory=libs/payments --buildable` will create a Nx library with the directory `libs/payments/capability`
+
+You can use the `--dry-run` flag to see what will be generated.
+
+After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
+- Rename the job in `project.json` from `test` to `test-unit`
+- Add `rootDir` in `targets` -> `build` -> `options` of the `project.json`
+
 ## General Formatting Of Script Names
 
 We will use dashes to separate subtasks. i.e. build-ts or test-unit. We want to group similar tasks together, so use prefixes accordingly. For example build-ts is preferred over ts-build. This way if other types of assets need to be built, they will be structured in a similar way and will be grouped logically when put into alphabetical order.
