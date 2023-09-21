@@ -56,151 +56,151 @@ Product Names are the canonical displayed name shown in Sub Plat UI. In some cas
 
 ##### Product Metadata {#stripe-product-metadata}
 
-| Key | Description |
-| --- | --- |
-| ~~downloadURL~~                             | Deprecated. This field has been replaced by successActionButtonURL.                         |
-| product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.   |
-| product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering. |
-| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information.                                |
-| webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. Product icon will be resized to 64x64 pixels.           |
-| webIconBackground                         | Optional. A valid css color, color name or gradient for display behind your product icon on the web. Defaults to `#20123a`         |
-| product:name                              | Optional. Title string override for the product name.  |
-| product:name:{locale}                     | Optional. Localized title string override for the product name.  |
-| capabilities                              | Required if `capabilities:{clientID}` is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.                                                                                                   |
-| capabilities:{clientID}                   | Required if `capabilities` is not provided. Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}. |
-| emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
-| appStoreLink                              | Optional. The App store download URL for the product. |
-| playStoreLink                             | Optional. The google play store download URL for the product. |
-| newsletterSlug                            | Optional. Comma separated string array of slugs to send if a customer opts to signup for the newsletter. Valid values are `mozilla-accounts`, `security-privacy-news`, `hubs`, `mdnplus`, which can be combined into a comma separated string. Defaults to `mozilla-accounts`. |
-| newsletterLabelTextCode                   | Optional. A code used to determine which of the predefined labels to add to the newsletter checkbox. Valid values are `snp`, `hubs`, `mdnplus`. If no code is provided, the default label text is displayed. Examples of each string can be found on [Storybook here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/components-newuseremailform--default). |
-| productSet                                | Required.  A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `productSet` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product. |
-| productOrder                              | Optional. A number used for sorting products in a set. |
-| product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. This parameter is used as a hyperlink in emails sent to the customer when their subscription is cancelled due, manual cancellation, FxA Account deletion, or failed payment.|
-| product:details:{n}                       | Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points. |
-| product:details:{n}:{locale}              | Optional. Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
-| product:privacyNoticeURL:{locale}         | Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering. |
-| product:privacyNoticeDownloadURL          | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL. |
-| product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering. |
-| product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
-| product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc). |
-| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButtonURL`. |
-| product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button. |
-| promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product. |
-| support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk. |
-| successActionButtonURL                    | Required. The download or subscription success action URL for the product. (Replaces downloadURL) |
-| upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
+| Key                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ~~downloadURL~~                           | Deprecated. This field has been replaced by successActionButtonURL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| product:privacyNoticeURL                  | Required. The URL for the webpage containing the Privacy Notice for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| product:termsOfServiceURL                 | Required. The URL for the webpage containing the Terms of Service for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| product:termsOfServiceDownloadURL         | Required. The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information. |
+| webIconURL                                | Required. Image URL for product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. Product icon will be resized to 64x64 pixels.                                                                                                                                                                                                                                                                                                                                                                              |
+| webIconBackground                         | Optional. A valid css color, color name or gradient for display behind your product icon on the web. Defaults to `#20123a`                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| product:name                              | Optional. Title string override for the product name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| product:name:{locale}                     | Optional. Localized title string override for the product name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| capabilities                              | Required if `capabilities:{clientID}` is not provided. Comma-separated list of capabilities enabled by this product for all Relying Parties.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| capabilities:{clientID}                   | Required if `capabilities` is not provided. Comma-separated list of capabilities enabled by this product for the Relying Party identified by {clientID}.                                                                                                                                                                                                                                                                                                                                                                                                        |
+| emailIconURL                              | Optional. Image URL for product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| appStoreLink                              | Optional. The App store download URL for the product.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| playStoreLink                             | Optional. The google play store download URL for the product.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| newsletterSlug                            | Optional. Comma separated string array of slugs to send if a customer opts to signup for the newsletter. Valid values are `mozilla-accounts`, `security-privacy-news`, `hubs`, `mdnplus`, which can be combined into a comma separated string. Defaults to `mozilla-accounts`.                                                                                                                                                                                                                                                                                  |
+| newsletterLabelTextCode                   | Optional. A code used to determine which of the predefined labels to add to the newsletter checkbox. Valid values are `snp`, `hubs`, `mdnplus`. If no code is provided, the default label text is displayed. Examples of each string can be found on [Storybook here](https://storage.googleapis.com/mozilla-storybooks-fxa/commits/latest/fxa-payments-server/index.html?path=/story/components-newuseremailform--default).                                                                                                                                    |
+| productSet                                | Required. A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `productSet` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product.                                                                                                                                                                             |
+| productOrder                              | Optional. A number used for sorting products in a set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| product:cancellationSurveyURL             | Optional. Override URL for the Cancellation Survey for the product offering. This parameter is used as a hyperlink in emails sent to the customer when their subscription is cancelled due, manual cancellation, FxA Account deletion, or failed payment.                                                                                                                                                                                                                                                                                                       |
+| product:details:{n}                       | Optional. Bullet-point feature details for the product, where {n} is a number or ordering the points.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| product:details:{n}:{locale}              | Optional. Localized string override for product:details:{n}, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc).                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| product:privacyNoticeURL:{locale}         | Optional. Localized override URL for the webpage containing the Privacy Notice for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| product:privacyNoticeDownloadURL          | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as product:termsOfServiceDownloadURL.                                                                                                                                                                                                                                                                                                                                                                                               |
+| product:termsOfServiceURL:{locale}        | Optional. Localized override URL for the webpage containing the Terms of Service for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| product:subtitle                          | Optional. A subtitle for the product, usually displayed beneath the name in UI.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| product:subtitle:{locale}                 | Optional. Localized string override for product:subtitle, where {locale} is the locale (e.g. fr-FR, zh-CN, de, etc).                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| product:successActionButtonLabel          | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButtonURL`.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| product:successActionButtonLabel:{locale} | Optional. Localized override for the alternative label for the subscription success action button.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| promotionCodes                            | Optional. A comma separated list of promotion codes that are valid for the product.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| support:app:{x}                           | Optional. An app or service for the support form. The form options will be in the same order as the metadata. These values shouldn't be too long as they are displayed in dropdown options of limited width. The `{x}` part of the key can be any string and will not be used anywhere; the value of the metadata is submitted to Zendesk.                                                                                                                                                                                                                      |
+| successActionButtonURL                    | Required. The download or subscription success action URL for the product. (Replaces downloadURL)                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| upgradeCTA                                | Optional. HTML content string describing available upgrades from this plan. By convention, should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages.                                                                                                                                                                                                                                                                                                                                                       |
 
 ##### Plan Metadata {#stripe-plan-metadata}
 
-| Key | Description |
-| --- | --- |
-| appStoreProductIds                        | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. There must only be one Stripe plan per App Store `productId` per environment (development/stage/production). |
-| playSkuIds                                | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. There must only be one Stripe plan per Google Play product SKU per environment (development/stage/production). |
+| Key                | Description                                                                                                                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| appStoreProductIds | Optional. _Plan metadata only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. There must only be one Stripe plan per App Store `productId` per environment (development/stage/production).                         |
+| playSkuIds         | Optional. _Plan metadata only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. There must only be one Stripe plan per Google Play product SKU per environment (development/stage/production). |
 
 ##### Product Configuration Documents
 
 :::info
-This section is for an upcoming feature that is not yet in production.  Please
+This section is for an upcoming feature that is not yet in production. Please
 continue to use [Stripe product metadata](#stripe-product-metadata) to
 configure your subscription products.
 :::
 
 While the [Stripe product and plan metadata](https://stripe.com/docs/api/metadata) has enable the Subscription Platform to quickly develop many features, it has multiple shortcomings.
 
-* There are limits on the number of entries and the size of the keys and
-  values.  The limit for the number of entries is rather low.
-* The strings only key-value pair format necessitates potentially confusing key
+- There are limits on the number of entries and the size of the keys and
+  values. The limit for the number of entries is rather low.
+- The strings only key-value pair format necessitates potentially confusing key
   formats and key parsing in code.
-* A reliance on Stripe metadata for subscription product configurations means
+- A reliance on Stripe metadata for subscription product configurations means
   the Subscription Platform need to define plans in Stripe for subscription
   plans that are not Stripe based (e.g. App Store subscriptions).
 
 The overcome these limits, the team is moving to [JSON](https://www.json.org)
-document based product configurations.  For readability, the configuration is
-described below in multiple sections.  To see the overall format of the
+document based product configurations. For readability, the configuration is
+described below in multiple sections. To see the overall format of the
 configuration documents, take a look at the following sample documents:
 
-* [Sample Product Configuration Document](../assets/product-configs/sample-product-config-doc.json)
-* [Sample Plan Configuration Document](../assets/product-configs/sample-plan-config-doc.json)
+- [Sample Product Configuration Document](../assets/product-configs/sample-product-config-doc.json)
+- [Sample Plan Configuration Document](../assets/product-configs/sample-plan-config-doc.json)
 
 :::tip
-A value in a plan configuration can be used to override the product configuration value.  Another way to think of this is that the values in the product configuration are the defaults for the product's plans.
+A value in a plan configuration can be used to override the product configuration value. Another way to think of this is that the values in the product configuration are the defaults for the product's plans.
 :::
 
 :::info
-The Subscription Platform team is currently developing the process to update these configuration documents.  Documentation for that is forthcoming.
+The Subscription Platform team is currently developing the process to update these configuration documents. Documentation for that is forthcoming.
 :::
 
 ###### Top Level Configuration Document Values
 
-The configuration document is a JSON object.  The top level keys for that object are below.  A property is required unless otherwise noted.
+The configuration document is a JSON object. The top level keys for that object are below. A property is required unless otherwise noted.
 
-| Key                | Description |
-| ------------------ | ----------- |
-| id                 | Optional. An identifier for the system storing the document.  It's not intended for manual edits.|
-| productConfigId    | _Plan configuration only_.  The identifier of the product configuration document from which the plan configuration inherits its default values.  It's not intended for manual edits.|
-| stripeProductId    | Optional. _Product configuration only_.  The [id of the Stripe product](https://stripe.com/docs/api/products/object#product_object-id) for which this document is providing configuration. |
-| stripePriceId      | Optional. _Plan configuration only_. The [id of the Stripe price](https://stripe.com/docs/api/prices/object#price_object-id) for which this document is providing configuration. |
-| active             | Boolean.  A status to indicate whether the product or plan is accepting new subscriptions. |
-| capabilities       | Object.  See [Capabilities Configuration](#production-config-capabilities) below.      |
-| productSet         | A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `
-` string matches between a configured IAP Stripe plan (i.e. a plan with `appStoreProductIds` or `playSkuIds`) and the other plans for your product. |
-| productOrder       | Optional.  _Plan configuration only_.  A number used to determine a subscription change is an upgrade or a downgrade within the productSet. |
-| appStoreProductIds | Optional. _Plan configuration only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan. |
-| playSkuIds         | Optional. _Plan configuration only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan. |
-| promotionCodes     | Optional.  Array of strings.  A list of Stripe promotion codes that are valid for the product or plan. |
-| styles             | Object.  Currently the only key in this object is `webIconBackground`, and the value must be a valid CSS color, color name or gradient.  The background color is displayed behind the product icon from the [URLs](#product-config-urls) configuration. Defaults to `#20123a`. |
-| support            | Object.  Currently the only key in this object is `app`.  The value is an array of strings that are apps and services for the support form.  The form options will be in the same order the configuration.  These values shouldn't be too long as they are displayed in dropdown options of limited width.  The value is submitted to Zendesk. |
-| urls               | Object.  See [URLs Configuration](#product-config-urls) below. |
-| uiContent          | Object.  See [UI Content Configuration](#product-config-ui-content) below. |
-| locales            | Object.  See [Locales Configuration](#product-config-locales). |
+| Key                                                                                                                                             | Description                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                                                                                                                                              | Optional. An identifier for the system storing the document. It's not intended for manual edits.                                                                                                                                                                                                                                          |
+| productConfigId                                                                                                                                 | _Plan configuration only_. The identifier of the product configuration document from which the plan configuration inherits its default values. It's not intended for manual edits.                                                                                                                                                        |
+| stripeProductId                                                                                                                                 | Optional. _Product configuration only_. The [id of the Stripe product](https://stripe.com/docs/api/products/object#product_object-id) for which this document is providing configuration.                                                                                                                                                 |
+| stripePriceId                                                                                                                                   | Optional. _Plan configuration only_. The [id of the Stripe price](https://stripe.com/docs/api/prices/object#price_object-id) for which this document is providing configuration.                                                                                                                                                          |
+| active                                                                                                                                          | Boolean. A status to indicate whether the product or plan is accepting new subscriptions.                                                                                                                                                                                                                                                 |
+| capabilities                                                                                                                                    | Object. See [Capabilities Configuration](#production-config-capabilities) below.                                                                                                                                                                                                                                                          |
+| productSet                                                                                                                                      | A comma-separated list of arbitrary strings used to group products in a set of upgrades & downgrades. To prevent an IAP subscriber from double subscribing to your product on the web, ensure at least one `                                                                                                                              |
+| `string matches between a configured IAP Stripe plan (i.e. a plan with`appStoreProductIds`or`playSkuIds`) and the other plans for your product. |
+| productOrder                                                                                                                                    | Optional. _Plan configuration only_. A number used to determine a subscription change is an upgrade or a downgrade within the productSet.                                                                                                                                                                                                 |
+| appStoreProductIds                                                                                                                              | Optional. _Plan configuration only._ Comma-separated list of Apple App Store [`productIds`](https://developer.apple.com/documentation/appstoreserverapi/productid) that map to this plan.                                                                                                                                                 |
+| playSkuIds                                                                                                                                      | Optional. _Plan configuration only._ Comma-separated list of [Google Play product SKUs (now called product IDs)](https://developer.android.com/google/play/billing/terminology#concepts) that map to this plan.                                                                                                                           |
+| promotionCodes                                                                                                                                  | Optional. Array of strings. A list of Stripe promotion codes that are valid for the product or plan.                                                                                                                                                                                                                                      |
+| styles                                                                                                                                          | Object. Currently the only key in this object is `webIconBackground`, and the value must be a valid CSS color, color name or gradient. The background color is displayed behind the product icon from the [URLs](#product-config-urls) configuration. Defaults to `#20123a`.                                                              |
+| support                                                                                                                                         | Object. Currently the only key in this object is `app`. The value is an array of strings that are apps and services for the support form. The form options will be in the same order the configuration. These values shouldn't be too long as they are displayed in dropdown options of limited width. The value is submitted to Zendesk. |
+| urls                                                                                                                                            | Object. See [URLs Configuration](#product-config-urls) below.                                                                                                                                                                                                                                                                             |
+| uiContent                                                                                                                                       | Object. See [UI Content Configuration](#product-config-ui-content) below.                                                                                                                                                                                                                                                                 |
+| locales                                                                                                                                         | Object. See [Locales Configuration](#product-config-locales).                                                                                                                                                                                                                                                                             |
 
 ###### Capabilities Configuration {#production-config-capabilities}
 
 See [Capabilities](./../relying-parties/reference/sub-plat-overview.md#capability) for an overview.
 
-This is an object where the keys are: `*` or a relying party client ID.  The values are arrays of capabilities.  At least one key must be present.
+This is an object where the keys are: `*` or a relying party client ID. The values are arrays of capabilities. At least one key must be present.
 
-| Key                | Description |
-| ------------------ | ----------- |
-| * | Array.  Capabilities enabled by this product for all Relying Parties. |
-| {clientID} | Array.  Capabilities enabled by this product for the Relying Party identified by {clientID}. |
+| Key        | Description                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------- |
+| \*         | Array. Capabilities enabled by this product for all Relying Parties.                        |
+| {clientID} | Array. Capabilities enabled by this product for the Relying Party identified by {clientID}. |
 
 ###### URLs Configuration {#product-config-urls}
 
 An object where the values are URLs used in the subscription experience.
 
-| Key                | Description |
-| ------------------ | ----------- |
-| appStore | Optional. The App Store download URL for the product. |
-| playStore | Optional. The Google Play store download URL for the product. |
-| webIcon | Image URL for the product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
-| emailIcon | Optional. Image URL for the product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. |
-| successActionButton | The download or subscription success action URL for the product after a successful subscription sign-up. |
-| privacyNotice | The URL for the webpage containing the Privacy Notice for the product offering. |
-| privacyNoticeDownload | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as `termsOfServiceDownload` (see below). |
-| termsOfService | The URL for the webpage containing the Terms of Service for the product offering. |
+| Key                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| appStore               | Optional. The App Store download URL for the product.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| playStore              | Optional. The Google Play store download URL for the product.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| webIcon                | Image URL for the product icon in web content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>.                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| emailIcon              | Optional. Image URL for the product icon in email content. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>.                                                                                                                                                                                                                                                                                                                                                                                                            |
+| successActionButton    | The download or subscription success action URL for the product after a successful subscription sign-up.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| privacyNotice          | The URL for the webpage containing the Privacy Notice for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| privacyNoticeDownload  | Optional. The URL for a downloadable version of the Privacy Notice for the product offering. This has the same requirements as `termsOfServiceDownload` (see below).                                                                                                                                                                                                                                                                                                                                                                                  |
+| termsOfService         | The URL for the webpage containing the Terms of Service for the product offering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | termsOfServiceDownload | The URL for a downloadable version of the Terms of Service for the product offering, used in emails. This must be a URL to the FxA CDN at <https://accounts-static.cdn.mozilla.net>. It can be either a) full, direct URL to a PDF (e.g. <https://accounts-static.cdn.mozilla.net/legal/Mozilla_VPN_ToS/en-US.pdf>), or, b) a URL without the language and file extension (e.g. <https://accounts-static.cdn.mozilla.net/legal/mozilla_vpn_tos>). See the ["Legal Document Download URL"](#legal-document-download-url) section for more information. |
-| cancellationSurvey | Optional. Override URL for the Cancellation Survey for the product offering. It is used as a link in the email sent to the customer when their subscription is cancelled. |
+| cancellationSurvey     | Optional. Override URL for the Cancellation Survey for the product offering. It is used as a link in the email sent to the customer when their subscription is cancelled.                                                                                                                                                                                                                                                                                                                                                                             |
 
 ###### UI Content Configuration {#product-config-ui-content}
 
 An object with configuration values used as web UI content.
 
-| Key                | Description |
-| ------------------ | ----------- |
-| subtitle | Optional. A subtitle for the product, usually displayed beneath the name in UI. |
-| details | Optional. An array of bullet-point feature details for the product.  The list items will be displayed in the order they appear in the array. |
-| successActionButtonLabel | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButton` in the [URLs](#product-config-urls).|
-| upgradeCTA | Optional. HTML content string describing available upgrades from this plan. By convention, it should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
+| Key                      | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| subtitle                 | Optional. A subtitle for the product, usually displayed beneath the name in UI.                                                                                                                              |
+| details                  | Optional. An array of bullet-point feature details for the product. The list items will be displayed in the order they appear in the array.                                                                  |
+| successActionButtonLabel | Optional. An alternative label for the subscription success action button. The action is specified by `successActionButton` in the [URLs](#product-config-urls).                                             |
+| upgradeCTA               | Optional. HTML content string describing available upgrades from this plan. By convention, it should include a link back to a product lead page. That lead page links back to FxA's plan subscription pages. |
 
 ###### Locales Configuration {#product-config-locales}
 
-An optional object used for localisation.  It uses language tags as keys (e.g. `en`, `en-CA`, `es`) and the value is an object with the keys `support`, `uiContent`, and `urls`.
+An optional object used for localisation. It uses language tags as keys (e.g. `en`, `en-CA`, `es`) and the value is an object with the keys `support`, `uiContent`, and `urls`.
 
-| Key                | Description |
-| ------------------ | ----------- |
-| {language-tag}     | Object with the follow key to value mapping: `support` - the support configuration object, `uiContent` - the [UI content configuration](#product-config-ui-content), `urls` - the [URLs configuration object](#product-config-urls). |
+| Key            | Description                                                                                                                                                                                                                          |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| {language-tag} | Object with the follow key to value mapping: `support` - the support configuration object, `uiContent` - the [UI content configuration](#product-config-ui-content), `urls` - the [URLs configuration object](#product-config-urls). |
 
 ###### Legal Document Download URL {#legal-document-download-url}
 
@@ -230,7 +230,7 @@ Reference the [workflow](../how-tos/creating-an-account-locally) section of the 
 http://localhost:3030/subscriptions/products/{productId}?plan={planId}
 ```
 
-The `productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional, unless you want to specify a plan.  Otherwise, if the product has multiple plans, the first one in the list as returned by Stripe is used.  If you are running the entire FxA stack and are using the keys from the Stripe FxA dev account, you can navigate to `123done` on port `:8080` to click on the link beginning with "Subscribe" to reach the form with a prepopulated product.
+The `productId` should match the ID from a product taken from the Stripe dashboard. The `plan` parameter is optional, unless you want to specify a plan. Otherwise, if the product has multiple plans, the first one in the list as returned by Stripe is used. If you are running the entire FxA stack and are using the keys from the Stripe FxA dev account, you can navigate to `123done` on port `:8080` to click on the link beginning with "Subscribe" to reach the form with a prepopulated product.
 
 Enter any name, valid expiration date, CVC number, and any card number from the [Stripe test cards docs](https://stripe.com/docs/testing#cards) to successfully create a test subscription.
 
@@ -252,6 +252,7 @@ We use [Stripe Radar](https://stripe.com/docs/radar/rules) to block payments fro
 ## Interactions with Stripe
 
 ### Forwarding Stripe Webhooks
+
 To forward Stripe webhooks to your local, you can use the [Stripe CLI](https://stripe.com/docs/stripe-cli).
 You'll need to `stripe login` to authenticate before you can start forwarding.
 
@@ -286,7 +287,7 @@ FxA's Auth Server makes Stripe API calls for authenticated FxA users via its [su
 endpoints][]. Stripe updates are sent back to the Auth Server via Stripe webhooks when a
 users subscription has been created/updated/deleted.
 
-Some Stripe webhooks will trigger emails.  These emails are behind a feature flag.  If you wish to send emails in your environment, set the auth server configuration
+Some Stripe webhooks will trigger emails. These emails are behind a feature flag. If you wish to send emails in your environment, set the auth server configuration
 
 ```json
 {
@@ -298,7 +299,7 @@ Some Stripe webhooks will trigger emails.  These emails are behind a feature fla
 }
 ```
 
-or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true".  In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://stripe.com/docs/stripe-cli/webhooks)'s event forwarding feature.  (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
+or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true". In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://stripe.com/docs/stripe-cli/webhooks)'s event forwarding feature. (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
 
 ### Enabling Stripe Tax
 
@@ -358,23 +359,23 @@ GEODB_LOCATION_OVERRIDE= { "location": { "countryCode": "US", "postalCode": "850
 
 ## PayPal Integration
 
-PayPal can be configured as an additional payment provider in the Subscription Platform.  PayPal's [Express Checkout Reference Transactions](https://developer.paypal.com/docs/archive/express-checkout/integration-guide/ECReferenceTxns/) is the feature that enables the Subscription Platform to use PayPal as a payment provider for recurring subscriptions.  The customer's PayPal Billing Agreement ID is saved for future subscription invoices.  See [the diagram below](#paypal-checkout) for details on this process.
+PayPal can be configured as an additional payment provider in the Subscription Platform. PayPal's [Express Checkout Reference Transactions](https://developer.paypal.com/docs/archive/express-checkout/integration-guide/ECReferenceTxns/) is the feature that enables the Subscription Platform to use PayPal as a payment provider for recurring subscriptions. The customer's PayPal Billing Agreement ID is saved for future subscription invoices. See [the diagram below](#paypal-checkout) for details on this process.
 
-The PayPal paid subscriptions are still driven by Stripe's subscription and invoicing model.  The key difference is that PayPal paid subscriptions have a [collection method](https://stripe.com/docs/api/subscriptions/object#subscription_object-collection_method) of `send_invoice`.  The [PayPal processor](#paypal-processor) is used to pay the invoices with the customer's billing agreement ID.
+The PayPal paid subscriptions are still driven by Stripe's subscription and invoicing model. The key difference is that PayPal paid subscriptions have a [collection method](https://stripe.com/docs/api/subscriptions/object#subscription_object-collection_method) of `send_invoice`. The [PayPal processor](#paypal-processor) is used to pay the invoices with the customer's billing agreement ID.
 
 ### PayPal Accounts
 
 You need three types of PayPal accounts for development.
 
-* PayPal Developer Account: allows you to access the PayPal Developer Dashboard
-* Sandbox PayPal Personal Account: used for testing as the customer
-* Sandbox PayPal Business Account: used for testing
+- PayPal Developer Account: allows you to access the PayPal Developer Dashboard
+- Sandbox PayPal Personal Account: used for testing as the customer
+- Sandbox PayPal Business Account: used for testing
 
-To create a PayPal developer account, sign up at <https://developer.paypal.com/>.  Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account.  Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
+To create a PayPal developer account, sign up at <https://developer.paypal.com/>. Note that if you are a Mozilla employee, you should contact the Mozilla PayPal admin in Finance to set up a developer account. Additionally, you should [enable 2FA for the developer account](https://www.paypal.com/businessmanage/profile/loginSecurity).
 
-Once you are in the PayPal developer dashboard, navigate to "Accounts" under the Sandbox section of the menu.  Here you can create [a pair of personal and business sandbox accounts](https://developer.paypal.com/docs/api-basics/sandbox/accounts/).  (To easily create multiple accounts for testing, there's a [bulk account creation feature](https://developer.paypal.com/docs/api-basics/sandbox/bulk-accounts/).)
+Once you are in the PayPal developer dashboard, navigate to "Accounts" under the Sandbox section of the menu. Here you can create [a pair of personal and business sandbox accounts](https://developer.paypal.com/docs/api-basics/sandbox/accounts/). (To easily create multiple accounts for testing, there's a [bulk account creation feature](https://developer.paypal.com/docs/api-basics/sandbox/bulk-accounts/).)
 
-Once you've added your account pair, navigate to the bussines account by selecting "View/edit account".  Now click on the "API Credentials" tab.  You'll need the "NVP/SOAP Sandbox API Credentials" for the next section.
+Once you've added your account pair, navigate to the bussines account by selecting "View/edit account". Now click on the "API Credentials" tab. You'll need the "NVP/SOAP Sandbox API Credentials" for the next section.
 
 ### Configuration
 
@@ -412,7 +413,7 @@ Nx will always pull from `.env` files over others (e.g., `secrets.json`) by defa
 
 #### Payments Server
 
-The Payments frontend also does not offer PayPal as payment provider by default.  To enable the feature, set the following configuration options
+The Payments frontend also does not offer PayPal as payment provider by default. To enable the feature, set the following configuration options
 
 ```json
 {
@@ -432,23 +433,23 @@ PAYPAL_API_URL='https://www.sandbox.paypal.com' \
 PAYPAL_SCRIPT_URL='https://www.paypal.com'
 ```
 
-The paypal*/PAYPAL_* values are the defaults in the repo.  For local development, you do not need to change them.
+The paypal*/PAYPAL\_* values are the defaults in the repo. For local development, you do not need to change them.
 
 ### The PayPal Button
 
-The Payments frontend uses the [PayPal JavaScript SDK](https://developer.paypal.com/docs/business/javascript-sdk/) to [add a button](https://developer.paypal.com/docs/business/checkout/configure-payments/single-page-app/) to the checkout process to [integrate with PayPal's NVP/SOAP API](https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/#intent-options-when-integrating-with-older-apis).  This button is loaded and displayed in an iFrame by PayPal.
+The Payments frontend uses the [PayPal JavaScript SDK](https://developer.paypal.com/docs/business/javascript-sdk/) to [add a button](https://developer.paypal.com/docs/business/checkout/configure-payments/single-page-app/) to the checkout process to [integrate with PayPal's NVP/SOAP API](https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-configuration/#intent-options-when-integrating-with-older-apis). This button is loaded and displayed in an iFrame by PayPal.
 
 ### Instant Payment Notification (IPN)
 
-[PayPal IPN](https://developer.paypal.com/docs/api-basics/notifications/ipn/) is PayPal's equivalent of Stripe's webhook feature.  We do rely on IPNs in the Subscription Platform.  Unlike Stripe, however, PayPal does not offer any tool that would forward the events to your local environment.  Our team use [ngrok](https://ngrok.com/) for that purpose.
+[PayPal IPN](https://developer.paypal.com/docs/api-basics/notifications/ipn/) is PayPal's equivalent of Stripe's webhook feature. We do rely on IPNs in the Subscription Platform. Unlike Stripe, however, PayPal does not offer any tool that would forward the events to your local environment. Our team use [ngrok](https://ngrok.com/) for that purpose.
 
-Once you have the services running locally, start ngrok with `ngrok 9000` and note the public URL.  Using your sandbox business account and the public URL fron ngrok, complete [these steps to set up IPNs](https://developer.paypal.com/docs/api-basics/notifications/ipn/IPNSetup/).
+Once you have the services running locally, start ngrok with `ngrok 9000` and note the public URL. Using your sandbox business account and the public URL fron ngrok, complete [these steps to set up IPNs](https://developer.paypal.com/docs/api-basics/notifications/ipn/IPNSetup/).
 
 ### PayPal Processor
 
-After the initial payment during subscription creation, the recurring payments for future invoices are handled by the PayPal processor script.  To simulate or debug charging additional invoices paid by PayPal, you need to run this script.  It is located at `packages/fxa-auth-server/scripts/paypal-process.ts`.
+After the initial payment during subscription creation, the recurring payments for future invoices are handled by the PayPal processor script. To simulate or debug charging additional invoices paid by PayPal, you need to run this script. It is located at `packages/fxa-auth-server/scripts/paypal-process.ts`.
 
-The script will make up to a configurable number of [attempts to pay](https://developer.paypal.com/docs/archive/express-checkout/ec-set-up-reference-transactions/#capture-future-payments) an invoice before cancelling the subscription.  This attempts count is saved to the invoice itself as metadata.  The invoice's metadata is also used to prevent sending multiple failed payment emails per invoice from the PayPal payment attempts.
+The script will make up to a configurable number of [attempts to pay](https://developer.paypal.com/docs/archive/express-checkout/ec-set-up-reference-transactions/#capture-future-payments) an invoice before cancelling the subscription. This attempts count is saved to the invoice itself as metadata. The invoice's metadata is also used to prevent sending multiple failed payment emails per invoice from the PayPal payment attempts.
 
 ## Contentful Integration
 
@@ -456,16 +457,31 @@ The script will make up to a configurable number of [attempts to pay](https://de
 
 The Subscription Platform makes use of three Contentful [environment aliases](https://www.contentful.com/developers/docs/concepts/environment-aliases/). The environment aliases are set up to match the current supported Stripe environments, and are listed below.
 
-* Prod (master)
-  * Production environment
-  * Stripe environment: Subscription Platform
-  * Refers to the Contentful “master” environment alias.
-* Stage
-  * Stage and QA environment
-  * Stripe environment: SUB_PLAT_STAGE
-* Dev
-  * Development
-  * Stripe environment: SUB_PLAT_DEV
+- Prod (master)
+  - Production environment
+  - Stripe environment: Subscription Platform
+  - Refers to the Contentful “master” environment alias.
+- Stage
+  - Stage and QA environment
+  - Stripe environment: SUB_PLAT_STAGE
+- Dev
+  - Development
+  - Stripe environment: SUB_PLAT_DEV
+
+### Configuration
+
+The [Contentful GraphQL Content API](https://www.contentful.com/developers/docs/references/graphql/) provides an interface to consume both published and non-published content from Contentful. To use the GraphQL Content API and run codegen, the following environment variables need to be configured in your `.env` file:
+
+| Key                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CONTENTFUL_GRAPHQL_API_URL     | URI path for GraphQL Content API.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| CONTENTFUL_GRAPHQL_API_KEY     | [Token](https://www.contentful.com/developers/docs/references/authentication/) providing read-only access to fetch RP-provided content.                                                                                                                                                                                                                                                                                                                                                                   |
+| CONTENTFUL_GRAPHQL_SPACE_ID    | Alphanumeric id referencing the [space](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/spaces) holding the desired content type(s) and content. Used for instantiating the ContentfulClient.                                                                                                                                                                                                                                                                    |
+| CONTENTFUL_GRAPHQL_ENVIRONMENT | [Container entity within a space](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/environments) where development and testing can occur in isolation from other environments. Used for instantiating the ContentfulClient, it is recommended to [use the alias instead of the environment id](https://www.contentful.com/developers/docs/concepts/environments-and-environment-aliases-best-practices/) to de-risk releases and instantly rollback if necessary. |
+
+You should now be able to retrieve data from:
+
+    {CONTENTFUL_GRAPHQL_API_URL}/spaces/{CONTENTFUL_GRAPHQL_SPACE_ID}/environments/{CONTENTFUL_GRAPHQL_ENVIRONMENT}?access_token={CONTENTFUL_GRAPHQL_API_KEY}
 
 ### Deployments
 
@@ -556,14 +572,14 @@ This is not required for most Google IAP development, so consider skipping the f
 
 1. Get access to Mozilla's `firefox.gcp.mozilla.com` organization.
 2. Create a new GCP project with Firestore
-    * Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
-    * [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
-    * To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account [must have the API enabled](https://developers.google.com/android-publisher/authorization).
-    * Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
+   - Create a new `developer` GCP project in the `firefox.gcp.mozilla.com` org. See [GCP's Quick Start Guide](https://firebase.google.com/docs/firestore/quickstart).
+   - [Generate a keyfile](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) with the service account for the project.
+   - To make API calls to the [Google Play Developer API](https://developer.android.com/google/play/developer-api), the service account [must have the API enabled](https://developers.google.com/android-publisher/authorization).
+   - Save the keyfile to your computer. Recommended location: `fxa-auth-server/config/secret_${GCP-project-id}-key_file.json`.
 3. Link the GCP project's Firestore instance to the auth server in `fxa-auth-server/config/secrets.json`.
-      * Add the below configuration key/value pairs in `playApiServiceAccount`.
-      * Replace the value for `keyFilename` with the absolute path to the keyfile created in step 2.
-      * Replace the value for `projectId` with the project ID for the GCP project created in step 2.
+   - Add the below configuration key/value pairs in `playApiServiceAccount`.
+   - Replace the value for `keyFilename` with the absolute path to the keyfile created in step 2.
+   - Replace the value for `projectId` with the project ID for the GCP project created in step 2.
 
 ## Apple IAP Integration
 
@@ -575,10 +591,10 @@ Unlike subscriptions created through the payments server website (referred to in
 
 At the time of writing, the overwhelming majority of subscriptions (> 95%) are web subscriptions mediated all or in part by Stripe. Given that, it may be helpful to draw analogies between Stripe and Apple identifiers to better understand how Apple IAP subscriptions are processed.
 
-| Stripe ID | Apple ID |
-|--------------|--------------|
-| [`productId`](https://stripe.com/docs/api/products/object#product_object-id) | [`bundleId`](https://developer.apple.com/documentation/appstoreserverapi/bundleid) |
-| [`planId`](https://stripe.com/docs/api/plans/object#plan_object-id) | [`productId`](https://developer.apple.com/documentation/appstoreserverapi/productid) |
+| Stripe ID                                                                                   | Apple ID                                                                                                     |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| [`productId`](https://stripe.com/docs/api/products/object#product_object-id)                | [`bundleId`](https://developer.apple.com/documentation/appstoreserverapi/bundleid)                           |
+| [`planId`](https://stripe.com/docs/api/plans/object#plan_object-id)                         | [`productId`](https://developer.apple.com/documentation/appstoreserverapi/productid)                         |
 | [`subscriptionId`](https://stripe.com/docs/api/subscriptions/object#subscription_object-id) | [`originalTransactionId`](https://developer.apple.com/documentation/appstoreserverapi/originaltransactionid) |
 
 ### Configuration
@@ -612,9 +628,9 @@ Replace the value for `issuerId`, `serverApiKey` and `serverApiKeyId` with crede
 
 :::note
 
-* These credentials are only needed for making API calls to the [App Store Server API](https://developer.apple.com/documentation/appstoreserverapi). Consider omitting or stubbing them if your work does not require it.
-* Each key under `credentials` is the App Store `bundleId` for an iOS app with the `.` replaced with `_` due to a [node-convict bug](https://github.com/mozilla/node-convict/issues/250). The `bundleId` can be found in App Store Connect for the given iOS app.
-:::
+- These credentials are only needed for making API calls to the [App Store Server API](https://developer.apple.com/documentation/appstoreserverapi). Consider omitting or stubbing them if your work does not require it.
+- Each key under `credentials` is the App Store `bundleId` for an iOS app with the `.` replaced with `_` due to a [node-convict bug](https://github.com/mozilla/node-convict/issues/250). The `bundleId` can be found in App Store Connect for the given iOS app.
+  :::
 
 To obtain these credentials for a given iOS app, file a bug in the `App Stores` product and `App Store Access` component in Bugzilla ([example bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1710928)). You will need someone with an existing Admin or similar role in App Store Connect to vouch for you.
 
@@ -628,16 +644,16 @@ Unfortunately, unlike Stripe webhooks, Apple does not store their server notific
 
 :::caution
 
-* If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
-* Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.
-:::
+- If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
+- Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.
+  :::
 
 Before you begin, make sure you have App Store API credentials set up in the auth server config. These are needed to decode and process notifications (see "Configuration" above).
 
 1. Set up a reverse proxy with [`ngrok`](https://ngrok.com/).
-    * The `ngrok` URL is a public URL, so try not to leave this running for more than a couple of hours.
+   - The `ngrok` URL is a public URL, so try not to leave this running for more than a couple of hours.
 2. Temporarily [forward V2 Sandbox App Store Server notifications](https://help.apple.com/app-store-connect/#/dev0067a330b) to your local FxA using the `ngrok` URL from #1 as the base URL (i.e. `${ngrok_base_URL}/v1/oauth/subscriptions/iap/app-store-notification`).
-    * Let the team know that you are temporarily changing the Sandbox notification URL, as this will affect any Apple IAP testing in Stage.
+   - Let the team know that you are temporarily changing the Sandbox notification URL, as this will affect any Apple IAP testing in Stage.
 3. Ask QA to trigger the desired scenarios using TestFlight.
 4. Restore the Sandbox notification URL in App Store Connect.
 
@@ -648,15 +664,15 @@ The test subscriptions described in this section are not true IAP subscriptions 
 ### Configure the auth server and create mock IAP subscriptions
 
 1. Configure the `fxa-auth-server` for IAP
-    * Enable the IAP integration. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
-    * Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
+   - Enable the IAP integration. See [Google IAP Integration](#google-iap-integration) for Google IAP and [Apple IAP Integration](#apple-iap-integration) for Apple IAP.
+   - Note: For most development, setting `enabled` for both relevant configs is enough without setting up credentials.
 2. Setup a price for IAP
-    * Create a price within Stripe.
-    * Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata](#stripe-plan-metadata) for these fields.
+   - Create a price within Stripe.
+   - Configure the price to have metadata fields `appStoreProductId` and `playSkuId` equal to some unique value (either in Stripe metadata or Firestore, depending on the state of `useFirestoreProductConfigs`). See [Plan Metadata](#stripe-plan-metadata) for these fields.
 3. Create a local fxa user
-    * Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
+   - Grab the id for the user. We'll use this user id for creating mock subscriptions attached to that user.
 4. Run the mock IAP subscription creation script
-    * Within auth-server, run `yarn run create-mock-iap --uid USER_ID --appStoreProductId SKU --playSkuId SKU` replacing USER_ID with the value from step 3, and SKU with the values from step 2.
+   - Within auth-server, run `yarn run create-mock-iap --uid USER_ID --appStoreProductId SKU --playSkuId SKU` replacing USER_ID with the value from step 3, and SKU with the values from step 2.
 
 ### Verify it worked
 
@@ -672,8 +688,8 @@ If things were set up correctly, you'll see the IAP subscription listed.
 
 Conditions for this flow:
 
-* User has no payment source on file, or is a new customer.
-* User clicks the displayed [PayPal Smart Button](https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons) to pay with PayPal.
+- User has no payment source on file, or is a new customer.
+- User clicks the displayed [PayPal Smart Button](https://developer.paypal.com/docs/checkout/integrate/#3-render-the-smart-payment-buttons) to pay with PayPal.
 
 This diagram represents the activity after the PayPal button is clicked.
 
