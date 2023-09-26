@@ -44,14 +44,33 @@ For example, if someone were to execute `nx run fxa-auth-server:start`, which st
 These dependencies also work across packages. So if fxa-shared has changed, and we execute `nx run fxa-auth-server:restart`, a `prebuild` and `build` will happen on `fxa-shared`, prior to auth server being restarted!
 
 ## Creating a library in NX
-The following command can be used to create a Nx library in the monorepo: `nx g @nx/node:library <name of library> --directory=<path/to> --buildable` 
-  - e.g. `nx g @nx/node:library capability --directory=libs/payments --buildable` will create a Nx library with the directory `libs/payments/capability`
+
+The following command can be used to create a Nx library in the monorepo: `nx g @nx/node:library <name of library> --directory=<path/to> --buildable`
+
+- e.g. `nx g @nx/node:library capability --directory=libs/payments --buildable` will create a Nx library with the directory `libs/payments/capability`
 
 You can use the `--dry-run` flag to see what will be generated.
 
 After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
-- Rename the job in `project.json` from `test` to `test-unit`
+
+- Rename the job in `project.json` from `test` to `test-unit`, and update the command to run unit tests in the README as well
 - Add `rootDir` in `targets` -> `build` -> `options` of the `project.json`
+- If necessary, update `tags` in `project.json` (e.g. `"scope:shared:lib:payments"`)
+  - Source: [https://nx.dev/reference/project-configuration#tags](https://nx.dev/reference/project-configuration#tags)
+- Remove the following rule in `.eslintrc.json`:
+  ```
+  {
+    "files": ["*.json"],
+    "parser": "jsonc-eslint-parser",
+    "rules": {
+      "@nx/dependency-checks": "error"
+    }
+  }
+  ```
+
+:::note
+At the moment (Sept 2023), it is expected to see a validation warning regarding `coverageDirectory` when running the test command.
+:::
 
 ## General Formatting Of Script Names
 
