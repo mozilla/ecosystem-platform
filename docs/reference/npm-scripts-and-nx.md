@@ -53,23 +53,15 @@ You can use the `--dry-run` flag to see what will be generated.
 
 After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
 
-- Rename the job in `project.json` from `test` to `test-unit`, and update the command to run unit tests in the README as well
-- Add `rootDir` in `targets` -> `build` -> `options` of the `project.json`
-- If necessary, update `tags` in `project.json` (e.g. `"scope:shared:lib:payments"`)
-  - Source: [https://nx.dev/reference/project-configuration#tags](https://nx.dev/reference/project-configuration#tags)
-- Remove the following rule in `.eslintrc.json`:
-  ```
-  {
-    "files": ["*.json"],
-    "parser": "jsonc-eslint-parser",
-    "rules": {
-      "@nx/dependency-checks": "error"
-    }
-  }
-  ```
+- Rename the job in `project.json` from `test` to either `test-unit` or `test-integration` depending on the library, and update the command to run unit tests in the README as well
+  - For more information, see https://mozilla-hub.atlassian.net/browse/FXA-8120
+- Add `"rootDir": "."`, in `targets` -> `build` -> `options` of the `project.json`
+  - Currently, there is a mixed use of Nx integrated libraries and legacy packages in the FxA monorepo and path resolution for Nx path aliases. This may cause the build command to fail, if a library is used by a package and this isn't specified. (See https://mozilla-hub.atlassian.net/browse/FXA-8121)
+- Add the open source legal blurb to the top of source code and test TS files
+- Rename TS files to better reflect the module in question (e.g. if adding a library in `libs/shared`, rename `shared-${libraryName}.ts` to `${libraryName}.ts`)
 
 :::note
-At the moment (Sept 2023), it is expected to see a validation warning regarding `coverageDirectory` when running the test command.
+At the moment (Sept 2023), we see a validation warning regarding `coverageDirectory` when running the test command. This is a bug in Nx and does not affect our potential use of code coverage analysis tools. This warning can be safely ignored for now.
 :::
 
 ## General Formatting Of Script Names
