@@ -4,6 +4,8 @@ title: Integration with Subscription Platform
 sidebar_label: Integration with Subscription Platform
 ---
 
+Last updated: `Oct 6th, 2023`
+
 ## Setting up A Subscription
 
 ### Pre-Development
@@ -62,6 +64,12 @@ If your integration includes an application service, [subscription state notific
 
 When integrated with the FxA stage or development environments, subscription sign-up's can be tested using [Stripe test cards](https://stripe.com/docs/testing#cards).
 
+#### Ensure your product(s) are included in SubPlat's Looker dashboards
+
+Once you have your products and plans configured in Stripe and/or Contentful, and before you deploy your integration to production, file a [Data Org ticket in Jira](https://mozilla-hub.atlassian.net/jira/software/c/projects/DO/boards/269) to add your product(s) to the SubPlat ETL.
+
+See [Product metrics in Looker](#product-metrics-in-looker) for more information.
+
 ## Evaluating the current user flow
 
 To see the user experience without setting up your localhost you can subscribe to any of the existing subscriptions that we have available. If you want to try out the upgrade flow please use MDN Plus.
@@ -83,6 +91,10 @@ To integrate your android app with the Subscription Platform, please see [Google
 ## Integration with Apple IAP
 
 To integrate your iOS app with the Subscription Platform, please see [Apple IAP](/ecosystem-platform/relying-parties/how-tos/apple-iap).
+
+## Product metrics in Looker
+
+To view product metrics in Looker for your products and/or services, please see [Metrics for Relying Parties](/ecosystem-platform/relying-parties/how-tos/product-metrics).
 
 [relying party events]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#relying-party-event-format
 [subscription state notifications]: https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#subscription-state-change
