@@ -223,7 +223,7 @@ working, which can occasionally occur between some client and SSH host OS's.
 #### GnuPG (Commit signing)
 
 Most developers have a primary key they regularly use. To prevent this key from possibly
-leaking its recommended to generate a new key for the remote machine with a rather long
+leaking it's recommended to generate a new key for the remote machine with a rather long
 randomly generated password you keep in a password manager.
 
 1. Install gnupg on remote server
