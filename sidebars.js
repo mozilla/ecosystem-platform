@@ -15,6 +15,7 @@ module.exports = {
                           'relying-parties/how-tos/end-to-end-encryption',
                           'relying-parties/how-tos/google-iap',
                           'relying-parties/how-tos/apple-iap',
+                          'relying-parties/how-tos/product-metrics',
                           'relying-parties/how-tos/device-registration',
                          ],
         'Reference': [
