@@ -63,6 +63,7 @@ module.exports = {
                             'how-tos/using-tracing-locally',
                             'how-tos/using-vscode-with-fxa',
                             'how-tos/working-with-metrics',
+                            'how-tos/rotating-secrets',
                            ],
           'Reference':     [
                               {
