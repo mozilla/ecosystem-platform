@@ -27,3 +27,16 @@ We use GitHub's [Dependabot](https://docs.github.com/en/code-security/supply-cha
 It [runs daily](https://github.com/mozilla/fxa/blob/main/.github/dependabot.yml), opening Pull Requests whenever a update is available for any of our many packages' dependencies. PRs will automatically request a review from the `@mozilla/fxa-devs` GitHub group. FxA engineers are expected to occasionally pitch in with reviewing and merging these PRs.
 
 [Click here](https://github.com/mozilla/fxa/pulls?q=is:pr+is:open+sort:updated-desc+author:app/dependabot) to see all open Dependabot PRs.
+
+## A note about resolutions for sub-dependencies
+
+Resolutions may not work for sub-dependencies. If adding a resolution for a dependency in `package.json` is not picked up by `yarn.lock`, you might need to set the resolution manually (this will need to be done for each installed version of the dependency that needs to be resolved).
+
+This generally happens when a dependency has not updated one of it's sub-dependencies, and we would like to force an update for that sub-dependency in our project.
+
+For example, if `yarn.lock` has `package@npm:1.1.1, package@npm:^1.2.0` and the dependency needs to be resolved to `1.3.0`, 2 commands will need to be run (with 'package' here replaced with the name of the dependency that needs to be resolved):
+
+```
+yarn set resolution package@npm:1.1.1 '>1.3.0'
+yarn set resolution package@npm:^1.2.0 '>1.3.0'
+```
