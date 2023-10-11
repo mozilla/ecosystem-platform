@@ -37,6 +37,6 @@ This generally happens when a dependency has not updated one of it's sub-depende
 For example, if `yarn.lock` has `package@npm:1.1.1, package@npm:^1.2.0` and the dependency needs to be resolved to `1.3.0`, 2 commands will need to be run (with 'package' here replaced with the name of the dependency that needs to be resolved):
 
 ```
-yarn set resolution -s package@npm:1.1.1 '>1.3.0'
-yarn set resolution -s package@npm:^1.2.0 '>1.3.0'
+yarn set resolution package@npm:1.1.1 '>1.3.0'
+yarn set resolution package@npm:^1.2.0 '>1.3.0'
 ```
