@@ -2,19 +2,40 @@
 title: "Functional Tests"
 ---
 
-Current as of `March 11th, 2021`
+Current as of `October, 2023`
 
-End to end testing of the entire FxA ecosystem is provided by a [comprehensive suite of Selenium tests](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional) in the fxa-content-server package. Tests can be run by going to the content-server package directory and typing:
+End to end functional testing of the entire FxA ecosystem is achieved by a [comprehensive suite of Playwright tests](https://github.com/mozilla/fxa/tree/main/packages/functional-tests/tests). These tests are situated within the `Packages` directory and are organized into distinct folders corresponding to their respective functionality, such as sign-in, sync, OAuth, and others. These tests can be run through the packages directory using the below command:
 
 ```bash
-$ npm run test-functional
+$ yarn workspace functional-tests test
 ```
 
 The full set of functional tests is run on [CircleCI](./tests-in-circleci) on every checkin and every time a pull request is merged to main.
-This full set consist of a smoke test suite(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_smoke) which runs the high priority test cases first and upon success the full suite of regression tests(https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/tests/functional_regression) are run. If there is a failure in the smoke test suite, the regression suite won't be run until the failures have been fixed.
-There is also a notification system in place for when these failures occur to alert the FxA team via Slack messaging.
+The High priority tests are tagged as Severity 1 tests, medium priority as Severity 2 and low priority tests are non-tagged. The Production smoke test suite comprises of all the Severity 1 (High Priority) tests which are run during the production deployments. Similarly, all the Severity 1 (High Priority) and Severity 2 (Medium Priority) tests makes up the Stage smoke test suite, run during the Stage deployments.
+There is also a notification system in place for when there is a stage or prod smoke test suite failure to alert the FxA team via Slack messaging.
 
-[The Intern](https://theintern.io/) library is used to run the tests, which itself is a wrapper around the [Leadfoot](https://theintern.io/docs.html#Leadfoot/2/api/Command) WebDriver library.
+## How to decide priority (high, medium, low) for a test?
+Deciding the priority of tests is a crucial part of test management. The priority of a test case can vary depending on factors such as its impact on the application, its criticality, and the frequency of execution. Here's how you can decide the priority of your tests:
+
+* High Priority test
+1. Tests that directly impact business-critical functionalities and could lead to significant financial losses, legal issues, or data breaches if they fail.
+2. Tests for features that, if they fail, would result in a poor user experience or significantly impede users from achieving their goals
+3. Tests that need to pass before other tests can be executed, preventing the testing of other critical areas.
+For eg: Subscription tests, FxA sign-in/sign-up tests, sync/OAuth sign-in tests etc
+
+* Medium Priority test
+1. Tests that are essential for the application but not as critical as high-priority tests. Their failure may cause significant disruptions but not catastrophic consequences.
+2. Tests for features where issues are noticeable but do not severely hinder the user experience
+3. Tests that are less dependent but need to run before low-priority tests.
+For eg: Reset password, Post-verify and cached/blocked sign-in tests
+
+* Low Priority test
+1. Tests for non-essential or rarely used features. Failure of these tests may not significantly impact the core functionality of the application.
+2. Tests for features that rarely affect the user experience or have workarounds available.
+3. Tests with no dependencies on other tests.
+For eg: Password validation tests
+
+The suite uses [Playwright](https://playwright.dev/docs/intro) framework for automation testing. Also check out the [API reference](https://playwright.dev/docs/api/class-test).
 
 The functional tests can seem impenetrable, don't worry, they'll become second nature after a while. They continually save our bacon, and every new feature should have corresponding functional tests.
 
@@ -27,8 +48,6 @@ to ensure the end to end flow for that integration works as expected. For exampl
 there are "sign in" tests for each of:
 
 * fx_desktop_v3 (Firefox Desktop Sync)
-* fx_fennec_v1 (Firefox for Android Sync)
-* fx_ios_v1 (Firefox for iOS Sync)
 * oauth (OAuth RPs)
 
 In each of these, the behaviors and screen to screen transitions can be subtly different. For example, Sync based integrations should show a "connect another device" screen when
@@ -40,10 +59,10 @@ it's OK (and encouraged) to remove duplicates.
 ## How do I?
 
 ### Run a single test
-A single test can be run using intern's `grep` flag. You'll need to find the name of the test you want to run.
+A single test can be run using the `grep` flag. You'll need to find the name of the test you want to run.
 
 ```bash
-$ npm run test-functional -- --grep="<name of test here>"
+$ yarn workspace functional-tests test --grep="<name of test here>"
 ```
 
 ### Add a new test file
