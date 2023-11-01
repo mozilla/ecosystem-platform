@@ -4,14 +4,14 @@ title: "Functional Tests"
 
 Current as of `October, 2023`
 
-End to end functional testing of the entire FxA ecosystem is achieved by a [comprehensive suite of Playwright tests](https://github.com/mozilla/fxa/tree/main/packages/functional-tests/tests). These tests are situated within the `Packages` directory and are organized into distinct folders corresponding to their respective functionality, such as sign-in, sync, OAuth, and others. These tests can be run through the packages directory using the below command:
+End to end functional testing of the entire FxA ecosystem is achieved by a [comprehensive suite of Playwright tests](https://github.com/mozilla/fxa/tree/main/packages/functional-tests/tests). These tests are situated within the `packages` directory and are organized into distinct folders corresponding to their respective functionality, such as sign-in, sync, OAuth, and others. These tests can be run through the packages directory using the below command:
 
 ```bash
 $ yarn workspace functional-tests test
 ```
 
-The full set of functional tests is run on [CircleCI](./tests-in-circleci) on every check in and every time a pull request is merged to main.
-The High priority tests are tagged as Severity 1 tests, medium priority as Severity 2 and low priority tests are non-tagged. The Production smoke test suite comprises all the Severity 1 (High Priority) tests which are run during the production deployments. Similarly, all the Severity 1 (High Priority) and Severity 2 (Medium Priority) tests make up the Stage smoke test suite, run during the Stage deployments.
+The full set of functional tests (high, medium and low) is run on [CircleCI](./tests-in-circleci) on every check in and every time a pull request is merged to main.
+The High priority tests are tagged as Severity 1 tests, medium priority as Severity 2 and low priority tests are non-tagged. The Production smoke test suite comprises all the Severity 1 (High Priority) tests which are run during the production deployments. Similarly, all the Severity 1 (High Priority) and Severity 2 (Medium Priority) tests make up the Stage smoke test suite, run during the Stage deployments. **The full suite of tests that includes high, medium and low priority tests are run for every PR check in on CircleCI for local environment.**
 There is also a notification system in place for when there is a stage or prod smoke test suite failure to alert the FxA team via Slack messaging.
 
 ## How to decide priority (high, medium, low) for a test?
