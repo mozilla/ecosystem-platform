@@ -33,8 +33,8 @@
     "mdx-mermaid": "^1.3.0",
     "mermaid": "^10.4.0",
     "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "redocusaurus": "^1.6.3",
     "url-loader": "^4.1.1",
     "webpack": "^5.88.2"
