@@ -6,7 +6,7 @@ title: Application Tracing
 
 Distributed tracing allows developers to investigate how data flows between various parts of the application. At a high level a trace is just a series of events called spans that represent the timings and state of various operations. When properly implemented, tracing should let a developer visualize the data flowing between services, starting with a request at the client and flowing all the way to the database layer, or third party APIs, and back. Tracing can be useful for finding inefficiencies or errors in code that might otherwise be unrecognized or be difficult to track down.
 
-We utilize [Open Telemetry](https://opentelemetry.io/) to instrument our servers, collect, and export trace data. Open telemetry allows tracing to be fairly agnostic. Rather than implement a specific tracing solution, e.g. sentry tracing, a developer adds open telemetry and then configures it to export to various targets. It’s also good to note that open telemetry supports more than just traces. In theory we could also use it to capture metrics and logs and then export them accordingly. However, at the time of writing this document, open telemetry is only being used for tracing. 
+We utilize [Open Telemetry](https://opentelemetry.io/) to instrument our servers, collect, and export trace data. Open telemetry allows tracing to be fairly agnostic. Rather than implement a specific tracing solution, e.g. sentry tracing, a developer adds open telemetry and then configures it to export to various targets. It’s also good to note that open telemetry supports more than just traces. In theory we could also use it to capture metrics and logs and then export them accordingly. However, at the time of writing this document, open telemetry is only being used for tracing.
 
 ## System Diagrams
 
@@ -52,7 +52,7 @@ Here's some terms that come up a lot when talking about tracing. They are univer
 
 Here's some open telemetry terminology. These terms will be found in our source code, so they are worth mentioning.
 
-**Providers** - This ‘provides’ a tracing solution. In our cases it does so for either a nodejs server or a web browser, and it contains the configuration for Samplering, Instrumentation, and Exporting,    
+**Providers** - This ‘provides’ a tracing solution. In our cases it does so for either a nodejs server or a web browser, and it contains the configuration for Samplering, Instrumentation, and Exporting,
 
 
 **Samplers** - This makes the decision about whether or not to capture a trace. We generally capture a subset of traces to limit the amount of data collected.
@@ -68,7 +68,7 @@ Here's some open telemetry terminology. These terms will be found in our source 
 
 **Tracer** - Used to create new spans
 
-**Propagators** - These allow trace context to propagate between services. Essentially it just decorates outbound messages with enough data so that the next service has enough info to keep the trace going. 
+**Propagators** - These allow trace context to propagate between services. Essentially it just decorates outbound messages with enough data so that the next service has enough info to keep the trace going.
 
 **Context** - This is an object that is made available between spans inside a service. It operates in a nested manner. Here’s an [example of context](https://opentelemetry.io/docs/concepts/glossary/).
 
@@ -84,22 +84,22 @@ Instrumentation is the process of hooking into existing code so traces can be ca
 
 By default, all instrumentations are enabled. In the future we may want to prefer more targeted instrumentation, as this would result in a smaller number of dependent packages; however, at the time of writing, the ability to easily instrument and gain awareness of all the things that can be traced outweighs the desire to have reduced dependencies.
 
-The instrumentation portion of tracing may seem like a bit of magic at first, however, if you look under the hood at some of the source code you will see the instrumentations are actually pretty straightforward and follow some basic patterns. They use a combination of Asynchooks and good old fashion method hijacking to wrap spans around functions making requests. 
+The instrumentation portion of tracing may seem like a bit of magic at first, however, if you look under the hood at some of the source code you will see the instrumentations are actually pretty straightforward and follow some basic patterns. They use a combination of Asynchooks and good old fashion method hijacking to wrap spans around functions making requests.
 
 A lot can be learned from looking at existing trace implementations which can be found [here](https://github.com/open-telemetry/opentelemetry-js-contrib/blob/main/plugins). Is there a custom integration that FxA needs?
 
-It's also easy to instrument a single portion of code manually. Perhaps you have a routine that might be time consuming, but you aren't sure exactly how time consuming it is. Wrapping it with a span is pretty easy. Just [aquire the tracer](https://opentelemetry.io/docs/instrumentation/js/instrumentation/#acquiring-a-tracer) and [wrap the routine with a new span](https://opentelemetry.io/docs/instrumentation/js/instrumentation/#create-nested-spans). 
+It's also easy to instrument a single portion of code manually. Perhaps you have a routine that might be time consuming, but you aren't sure exactly how time consuming it is. Wrapping it with a span is pretty easy. Just [aquire the tracer](https://opentelemetry.io/docs/instrumentation/js/instrumentation/#acquiring-a-tracer) and [wrap the routine with a new span](https://opentelemetry.io/docs/instrumentation/js/instrumentation/#create-nested-spans).
 
 ### Filtering PII
 
 It’s important that we filter out any personally identifiable information from the data we capture in our traces. We should follow the same procedures that are followed for Sentry data. Essentially anything that might identify a user needs to be stripped out. A good example of PII is an email address. Essentially if the data contains something that can be used to identify a user uniquely it is likely PII. When in doubt, ask about the data in question.
 
-In open telemetry filtering can happen in two ways. Some instrumentations support filtering data before it is even captured. Unfortunately, this is not uniform between instrumentations. Therefore, we will opt to filter on export. This allows us to [modify the data](https://github.com/mozilla/fxa/blob/6a415eb4c4aac4a5eabf4c79857b7874d09811b1/packages/fxa-shared/tracing/exporters/fxa-otlp.ts#L38) just before it is sent off. We have access to all the spans and their attributes / tags at this point in time. Simply mutating this data should be sufficient for filtering out PII. 
+In open telemetry filtering can happen in two ways. Some instrumentations support filtering data before it is even captured. Unfortunately, this is not uniform between instrumentations. Therefore, we will opt to filter on export. This allows us to [modify the data](https://github.com/mozilla/fxa/blob/6a415eb4c4aac4a5eabf4c79857b7874d09811b1/packages/fxa-shared/tracing/exporters/fxa-otlp.ts#L38) just before it is sent off. We have access to all the spans and their attributes / tags at this point in time. Simply mutating this data should be sufficient for filtering out PII.
 
 #### Some final guidelines for filtering PII are:
 - Be proactive about removing PII from traces. If you see something in a trace that could uniquely identify a user, file a ticket calling it out!
-- Ideally we still leave as much of the data intact as possible. For example, if there is a sql query containing an email address, if possible, leave the query intact and only filter out the email. E.g { query: `select * from users where email = [FILTERED]` }  as opposed to { query: `[FILTERED]` }
-- Be mindful of performance. If a data field is to be processed, consider truncating it. - If there are an extremely large number of elements to loop through, consider short circuiting and remove elements that can’t be processed. 
+- Ideally we still leave as much of the data intact as possible. For example, if there is a sql query containing an email address, if possible, leave the query intact and only filter out the email. E.g \{ query: `select * from users where email = [FILTERED]` }  as opposed to \{ query: `[FILTERED]` }
+- Be mindful of performance. If a data field is to be processed, consider truncating it. - If there are an extremely large number of elements to loop through, consider short circuiting and remove elements that can’t be processed.
 - Keep in mind the goal is to provide as much info in the trace as possible while still being pragmatic about removing PII.
 
 

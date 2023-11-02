@@ -50,7 +50,7 @@ You can use the `--dry-run` flag to see what will be generated.
 After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
 
 - Rename the job in `project.json` from `test` to either `test-unit` or `test-integration` depending on the library, and update the command to run unit tests in the README as well
-  - For more information, see <https://mozilla-hub.atlassian.net/browse/FXA-8120>
+  - For more information, see [FXA-8120](https://mozilla-hub.atlassian.net/browse/FXA-8120)
 - Add the open source legal blurb to the top of source code and test TS files
 - Rename TS files to better reflect the module in question (e.g. if adding a library in `libs/shared`, rename `shared-${libraryName}.ts` to `${libraryName}.ts`)
 
