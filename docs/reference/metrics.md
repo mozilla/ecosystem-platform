@@ -16,7 +16,7 @@ We also have a [metrics section which expands on the history of our system and h
 
 ## Application metrics
 
-:::caution
+:::note
 This is all undergoing major changes now with the move to GCP as well as FxA's migration to using Glean.  Hopefully we can remove this message in 2024 and simplify these docs, though it is unclear if/when SubPlat will migrate to using Glean.
 :::
 

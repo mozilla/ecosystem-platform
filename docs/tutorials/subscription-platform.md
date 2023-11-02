@@ -491,7 +491,7 @@ Deployments will be handled manually and will make use of the [Merge app by Cont
 
 - For each merge, ensure you complete the optional step "Export migration script" and store the migration scripts in [the FxA monorepo](https://github.com/mozilla/fxa/tree/main/packages/db-migrations).
 
-:::caution
+:::warning
 Changes made in the [Appearance tab](https://www.contentful.com/help/content-modelling-basics/#the-appearance-tab) of a field of a content type, are not merged when using the Merge app, and therefore also not included in the migration script.
 :::
 
@@ -644,7 +644,7 @@ Unfortunately, unlike Stripe webhooks, Apple does not store their server notific
 
 #### Debugging sandbox notifications
 
-:::caution
+:::warning
 
 - If your local FxA is not running in a VM or Docker container, consider the security implications of this temporary setup before proceeding.
 - Only use this approach for Sandbox notifications, as the payloads are not encrypted at rest.

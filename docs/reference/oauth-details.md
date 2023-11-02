@@ -354,7 +354,7 @@ At this point, the RP knows the user must authenticate to Firefox Accounts befor
 GET https://accounts.firefox.com/authorization?client_id=ea3ca969f8c6bb0d&state=gASDF-3df@A5f&scope=profile&login_hint=conscious.chooser%40mozilla.com
 ```
 
-:::caution
+:::warning
 When `prompt=none` is not specified, FxA handles `login_hint` as a suggestion, users are still able to authenticate/authorize using a different email. If the user specified in `login_hint` _MUST_ be used, specify [`action=force_auth`](/api#tag/OAuth-Server-API-Overview/operation/getAuthorization) when redirecting back to FxA.
 
 If a different user is allowed to sign in, it may be necessary to clear locally held session state before redirecting back to FxA.

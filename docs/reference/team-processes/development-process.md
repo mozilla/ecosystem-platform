@@ -166,7 +166,7 @@ Please see our [project calendar][fxa-calendar] for details.
 
 ## Developing on a long running branch
 
-:::caution
+:::warning
 You should probably be using a feature flag instead of a branch.
 :::
 

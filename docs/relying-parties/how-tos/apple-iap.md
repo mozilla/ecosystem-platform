@@ -84,7 +84,7 @@ These steps can be done by a developer. While step 1 can be completed in paralle
 
 ## Testing your integration
 
-:::caution
+:::warning
 Like many systems, Apple's Sandbox environment does not necessarily exhibit behavior consistent with what is stated in their docs. When in doubt, directly test the scenario in question, potentially more than once, to understand what to expect.
 :::
 

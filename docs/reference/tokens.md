@@ -203,7 +203,7 @@ During the password reset process, a user who has an account recovery key can us
 
 ### BrowserID Assertions
 
-:::caution
+:::warning
 BrowserID stopped being used in Firefox 78 and we're eagerly awaiting the long
 tail of users to upgrade so we can remove this code.  See details in
 [Issue #9007 / FXA-2715](https://github.com/mozilla/fxa/issues/9007).

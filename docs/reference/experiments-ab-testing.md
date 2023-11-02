@@ -62,7 +62,7 @@ In the URL bar, open:
 
 ## Amplitude Metrics
 
-:::caution
+:::warning
 We no longer use Amplitude.  This section is out of date.
 :::
 

@@ -51,7 +51,7 @@ If QA's signoff after testing a release on staging comes back yellow or red, we 
 
 Whenever a dot release is planned, ping the team to let them know you'll be tagging `train xxx.y`, with a list of issues to be included in the release. Other engineers may have fixes that wouldn't warrant a dot release on their own, but would be nice to ride along if a patch release is being tagged anyway.
 
-:::caution
+:::warning
 While it's oftentimes up to our own discretion, engineers should be **selective of fixes and mindful of asking** release owners to include their patches if the patch wouldn't justify a point release on its own, as it introduces more overhead and risk of failures or additional issues with the release.
 
 If you’re requesting the release owner include a patch, make sure you know where that train is in regards to production. If the train is already in production, the dot release will be pushed to production relatively soon after the tag is made, which you may or may not intend. See the [production hotfixes](#production-hotfixes) section for more info.
@@ -165,7 +165,7 @@ The recommended procedure for doing so is:
   git push origin v1.XYZ.N
   ```
 
-  :::caution
+  :::warning
   Do not use `git push --tags` as this will not correctly trigger the CircleCI build.
   :::
 
