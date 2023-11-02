@@ -139,7 +139,7 @@ Three primary types of Relier models exist:
 2. oauth
 3. web (called relier)
 
-:::caution
+:::danger
 Any long lived data (e.g., email address, uid, `client_id`), coming from an RP or on the URL
 **MUST BE** validated and transformed within Reliers. While it seems natural to ingest and sanitize
 data in the Views, we are unable to control what users and malicious actors do. Assuming users always

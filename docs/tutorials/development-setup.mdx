@@ -138,7 +138,7 @@ is configured properly before we move on to the rest of the steps:
   yarn start
   ```
 
-:::caution
+:::warning
 `yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo:mozilla/fxa+filename:pm2.config.js+filename:infrastructure.config.js)). Doing so may result in errors.
 :::
 

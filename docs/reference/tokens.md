@@ -170,7 +170,7 @@ Creating a new account recovery key involves the following steps:
   - A key fingerprint: recover-kid = HKDF(recover-key, uid, "fxa recovery fingerprint", len=16)
   - An encryption key: recover-enc = HKDF(recover-key, uid, "fxa recovery encrypt key", len=32)
 - FxA web-content encrypts kB into a JWE to produce the "recovery data":
-  - recover-data = JWE(recover-enc, {"alg": "dir", "enc": "A256GCM", "kid": recover-kid}, kB)
+  - recover-data = JWE(recover-enc, \{"alg": "dir", "enc": "A256GCM", "kid": recover-kid}, kB)
 - FxA web-content submits recovery data to FxA server for storage,
   associating it with the fingerprint (recover-kid)
   - `POST /recoveryKey`, providing `recoveryKeyId` and `recoveryData` in the request body.
@@ -203,7 +203,7 @@ During the password reset process, a user who has an account recovery key can us
 
 ### BrowserID Assertions
 
-:::caution
+:::warning
 BrowserID stopped being used in Firefox 78 and we're eagerly awaiting the long
 tail of users to upgrade so we can remove this code.  See details in
 [Issue #9007 / FXA-2715](https://github.com/mozilla/fxa/issues/9007).

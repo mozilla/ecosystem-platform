@@ -143,7 +143,7 @@ Generally speaking, if CI is green, the dependency is likely fine to merge. Howe
 
 If CI is green, `test_pull_request` was ran, and none of the files changed looks out of the ordinary, approve the Dependabot PR and merge the pull request. If you need Dependabot to rebase the change, comment on the PR with `@dependabot rebase`.
 
-:::caution
+:::warning
 Try not to merge dependency updates if we're planning on tagging a release the same day. If we merge something in and discover a dependency problem with or after the tag, we will need a dot release just to patch the bad dependency upgrade.
 :::
 

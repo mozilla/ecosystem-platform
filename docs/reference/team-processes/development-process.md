@@ -150,9 +150,9 @@ The goal of estimation is for us to assess the issue in terms of its relative co
 | Points | Relative Size | Description                                                                | Review Time | Examples |
 | ------ | ------------- | -------------------------------------------------------------------------- | ----------- | -------- |
 | 1      | xs            | This is a trivial change with clearly defined parameters.                  | 1 engineer needs ~10 minutes | |
-| 2      | s             | A simple change (minimal code changes), where we understand all of the requirements. | 1 engineer needs <1 hour | |
-| 3      | m             | A simple change, but the code footprint is bigger (e.g. lots of different files, or tests affected). The requirements are clear.<br /><br />or<br /><br />This could also represent a 2 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.] | 1 engineer needs <2 hours | |
-| 5      | l             | A more complex change that will impact multiple areas of the codebase, there may also be some refactoring involved. Requirements are understood but you feel there are likely to be some gaps along the way. | 1 engineer needs <3 hours | |
+| 2      | s             | A simple change (minimal code changes), where we understand all of the requirements. | 1 engineer needs &lt;1 hour | |
+| 3      | m             | A simple change, but the code footprint is bigger (e.g. lots of different files, or tests affected). The requirements are clear.<br /><br />or<br /><br />This could also represent a 2 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.] | 1 engineer needs &lt;2 hours | |
+| 5      | l             | A more complex change that will impact multiple areas of the codebase, there may also be some refactoring involved. Requirements are understood but you feel there are likely to be some gaps along the way. | 1 engineer needs &lt;3 hours | |
 | 8      | xl            | A complex change. It will significantly change the codebase and/or business logic. It may require input from others to assure the requirements and impacts are well understood.  It may require coordination with additional teams.<br /><br />or<br /><br />This could also represent a 5 point project but there is less certainty about how to achieve it effectively.  [Note: what we are achieving should not be in question.] | 1 engineer needs 1/2 day.  This may require data review or an external team sign-off | |
 | 13     | xxl           | A significant change that may have dependencies (other teams or third-parties) and we likely still don't understand all of the requirements. It's unlikely we would commit to this in a milestone, and the preference would be to further clarify requirements and/or break in to smaller Issues.  | 2 engineers need a few 1/2 days each.  This may require security review or external team sign-offs | |
 | 21     | ∞             | Meta issue or We do not have clear scope. (This issue must be broken down).  This is possibly a whole quarter sized epic. | | |
@@ -166,7 +166,7 @@ Please see our [project calendar][fxa-calendar] for details.
 
 ## Developing on a long running branch
 
-:::caution
+:::warning
 You should probably be using a feature flag instead of a branch.
 :::
 

@@ -75,7 +75,7 @@ For our example, [Stripe provides some helpful docs](https://stripe.com/docs/key
 * [CircleCI environment variables](https://circleci.com/docs/env-vars/#private-keys-and-secrets)
 * GitHub [Actions](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions), [Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-secrets-for-your-codespaces) and/or [Dependabot](https://docs.github.com/en/code-security/dependabot/working-with-dependabot) environment variables
 
-:::caution
+:::warning
 This is not an exhaustive list. Check with other engineers and/or SRE if you are unsure of all of the locations where a secret may be kept.
 :::
 

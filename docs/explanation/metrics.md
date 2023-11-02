@@ -96,7 +96,7 @@ See [metrics for relying parties][rp-metrics].
 
 # What other docs are there?
 
-:::caution
+:::warning
 These are pretty old and may not be accurate
 :::
 
