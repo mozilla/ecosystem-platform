@@ -245,13 +245,13 @@ if (context.template === 'lowRecoveryCodes') {
 See also [this deep dive on Localization](localization).
 :::
 
-Strings are automatically extracted to the [`fxa-content-server-l10n` repo](https://github.com/mozilla/fxa-content-server-l10n) where they reach Pontoon for translations to occur by our l10n team and contributors. This is achieved by concatenating all of our .ftl (Fluent) files into a single `auth.ftl` file with the `merge-ftl` grunttask, and the `extract-and-pull-request.sh` script that runs in `fxa-content-server-l10n` on a weekly cadence.
+Strings are automatically extracted to the [`fxa-content-server-l10n` repo](https://github.com/mozilla/fxa-content-server-l10n) where they reach Pontoon for translations to occur by our l10n team and contributors. This is achieved by concatenating all of our .ftl (Fluent) files into a single `auth.ftl` file with the `merge-ftl` grunttask, and the `extract-and-pull-request.sh` script that runs in `fxa-content-server-l10n` on a bi-weekly cadence.
 
-Non-email strings that must be translated are placed directly in `lib/l10n/auth.ftl`, under any brands we have set to [message references](https://projectfluent.org/fluent/guide/references.html). Email strings for translation are placed in a nearby (`templates/[templateName]/en.ftl` or `partials/[partialName]/en.ftl`).
+Non-email strings that must be translated are placed directly in `lib/l10n/server.ftl`. Email strings for translation are placed in a nearby (`templates/[templateName]/en.ftl` or `partials/[partialName]/en.ftl`). Branding terms are stored in `libs/shared/l10n/src/lib/branding.ftl`.
 
 Fluent requires a Fluent ID to find the translated string in other languages, but MJML doesn't support custom attributes since an MJML element may produce many HTML elements. We pass our email templates into [`@fluent/dom`](https://www.npmjs.com/package/@fluent/dom) and provide Fluent an FTL ID by ensuring strings wrapped in a DOM element, like a `span`, where we can supply the ID via `data-l10n-id`.
 
-We don't have a hard rule for FTL ID naming but generally we start the ID matching the template, partial, or variable name, or a shortened version of it which may be snake-case or camelCase, followed by a short, snake case summary of the text.
+We don't have a hard rule for FTL ID naming but generally we start the ID matching the template, partial, or variable name, or a shortened version of it in camelCase, followed by a short, snake case summary of the text. E.g., templateName-descriptive-identifier
 
 :::tip
 You must use curly quotes for strings in our MJML, plaintext, and FTL files, except in comments. They're considered more proper for copy and the l10n team will push back against straight quotes.
@@ -307,6 +307,7 @@ If you change a variable name and not the string text around it, technically you
 :::
 
 At the time of writing, Storybook is our way to preview or manually check the English strings we ultimately pass to translators, and our tests cover the English fallback copy.
+
 ### Images and localizing alt text
 
 You _must_ provide a `width` on `mj-image` tags. Otherwise, the parent width will be used in at least MacOS' native Mail app, resulting in large, 100% width images. See [this PR](https://github.com/mozilla/fxa/pull/11840) for more details.
