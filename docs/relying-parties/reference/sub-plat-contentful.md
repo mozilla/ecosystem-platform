@@ -20,7 +20,7 @@ Once logged in, you can determine the environment you are currently in by checki
 
 ## Managing Content
 
-The Content tab is where all content entries can be found once they are created. You will be able to search and filter the list for specific entries to view, edit, or delete.
+The Content tab is where all content entries can be found once they are created. You will be able to search and filter down relevant content based on structure and metadata to find specific entries to view, edit, or delete.
 
 <img src={require('../../assets/subplat-contentful-add-entry.png').default} alt="Add Entry" width="500" />
 
