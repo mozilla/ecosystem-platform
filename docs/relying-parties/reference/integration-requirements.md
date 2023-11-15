@@ -10,7 +10,7 @@ Last updated: `June 8th, 2023`
 We communicate with our relying parties via the [firefox-accounts-notices group](https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices).  You must subscribe to this list.
 
 ## Subscribe to and process events
-Firefox accounts maintains an [event broker which is a webhook delivery system to communicate with relying parties](/relying-parties/tutorials/integration-with-fxa#webhook-events).  You must [register an endpoint to receive events](/relying-parties/tutorials/integration-with-fxa#register-for-webhooks).  You will receive events you may or may not care about but some events require you to perform actions:
+Mozilla accounts maintains an [event broker which is a webhook delivery system to communicate with relying parties](/relying-parties/tutorials/integration-with-fxa#webhook-events).  You must [register an endpoint to receive events](/relying-parties/tutorials/integration-with-fxa#register-for-webhooks).  You will receive events you may or may not care about but some events require you to perform actions:
 
 - **A user opts out of metrics** (the `metricsEnabled` boolean in the profile):  When this is `false` you must not collect any metrics tied to the user.  Any existing metrics should be deleted.  This boolean should be checked each time a profile is requested.
 - **A user deletes their account** (event `https://schemas.accounts.firefox.com/event/delete-user`):  The relying party must delete all user records for the deleted user.
@@ -28,7 +28,7 @@ Please see [this section on rate limits](/relying-parties/reference/using-apis).
 If you're hosting your own login page you need to send top-of-funnel metrics to FxA:
 
 0. Initialize top of funnel metrics by calling [/metrics-flow request][metrics-flow-request] with the required query parameters:
-   1. `entrypoint` This is a string identifying the source of the request and should be agreed upon by the Firefox Accounts team.
+   1. `entrypoint` This is a string identifying the source of the request and should be agreed upon by the Mozilla accounts team.
    1. `form_type` This is either `email` (you have an input on your form for an email address) or `button` (you just have a 'sign in' button)
    1. `utm_source`
    1. `utm_campaign`

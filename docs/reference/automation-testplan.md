@@ -5,13 +5,13 @@ title: Automation Test Plan
 Current as of `November 2nd, 2023`
 
 ## Overview
-This document provides general guidelines around writing, running, and maintaining Firefox Accounts (FxA) automated tests. The FxA test strategy document can be found here: [FxA test strategy](https://docs.google.com/document/d/1gYvGpXtLkSA84ELKJA-3tOPtlRlgcIQwmVOKbirtII0/edit#)
+This document provides general guidelines around writing, running, and maintaining Mozilla accounts (FxA) automated tests. The FxA test strategy document can be found here: [FxA test strategy](https://docs.google.com/document/d/1gYvGpXtLkSA84ELKJA-3tOPtlRlgcIQwmVOKbirtII0/edit#)
 This document will ensure that everyone on the project is aware of the expectations and the process of maintenance around the automated tests.
 Apart from maintaining the existing Playwright functional tests, the plan is to eventually move the FxA project to Continuous Deployment (CD). This document will lay out the guidelines for specified situations and around ownership of the automated tests. The goal is to enforce and start implementing these guidelines so that maintaining and reviewing these automation suites is easier on everyone.
 
 ## Brief Description
 There are multiple projects under the FxA umbrella. For FxA there are bi-weekly releases, in addition to feature testing. There are many relying parties that use FxA, such as Monitor and VPN.
-Firefox Accounts lets you access Mozilla Services on any device with the Firefox browser by simply signing in. All you need to create a Firefox Account is an email address and a password.
+Mozilla accounts lets you access Mozilla Services on any device with the Firefox browser by simply signing in. All you need to create a Firefox Account is an email address and a password.
 FxA: https://mozilla.github.io/ecosystem-platform/docs/welcome
 These automation tests provide end to end testing of the features for FxA.The focus of FxA testing is on making sure no regressions occur and that new features work as expected. These automated tests ensure that the service maintains a high level of quality and to achieve that multiple automated FxA tests are run with Firefox trains and releases, for both desktop and mobile.
 

@@ -4,9 +4,9 @@ title: Device Registration (Sync)
 sidebar_label: Device Registration (Sync)
 ---
 
-# Firefox Accounts Device Registration
+# Mozilla accounts Device Registration
 
-When using Firefox Accounts to connect a device to Firefox Sync, it is possible to annotate the device's authentication token with additional metadata to improve the user experience. Through the Device Registration API, a device can:
+When using Mozilla accounts to connect a device to Firefox Sync, it is possible to annotate the device's authentication token with additional metadata to improve the user experience. Through the Device Registration API, a device can:
 
 - Customize the way it appears in the list of connected devices, by providing a display name and device type.
 - Subscribe to push notification events by providing a webpush subscription endpoint.

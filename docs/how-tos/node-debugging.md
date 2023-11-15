@@ -34,7 +34,7 @@ If you're using `yarn start`, the following ports are used for `--inspect`:
 
 ## Debugging Tests
 
-The Node debugger can also be attached to a running test process. Firefox Accounts uses a variety of test frameworks, so the steps vary by package.
+The Node debugger can also be attached to a running test process. Mozilla accounts uses a variety of test frameworks, so the steps vary by package.
 
 :::tip
 The `--inspect` argument is used in the examples below, but `--inspect-brk` can also be used to pause the process as soon as it starts.

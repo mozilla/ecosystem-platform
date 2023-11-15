@@ -5,7 +5,7 @@ title: Query Parameters
 Current as of `Nov 17th, 2022`
 
 
-Query parameters are used to pass data from the relying party to Firefox Accounts.
+Query parameters are used to pass data from the relying party to Mozilla accounts.
 
 ## OAuth parameters
 
@@ -89,7 +89,7 @@ When authenticating a user
 
 ### `entrypoint`
 
-If they user arrived at Firefox Accounts from within Firefox browser chrome, specify where in Firefox the user came from.
+If they user arrived at Mozilla accounts from within Firefox browser chrome, specify where in Firefox the user came from.
 
 ### `entrypoint_experiment` and `entrypoint_variation`
 
@@ -121,7 +121,7 @@ Specify a profile field to make editable.
 
 #### When to specify
 
-If Firefox Accounts is opened to `/settings` and a profile field should be made editable.
+If Mozilla accounts is opened to `/settings` and a profile field should be made editable.
 
 - /settings
 
@@ -129,14 +129,14 @@ If Firefox Accounts is opened to `/settings` and a profile field should be made 
 
 ### `context`
 
-Specify an alternate context in which Firefox Accounts is being run, if not as a standard web page.
+Specify an alternate context in which Mozilla accounts is being run, if not as a standard web page.
 
 #### Options
 
-- `fx_desktop_v3` - Firefox Accounts is being used to sign in to Sync on
+- `fx_desktop_v3` - Mozilla accounts is being used to sign in to Sync on
   Firefox Desktop using WebChannels. Used to add the `syncPreferencesNotification`
   capability
-- `fx_ios_v1` - Firefox Accounts is being used to sign in to Sync on Firefox
+- `fx_ios_v1` - Mozilla accounts is being used to sign in to Sync on Firefox
   for iOS using CustomEvents.
 
 ### `email`

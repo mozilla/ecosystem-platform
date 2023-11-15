@@ -23,7 +23,7 @@ This simplifies client handling of the token since it only has to persist a sing
 
 ## Token Types
 
-Firefox Accounts uses a number of different types of tokens to keep track of whether a user has been authenticated,
+Mozilla accounts uses a number of different types of tokens to keep track of whether a user has been authenticated,
 and of what actions a client is authorized to perform. 
 
 The most important types of tokens for FxA Replying Parties to know about are:
@@ -53,7 +53,7 @@ of token:
 
 ### Session Tokens
 
-A `sessionToken` is the Firefox Accounts equivalent of traditional website login session cookie - it represents
+A `sessionToken` is the Mozilla accounts equivalent of traditional website login session cookie - it represents
 the user who is currently signed in to accounts.firefox.com, and it used to authenticate many calls from the
 FxA front-end website to the FxA back-end API.
 
@@ -244,7 +244,7 @@ to access a protected resource. More information can be found in the section tit
 
 #### Claims within a JWT access token
 
-Firefox Accounts largely follows the IETF JWT access token draft spec's
+Mozilla accounts largely follows the IETF JWT access token draft spec's
 [Data Structure](https://tools.ietf.org/html/draft-bertocci-oauth-access-token-jwt-00#section-2.2).
 
 - `aud` - audience. By default the `client_id` of the Relying Party (RP). If a RP specifies

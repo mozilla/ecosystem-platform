@@ -6,13 +6,13 @@ Current as of `Jan 20th, 2020`
 
 ## Document purpose
 
-This is a starting point for developers and contributors of the Firefox Accounts Content Server. The content-server
+This is a starting point for developers and contributors of the Mozilla accounts Content Server. The content-server
 is responsible for displaying the authentication/authorization and account settings related UI to the user.
 
 ## Helpful to know before starting
 
 At a high level, FxA is an [authentication (authn) and authorization (authz) system](https://stackoverflow.com/questions/6556522/authentication-versus-authorization). This means a Relying Party (RP) such as Firefox Sync delegates
-the responsibility for authenticating and authorizing users to Firefox Accounts. Once the user proves their
+the responsibility for authenticating and authorizing users to Mozilla accounts. Once the user proves their
 identity to FxA, we return one or more tokens the RP can use to access a "protected resource".
 The [OAuth 2.0 spec](https://tools.ietf.org/html/rfc6749) does a good job of explaining these concepts.
 
@@ -37,7 +37,7 @@ While FxA is an [OAuth 2.0 authorization server](https://tools.ietf.org/html/rfc
 only one of several [integration types](#relying-party-integrations) supported by FxA.
 For more information about how FxA came to support so many non-standard integrations, see the [App Services and FxA Unofficial History](https://docs.google.com/document/d/1jixykayGuyIGU8ecThHvvUpTeC4yq84KRalGr0Jh0xg/).
 
-Detailed [Maps of the FxA Universe](../reference/system-diagrams) outline how the various Firefox Accounts micro-services
+Detailed [Maps of the FxA Universe](../reference/system-diagrams) outline how the various Mozilla accounts micro-services
 fit together.
 
 ### Relying Party Integrations
@@ -75,7 +75,7 @@ The client app runs in modern Web capable systems, see [supported browsers](../r
 
 ### Auth-Brokers
 [Auth-Brokers](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/models/auth_brokers) have two primary responsibilities:
-1. Mediate communication between Firefox Accounts and the RP
+1. Mediate communication between Mozilla accounts and the RP
 2. Screen->screen state machine
 
 To minimize the complexity, each integration type has its own broker so that
@@ -120,7 +120,7 @@ It may also be that distinct state machines outside of brokers would have been a
 
 ### Channels
 
-A [channel](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/channels) is a two way communication mechanism between a RP and Firefox Accounts. The method of communication is channel specific.
+A [channel](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/channels) is a two way communication mechanism between a RP and Mozilla accounts. The method of communication is channel specific.
 
 There are channels to:
 
@@ -189,19 +189,19 @@ Communication with external servers are done via client libraries.
 
 #### fxa-js-client
 
-The [fxa-auth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-client) communicates with the Firefox Accounts [Auth Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
+The [fxa-auth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-client) communicates with the Mozilla accounts [Auth Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server/). The fxa-js-client is used for all aspects of authenticating a user - sign up, sign in, password reset, etc.
 
 #### oauth-client
 
-The [oauth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/oauth-client.js) used to communicate with the Firefox Accounts OAuth Server and now communicates with the OAuth endpoints on the Auth server. The OAuth client is used to fetch OAuth codes and tokens to send to the RP.
+The [oauth-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/oauth-client.js) used to communicate with the Mozilla accounts OAuth Server and now communicates with the OAuth endpoints on the Auth server. The OAuth client is used to fetch OAuth codes and tokens to send to the RP.
 
 #### [profile-client](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/profile-client.js)
 
-The profile-client communicates with the Firefox Accounts [Profile Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-profile-server/). This client allows a user to interact with their profile data.
+The profile-client communicates with the Mozilla accounts [Profile Server](https://github.com/mozilla/fxa/tree/main/packages/fxa-profile-server/). This client allows a user to interact with their profile data.
 
 ## Application lifecycle
 
-When the application starts, [app-start.js](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/app-start.js) takes care of setting up system-wide dependencies. app-start immediately determines the integration type and creates the appropriate [Broker](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L234) and [Relier](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L199). The broker is queried to check support of the current integration. If the integration is supported, other models and the [router](https://github.com/mozilla/qfxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L315) are created. The router takes over and determines the initial View to display based on the browser's URL. The router creates the View, which in turn writes a template to the DOM. The user interacts with the View, either by filling out a form or clicking on links and buttons. A view can communicate with external servers using clients or via an Account model. Views usually invoke broker methods to determine next steps, which could be to redirect to another view, display a status message, or stop. Upon successful authentication with Firefox Accounts, the broker is notified, which in turn notifies a RP. The RP is responsible for the final fate of the Firefox Accounts tab. In the case of OAuth redirect, FxA redirects to the RP. In the case of Sync or a WebExtension, the tab may be closed automatically, or the user may have to close the tab themselves.
+When the application starts, [app-start.js](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/app/scripts/lib/app-start.js) takes care of setting up system-wide dependencies. app-start immediately determines the integration type and creates the appropriate [Broker](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L234) and [Relier](https://github.com/mozilla/fxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L199). The broker is queried to check support of the current integration. If the integration is supported, other models and the [router](https://github.com/mozilla/qfxa/tree/main/packages/fxa-content-server/blob/8561ec3c1d06763f454f4ac7cb8ef142eb0c01b0/app/scripts/lib/app-start.js#L315) are created. The router takes over and determines the initial View to display based on the browser's URL. The router creates the View, which in turn writes a template to the DOM. The user interacts with the View, either by filling out a form or clicking on links and buttons. A view can communicate with external servers using clients or via an Account model. Views usually invoke broker methods to determine next steps, which could be to redirect to another view, display a status message, or stop. Upon successful authentication with Mozilla accounts, the broker is notified, which in turn notifies a RP. The RP is responsible for the final fate of the Mozilla accounts tab. In the case of OAuth redirect, FxA redirects to the RP. In the case of Sync or a WebExtension, the tab may be closed automatically, or the user may have to close the tab themselves.
 
 ## View Deepdive
 

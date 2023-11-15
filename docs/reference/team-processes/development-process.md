@@ -37,7 +37,7 @@ gantt
 
 ```
 
-Above is a chart illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Firefox Accounts.  Its intention is to give an idea of timeframes:
+Above is a chart illustrating the high level FxA development process.  It does not represent all the work each group does, nor does it show every group that is critical to shipping Mozilla accounts.  Its intention is to give an idea of timeframes:
 * Sprint starts are offset from production pushes by a week.  This gives a finished sprint time to be tested in Staging before going live.
 * Fixing regressions of the train on Stage is a higher priority than fixing new issues in the current train.  Depending on the regression's severity it may be picked to Stage, picked to Production, or just ride the train the following week.
 * The chart includes weekends because not everyone is in the same timezone.  People are not expected to work on weekends.
@@ -76,7 +76,7 @@ This isn't a comprehensive list but is a good selection to be aware of.  We shou
 
 Product-level feature planning is managed via Epics in Jira.  Each feature goes through a comprehensive series of steps from defining and designing, to building and QA, to measuring changes and results, and finally closing the Epic.
 
-We maintain roadmaps for what we're working on.  See what [Firefox Accounts][fxa-roadmap] or [Subscription Platform][subplat-roadmap] is working on now.
+We maintain roadmaps for what we're working on.  See what [Mozilla accounts][fxa-roadmap] or [Subscription Platform][subplat-roadmap] is working on now.
 
 ### New Features
 
@@ -239,11 +239,11 @@ When CI passes, merge the contributor's PR and close your temporary PR.
 
 ## Code Review
 
-This project is production Mozilla code and subject to our [engineering practices and quality standards][moz-standards].  Every patch must be [reviewed][moz-code-review] by an owner or peer of the [Firefox Accounts module][fxa-module].
+This project is production Mozilla code and subject to our [engineering practices and quality standards][moz-standards].  Every patch must be [reviewed][moz-code-review] by an owner or peer of the [Mozilla accounts module][fxa-module].
 
 ### Review Checklist
 
-Here are some handy questions and things to consider when reviewing code for Firefox Accounts:
+Here are some handy questions and things to consider when reviewing code for Mozilla accounts:
 
 * Did test coverage increase, or at least stay the same?
 * Does it introduce new user-facing strings or does it change any existing ones?
@@ -288,11 +288,11 @@ We use private github repos for developing security fixes and tagging security-r
 
 ### Filing security issues
 
-If you believe you have found a security-sensitive issue with any part of the Firefox Accounts service, please file it as confidential security bug in Bugzilla via this link:
+If you believe you have found a security-sensitive issue with any part of the Mozilla accounts service, please file it as confidential security bug in Bugzilla via this link:
 
 * [File a security-sensitive FxA bug][fxa-security-bug]
 
-The Firefox Accounts service is part of Mozilla's [bug bounty program][moz-bug-bounty], which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
+The Mozilla accounts service is part of Mozilla's [bug bounty program][moz-bug-bounty], which provides additional guidelines on [reporting security bugs][moz-sec-bugs].
 
 
 

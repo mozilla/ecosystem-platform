@@ -2,7 +2,7 @@
 title: Browser Support
 ---
 
-Firefox Accounts is required to work in at least the following environments:
+Mozilla accounts is required to work in at least the following environments:
 
 - Firefox Desktop ESR - 1
 - Firefox for Android ESR - 1

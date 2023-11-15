@@ -8,10 +8,10 @@ Last updated: `September 7th, 2023`
 
 ## Overview
 
-Firefox Accounts integration is available for Mozilla groups on request. This integration is handled using [OpenID Connect (OIDC)][openidconnect], [OAuth 2.0][oauth], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party] and/or a [Resource Server (RS)][resource server] depending on the type of integration, with FxA assuming the role of an OpenID Provider.
+Mozilla accounts integration is available for Mozilla groups on request. This integration is handled using [OpenID Connect (OIDC)][openidconnect], [OAuth 2.0][oauth], and [webhooks][webhook] for authentication, authorization, and receiving events regarding FxA users. Integrations with FxA assume the role of a [Relying Party (RP)][relying-party] and/or a [Resource Server (RS)][resource server] depending on the type of integration, with FxA assuming the role of an OpenID Provider.
 
 :::note
-This tutorial will help you integrate with Firefox Accounts but there are [additional requirements a relying party is expected to fulfill and maintain](/relying-parties/reference/integration-requirements).  Please ensure you're in compliance with expectations to continue uninterrupted service.
+This tutorial will help you integrate with Mozilla accounts but there are [additional requirements a relying party is expected to fulfill and maintain](/relying-parties/reference/integration-requirements).  Please ensure you're in compliance with expectations to continue uninterrupted service.
 :::
 
 ## Pre-Development
@@ -96,10 +96,10 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 0. Register for staging OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
 0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
 0. User authentication follows the [OpenID Connect][openidconnect] protocol.
-0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Firefox Accounts.
+0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Mozilla accounts.
 0. If you are [hosting your own login form](#self-hosted-email-first-flow) initialize and propagate the top of funnel metrics.
 0. [User data and account notifications are properly](#user-data-hygiene) handled and compliant with Firefox Account requirements.
-0. An icon suitable to display in Firefox Account’s [Connected Services][connected-services] list has been sent to Firefox Account developers.  Please confirm with Firefox Accounts what the current requirements are.
+0. An icon suitable to display in Firefox Account’s [Connected Services][connected-services] list has been sent to Firefox Account developers.  Please confirm with Mozilla accounts what the current requirements are.
 0. If multiple [Resource Servers][resource server] are accessed, create a distinct token for communicating with each server, limited to only the scopes required by that server.  This may mean dropping your initial access token and using a refresh token to get additional, less privileged access tokens.
 
 ### Preparing for Production
@@ -111,7 +111,7 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 ### User Authentication with OpenID Connect in a nutshell
 
 0. Create a state token (randomly generated and unguessable) and associate it with a local session.
-0. Send [/authentication request](#authorization-query-parameters) to Firefox Accounts. Upon completion, Firefox Accounts redirects back to your app with state and code.
+0. Send [/authentication request](#authorization-query-parameters) to Mozilla accounts. Upon completion, Mozilla accounts redirects back to your app with state and code.
 0. Confirm the returned state token by comparing it with the state token associated with the local session.
 0. Exchange the code for an access token and possibly a refresh token.
 0. If you asked for `scope=profile` you can fetch user profile information, using the access token, from the FxA Profile Server.
@@ -125,7 +125,7 @@ OAuth Client Credentials are needed for each application accessing FxA. For exam
 0. client_secret - a private secret that is sent from the backend when interacting with the OAuth server. Must not be shared publicly, checked into a public repository, or bundled with compiled code.
 
 ### Profile Data
-Firefox Accounts only stores core identity data and associated profile information about users. Firefox Accounts does not store user data specific to relying services. Core identity data stored in Firefox Accounts includes:
+Mozilla accounts only stores core identity data and associated profile information about users. Mozilla accounts does not store user data specific to relying services. Core identity data stored in Mozilla accounts includes:
 
 * a stable user identifier (uid)
 * the user provided email address
@@ -139,7 +139,7 @@ Firefox Accounts only stores core identity data and associated profile informati
 0. `client_id` (required)
 0. `scope` (required). This is a space separated string. Review the list of [scopes](#scopes).
 0. `state` (required).  This must be a randomly generated unguessable string.
-0. `entrypoint` (required).  This is for metrics purposes and should represent the service making the request.  This should be agreed upon by the Firefox Accounts team.
+0. `entrypoint` (required).  This is for metrics purposes and should represent the service making the request.  This should be agreed upon by the Mozilla accounts team.
 0. `email` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
 0. `flow_begin_time` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
 0. `flow_id` (required for [self hosted email-first flow](#self-hosted-email-first-flow))
@@ -232,7 +232,7 @@ Integrations that are acting as a [Resource Server][resource server] should indi
 ```mermaid
 sequenceDiagram
 participant UA as User-Agent<br>(Browser)
-participant FxA as Firefox Accounts
+participant FxA as Mozilla accounts
 participant RP as Relying Party
 
 UA->>RP: User visits site

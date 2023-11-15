@@ -7,7 +7,7 @@ Last updated: `June 21th, 2022`
 The [Customs server](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/README.md) is the service responsible for maintaining and implementing rate limiting in FxA.
 It was developed to help detect and deter [fraud and abuse](https://wiki.mozilla.org/Identity/Firefox_Accounts/Fraud_and_abuse).
 
-Currently, only it is used by the [Firefox Accounts Auth Server](https://github.com/mozilla/fxa-auth-server).
+Currently, only it is used by the [Mozilla accounts Auth Server](https://github.com/mozilla/fxa-auth-server).
 
 The Customs server uses a sliding window to keep track of the current count of a specific type of action and trims the count as needed.
 

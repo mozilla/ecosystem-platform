@@ -38,7 +38,7 @@ Currently, only Stripe and PayPal subscriptions are reflected in these explores.
 
 ### SubPlat Checkout dashboard
 
-The Checkout dashboard leverages the Firefox Accounts > All Event Counts explore in Looker and is based on user events pulled from SubPlat's application logs, so it allows us to see information like:
+The Checkout dashboard leverages the Mozilla accounts > All Event Counts explore in Looker and is based on user events pulled from SubPlat's application logs, so it allows us to see information like:
 * Conversion funnel events during checkout
 * New subscriber acquisition
 * Errors encountered during checkout

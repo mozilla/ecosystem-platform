@@ -38,7 +38,7 @@ Before diving into [features](sub-plat-features.md) and [integration](../tutoria
 
 ### Relying Party
 
-A [relying party (RP)][relying-party] is any service that uses Firefox Accounts. This can be a free or subscription service. Firefox Monitor, Mozilla VPN and Firefox Sync are all examples of relying parties.
+A [relying party (RP)][relying-party] is any service that uses Mozilla accounts. This can be a free or subscription service. Firefox Monitor, Mozilla VPN and Firefox Sync are all examples of relying parties.
 
 ### Product
 

@@ -6,7 +6,7 @@ Current as of `April 17, 2023`
 
 # Communication with Firefox via WebChannels
 
-Firefox Accounts communicates with Firefox desktop and Fennec using [WebChannels](https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/WebChannel.jsm). WebChannels provide secure two-way communication between the browser and web content. Messages sent from content to the browser utilize `WebChannelMessageToChrome` custom events. Messages sent from the browser to content utilize `WebChannelMessageToContent` custom events.
+Mozilla accounts communicates with Firefox desktop and Fennec using [WebChannels](https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/WebChannel.jsm). WebChannels provide secure two-way communication between the browser and web content. Messages sent from content to the browser utilize `WebChannelMessageToChrome` custom events. Messages sent from the browser to content utilize `WebChannelMessageToContent` custom events.
 
 ## Firefox Desktop
 
@@ -82,7 +82,7 @@ Sent on signin or signup after a user has entered their credentials and submit t
 
 #### fxaccounts:login
 
-Sent when a user successfully authenticates with Firefox Accounts and sync can begin. This includes after a user signs up but before they verify their email address, after an account unlock, and after a password reset. No response is expected.
+Sent when a user successfully authenticates with Mozilla accounts and sync can begin. This includes after a user signs up but before they verify their email address, after an account unlock, and after a password reset. No response is expected.
 
 ##### data
 

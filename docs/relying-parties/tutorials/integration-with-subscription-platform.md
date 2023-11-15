@@ -16,7 +16,7 @@ First thing's first. File an FxA ticket in Jira. This ticket can be used to trac
 
 #### Have a kickoff meeting
 
-Once your ticket is filed, you should have had a RRA-style meeting with the Firefox Accounts team. During or shortly after this meeting, an initial subscription capability string or strings should be agreed upon.
+Once your ticket is filed, you should have had a RRA-style meeting with the Mozilla accounts team. During or shortly after this meeting, an initial subscription capability string or strings should be agreed upon.
 
 We will use this meeting to do the following:
 

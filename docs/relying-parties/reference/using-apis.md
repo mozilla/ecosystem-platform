@@ -13,11 +13,11 @@ If these rules change significantly we'll notify the [firefox-accounts-notices g
 
 ## API versioning
 
-Firefox Accounts APIs are versioned and breaking changes will be pushed out in newer versions of the APIs.  When newer versions of the API are announced we'll also communicate how long we will support the older versions of the APIs.
+Mozilla accounts APIs are versioned and breaking changes will be pushed out in newer versions of the APIs.  When newer versions of the API are announced we'll also communicate how long we will support the older versions of the APIs.
 
 ### Minor changes
 
-Firefox Accounts may change existing APIs in non-breaking ways, for example, adding a new field to a JSON response.  It's expected that clients will not fail if new fields are added.
+Mozilla accounts may change existing APIs in non-breaking ways, for example, adding a new field to a JSON response.  It's expected that clients will not fail if new fields are added.
 
 
 ## Global Rate Limits

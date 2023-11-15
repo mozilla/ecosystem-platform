@@ -4,7 +4,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: 'Firefox Ecosystem Platform',
-  tagline: 'Documentation for Firefox Accounts, Sync and more',
+  tagline: 'Documentation for Mozilla accounts, Sync and more',
   url: 'https://mozilla.github.io',
   baseUrl: '/ecosystem-platform/',
   onBrokenLinks: 'warn',

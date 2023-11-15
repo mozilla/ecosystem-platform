@@ -4,13 +4,13 @@ title: Metrics
 
 Last updated: `Oct 6th, 2023`
 
-Firefox accounts collects metrics from servers running our code and clients accessing our services.  Mozilla takes data collection seriously so our policies and processes around it may seem more complex than most organizations but it is in an effort to grant agency to users over their own data.
+Mozilla accounts collects metrics from servers running our code and clients accessing our services.  Mozilla takes data collection seriously so our policies and processes around it may seem more complex than most organizations but it is in an effort to grant agency to users over their own data.
 
-Note that the [Mozilla Data Collection policies](https://wiki.mozilla.org/Data_Collection) apply to Firefox Accounts.
+Note that the [Mozilla Data Collection policies](https://wiki.mozilla.org/Data_Collection) apply to Mozilla accounts.
 
 Our code is deployed to a staging environment before it goes to production so the metrics detailed below are available for both environments.  The details below will focus mostly on production.
 
-Keep in mind that Firefox accounts allows users to opt-out of data collection via a toggle on the account settings page.
+Keep in mind that Mozilla accounts allows users to opt-out of data collection via a toggle on the account settings page.
 
 We also have a [metrics section which expands on the history of our system and how these are implemented](../explanation/metrics).
 
@@ -20,7 +20,7 @@ We also have a [metrics section which expands on the history of our system and h
 This is all undergoing major changes now with the move to GCP as well as FxA's migration to using Glean.  Hopefully we can remove this message in 2024 and simplify these docs, though it is unclear if/when SubPlat will migrate to using Glean.
 :::
 
-These are logs from Firefox accounts code.  These are probably the most useful logs for product decision making as they were written by hand by engineers.  They are also the most complex.
+These are logs from Mozilla accounts code.  These are probably the most useful logs for product decision making as they were written by hand by engineers.  They are also the most complex.
 
 * Example data recorded
   * See the [taxonomies in the Mozilla Data Docs](https://docs.telemetry.mozilla.org/datasets/fxa.html).
@@ -34,7 +34,7 @@ These are logs from Firefox accounts code.  These are probably the most useful l
   * Additionally, there are some [user-facing datasets](https://github.com/mozilla/bigquery-etl/tree/main/sql/moz-fx-data-shared-prod/firefox_accounts) of that same data, and also in `mozdata`, which are designed to be easier to use.
 * Accessible via
   * [BigQuery](https://console.cloud.google.com/bigquery?).  Look for the `firefox_accounts` dataset in the `mozdata` project.  *Be aware that there are large amounts of data in BigQuery and you can spend a lot of money if you don't restrict your queries.*
-  * Looker is backed by BigQuery and there is a [Firefox Accounts folder](https://mozilla.cloud.looker.com/folders/374) there.
+  * Looker is backed by BigQuery and there is a [Mozilla accounts folder](https://mozilla.cloud.looker.com/folders/374) there.
     * Subscription Platform dashboards are located in the [Subscription Platform folder](https://mozilla.cloud.looker.com/folders/1355). See also [Subscription product metrics](#subscription-product-metrics).
   * There are [several dashboards in grafana](https://earthangel-b40313e5.influxcloud.net/?orgId=1&search=open&query=fxa) with a mix of these metrics on them
   * See the section below about raw logs also
@@ -116,7 +116,7 @@ More information can be found in the [SubPlat consolidated reporting ETL design 
 Logical subscriptions reflect one subscription per Stripe subscription item. So if a single Stripe subscription has two subscription items, this would be two separate logical subscriptions in these explores. This is in anticipation of potential support in the future for consolidated billing where each subscription item is effectively a separate subscription billed with a single invoice.
 :::
 
-#### Firefox Accounts > All Event Counts explores
+#### Mozilla accounts > All Event Counts explores
 
 These data are events pulled out of FxA application logs (see [Application metrics](#application-metrics)). There is currently one explore that we use for the SubPlat dashboard: [All Event Counts](https://mozilla.cloud.looker.com/explore/firefox_accounts/all_event_counts).
 

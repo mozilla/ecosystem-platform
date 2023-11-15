@@ -104,7 +104,7 @@ Oftentimes a user will report losing their password and being locked out of thei
 
 ### Connected Services
 
-This section shows all the active devices that have been authorized with Firefox accounts. A connected device might be a browser, an app, or a third party product (also known as a relying party), that authenticates with Firefox accounts. This section will give an overview of all the devices that are currently connected.
+This section shows all the active devices that have been authorized with Mozilla accounts. A connected device might be a browser, an app, or a third party product (also known as a relying party), that authenticates with Mozilla accounts. This section will give an overview of all the devices that are currently connected.
 
 ![connected services screen capture](../assets/admin-panel/image9.png "image_tooltip")
 
@@ -185,7 +185,7 @@ This section simply displays a history of recent key account events such as crea
 
 ### Linked Accounts
 
-This section shows accounts that have linked through OAuth. Firefox accounts support logging in with [OAuth](https://en.wikipedia.org/wiki/OAuth) from a google account or an apple account. When a user authenticates via OAuth, the third party account that they used for authorization will be considered linked and will  show up here.
+This section shows accounts that have linked through OAuth. Mozilla accounts support logging in with [OAuth](https://en.wikipedia.org/wiki/OAuth) from a google account or an apple account. When a user authenticates via OAuth, the third party account that they used for authorization will be considered linked and will  show up here.
 
 ![linked accounts screen capture](../assets/admin-panel/image12.png "image_tooltip")
 

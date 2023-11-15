@@ -2,15 +2,15 @@
 title: Scoped Keys
 ---
 
-## Scoped Encryption Keys for Firefox Accounts
+## Scoped Encryption Keys for Mozilla accounts
 
-The ability to provide secure access to per-user encryption keys is a major differentiator for Firefox Accounts over other identity providers.  Indeed, the requirement for client-side encryption keys in Firefox Sync is the main reason that Mozilla develops Firefox Accounts in-house rather than using an existing identity system.
+The ability to provide secure access to per-user encryption keys is a major differentiator for Mozilla accounts over other identity providers.  Indeed, the requirement for client-side encryption keys in Firefox Sync is the main reason that Mozilla develops Mozilla accounts in-house rather than using an existing identity system.
 
 However, it's currently hard to use this capability for any application other than Firefox Sync,  because key material can only be accessed through a bespoke authorization protocol that is:
 * **Complex to implement.**  The application has to either directly perform cryptographic operations on the user's account credentials, or to embed web content from accounts.firefox.com.  Keys are not available in the OAuth authorization flow which we prefer to use for new application integrations.
 * **Far too powerful.**  The protocol gives the application complete control of the user's Firefox Account, and hands it a copy of their master key material.  There is currently no provision for scoping access down to a subset of data or capabilities.
 
-Since end-to-end encryption is an important part of Mozilla's story around user privacy and security, we want to make it ***easier*** for the next generation of Firefox applications to use the encryption capabilities offered by Firefox Accounts, while giving users ***more control*** over the  capabilities granted to each application.
+Since end-to-end encryption is an important part of Mozilla's story around user privacy and security, we want to make it ***easier*** for the next generation of Firefox applications to use the encryption capabilities offered by Mozilla accounts, while giving users ***more control*** over the  capabilities granted to each application.
 
 From short-term to long-term, the things we'd like to support with this work are:
 
@@ -20,13 +20,13 @@ From short-term to long-term, the things we'd like to support with this work are
 * Allow new applications to access a user's sync data in a controlled way, with explicit user permission.
   * Example: a new version of the "Prox" mobile app that can pull down the user's history information to make better suggestions, but is not able to access other data from Firefox Sync.
   * Example: a single-page-web-app bookmarks viewer that can pull in bookmarks data from Firefox Sync.
-* Encourage an ecosystem of third-party applications that can easily incorporate end-to-end encryption by securely obtaining key material from Firefox Accounts.
+* Encourage an ecosystem of third-party applications that can easily incorporate end-to-end encryption by securely obtaining key material from Mozilla accounts.
 
 To achieve this, we propose an extension to the standard OAuth authorization flow by which relying applications can obtain encryption keys in a secure and controlled manner.
 
 ### Background
 
-We assume some familiarity with the basic data model of Firefox Accounts, as described in the [onepw protocol document][onepwprotocol].
+We assume some familiarity with the basic data model of Mozilla accounts, as described in the [onepw protocol document][onepwprotocol].
 
 While there is significantly more detail at the above link, the main points necessary for understanding our proposal are:
 
@@ -55,7 +55,7 @@ Constructing the master key material `kB` from two separate components in this m
 
 Of course, these security properties depend on the FxA web content behaving as described and assume that the user trusts this code not to be malicious.  A discussion about ensuring the trustworthiness of FxA web content would be both very interesting, and very beyond the scope of this document.
 
-We intend all new applications to connect to Firefox Accounts and attached services via OAuth, so we assume familiarity with the [OAuth 2.0 standard][oauth2-standard] and will be proposing an extension of it in this document.  We will use the [Javascript Object Signing and Encryption ("JOSE")][jose] family of specifications for the details of cryptographic operations and data formats.
+We intend all new applications to connect to Mozilla accounts and attached services via OAuth, so we assume familiarity with the [OAuth 2.0 standard][oauth2-standard] and will be proposing an extension of it in this document.  We will use the [Javascript Object Signing and Encryption ("JOSE")][jose] family of specifications for the details of cryptographic operations and data formats.
 
 ### Requirements
 
@@ -66,7 +66,7 @@ The purpose of this document is thus twofold:
 * To propose a way to derive multiple purpose-specific keys from this single source of master key material, so we can use distinct keys for distinct applications.
 * To propose a protocol for delivering these keys to applications that is easy for them to integrate, while keeping the user in control of what capabilities are granted to which applications.
 
-To support the desired range of target applications, and to maintain the existing security properties of the Firefox Accounts system, we will observe the following requirements when designing the extended authorization flow:
+To support the desired range of target applications, and to maintain the existing security properties of the Mozilla accounts system, we will observe the following requirements when designing the extended authorization flow:
 
 * We must maintain the core security promise of the existing FxA protocol: ***key material is never seen by the FxA server***.
   * Key material may, however, be handled by client-side web content from accounts.firefox.com, and the user trusts that said code is not malicious.
@@ -99,7 +99,7 @@ We will use this as the basis for our data model:
 
 > ***Some OAuth scopes have a corresponding bundle of key material, which an application will receive when the user grants its request for that scope.***
 
-Precisely which scopes exist, and which have corresponding key material, is an implementation decision that is left to the identity provider.  For Firefox Accounts we intend to derive scope-specific key material from the user's master key `kB`, but this is an implementation detail that is not exposed to relying applications.
+Precisely which scopes exist, and which have corresponding key material, is an implementation decision that is left to the identity provider.  For Mozilla accounts we intend to derive scope-specific key material from the user's master key `kB`, but this is an implementation detail that is not exposed to relying applications.
 
 Using scopes to define what keys can be accessed by which applications has a number of advantages, and maps well to the existing shape of our OAuth infrastructure:
 * We already have a screen that prompts the user what permissions to grant during the OAuth flow, which will extend quite naturally to granting keys.
@@ -109,9 +109,9 @@ Using scopes to define what keys can be accessed by which applications has a num
 
 We'll follow prior art from [Google’s OAuth 2.0 scopes][googles-oauth2-scopes] and use URIs to represent permissions that relate to a specific service operated by Mozilla, and short literal strings to represent special permissions that relate directly to the relying application.  We currently have the following specific use-cases in mind:
 
-* ***App-specific keys***.  A relying application may request the special `app_key` scope in order to get a unique key just for its own use, and would depend on Firefox Accounts to ensure this key is not shared with other applications.  Only applications that share a redirect_uri origin would be able to access the same `app_key` key.
+* ***App-specific keys***.  A relying application may request the special `app_key` scope in order to get a unique key just for its own use, and would depend on Mozilla accounts to ensure this key is not shared with other applications.  Only applications that share a redirect_uri origin would be able to access the same `app_key` key.
 * ***Firefox Notes***.  This application consists of a new server-side storage API and corresponding client-side application code.  The application will request the scope `https://identity.mozilla.com/apps/notes` which will allow it to retrieve both some purpose-specific encryption keys, and an OAuth token that can be used to access the storage API.
-* ***Sync keys***.  A relying application may request the scope `https://identity.mozilla.com/apps/sync` in order to get access to the user's sync data.  In this case Firefox Accounts would be responsible for ensuring that it provides the same encryption keys as used by existing sync clients, to ensure backwards compatibility.
+* ***Sync keys***.  A relying application may request the scope `https://identity.mozilla.com/apps/sync` in order to get access to the user's sync data.  In this case Mozilla accounts would be responsible for ensuring that it provides the same encryption keys as used by existing sync clients, to ensure backwards compatibility.
 
 So we'll end up with a set of supported scopes that looks something like this:
 
@@ -263,7 +263,7 @@ FxA web content submits this JWE back to the server when authorizing the OAuth g
 Location: https://example.com/oauth_complete?state=XYZ987&code=ABC123
 ```
 
-The client application receives the redirect, checks the "state" token against its local state, and posts the authorization code to the Firefox accounts server:
+The client application receives the redirect, checks the "state" token against its local state, and posts the authorization code to the Mozilla accounts server:
 
 ```text
 POST /authorization HTTP/1.1
@@ -378,7 +378,7 @@ With that general definition set, let's now look at some concrete instantiations
 
 To allow other teams to quickly prototype new applications that use end-to-end encryption and bootstrap from the existing FxA user-base, we want to allow application-specific keys to be obtained without having to coordinate any special configuration changes in FxA.
 
-From the point-of-view of the relying application, it need only request the special scope `app_key` in order to receive a unique key just for its own use.  Internally to Firefox Accounts, we will allocate a unique ***scoped_key_identifier*** for that application and use it to generate its key.
+From the point-of-view of the relying application, it need only request the special scope `app_key` in order to receive a unique key just for its own use.  Internally to Mozilla accounts, we will allocate a unique ***scoped_key_identifier*** for that application and use it to generate its key.
 
 We will uniquely identify an application by the origin of its redirect URI, allowing a single logical "application" to be associated with multiple OAuth client_ids while preventing unrelated applications from accessing each other's keys.  For example, the "lockbox" application would have separate client_id values for its mobile applications and the desktop WebExtension, all of which share an origin for their redirect_uri:
 
@@ -388,7 +388,7 @@ We will uniquely identify an application by the origin of its redirect URI, allo
 | cb1f2de3bdb32a5c | Lockbox for Android | `https://lockbox.mozilla.com/oauth/android` |
 | ed0568ab029eecd8 | Lockbox for iOS | `https://lockbox.mozilla.com/oauth/ios` |
 
-When one of these client_ids requests the `app_key` scope, the Firefox Accounts server will:
+When one of these client_ids requests the `app_key` scope, the Mozilla accounts server will:
 
 * Look up the corresponding ***redirect_uri***, and extract its origin as ***app_origin***.
 * Calculate ***scoped_key_identifier*** = `app_key: + urlencode(app_origin)`
@@ -457,7 +457,7 @@ xdzRUcE56czNBVXlDYWUxX3NHMmI5RnpocTNGeW8iLCJ5IjoicTk5WHExUld
 OVEZwazk5cGRRT1NqVXZ3RUxzczUxUGttQUdDWGhMZk1WNCJ9'
 ```
 
-Thus, it will begin the OAuth dance by redirecting to Firefox Accounts at the following URL:
+Thus, it will begin the OAuth dance by redirecting to Mozilla accounts at the following URL:
 
 ```text
 GET https://accounts.firefox.com/oauth/signin?client_id=a4dea33c7b40fc34

@@ -14,7 +14,7 @@ Incident response at Mozilla is a bit of a moving target at the time of this wri
 0. Once the incident is resolved, have a _post-mortem_ or _root cause analysis_(RCA) meeting to discuss what happened and how to avoid it in the future.  Take notes in the incident document on the meeting and future action items.
 0. Add your incident to [this list][fx-incident-reports].
 
-Generally that's where the documented process ends.  This can lead to a failure to follow up on action items that come out of the incident.  To avoid that, Firefox Accounts extends the process:
+Generally that's where the documented process ends.  This can lead to a failure to follow up on action items that come out of the incident.  To avoid that, Mozilla accounts extends the process:
 
 0. File an epic in Jira with either a descriptive title or "Incident _%DATE%_".
     0. Add a description linking to the incident document

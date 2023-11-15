@@ -46,9 +46,9 @@ There are a few more private diagrams maintained by the operations group about
 how we have our cloud services set up. If you're an employee, you can see
 them here:
 
-- [Firefox Accounts Auth Server Logical Diagram][fxa_auth_diagram]
-- [Firefox Accounts Content Server Logical Diagram][fxa_content_diagram]
-- [Firefox Accounts Profile Server Logical Diagram][fxa_profile_diagram]
+- [Mozilla accounts Auth Server Logical Diagram][fxa_auth_diagram]
+- [Mozilla accounts Content Server Logical Diagram][fxa_content_diagram]
+- [Mozilla accounts Profile Server Logical Diagram][fxa_profile_diagram]
 
 [fxa_auth_diagram]: https://mana.mozilla.org/wiki/display/SVCOPS/FxA+Auth+Server+Logical+Diagram
 [fxa_content_diagram]: https://mana.mozilla.org/wiki/display/SVCOPS/FxA+Content+Server+Logical+Diagram

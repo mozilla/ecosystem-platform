@@ -10,7 +10,7 @@ As of November 2021, Subscription Platform (SubPlat) supports [Google IAP](https
 
 Importantly, Google provides read-only access to Google IAP subscriptions. Consequently, we do not (and cannot) modify Google IAP subscriptions (e.g. making plan changes such as upgrades).
 
-A more technical discussion (geared toward Firefox Accounts (FxA) engineers) can be found in [Google IAP Integration](/ecosystem-platform/tutorials/subscription-platform#google-iap-integration).
+A more technical discussion (geared toward Mozilla accounts (FxA) engineers) can be found in [Google IAP Integration](/ecosystem-platform/tutorials/subscription-platform#google-iap-integration).
 
 ### Recent changes to Google Play Billing Library
 

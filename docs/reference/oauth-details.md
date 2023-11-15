@@ -78,7 +78,7 @@ Each authorization grant in OAuth has an associated "scope", a list containing o
 
 As defined in [RFC6749 Section 3.3](https://tools.ietf.org/html/rfc6749#section-3.3), the scope of a token is expressed as a list of space-delimited, case-sensitive strings, and it is left up to the service to define the format and semantics of the individual scope values that make up this string.
 
-This document defines the scope values accepted in the Firefox Accounts ecosystem, and the rules for parsing and validating them.
+This document defines the scope values accepted in the Mozilla accounts ecosystem, and the rules for parsing and validating them.
 
 ### Short-name scope values
 
@@ -225,7 +225,7 @@ A Pairwise Pseudonymous Identifier (PPID) is defined in the [OpenID Connect Spec
 
 Put another way, PPIDs provide a single user with distinct userids across distinct Relying Parties (RPs), enhancing user privacy by preventing cross-site correlation based on userid.
 
-By default, Firefox accounts provides the same userid to all Mozilla-internal RPs to facilitate cross service correlation. As Mozilla expands its product offering to include white labeled 3rd party services, we want to uphold Mozilla's principles regarding user privacy by providing external services with only the minimal data necessary.
+By default, Mozilla accounts provides the same userid to all Mozilla-internal RPs to facilitate cross service correlation. As Mozilla expands its product offering to include white labeled 3rd party services, we want to uphold Mozilla's principles regarding user privacy by providing external services with only the minimal data necessary.
 
 PPIDs allow Mozilla to enforce our privacy stance by providing each PPID enabled RP with a distinct userid for a given user. For example, a user that signs into 2 PPID enabled services would have 3 distinct userids:
 
@@ -239,7 +239,7 @@ PPIDs are returned as the `sub` claim within an [OIDC ID Token](https://openid.n
 
 ### Further enhancing privacy through PPID rotation
 
-User privacy can be further enhanced by preventing long term profiles from being built for a given user through PPID rotation. Firefox accounts supports two methods of PPID rotation, RP initiated, and server initiated.
+User privacy can be further enhanced by preventing long term profiles from being built for a given user through PPID rotation. Mozilla accounts supports two methods of PPID rotation, RP initiated, and server initiated.
 
 #### RP initiated PPID rotation
 
@@ -247,7 +247,7 @@ Any PPID enabled RP that receives JWT access tokens or OIDC ID tokens can initia
 
 #### Server initiated PPID rotation
 
-By default, Firefox accounts does not enforce sub rotation, but for sensitive RPs where long term user profiles are undesirable, Firefox accounts can enforce periodic rotation without depending on the RP to pass in a `ppid_seed`. The default period is 6 hours.
+By default, Mozilla accounts does not enforce sub rotation, but for sensitive RPs where long term user profiles are undesirable, Mozilla accounts can enforce periodic rotation without depending on the RP to pass in a `ppid_seed`. The default period is 6 hours.
 
 ### Ensuring 3rd parties are unable to access user information
 
@@ -278,20 +278,20 @@ If an RP requests two tokens in short succession, their `sub` claims could be di
 
 ### The future
 
-Firefox accounts does not currently support [sector identifiers](https://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg). Sector identifiers allow multiple client_ids to receive the same PPID, this would be useful if the RP has applications on multiple platforms, e.g., an app on Android, iOS, and an addon in Firefox.
+Mozilla accounts does not currently support [sector identifiers](https://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg). Sector identifiers allow multiple client_ids to receive the same PPID, this would be useful if the RP has applications on multiple platforms, e.g., an app on Android, iOS, and an addon in Firefox.
 
 
 ## PKCE Support
 
 > Proof Key for Code Exchange by OAuth Public Clients
 
-Firefox Accounts OAuth flow supports the [PKCE RFC7636](https://tools.ietf.org/html/rfc7636).  This feature helps us authenticate clients such as WebExtensions and Native apps and any other clients that do not have a server component or a secure way to store a `client_secret`.
+Mozilla accounts OAuth flow supports the [PKCE RFC7636](https://tools.ietf.org/html/rfc7636).  This feature helps us authenticate clients such as WebExtensions and Native apps and any other clients that do not have a server component or a secure way to store a `client_secret`.
 
 To better understand this protocol please read the [Proof Key for Code Exchange (RFC 7636) by Authlete Inc.](https://www.authlete.com/documents/article/pkce/index).
 
 You'll need to include support parameters `code_challenge_method`, `code_challenge` and `code_verifier`.
 
-At this time Firefox Accounts requires you to use the `S256` flow, we do not support the `plain` code challenge method.
+At this time Mozilla accounts requires you to use the `S256` flow, we do not support the `plain` code challenge method.
 
 ## prompt=none support
 
@@ -348,7 +348,7 @@ GET https://service.firefox.com/oauth/complete?state=2sfas415FSSF@A5f&error=logi
 
 #### Recovering from errors
 
-At this point, the RP knows the user must authenticate to Firefox Accounts before OAuth codes or access tokens are returned. The RP can generate a new `state` and try again without the `prompt=none` query parameter:
+At this point, the RP knows the user must authenticate to Mozilla accounts before OAuth codes or access tokens are returned. The RP can generate a new `state` and try again without the `prompt=none` query parameter:
 
 ```js
 GET https://accounts.firefox.com/authorization?client_id=ea3ca969f8c6bb0d&state=gASDF-3df@A5f&scope=profile&login_hint=conscious.chooser%40mozilla.com
@@ -396,7 +396,7 @@ RPs can protect themselves a little bit here by not using `prompt=none` unless t
 
 ### prompt=none and security
 
-For users that are already authenticated to Firefox Accounts, `prompt=none` bypasses the FxA authorization screen and redirects back to the RP without any user interaction. This behavior applies equally to users with 2FA enabled and could easily cause confusion with users. The Firefox Accounts team only enables the use of `prompt=none` for a service if both a good use case exists and the integration has been audited.
+For users that are already authenticated to Mozilla accounts, `prompt=none` bypasses the FxA authorization screen and redirects back to the RP without any user interaction. This behavior applies equally to users with 2FA enabled and could easily cause confusion with users. The Mozilla accounts team only enables the use of `prompt=none` for a service if both a good use case exists and the integration has been audited.
 
 ### Future directions
 

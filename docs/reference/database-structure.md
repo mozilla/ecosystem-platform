@@ -4,7 +4,7 @@ title: Database Structure
 
 Current as of `July 22nd, 2023`
 
-Below you'll find some ER diagrams of the Firefox Accounts and Subscription
+Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
 
 - You'll find very few enforced foreign keys.  This was a choice made a long

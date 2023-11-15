@@ -7,7 +7,7 @@ Current as of `Mar 17th, 2021`
 ## Pairing Flow Architecture
 
 The goal of the pairing flow is to allow users to quickly connect a mobile browser to Firefox Sync, without having to type their password,
-Firefox Accounts allows a mobile device to connect by pairing with an authenticated Firefox profile on their PC via scanning a QR code.
+Mozilla accounts allows a mobile device to connect by pairing with an authenticated Firefox profile on their PC via scanning a QR code.
 See the [Project Plan Document](https://docs.google.com/document/d/1mFf0sfEK8o1csXLeyK1x4GS9SUMIq4q8bu25LiydPew/edit#) for more information.
 
 The intended user flow operates as follows:
@@ -71,61 +71,61 @@ It is advised to read the following section while looking at the detail diagram.
 ```mermaid
 sequenceDiagram
     actor User
-    participant Firefox accounts on Desktop
+    participant Mozilla accounts on Desktop
     participant Firefox Desktop
     participant Channel Server
     participant OAuth Server
     participant Firefox Mobile
-    participant Firefox accounts on Mobile
+    participant Mozilla accounts on Mobile
 
     Firefox Desktop->>Channel Server: Create new websocket channel
     Channel Server->>Firefox Desktop: Return channel ID
     Firefox Desktop->>Firefox Desktop: Generate key, show QR
     Firefox Desktop->>Firefox Mobile: Send channel ID and key via QR code
     Firefox Mobile->>Firefox Mobile: Generate OAuth parameters
-    Firefox Mobile->>Firefox accounts on Mobile: Open FxA w/ OAuth and channel params
-    Firefox accounts on Mobile->>Channel Server: Connect to channel
-    Channel Server->>Firefox accounts on Mobile: 
-    Firefox accounts on Mobile->>Channel Server: pair:supp:request w/ OAuth params
+    Firefox Mobile->>Mozilla accounts on Mobile: Open FxA w/ OAuth and channel params
+    Mozilla accounts on Mobile->>Channel Server: Connect to channel
+    Channel Server->>Mozilla accounts on Mobile: 
+    Mozilla accounts on Mobile->>Channel Server: pair:supp:request w/ OAuth params
     Channel Server->>Firefox Desktop: 
     Firefox Desktop->>Firefox Desktop: Get account and device info
     Firefox Desktop->>Channel Server: pair:auth:metadata w/ account & device info
-    Channel Server->>Firefox accounts on Mobile: 
-    Firefox accounts on Mobile->>Firefox accounts on Mobile: Show confirmation screen
-    Firefox Desktop->>Firefox accounts on Desktop: Open FxA to pairing confirm screen
-    Firefox accounts on Desktop->>Firefox Desktop: fxaccounts:pair_supplicant_metadata
-    Firefox Desktop->>Firefox accounts on Desktop: Supp info received earlier in pair:auth:metadata
-    Firefox accounts on Desktop->>Firefox accounts on Desktop: Show confirmation screen    
+    Channel Server->>Mozilla accounts on Mobile: 
+    Mozilla accounts on Mobile->>Mozilla accounts on Mobile: Show confirmation screen
+    Firefox Desktop->>Mozilla accounts on Desktop: Open FxA to pairing confirm screen
+    Mozilla accounts on Desktop->>Firefox Desktop: fxaccounts:pair_supplicant_metadata
+    Firefox Desktop->>Mozilla accounts on Desktop: Supp info received earlier in pair:auth:metadata
+    Mozilla accounts on Desktop->>Mozilla accounts on Desktop: Show confirmation screen    
     
-    User->>Firefox accounts on Desktop: Confirms connection
-    Firefox accounts on Desktop->>Firefox Desktop: fxaccounts:pair_authorize
+    User->>Mozilla accounts on Desktop: Confirms connection
+    Mozilla accounts on Desktop->>Firefox Desktop: fxaccounts:pair_authorize
     Firefox Desktop->>Firefox Desktop: Encrypt key bundle using supp's keys_jwk
     Firefox Desktop->>OAuth Server: Authorize OAuth request w/ supp's OAuth params & encrypted key bundle
     OAuth Server->>Firefox Desktop: OAuth code/state
     Firefox Desktop->>Channel Server: pair:auth:authorize w/ OAuth state & code
-    Channel Server->> Firefox accounts on Mobile: 
+    Channel Server->> Mozilla accounts on Mobile: 
     
     note left of User: The pairing confirmations<br/> can happen in any order
-    User->> Firefox accounts on Mobile: Confirms other side
-    Firefox accounts on Mobile->>Channel Server: pair:supp:authorize
+    User->> Mozilla accounts on Mobile: Confirms other side
+    Mozilla accounts on Mobile->>Channel Server: pair:supp:authorize
     Channel Server->>Firefox Desktop: 
 
-    note left of Firefox accounts on Desktop: The heartbeat starts as soon as the confirmation screen is displayed.<br/>It helps web content surface errors and inform the remote user<br/>has accepted the pairing connection (pair:supp:authorize observed)
+    note left of Mozilla accounts on Desktop: The heartbeat starts as soon as the confirmation screen is displayed.<br/>It helps web content surface errors and inform the remote user<br/>has accepted the pairing connection (pair:supp:authorize observed)
     loop every second
-    Firefox accounts on Desktop->>Firefox Desktop: fxaccounts:pair_heartbeat
-    Firefox Desktop->>Firefox accounts on Desktop: suppAuthorized / [errors]
+    Mozilla accounts on Desktop->>Firefox Desktop: fxaccounts:pair_heartbeat
+    Firefox Desktop->>Mozilla accounts on Desktop: suppAuthorized / [errors]
     end
 
     rect rgb(191, 223, 255)
     note left of Firefox Mobile: [Optional] pair:auth:authorize observed AND this side confirmed
-    Firefox accounts on Mobile->>Firefox Mobile: Redirect to relier redirect_url w/ OAuth code, state
+    Mozilla accounts on Mobile->>Firefox Mobile: Redirect to relier redirect_url w/ OAuth code, state
     Firefox Mobile->>Firefox Mobile: Trade code for token and sign-in the user
     end
 
     rect rgb(191, 223, 255)
-    note left of Firefox accounts on Desktop: [Optional] suppAuthorized AND this side confirmed
+    note left of Mozilla accounts on Desktop: [Optional] suppAuthorized AND this side confirmed
     Firefox Desktop->>Firefox Desktop: Show complete screen
-    Firefox Desktop->>Firefox accounts on Desktop: fxaccounts:pair_complete
+    Firefox Desktop->>Mozilla accounts on Desktop: fxaccounts:pair_complete
     end
 
 ```
@@ -352,7 +352,7 @@ Description: Sent by the Supp once the pairing has been confirmed by the user on
 
 ### Desktop WebChannel messages
 
-On Desktop, the Firefox Accounts Web Content page communicates with the native code (which owns the pairing channel connection) using WebChannel.
+On Desktop, the Mozilla accounts Web Content page communicates with the native code (which owns the pairing channel connection) using WebChannel.
 WebChannel messages can only be initiated from the content side, however the native side can send a response.
 
 #### fxaccounts:pair_supplicant_metadata

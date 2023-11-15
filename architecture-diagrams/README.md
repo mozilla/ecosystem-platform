@@ -1,4 +1,4 @@
-# Firefox Accounts & Subscription Platform C4 Model
+# Mozilla accounts & Subscription Platform C4 Model
 
 The software architecture diagrams in FxA and SubPlat use the [c4 model](https://c4model.com) to separate layers and [structurizr](https://structurizr.com/) to render them.
 

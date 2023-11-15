@@ -2,7 +2,7 @@
 title: onepw Protocol
 ---
 
-# Firefox Accounts/Sync Protocol
+# Mozilla accounts/Sync Protocol
 
 This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the [FxA auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server). Clients use this protocol to prove their knowledge of the account password, for which they receive a `sessionToken`, which can be used to obtain a signed BrowserID certificate (which can be used to convince subsequent relying parties that they control the account). This protocol is also used to retrieve a pair of encryption keys (`kA` and `kB`) which will be used to encrypt Sync data.
 
@@ -360,14 +360,14 @@ Given the Sync legacy of full-strength random keys, exchanged with J-PAKE pairin
 * Passwords. All security, even against (rate-limited) online attacks, is limited by the strength of the user's password. old-Sync (nominally) had no passwords, and no practical amount of guessing would yield the account's encryption key.  Moderate-strength passwords can benefit from expensive stretching, but users with a password of "123456" will probably lose control of their account no matter what we do.
 * Password Reuse. If a user has a strong password but it's not unique, there is a risk that it maybe compromised on another service. Old-Sync (nominally) had no passwords, and as such password reuse was not possible.
 * Weak client-side stretching: the server (or someone who successfully compromises it), or an attacker who can forge TLS certificates (or who records traffic and later learns the server's TLS private key), both get enough information to perform a dictionary attack that is only limited by the weak PBKDF-based stretch. This is relatively cheap.
-* Use of Password in a Web Context: when the client of this protocol runs inside a web page, rather than in browser chrome, a new set of attacks become possible. Compromised/coerced servers can quietly deliver modified pages which reveal the user's password to a waiting attacker. This becomes more likely as the scope of Firefox Accounts grows to include new use cases which preclude a chrome-only client (e.g. signing into Marketplace from other web browsers). This same problem exists with corrupted browser updates, of course, but it is nominally possible to download a browser from a trusted source and disable automatic updates, whereas it is not feasible to prevent or even detect surreptitious web-page tampering.
+* Use of Password in a Web Context: when the client of this protocol runs inside a web page, rather than in browser chrome, a new set of attacks become possible. Compromised/coerced servers can quietly deliver modified pages which reveal the user's password to a waiting attacker. This becomes more likely as the scope of Mozilla accounts grows to include new use cases which preclude a chrome-only client (e.g. signing into Marketplace from other web browsers). This same problem exists with corrupted browser updates, of course, but it is nominally possible to download a browser from a trusted source and disable automatic updates, whereas it is not feasible to prevent or even detect surreptitious web-page tampering.
 
 These weaknesses are the result of compromises. The features obtained in this bargain are:
 
 * recover account data (with the password) after losing your only device
 * add a new device without access to an old device
 * use slow/old clients (rather than doing expensive scrypt stretching client-side)
-* generalized Firefox Accounts, with more features than just Sync
+* generalized Mozilla accounts, with more features than just Sync
 
 ## vs. earlier SRP-based protocol
 
