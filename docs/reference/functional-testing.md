@@ -1,5 +1,5 @@
 ---
-title: "Functional Tests"
+title: "Functional Playwright Tests"
 ---
 
 Current as of `October, 2023`
@@ -395,3 +395,29 @@ test('open directly to /signup page, refresh on the /signup page', async ({
 ```
 
 By following these best practices, you can minimize the likelihood of race conditions in your Playwright tests and ensure more reliable and consistent test results.
+
+### Debugging Failed Tests in CircleCI: Best Practices
+
+When encountering a failed test in CircleCI, follow these systematic steps for effective debugging:
+
+1. Examine the Tests Section:
+**Initial Insight:** Start by investigating the **Tests** section to understand the nature of the error and if it's a result of a change through your or someone else's PR.
+*Tip:* Directly navigate to the failed test by clicking on it.
+
+2. Utilize the Artifacts Section:
+**Deeper Analysis:** If the error remains unclear, proceed to the **Artifacts** section and run the trace.
+*Tip:* Download the `trace.zip` file and visit `trace.playwright.dev` to upload the file, visualizing the test execution.
+
+3. Troubleshooting Beyond Tracing:
+**Team Collaboration:** If the trace doesn't provide sufficient insights, take these collaborative steps:
+- Post the issue in the `FXA-team` channel for collective input.
+- Engage the Test Engineering team to leverage their expertise.
+- Create a Jira ticket encapsulating all details and findings.
+- Temporarily disable the test using `test.skip()` and annotate it with the Jira ticket link.
+   ```ts
+   test.skip(); //FXA-8717
+   ```
+
+**Key Considerations:**
+> *Flaky Test Alert:* Be cautious, as CircleCI may tag failures as `Flaky` indiscriminately. Rely on personal debugging over this tag.
+> *Test Consistency Check:* After the initial investigation, rerun the test once to ensure consistency. A consistent failure indicates a genuine test issue, not a flaky one.
