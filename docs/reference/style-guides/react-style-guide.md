@@ -82,6 +82,142 @@ If `hooks.tsx` grows to be too large, consider storing them in a `hooks/` direct
 
 Why? Mixins introduce implicit dependencies, cause name clashes, and cause snowballing complexity. Most use cases for mixins can be accomplished in better ways via components, higher-order components, or utility modules.
 
+
+## Models
+
+In settings we have multiple models that we interact with. These models provide the following abstractions:
+ - Provide a way to access data stored elsewhere ie, local storage, query parameters, or even just in memory.
+ - Ensure that data is of a valid format
+ - Allows us to group data into logic blocks to  hopefully making application state easier to understand.
+ - Allows us to document access and usage of data
+ - Allows us to reuse logic for accessing data.
+
+Models can be found in fxa-settings the `src/models` folder, and always take a form like the following. (ClientInfo is a good example since it’s fairly small and illustrates all the key abstractions)
+
+```
+import {
+ IsOptional,
+ IsString,
+ IsBoolean,
+ IsHexadecimal,
+} from 'class-validator';
+import {
+ bind,
+ KeyTransforms as T,
+ ModelDataProvider,
+} from '../../lib/model-data';
+
+
+export class ClientInfo extends ModelDataProvider {
+ @IsOptional()
+ @IsHexadecimal()
+ @bind('id')
+ clientId: string | undefined;
+
+
+ // TODO - Validation - Needs @IsEncodedUrl()
+ @IsOptional()
+ @IsString()
+ @bind(T.snakeCase)
+ imageUri: string | undefined;
+
+
+ @IsOptional()
+ @IsString()
+ @bind('name')
+ serviceName: string | undefined;
+
+
+ // TODO - Validation - Needs @IsEncodedUrl()
+ @IsOptional()
+ @IsString()
+ @bind(T.snakeCase)
+ redirectUri: string | undefined;
+
+
+ @IsOptional()
+ @IsBoolean()
+ @bind()
+ trusted: boolean | undefined;
+}
+```
+
+A few key points here:
+
+ - Models always derive from ModelDataProvider. This is the base class that provides the magic for driving the @bind() decorators. More on bind decorators below.
+ - The class-validator decorators are used to ensure data integrity. More on class validators below.
+ - The bind decorator should always go last as the decorators are executed in reverse order.
+ - Multiple class validators can be applied.
+
+Here's an example of creating a model instance:
+
+```
+const data = new GenericData({});
+const model = new ClientInfo(data);
+```
+
+A couple things to note about creating models:
+ - Models always wrap a ‘data-store’. The data store is exactly as it sounds. It’s simply a class that provides data storage. All data stores inherit from the ModelDataStore class.
+ - At the time of writing we have several ModelDataStore implementations. They support storing data in UrlQueryParameters, LocalStorage, or in an object in memory.
+ - Creating new ModelDataStores should be pretty straightforward. Simply follow the patter defined by existing ones.
+
+### Bind Decorators
+
+The @bind() decorator is something we created for binding a field to data in the ModelDataStore that was provided when the model instance was instantiated. By default, with no arguments, the bind decorator simply looks up a key that correlates to the field name.
+
+For example, trusted would map to a ‘trusted’ field in the data store.
+
+```
+const data = new GenericData({ trusted: true });
+const model = new ClientInfo(data);
+console.log(model.trusted);
+// outputs: true
+```
+
+The bind decorator can also be instructed to bind to a specific field by bassing in string. Again this is most easily understood through example. In this case, the clientId field has @bind('id'), for its bind decorator.
+
+```
+data = new GenericData({ id: ‘123’ });
+model = new ClientInfo(data);
+console.log(model.clientId);
+// outputs: 123
+```
+
+Another way of customizing the bind decorator is through a ‘transform’ rule. A transform is simply a function that takes the field name, and converts a field name into a key name. For example, here are the two transforms we currently use:
+
+```
+export const KeyTransforms = {
+  snakeCase: (k: string) =>
+	k
+  	.split(/\.?(?=[A-Z])/)
+  	.join('_')
+  	.toLowerCase(),
+  lower: (k: string) => k.toLowerCase(),
+};
+```
+
+The redirectUri uses the ‘snakeCase’ transform for redirectUri. So for example:
+
+```
+const data = new GenericData({ redirect_uri: ‘mozilla.com’ });
+const model = new ClientInfo(data);
+console.log(model.clientId);
+// outputs: mozilla.com
+```
+
+### Class Validators Decorators
+
+
+We ensure class validation by using [class-validator](https://www.npmjs.com/package/class-validator) decorators. This is a commonly used npm package, so there’s no point in re-documenting the functionality in this package, but there are a couple notes to make:
+
+ - Works with bind decorator. Put the bind decorator last!
+ - Custom validators are pretty easy [to create](https://www.npmjs.com/package/class-validator#custom-validation-classes).
+ - The Decorators should be aligned with the field type.
+ - The checks are applied on write and read. This means if you try to access an invalid value, or try to write an invalid value an error will occur.
+ - If a validation error occurs, we can see the offending property name in the error state. It'll be held under 'property'.
+ - More often than not we need the @IsOptional(), since it’s likely that model data won’t be present 100% of the time.
+
+
 ## Naming
 
 This is a copy of what can be found in the [Airbnb styleguide](https://airbnb.io/javascript/react/#naming).
