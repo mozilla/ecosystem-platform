@@ -55,17 +55,18 @@ If applicable, the following entries can also be linked to the product offering:
 
 Once all entries are complete and ready to ship, be sure to set the status of all related content entries to the product offering to "Published". Once set to "Published" status, you may need to refresh the checkout page of the product offering to see the changes.
 
-### ... what if my product has multiple locales?
+### ... what if my product has only one locale? ...multiple locales?
 
-When creating the Offering for the product, select the countries that the product should be available in the Countries field.
+The sidebar of any entry will have a Translation section. Click "Change", confirm the locale(s) for the product are selected within the list of all locales, and save changes.
 
-In addition, the sidebar of any entry will have a Translation section. Check that "Multiple Locales" is selected in the dropdown, then click "Change", select/deselect the locales to include for the product, and save changes.
+:::note
+The list of selected locales are not specfic to a product; the locales will be applied to all Mozilla products within Subscription Platform. Please do not de-select locales on this list, as it will affect other products. Empty fields will default to the fallback text for `en-US`.
+:::
 
-Once saved, be sure to complete the translation fields in Common Content and Purchase Details, if applicable.
+Once saved, be sure to complete the translation fields for the locales specific to the product in Common Content and Purchase Details.
 
 If countries or locales are not included in the selection, please let us know in the `#subscription-platform` Slack channel.
 
-<img src={require('../../assets/subplat-contentful-single-locale.png').default} alt="Changing to multiple locales" width="400" />
 <img src={require('../../assets/subplat-contentful-locales.png').default} alt="Adding locales" width="400" />
 
 ### ... what if my product is currency-specific or a multiple currency offering?
