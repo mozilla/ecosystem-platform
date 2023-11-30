@@ -4,6 +4,10 @@ title: Database Structure
 
 Current as of `July 22nd, 2023`
 
+:::tip
+This page isn't rendering well and we can't upgrade the libraries yet because of upstream dependencies.  Try [this link](https://github.com/mozilla/ecosystem-platform/blob/master/docs/reference/database-structure.md) for a better view until this is fixed.
+:::
+
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
 
