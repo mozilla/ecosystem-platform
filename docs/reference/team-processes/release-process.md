@@ -17,7 +17,9 @@ If you are the designated release owner, consider the following suggestions to m
     * Things to consider asking:
         * Are there any tasks that need to be in the train? Are any of them in jeopardy of holding up the release from being tagged?
         * Is there anything I can do to help keep things moving?
-* 1-3 hours before tagging, check open PRs and let the team know you will be tagging at X time and ask that any missing notes in the deploy doc be added. Atypically, a critical patch may be very close to landing which may delay the tag by a few hours.
+* 1-3 hours before tagging, check open PRs, ping the PR authors directly and ensure that they will (or will not) land the PR in time for the 10am PT/1pm ET cutoff. Ping the team and let the team know you will be tagging at 10am PT/1pm ET. Ask that any missing notes in the deploy doc be added.
+   * **If a PR does not land in time, it will roll to the next release.**
+      * [Patch releases](#patch-releases) can be requested as necessary but they'll need to be justified according to the criteria
 
 :::tip
 If you're new to release ownership, check that you have access to the [`cloudops-deployment`][cloudops-deployment] and [`cloudops-infra`][cloudops-infra] repos. While not crucial, access to `cloudops-deployment` and `cloudops-infra` allows you to see PRs that may be listed in the deploy doc as well as make PRs in that repo when you make code changes that necessitate them.
