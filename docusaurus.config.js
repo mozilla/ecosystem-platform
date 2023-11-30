@@ -1,5 +1,6 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import {github as lightCodeTheme} from 'prism-react-renderer';
+import {dracula as darkCodeTheme}  from 'prism-react-renderer';
+import mdxMermaid from 'mdx-mermaid'
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
@@ -13,6 +14,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
   organizationName: 'mozilla',
   projectName: 'ecosystem-platform',
   trailingSlash: false,
+  markdown: {
+    mermaid: true
+  },
+  themes:['@docusaurus/theme-mermaid'],
 
   plugins: [
       [
@@ -37,7 +42,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/mozilla/ecosystem-platform/edit/master/',
-          remarkPlugins: [require('mdx-mermaid')],
+          remarkPlugins: [mdxMermaid],
         },
         blog: false,
         theme: {
