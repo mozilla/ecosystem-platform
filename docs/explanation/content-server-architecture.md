@@ -351,22 +351,4 @@ appropriately.
 
 ### Localization
 
-See [L10n in the content and auth servers](../reference/localization).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+See [localization reference materials](../reference/localization).
