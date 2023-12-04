@@ -2541,10 +2541,10 @@
   resolved "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.7.tgz"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
 
-"@types/react-helmet@^6.1.9":
-  version "6.1.9"
-  resolved "https://registry.npmjs.org/@types/react-helmet/-/react-helmet-6.1.9.tgz"
-  integrity sha512-nuOeTefP4yPTWHvjGksCBKb/4hsgJxSX7aSTjTIDFXJIkZ6Wo2Y4/cmE1FO9OlYBrHjKOer/0zLwY7s4qiQBtw==
+"@types/react-helmet@^6.1.10":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-6.1.10.tgz#60b6fc3a8a78ececc6d652789fdf54c562d76763"
+  integrity sha512-1qViSUxZ2ecsN107eQ16EccqJRfKtmf5Skh2Iv9BM8dEmp58czjBxvObRI6TZvdpZx+i42htAVVx1uLECovRBQ==
   dependencies:
     "@types/react" "*"
 
