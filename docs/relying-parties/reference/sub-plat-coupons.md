@@ -66,18 +66,24 @@ Please note that coupons have limitations. A fixed amount coupon of a certain cu
 
 ## Testing coupons
 
-In order for the coupons to work on local or staging you need to ensure to add them to the correct Stripe Account
+In order for coupons to work on local or staging, you need to ensure they are added to the correct Stripe Account:
 
-- **SUB_PLAT_STAGE** - Use this account in test mode to configure coupons that can be used on staging.
 - **SUB_PLAT_DEV** - Use this account in test mode to configure coupons that can be used on localhost.
+- **SUB_PLAT_STAGE** - Use this account in test mode to configure coupons that can be used on staging.
 - **Subscription Platform** - Use this account to configure coupons for production use.
+
+### Applying coupons to Checkout
+
+There are two ways to apply a coupon:
+
+1. **Coupon form** - Entering a coupon will produce one of two actions: success or fail. If a coupon is successfully validated, it will be applied and update payment details and total. The coupon form will then be updated to show the name of the applied coupon and a button with the option to remove it. If a coupon is unsuccessful, it will not be applied and an error message will appear below the form describing the reason for failing (e.g. expired, not valid, not applicable, etc.).
+2. **Optional query param** - You can add the `coupon` parameter to the URL to automatically apply the coupon on page load. For example: `coupon={code}` (see [Creating Coupon Codes](#creating-coupon-codes) for more information). If a valid coupon is applied to the URL, it will automatically be applied on page load, including update to the form as described above. If the coupon is included in the query, but invalid, it will be ignored and nothing will be updated on the page.
 
 ## Coupon validation
 
 - **$0 Invoices** - The system will allow a user to use a 100% off coupon whether it is a percentage or currency based discount.
 - **Invoice Minimums** - Stripe has a list of minimum and maximum charge amounts. This means that a discount coupon that goes below/above the minimum/maximums allowed will not allow the user to complete the subscription process. [Stripe documentation](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts)
 - **Monthly Repeating Coupons** - Monthly repeating coupons can only be applied to subscriptions that are billed monthly or daily. This will ensure that the user has an accurate representation of future billings. Since the discount is applied to the invoice, monthly repeating coupons will not alter a yearly subscription unless they repeat for 13+ months. This is the same for 6 month subscriptions.
-
 
 [team page]: /ecosystem-platform/docs/process/integration-with-subscription-platform
 [jira board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=360&projectKey=FXA&view=detail&quickFilter=1923#
