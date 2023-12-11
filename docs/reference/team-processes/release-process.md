@@ -35,7 +35,7 @@ If you're new to release ownership, check that you have access to the [`cloudops
 1. Click "Run workflow" in the top right.
 1. Watch the output of the action to make sure everything goes correctly.
 1. Check that all tests pass in [CircleCI](https://app.circleci.com/pipelines/github/mozilla/fxa).
-1. In case there is a test failure, look in the test artifacts on CI for the error.
+1. In case there is a test failure, look in the test artifacts on CI for the error. Here are the steps to [debug the test failures](https://mozilla.github.io/ecosystem-platform/reference/functional-testing#debugging-failed-tests-in-circleci-best-practices).
 1. Post about the failure in the slack channel(#fxa-team) for visibility.
 1. If it's a new issue, file a ticket.
 1. Once the code is tagged, all CI tests have passed, and the docker containers are built, you'll see messages in slack as it auto-deploys to our staging server.
