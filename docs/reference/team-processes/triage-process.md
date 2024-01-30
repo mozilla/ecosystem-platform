@@ -31,7 +31,7 @@ The triage owner should begin each day by checking whether there are any new urg
 
 If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority.
 
-If there are multiple S1s and S2s of seemingly equal importance and help is needed, inform clewis and/or the subplat-team channel.
+If there are multiple S1s and S2s of seemingly equal importance and help is needed, inform your manager and the team in the subplat-team channel.
 
 In general, the triage owner should be consistently checking whether there are new urgent or severe issues throughout the day, and be prepared to switch focus and/or redirect issues.
 
@@ -44,7 +44,7 @@ If necessary, feel free to rely on the team's general consensus of the urgency o
 Any issues picked up as Triage Owner which land within a Sprint boundary should be added to that Sprint in Jira. This sets clear expectations on when a ticket is available for testing in Staging and Production across Engineering and QA.
 
 :::note
-If an error, issue, work request, etc is reported to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
+If an error, issue, work request, etc., is reported to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
 :::
 
 ### FxA
@@ -52,7 +52,7 @@ If an error, issue, work request, etc is reported to our team in Slack, the firs
 In addition, the FxA triage owner is also responsible for:
 
 - Triaging new issues in FxA Bugzilla (as a team if there is time in the triage meeting)
-- Checking if there's any PRs, from team members or contributors, that don't have a reviewer, that you can help move along
+- Checking if there are any PRs (from team members or contributors) without a reviewer that you can help move along
 - Helping with Dependabot PRs
 - Assisting with any high priority bugs that come up during the sprint
 - Hanging out in the #fxa Matrix room
@@ -63,13 +63,13 @@ In addition, the SubPlat triage owner is also responsible for:
 
 - Grooming the Maintenance backlog
 - Asynchronous triage activities
-- File bugs for concerning Subscriptions-related issues identified in review of Stripe Webhooks Events, Sentry,and Payments success/failures metrics
+- File bugs for concerning Subscriptions-related issues identified in review from Stripe webhook events, Sentry, and Payments success/failure metrics
 - Triage new tickets for high priority requests or bugs, picking up the highest priority items as deemed appropriate
 - Picking up tickets from the top of the Maintenance and/or Bug backlogs
 
 ## Host the Triage Meeting
 
-FxA and SubPlat have separate triage meetings - optional for team members, required for triage owners. To discuss each issue and make decisions as a group, the triage owner will typically share their screen in Zoom with the team while going through Jira, Sentry, Grafana, and Bugzilla (FxA only) or Stripe (SubPlat only).
+FxA and SubPlat have separate triage meetings which are hosted by their respective triage owners. To discuss each issue and make decisions as a group, the triage owner will share their screen in Zoom with the team while going through Jira, Sentry, Grafana, Bugzilla (FxA only), and Stripe (SubPlat only).
 
 The most up-to-date links can be found in the triage meeting calendar invite. Prior to the meeting, it is recommended to pull up the links to get an idea of what you’ll be discussing and to make sure you don’t need to re-authenticate.
 
@@ -77,7 +77,7 @@ The most up-to-date links can be found in the triage meeting calendar invite. Pr
 
 In the "FxA & Subscription Platform Triage" Board, select Backlog in the sidebar navigation, and collapse the “To Do” section to see the “Backlog” section for untriaged issues. Note, there is a _Not Subscription Platform_ filter to help target issues.
 
-When reviewing issues, leave tickets that are not applicable to your team as-is since those tickets will be triaged in the associated triage meeting. The following should be reviewed for each ticket:
+When reviewing issues, leave tickets as-is if they are not applicable to your team. The following should be reviewed for each ticket:
 
 - **Make sure the issue is clear and ready to be worked on.** If more info or context is needed that an engineer in the triage meeting can provide, either leave a summary comment of what’s stated (if it’s quick) or ask them to comment on it. You can also @-mention those who may be able to answer pending questions. If more info is needed and the issue seems high priority, consider pinging the reporter directly about the issue after the triage meeting.
 - **Check that the issue type is correct.** The default type when filing in Jira is “task”. Other types include “spike” (for research task or work breakdown task) and “bug” (in which you will need to fill out the “Found in” (environment) and “[Severity][bug-severity]” (S1 is highest, S4 is lowest) fields).
@@ -90,7 +90,7 @@ When reviewing issues, leave tickets that are not applicable to your team as-is 
 
 ### Sentry
 
-We use Sentry to capture errors that occur across the entire stack. While we should monitor our production instances most closely, we should also keep an eye out on staging instances for new issues exposed by QA. There are many projects in the FxA group on Sentry and while it’s always helpful to poke through more than what’s listed here, we generally check the following deployments (check the triage calendar invite for links):
+We use Sentry to capture errors that occur across the entire stack. While we should monitor our production instances most closely, we should also keep an eye out on staging instances for new issues exposed by QA. While there are many projects in the FxA group on Sentry and it’s always helpful to poke through more than what’s listed here, we generally check the following deployments (see triage calendar invite for links):
 
 - `fxa-auth-prod` (FxA and SubPlat)
 - `fxa-content-server-prod` (FxA - this covers `fxa-content-server` and `fxa-settings`)
