@@ -4,108 +4,130 @@ title: Triage Owner Duties
 
 ## What is a Triage Owner?
 
-Triage owners are the designated engineers, one from FxA and one from SubPlat, that have a primary responsibility of hosting scheduled weekly meetings to review, assess, and prioritize new issues as a team, alongside other secondary responsibilities. Jira is the canonical source of truth for how we track our own work, but bugs may come in through several other systems that have their own requirements.
+A triage owner is the designated engineer that has the primary responsibility of hosting the scheduled weekly meetings, in which we review, assess, and prioritize new issues as a team, as well as other responsibilities. While Jira is the canonical source of truth for how we track our own work, bugs may come in through several other systems that have their own requirements.
 
-Triage owners rotate throughout the team, and at the time of writing the triage ownership is assigned in our sprint planning meetings. The goals of our triage process and triage rotation are:
+Triage owners rotate throughout the team. At the time of writing, triage ownership is assigned during sprint planning meetings. The goals of our triage process and triage rotation are:
 
-* That triaging issues, watching Sentry, managing dependencies, and understanding general user sentiment/feedback is a shared team responsibility instead of a burden on 1 or 2 engineers
-* Knowledge sharing of different areas - a triage owner may not be the expert on a topic or issue that comes up, and would rely on team input or reach out for help and learn from the process
-* Users stay top-of-mind with us frequently triaging filed issues across Jira (Github), Bugzilla, and Stripe, as well as looking out for contributor PRs and assisting in Matrix
-* Ensure new issues are looked at on at least a weekly basis and don't pile up for the next triage owner
+- Share team responsibility of triaging issues, watching Sentry, managing dependencies, and understanding general user sentiment/feedback
+- Knowledge share - a triage owner may not be the expert on a topic or issue that comes up, and would rely on team input or reach out for help and learn from the process
+- Ensure new issues are assessed on a weekly basis and don't pile up for the next triage owner
+- Keep ongoing bugs and issues as well as contributor PRs and assistance in Matrix top-of-mind
 
-## I am the Triage Owner: How should I plan my Sprint?
-
-When taking on work for the sprint, if you’re on the FxA team, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
-
-If you’re on the SubPlat team, you will not be assigned any tickets at Sprint Planning, instead focusing on high priority bugs, dependency updates, or maintenance tasks as time allows, explained below.
+## I am the Triage Owner: How should I prioritize my Sprint?
 
 :::tip
-If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat). Also, set up your VPN ([instructions are on Confluence][mana-vpn]) so you can access the FxA Admin Panel, and request a license from the service desk. [See what LDAP groups you must be in][bugzilla-common-scenarios-ldap] to access the Admin Panel.
+If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat).
+
+To access the FxA Admin Panel, set up your VPN ([see instructions on Confluence][mana-vpn]) and request to be added to the appropriate [LDAP groups][bugzilla-common-scenarios-ldap].
 :::
+
+### FxA
+
+When planning your workload for the sprint, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
+
+### SubPlat
+
+The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform channel.
+
+If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority.
+
+If there are multiple S1s and S2s of seemingly equal importance and help is needed, inform your manager and the team in the subplat-team channel.
+
+In general, the triage owner should be consistently checking whether there are new urgent or severe issues throughout the day, and be prepared to switch focus and/or redirect issues.
 
 ## What are the Triage Owner Responsibilities?
 
-At a high level, the FxA triage owner is responsible for:
+At a high level, each team's triage owner is responsible for hosting the weekly triage meeting, in which new issues in Jira and Sentry are triaged as a team.
 
-* Hosting the weekly triage meeting
-  * Triaging any new issues in Jira as a team
-  * Triaging any new issues in Sentry as a team
-* Triaging new issues in FxA Bugzilla (as a team if there is time in the triage meeting)
-* Checking if there's any PRs, from team members or contributors, that don't have a reviewer, that you can help move along
-* Helping with Dependabot PRs
-* Assisting with any high priority bugs that come up during the sprint
-* Hanging out in the #fxa Matrix room
-
-At a high level, the SubPlat triage owner is responsible for:
-
-* Hosting the weekly triage meeting
- * Triaging new bugs in our Triage board
- * Grooming Maintenance backlog
-
-* Asynchronous triage activities
- * File bugs for concerning Subscriptions-related issues identified in review of Stripe Webhooks Events, Sentry,and Payments success/failures metrics
- * Triage new tickets for high priority requests or bugs, picking up the highest priority items as deemed appropriate
- * Picking up tickets from the top of the Maintenance and/or Bug backlogs
-
-In all cases, a call needs to be made about the urgency of new issues. It’s fine to not be sure and to rely on the team's general consensus, either in the triage meeting or async in Slack.
+If necessary, feel free to rely on the team's general consensus of the urgency of new issues, either in the triage meeting or async in Slack.
 
 Any issues picked up as Triage Owner which land within a Sprint boundary should be added to that Sprint in Jira. This sets clear expectations on when a ticket is available for testing in Staging and Production across Engineering and QA.
 
 :::note
-If someone reports an error, issue, work request etc. to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
+If an error, issue, work request, etc., is reported to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
 :::
+
+### FxA
+
+In addition, the FxA triage owner is also responsible for:
+
+- Triaging new issues in FxA Bugzilla (as a team if there is time in the triage meeting)
+- Checking if there are any PRs (from team members or contributors) without a reviewer that you can help move along
+- Helping with Dependabot PRs
+- Assisting with any high priority bugs that come up during the sprint
+- Hanging out in the #fxa Matrix room
+
+### SubPlat
+
+In addition, the SubPlat triage owner is also responsible for:
+
+- Grooming the Maintenance backlog
+- Asynchronous triage activities
+- File bugs for concerning Subscriptions-related issues identified in review from Stripe webhook events, Sentry, and Payments success/failure metrics
+- Triage new tickets for high priority requests or bugs, picking up the highest priority items as deemed appropriate
+- Picking up tickets from the top of the Maintenance and/or Bug backlogs
 
 ## Host the Triage Meeting
 
-FxA and SubPlat have separate triage meetings which are optional for team members but required for triage owners which rotate on a weekly basis. If you’re the owner, you’ll typically share your window in Zoom with the team while going through Jira, Sentry, and Bugzilla (FxA only) or Stripe (SubPlat only) if there’s time, and talk through issues and decisions as a group.
+FxA and SubPlat have separate triage meetings which are hosted by their respective triage owners. To discuss each issue and make decisions as a group, the triage owner will share their screen in Zoom with the team while going through Jira, Sentry, Grafana, Bugzilla (FxA only), and Stripe (SubPlat only).
 
-The most up-to-date links can be found in the triage meeting calendar invite. You may want to take a few minutes prior to the meeting to pull the links up to get an idea of what you’ll be discussing and to make sure you don’t need to re-authenticate.
+The most up-to-date links can be found in the triage meeting calendar invite. Prior to the meeting, it is recommended to pull up the links to get an idea of what you’ll be discussing and to make sure you don’t need to re-authenticate.
 
 ### Jira
 
-Go to the Backlog view, collapse the “To Do” section, and scroll all the way down to the “Backlog” section to see untriaged issues.  Note there are two filters, _Not Subscription Platform_ and _Subscription Platform_, that can be helpful for targeting issues for these teams.
+In the "FxA & Subscription Platform Triage" Board, select Backlog in the sidebar navigation, and collapse the “To Do” section to see the “Backlog” section for untriaged issues. Note, there is a _Not Subscription Platform_ filter to help target issues.
 
-You’ll then look at each issue — though if you’re on the FxA team and the issue is one affecting SubPlat (or vice-versa), leave it as-is since it’ll be triaged in the associated triage meeting  — and do the following:
+When reviewing issues, leave tickets as-is if they are not applicable to your team. The following should be reviewed for each ticket:
 
-* **Check that the issue is clear and ready to be worked on.** If more info or context is needed that an engineer in the triage meeting can provide, either leave a summary comment of what’s stated (if it’s quick) or ask them to comment on it, and otherwise, add the appropriate “needs” label (e.g. `needsdiscussion`, `needslegal`, `needsproduct`, `needsux`) and/or @ mention someone who may be able to answer pending questions. If more info is needed and the issue seems high priority, consider pinging someone directly about the issue after triage completes.
-* **Make sure the issue type is correct.** The default when filing in Jira or from GitHub is type “task” but it might need to be changed to “spike” if it’s a research task or work breakdown task, or “bug” in which case you will want to fill out the “Found in” (environment) and “[Severity][bug-severity]” (S1 is highest, S4 is lowest) fields.
-* **Add an initial estimated number of story points** if someone on the call can [estimate][point-estimation].
-* **If applicable, add the appropriate epic, labels, and/or issue links.** It’s uncommon for a new issue in triage to lack an epic if it should be associated with one, but it’s good to be aware of what epics exist and what the roadmap looks like. Some common labels to consider using are `maintenance` and  `qa-`, but be sure to check out [labels we use][labels-we-use] to be aware of others. Issue links create a link between issues and can be “blocked by X issue,” “relates to X issue,” and more.
-* **Move the issue out of the backlog section.** If the issue seems high priority or someone on the call asks to be assigned, it might belong in the current or following sprint (update the “sprint” field if so), or at the top of the “to do” list. Either way, drag and drop the task up and out of the backlog section (or manually change the status and refresh) and the issue status will change from “new” to “to do”.
+- **Make sure the issue is clear and ready to be worked on.** If more info or context is needed that an engineer in the triage meeting can provide, either leave a summary comment of what’s stated (if it’s quick) or ask them to comment on it. You can also @-mention those who may be able to answer pending questions. If more info is needed and the issue seems high priority, consider pinging the reporter directly about the issue after the triage meeting.
+- **Check that the issue type is correct.** The default type when filing in Jira is “task”. Other types include “spike” (for research task or work breakdown task) and “bug” (in which you will need to fill out the “Found in” (environment) and “[Severity][bug-severity]” (S1 is highest, S4 is lowest) fields).
+- **Add an initial estimated number of story points**, see [Estimation and Point Values][point-estimation].
+- **Add the appropriate epic, labels, and/or issue links, if applicable.**
+  - It’s uncommon for a new issue in triage to lack an epic if it should be associated with one, though it’s good to be aware of existing epics and the roadmap.
+  - Add the appropriate labels (e.g. `needsdiscussion`, `needslegal`, `needsproduct`, `needsux`). Other common labels to consider are `maintenance` and `qa-` (see [labels][labels-we-use] for more).
+  - Issue links create a link between issues (e.g., issues can be “blocked by X issue”, “relates to X issue”, and more).
+- **Move the issue out of the backlog section.** If the issue seems high priority, it can either be added to the current or following sprint by updating the “Sprint” field, or moved to the top of the “To Do” list by right-clicking and following the context menu. If someone on the call asks to be assigned, fill out the Assignee field. Finally, update the status from "New" to "To Do".
 
 ### Sentry
 
-We use Sentry to capture errors that occur across the entire stack. We should monitor our production instances most closely, but also keep an eye out on staging instances for new issues exposed by QA. There are many projects in the FxA group on Sentry and while it’s always helpful to poke through more than what’s listed here, we generally check the following deployments (check the triage calendar invite for links):
+We use Sentry to capture errors that occur across the entire stack. While we should monitor our production instances most closely, we should also keep an eye out on staging instances for new issues exposed by QA. While there are many projects in the FxA group on Sentry and it’s always helpful to poke through more than what’s listed here, we generally check the following deployments (see triage calendar invite for links):
 
-* `fxa-auth-prod` (FxA and SubPlat)
-* `fxa-content-server-prod` (FxA - this covers `fxa-content-server` and `fxa-settings`)
-* `fxa-graphql-prod` (FxA)
-* `fxa-content-client-prod` (FxA)
-* `fxa-payments-prod` (SubPlat)
+- `fxa-auth-prod` (FxA and SubPlat)
+- `fxa-content-server-prod` (FxA - this covers `fxa-content-server` and `fxa-settings`)
+- `fxa-graphql-prod` (FxA)
+- `fxa-content-client-prod` (FxA)
+- `fxa-payments-prod` (SubPlat)
 
-When you’re looking at new issues, check that there’s not already a comment or linked issue that might give you more context for it and if there’s discussion in the triage meeting, consider leaving a comment on the issue in Sentry.
+When you’re looking at new issues, check that there’s not already a comment or linked issue that might give you more context for it. If there’s discussion in the triage meeting, consider leaving a comment on the issue in Sentry.
 
 Sometimes, errors come up that seem unlikely to come up again or that we’d want to look at later if it persists. You can check “ignore until...” and choose an appropriate option. If you notice a new problem since a previous deployment or an issue that affects a lot of users through a lot of events, it’s very likely worth filing an issue for. File an issue with a link to the Sentry error and (likely) add the `maintenance` label in Jira, and then link it in Sentry via the “Link Github Issues” on the right-hand side.
 
 If you’re finishing Sentry triage by yourself because there wasn't enough time during the team triage and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
 
-### Stripe Triage (Skip for FxA)
+#### SubPlat
 
-Stripe issues are currently triaged twice a week - once in the team triage meeting, and another time async.
+In addition to reviewing the Sentry issues in `fxa-auth` and `fxa-payments`, also keep an eye on the `paypal-processor` check-ins within the Crons section.
 
-[TODO: better document this section, FXA-4271]
+### Grafana
 
-## Bugzilla (Skip for SubPlat)
+SubPlat observes the following Grafana dashboards:
+
+- Auth Server (Subscription Platform section)
+- Event Broker
+  - If there is any unusual activity, identify the relying parties by looking up the IDs in FxA Admin Panel and inform both teams in the fxa-team channel.
+- Payments Server
+
+### Bugzilla (FxA only)
 
 If there's time left in the FxA triage meeting, Bugzilla can be looked at as a team that day. Ideally, the triage owner will check Bugzilla every day on their own.
 
-There is no longer much activity in our Bugzilla component to this won't take long.  Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
+There is no longer much activity in our Bugzilla component to this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
 
 If a Bugzilla bug includes a user's email address or any PII (personal identifiable information) in the bug description, then do the following:
 
-* Click the “edit bug” button
-* Scroll down to “Security (public)”
-* Check the box "Confidential Mozilla Employee Bug (non-security)" and save
+- Click the “edit bug” button
+- Scroll down to “Security (public)”
+- Check the box "Confidential Mozilla Employee Bug (non-security)" and save
 
 This is to protect their email address from being on a publicly accessible link and users will be able to see their own issues even if they’re marked confidential.
 
@@ -121,11 +143,19 @@ You may need to file an issue in Jira for bugs in Bugzilla to surface issues to 
 
 If you see a bug filed requesting [OAuth client details][oauth-integration], post in the FxA team Slack channel. Reference the bug, and bring it to the attention of SRE.
 
+### Stripe Triage (SubPlat only)
+
+Triaging Stripe consists of ensuring that failed webhook event deliveries are successful upon retries in production.
+
+To review the failed webhooks, log into Stripe Dashboard, check that you are in the correct environment (Subscription Platform) and not in Test Mode. Expand the Workbench on the bottom of the screen, select the Webhooks tab and hosted endpoint `https://api.accounts.firefox.com/v1/oauth/subscriptions/stripe/event`. Select Event deliveries and update the Status field to "Failed" to view all of the failed events. In each Delivery attempts section, you should see it returned 200.
+
+If a webhook has not returned 200 upon retry, investigate what may have happened and/or ask for help in the subplat-team channel.
+
 ## Pull Requests
 
-The FxA and SubPlat team typically reviews [pull requests][fxa-prs] and merges dependabot PRs without having a specified owner for those tasks, but as triage owner you should do what you can to move both of these along.
+The FxA and SubPlat team typically reviews [pull requests][fxa-prs] and merges dependabot PRs without having a specified owner for those tasks. However, as triage owner, you should do what you can to move both of these along.
 
-If there's an open, unreviewed or unassigned pull request, consider reviewing it if you can. If a PR has been opened by a contributor, either review it or request someone else to review it. If a PR has been hanging around for a while and it's not clear why, consider investigating in case there's a blocker you can help with or a hold for a specific reason that could be noted in a comment in the PR.
+If there's an open, unreviewed, or unassigned pull request, consider reviewing it if you can. If a PR has been opened by a contributor, either review or request someone else to review it. If a PR has been hanging around for a while and it's not clear why, consider investigating in case there's a blocker you can help with, or a hold for a specific reason that could be noted in a comment in the PR.
 
 **If you're the FxA triage owner,** check for PRs in the [ecosystem-docs repo][ecosystem-prs].
 
@@ -155,7 +185,6 @@ If there are many failures and/or it's not feasible to fix the failures at the m
 
 If a ticket has already been filed for a previous failure of the same package and the new failure is because of a Dependabot attempt to upgrade to the new major version, comment on the ticket to note how far behind the dependency is. Consider bringing it up in the next triage meeting - if our backlog is full of needed dependency upgrades, we'll likely find the time to work through at least some of them.
 
-
 #### Security Warnings
 
 Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical (or even high) severity. You may also choose review these as a team in the triage meeting if you wish, and it may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix.
@@ -164,7 +193,8 @@ If Dependabot thinks it can automatically fix the alert for us, a "Create depend
 
 However, sometimes, security alerts are for deeply nested dependencies. In this case, we use [Yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/). To resolve the security warning:
 
-1. Copy the *patched version* from the security warning into the "resolutions" section of our root-level `package.json`, example:
+1. Copy the _patched version_ from the security warning into the "resolutions" section of our root-level `package.json`, example:
+
 ```
 "resolutions": {
   "postcss": "^7.0.36",
