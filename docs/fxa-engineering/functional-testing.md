@@ -441,3 +441,29 @@ Tests by default have 30 seconds to run. Sometimes a test needs longer. At the t
 },
 ...
 ```
+
+## Guidelines and Best Practices for Functional Test Automation
+
+In our continuous pursuit of maintaining a robust and efficient testing ecosystem, the following key takeaways have been identified during the ongoing audit. These insights, which may be supplemented as the audit progresses, are crucial for fostering a standardized and high-quality approach to test automation:
+
+1. Avoid Commenting Out Test Cases:
+
+It is recommended to refrain from commenting out test cases. Instead, consider utilizing *fixme()* annotations for broken tests or *skip()* annotations for environmental/conditional skips . This ensures transparency and accountability in the development process.
+
+2. Exclude Partially Implemented Tests from CI Execution:
+
+Partially implemented tests should not be executed in the Continuous Integration (CI) pipeline. Only fully functional and thoroughly validated tests should be included in CI runs to maintain the reliability of our testing infrastructure.
+
+3. Exercise Prudent Judgment with 3rd Party UIs & Flows:
+
+When interacting with third-party User Interfaces (UIs) and workflows, exercise caution and discretion. Ensure that test scenarios align with expected behaviors and handle potential variations in third-party components.
+
+4. Prefer Fixtures Over Setup & Teardown Lifecycle Methods:
+
+Favor the use of fixtures over traditional setup and teardown lifecycle methods. Fixtures provide a more modular and reusable approach, enhancing the maintainability and scalability of our test suites.
+
+5. Avoid Deprecated Playwright Functions:
+
+Stay vigilant and avoid the use of deprecated functions in Playwright. Regularly consult the Playwright documentation for updates and transition to recommended alternatives to ensure compatibility and future-proofing of our test scripts.
+
+These guidelines are pivotal for promoting consistency, reliability, and efficiency within our testing practices. Adherence to these best practices will contribute to the overall success and resilience of our test automation ecosystem.
