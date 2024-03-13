@@ -97,7 +97,7 @@ The day will come when it might be necessary to update the base images we use in
 
 Because CI images are built as changes land on main, it may seem as though there is a chicken egg problem. In order to produce new CI images we must land the changes we need on main, but in order to land changes on main we must test them in branch using our CI runner images. This can definitely be a quandary, but here’s how to deal with it:
 
-- In `.circleci/config.yml`, go to `commands > create-ci-images > build-ci-image > target`, and version those values. So the targets would become `test-runner-v2`, `builder-v2`, and `functional-test-runner-v2`.
+- In `.circleci/config.yml`, look for `commands > create-fxa-ci-images > steps > build-ci-image` and version the value of the `target` parameter. e.g. If targets were initially `test-runner`, `builder`, and `functional-test-runner` the new targets would become `test-runner-v2`, `builder-v2`, and `functional-test-runner-v2`.
 - In `.circleci/config.yml`, update all references to these images in the executor section.
 - In `.circleci/config.yml`, go to `workflows > deploy_ci_images > jobs > filters > branches` and add the name of the branch being worked on to the list.
 - Open the `_dev/docker/ci/Dockerfile` and change `cimg/node:16.3` to whatever `cimg/node:$version` needs to be targeted.
