@@ -97,10 +97,17 @@ The day will come when it might be necessary to update the base images we use in
 
 Because CI images are built as changes land on main, it may seem as though there is a chicken egg problem. In order to produce new CI images we must land the changes we need on main, but in order to land changes on main we must test them in branch using our CI runner images. This can definitely be a quandary, but here’s how to deal with it:
 
-- In `.circleci/config.yml`, look for `commands > create-fxa-ci-images > steps > build-ci-image` and version the value of the `target` parameter. e.g. If targets were initially `test-runner`, `builder`, and `functional-test-runner` the new targets would become `test-runner-v2`, `builder-v2`, and `functional-test-runner-v2`.
-- In `.circleci/config.yml`, update all references to these images in the executor section.
+- In `.circleci/config.yml`, look for `commands > build-ci-image > steps > run > command` and version the docker tag. For example, you would change `-t mozilla/fxa-circleci:ci-<< parameters.target >>-v1` to `-t mozilla/fxa-circleci:ci-<< parameters.target >>-v2`.
+- In `.circleci/config.yml`, update all references to use the new image tags. For example change all occurences of
+  - `fxa-circleci:ci-builder-v1` to `fxa-circleci:ci-builder-v2`
+  - `fxa-circleci:ci-test-runner-v1` to `fxa-circleci:ci-test-runner-v2`
+  - `fxa-circleci:ci-functional-test-runner-v1` to `fxa-circleci:ci-functional-test-runner-v2`. 
 - In `.circleci/config.yml`, go to `workflows > deploy_ci_images > jobs > filters > branches` and add the name of the branch being worked on to the list.
 - Open the `_dev/docker/ci/Dockerfile` and change `cimg/node:16.3` to whatever `cimg/node:$version` needs to be targeted.
 - Push changes.
 
 This will end up triggering a new build. The tests will fail the first time. In fact you may as well cancel the `test_pull_request` workflow. The `deploy_ci_images` workflow will run (due to change in step 4) and push up the new image tags to docker hub that our CI runners use. On a rerun, or subsequent push, the image with node 18 should now be in place, and they will pass. And of course, it won’t break everyone else’s pipelines cause it’ll be using a different tag, and their configs still reference the original images.
+
+:::tip
+If the deploy_ci_images job runs very quickly, something is off. It's possible the build was skipped, so check the output for the job. If the build was skipped, (perahaps the script didn't find any changes the require a new build), then you can 'force' the docker CI images to rebuild by going to 'trigger pipeline' select 'Add parameters' and then add `boolean` | `force-deploy-fxa-ci-images` | `true`.
+:::
