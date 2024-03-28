@@ -1,0 +1,153 @@
+---
+id: metrics-context
+title: MetricsContext
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+Metrics context.
+
+
+```graphql
+input MetricsContext {
+  deviceId: String
+  entrypoint: String
+  entrypointExperiment: String
+  entrypointVariation: String
+  flowId: String
+  flowBeginTime: Float
+  productId: String
+  planId: String
+  utmCampaign: String
+  utmContent: String
+  utmMedium: String
+  utmSource: String
+  utmTerm: String
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>deviceId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> The id of the client's device record, if it has registered one.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>entrypoint</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>entrypointExperiment</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>entrypointVariation</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>flowId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>flowBeginTime</b></code>](#)<Bullet />[`Float`](/gql-api/types/scalars/float) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>productId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>planId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>utmCampaign</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>utmContent</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>utmMedium</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>utmSource</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>MetricsContext.<b>utmTerm</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+
+
+
+
+### Member Of
+
+[`CreateTotpInput`](/gql-api/types/inputs/create-totp-input)  <Badge class="badge badge--secondary" text="input"/><Bullet />[`PasswordForgotSendCodeInput`](/gql-api/types/inputs/password-forgot-send-code-input)  <Badge class="badge badge--secondary" text="input"/><Bullet />[`SessionReauthOptionsInput`](/gql-api/types/inputs/session-reauth-options-input)  <Badge class="badge badge--secondary" text="input"/><Bullet />[`SignInOptionsInput`](/gql-api/types/inputs/sign-in-options-input)  <Badge class="badge badge--secondary" text="input"/><Bullet />[`SignUpOptionsInput`](/gql-api/types/inputs/sign-up-options-input)  <Badge class="badge badge--secondary" text="input"/>
+
