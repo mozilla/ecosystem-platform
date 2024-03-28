@@ -1,0 +1,125 @@
+---
+id: signed-in-account-payload
+title: SignedInAccountPayload
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+No description
+
+
+```graphql
+type SignedInAccountPayload {
+  clientMutationId: String
+  uid: String!
+  verified: Boolean!
+  authAt: Float!
+  metricsEnabled: Boolean!
+  keyFetchToken: String
+  verificationMethod: String
+  verificationReason: String
+  sessionToken: String!
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>clientMutationId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> A unique identifier for the client performing the mutation.
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>uid</b></code>](#)<Bullet />[`String!`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>verified</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>authAt</b></code>](#)<Bullet />[`Float!`](/gql-api/types/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>metricsEnabled</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>keyFetchToken</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>verificationMethod</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>verificationReason</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+#### [<code style={{ fontWeight: 'normal' }}>SignedInAccountPayload.<b>sessionToken</b></code>](#)<Bullet />[`String!`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> 
+> 
+
+
+
+
+
+### Returned By
+
+[`signIn`](/gql-api/api/mutations/sign-in)  <Badge class="badge badge--secondary" text="mutation"/>
+
