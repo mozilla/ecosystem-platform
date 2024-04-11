@@ -56,6 +56,8 @@ Additionally, if your product has multiple associated plans in any environment, 
 
 Importantly, the Subscription Platform does not currently provide any inbuilt capabilities for routing users to a correct currency or for showing multiple plans to a user at once. If this is a requirement for your product, you must provide the appropriate UI and routing to ensure that users end up on the correct payment page for the correct product.
 
+For any plans which are not approved for release, such as the case of internal testing plans, ensure each internal plan has been Archived in Stripe prior to release.
+
 #### Webhook Events
 
 If your integration includes an application service, [subscription state notifications] will also be sent via [webhook] to your registered [webhook] URL.
