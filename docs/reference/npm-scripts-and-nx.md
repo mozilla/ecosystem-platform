@@ -41,18 +41,37 @@ These dependencies also work across packages. So if fxa-shared has changed, and 
 
 ## Creating a library in NX
 
-The following command can be used to create a Nx library in the monorepo: `nx g @nx/node:library <name of library> --directory=<path/to> --buildable`
+The following command can be used to create a Nx library in the monorepo.
 
-- e.g. `nx g @nx/node:library capability --directory=libs/payments --buildable` will create a Nx library with the directory `libs/payments/capability`
+```
+yarn nx g @nx/node:library <name of library> --directory=<path/to> --importPath=<TS path alias> --buildable
+```
+- `<name of library>` - Should follow the pattern of `{sub_dir}-{lib_name}`. e.g. `shared-l10n` or `payments-stripe`.
+- `<path/to>` - Should be the full path to root directory of the library. e.g. `libs/shared/l10n` or `libs/payments/stripe`
+- `<TS path alias>` - Should follow the pattern of `@fxa/{sub_dir}/{lib_name}`. e.g. `@fxa/shared/l10n` or `@fxa/payments/stripe`
 
-You can use the `--dry-run` flag to see what will be generated.
+For example:
+```
+yarn nx g @nx/node:library payments-stripe --directory=libs/payments/stripe --importPath=@fxa/payments/stripe --buildable
+```
+
+- This will create a Nx library with the directory `libs/payments/stripe`
+- You can use the `--dry-run` flag to see what will be generated.
+
+:::note
+When generating the library, select the "As provided" option. In Nx 19, generating projects will no longer derive the name and root.
+:::
+
 
 After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
 
-- Rename the job in `project.json` from `test` to either `test-unit` or `test-integration` depending on the library, and update the command to run unit tests in the README as well
+- Duplicate the `test` target in `project.json`, and rename both targets to `test-unit` and `test-integration`. Make sure to update the README to reflect these changes.
+  - For the `test-unit` target, add `"testPathPattern": ["^(?!.*\\.in\\.spec\\.ts$).*$"]` to `targets -> test-unit -> options`
+  - For the `test-integration` target, add `"testPathPattern": ["\\.in\\.spec\\.ts$"]` to `targets -> test-integration -> options`
   - For more information, see [FXA-8120](https://mozilla-hub.atlassian.net/browse/FXA-8120)
 - Add the open source legal blurb to the top of source code and test TS files
 - Rename TS files to better reflect the module in question (e.g. if adding a library in `libs/shared`, rename `shared-${libraryName}.ts` to `${libraryName}.ts`)
+- Be sure to run `yarn nx reset` to make sure Nx picks up the new library
 
 :::note
 At the moment (Sept 2023), we see a validation warning regarding `coverageDirectory` when running the test command. This is a bug in Nx and does not affect our potential use of code coverage analysis tools. This warning can be safely ignored for now.
