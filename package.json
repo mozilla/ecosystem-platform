@@ -38,7 +38,7 @@
     "react-dom": "^18.2.0",
     "redocusaurus": "^2.0.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.89.0"
+    "webpack": "^5.91.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.0.1",
