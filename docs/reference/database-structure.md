@@ -2,7 +2,7 @@
 title: Database Structure
 ---
 
-Current as of `July 22nd, 2023`
+Current as of `July 22nd, 2023`, patch level `147`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
@@ -37,6 +37,9 @@ erDiagram
         binary uid "Unique Key, 16 bytes"
         bigint createdAt "unsigned"
     }
+```
+```mermaid
+erDiagram
     accounts {
         binary uid PK "16 bytes"
         varchar normalizedEmail
@@ -57,6 +60,28 @@ erDiagram
         text ecosystemAnonId
         bigint disabledAt "unsigned"
         bigint metricsOptOutAt "unsigned"
+        varchar clientSalt "CONFIDENTIAL"
+        binary verifyHashVersion2 "32 bytes; CONFIDENTIAL"
+        binary wrapWrapKbVersion2 "32 bytes; CONFIDENTIAL, key for 'class-B' material. Only unwrappable on the client."
+        tinyint atLeast18AtReg
+    }
+    accounts }|--o{ carts: has
+    carts {
+        binary id PK "16 bytes"
+        binary uid "16 bytes"
+        enum state "start,processing,success,fail"
+        varchar errorReasonId
+        varchar offeringConfigId
+        varchar interval
+        varchar experiment
+        json taxAddress
+        bigint createdAt "unsigned"
+        bigint updatedAt "unsigned"
+        varchar couponCode
+        varchar stripeCustomerId
+        varchar email
+        int amount
+        smallint version "unsigned"
     }
     dbMetadata {
         varchar name
@@ -75,6 +100,9 @@ erDiagram
         int commandId PK "unsigned"
         varchar commandData "CONFIDENTIAL, used to encrypt commands"
     }
+```
+```mermaid
+erDiagram
     devices {
         binary uid PK "16 bytes"
         binary id PK "16 bytes"
@@ -115,6 +143,9 @@ erDiagram
         bigint verifiedAt "unsigned"
         bigint createdAt "unsigned"
     }
+```
+```mermaid
+erDiagram
     keyFetchTokens {
         binary tokenId PK "32 bytes; CONFIDENTIAL"
         binary authKey "32 bytes; CONFIDENTIAL"
@@ -146,6 +177,9 @@ erDiagram
         bigint createdAt "unsigned"
         smallint tries "unsigned"
     }
+```
+```mermaid
+erDiagram
     paypalCustomers {
         binary uid PK "16 bytes"
         char billingAgreementId PK
@@ -168,6 +202,7 @@ erDiagram
         binary recoveryKeyIdHash "32 bytes; CONFIDENTIAL"
         bigint createdAt "unsigned"
         bigint verifiedAt "unsigned"
+        varchar hint
         tinyint enabled
     }
     securityEventNames {
@@ -183,6 +218,7 @@ erDiagram
         binary ipAddrHmac "32 bytes"
         bigint createdAt
         binary tokenVerificationId "16 bytes"
+        varchar ipAddr
     }
     sentEmails }|--|| emailTypes : is
     sentEmails {
@@ -211,6 +247,7 @@ erDiagram
         int verificationMethod
         bigint verifiedAt
         tinyint mustVerify
+        tinyint providerId
     }
     signinCodes {
         binary hash PK "32 bytes; CONFIDENTIAL"
@@ -218,6 +255,9 @@ erDiagram
         bigint createdAt "unsigned"
         binary flowId "32 bytes"
     }
+```
+```mermaid
+erDiagram
     totp {
         bigint id PK "unsigned"
         binary uid "16 bytes"
@@ -275,6 +315,9 @@ erDiagram
         binary hashedSecretPrevious "32 bytes; CONFIDENTIAL"
         text notes
     }
+```
+```mermaid
+erDiagram
     codes {
         binary code PK "32 bytes; CONFIDENTIAL"
         binary clientId "8 bytes"
@@ -312,6 +355,9 @@ erDiagram
         timestamp lastUsedAt
         bigint profileChangedAt
     }
+```
+```mermaid
+erDiagram
     scopes {
         varchar scope PK
         tinyint hasScopedKeys
@@ -348,6 +394,9 @@ erDiagram
         binary userId "16 bytes"
         int providerId
     }
+```
+```mermaid
+erDiagram
     dbMetadata {
         varchar name PK
         varchar value
