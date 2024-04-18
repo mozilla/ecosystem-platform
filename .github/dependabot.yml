@@ -4,6 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      docusaurus:
+        patterns:
+          - "@docusaurus/*"
     open-pull-requests-limit: 6
     labels:
       - "dependencies"
