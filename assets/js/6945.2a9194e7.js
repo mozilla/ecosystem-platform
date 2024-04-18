@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfirefox_ecosystem_platform=self.webpackChunkfirefox_ecosystem_platform||[]).push([[6945],{46945:(e,s,f)=>{f.r(s)}}]);
