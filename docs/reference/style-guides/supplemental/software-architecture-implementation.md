@@ -19,13 +19,32 @@ Before continuing in this document, please make sure to read and consume the fol
 * [Martin Fowler - Presentation Domain Data Layering](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 * [Martin Fowler - Repository](https://martinfowler.com/eaaCatalog/repository.html)
 
-## Examples
+## Guidelines
 
-### Generic Diagram
+This section documents the guidelines that should be followed when adopting the layered architecture.
+
+Although these aren’t hard guidelines that can't be deviated from, breaking the guidelines does carry some risks. Therefore, it is  recommended that you take a second look at your implementation and consider if breaking the rules is necessary.
+
+### List of guidelines
+
+1. Layers may not be skipped
+2. Don't go up layers
+3. Services may depend on multiple managers
+4. Managers may not depend on other managers
+5. Managers may depend on multiple repositories or clients
+6. Clients may be dependents of multiple managers
+
+### Risks of deviating from the guidelines
+
+1. Circular dependencies may occur if multiple instance on a layer become dependent on each other
+
+### Diagram of Guidelines
 
 ![](../../../../static/diagrams/node-style-guide-layers.png)
 
-Where can I find some good examples of a Repository, Client, Manager, Service hierarchy?
+## Reference examples
+
+Some good examples of a Repository, Client, Manager, Service hierarchy are listed below.
 
 ### End to end - libs/payments/stripe/*
 
@@ -66,8 +85,8 @@ Where can I find some good examples of a Repository, Client, Manager, Service hi
 </details>
 
 <details>
-  <summary>Q: Will this only work with NestJs?</summary>
-  <div>Nope, can be used anywhere. Outside of NestJs, the Injectable decorator will be ignored, and the class can be instantiated as per normal.</div>
+  <summary>Q: Is this only relevant for NestJS implementations?</summary>
+  <div>Nope, this can be used anywhere. Dependency injection is strongly encouraged, but classes can also be imported just like any ol’POJO.</div>
 </details>
 
 <details>
@@ -104,7 +123,10 @@ Where can I find some good examples of a Repository, Client, Manager, Service hi
 
 <details>
   <summary>Q: Can my Manager call other Managers?</summary>
-  <div>Yes.</div>
+  <div>
+  <p>No. Only Services should call Managers.</p>
+  <p>Typically, if the feature requires you to import a manager from another manager, it’s a good tell that the feature you are busy implementing requires some other refactoring.</p>
+  </div>
 </details>
 
 <details>
