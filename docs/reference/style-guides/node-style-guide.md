@@ -82,6 +82,27 @@ app/
 │   ├── auth.controller.in.spec.ts
 ```
 
+##### Config
+
+If your feature requires configuration, add a config file to the folder, and make use of `class-validator` for schema validation.
+
+```
+app/
+├── auth/
+│   ├── auth.controller.ts
+│   ├── auth.config.ts
+```
+
+`class-validator` example:
+```typescript
+import { IsString } from 'class-validator';
+
+export class DBConfig {
+  @IsString()
+  public readonly dbPath!: string;
+}
+```
+
 #### NestJS File Naming Conventions
 
 ##### File Naming for Class
@@ -144,22 +165,44 @@ import { UtilService } from '../common';
 
 ### TypeScript
 
+#### Types
+
+All types of a feature should be co-located with the rest of the files.
+
+```
+app/
+├── auth/
+│   ├── auth.controller.ts
+│   ├── auth.types.ts
+```
+
 #### Tests
 
-All tests should be written in TypeScript. Tests should utilize factory functions to generate objects for testing. Generating additional fake data for factory functions can be done with the `faker` library.
+All tests should be written in TypeScript. Tests should utilize factory functions, added to a separate `*.factories.ts` file, to generate objects for testing. Generating additional fake data for factory functions can be done with the `faker` library.
+
+```
+app/
+├── auth/
+│   ├── auth.controller.ts
+│   ├── auth.types.ts
+│   ├── auth.factories.ts
+```
 
 Example:
 
 ```typescript
-import { faker } from '@faker-js/faker';
-
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
 }
+```
 
-const UserFactory = (override: Partial<User>): User => ({
+```typescript
+import { faker } from '@faker-js/faker';
+import { User } from './auth.types.ts'
+
+export const UserFactory = (override: Partial<User>): User => ({
   id: faker.datatype.uuid(),
   name: faker.person.fullName(),
   email: faker.internet.email(),
