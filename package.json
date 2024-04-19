@@ -28,7 +28,7 @@
     "@graphql-tools/graphql-file-loader": "^8.0.1",
     "@mdx-js/react": "^3.0.0",
     "@svgr/webpack": "^8.1.0",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "file-loader": "^6.2.0",
     "graphql": "^16.8.1",
     "mdx-mermaid": "^2.0.0",
