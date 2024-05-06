@@ -93,7 +93,7 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 :::
 
 0. Review the [OpenID Connect][how connect works] and [OAuth 2.0][oauth] documentation.
-0. Register for staging OAuth credentials by filing a [deployment bug][deployment-bug]. See [OAuth credentials](#oauth-credentials).
+0. Register for staging OAuth credentials by filing an issue in the SVCSE project in [Mozilla's Jira](https://mozilla-hub.atlassian.net). See [OAuth credentials](#oauth-credentials).
 0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
 0. User authentication follows the [OpenID Connect][openidconnect] protocol.
 0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Mozilla accounts.
@@ -259,7 +259,6 @@ end
 
 [allowed-metrics-flow-origins]: https://github.com/mozilla/fxa-dev/blob/docker/roles/content/tasks/main.yml#L56
 [api-docs]: https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#api-endpoints
-[deployment-bug]: https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&bug_ignored=0&bug_severity=normal&bug_status=NEW&cf_fx_iteration=---&cf_fx_points=---&cf_status_firefox65=---&cf_status_firefox66=---&cf_status_firefox67=---&cf_status_firefox_esr60=---&cf_tracking_firefox65=---&cf_tracking_firefox66=---&cf_tracking_firefox67=---&cf_tracking_firefox_esr60=---&cf_tracking_firefox_relnote=---&component=Operations%3A%20Deployment%20Requests&contenttypemethod=list&contenttypeselection=text%2Fplain&defined_groups=1&flag_type-37=X&flag_type-5=X&flag_type-607=X&flag_type-708=X&flag_type-721=X&flag_type-737=X&flag_type-748=X&flag_type-787=X&flag_type-800=X&flag_type-803=X&flag_type-846=X&flag_type-864=X&flag_type-929=X&flag_type-935=X&form_name=enter_bug&groups=mozilla-employee-confidential&maketemplate=Remember%20values%20as%20bookmarkable%20template&op_sys=Unspecified&priority=--&product=Cloud%20Services&rep_platform=Unspecified&target_milestone=---&version=unspecified
 [connected-services]: https://accounts.firefox.com/settings#connected-services
 [fxa-scope-documentation]: https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/scopes.md
 [firefox-accounts-notices]: https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices
