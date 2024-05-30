@@ -2,7 +2,7 @@
 title: "Functional Playwright Tests"
 ---
 
-Current as of `October, 2023`
+Current as of `May, 2024`
 
 End to end functional testing of the entire FxA ecosystem is achieved by a [comprehensive suite of Playwright tests](https://github.com/mozilla/fxa/tree/main/packages/functional-tests/tests). These tests are situated within the `packages` directory and are organized into distinct folders corresponding to their respective functionality, such as sign-in, sync, OAuth, and others. These tests can be run through the packages directory using the below command:
 
@@ -85,10 +85,10 @@ test.describe('severity-1', () => {
 });
 ```
 
-### Make use of common selectors
+### Make use of common locators
 
-Playwright tests interact with the DOM and require element selectors to be able to perform actions like clicking or testing
-whether an element exists or is visible. Instead of embedding selectors within the tests, use selectors
+Playwright tests interact with the DOM and require element locators to be able to perform actions like clicking or testing
+whether an element exists or is visible. Instead of embedding locators within the tests, use locators
 from the [pages dir](https://github.com/mozilla/fxa/tree/main/packages/functional-tests/pages). To keep the tests readable and high-level we use the [page object model](https://playwright.dev/docs/test-pom) pattern. Pages are organized by url "route" when possible in the pages directory, and made available to tests in the fixture as pages. For guidance on writing POMs there's [pages/README.md](https://github.com/mozilla/fxa/blob/main/packages/functional-tests/pages/README.md)
 
 ```ts
@@ -99,98 +99,112 @@ test('create an account', async ({ pages: { login } }) => {
 });
 ```
 
-Adding selectors to page class makes it much easier to update tests if an element's selector changes. Instead of search/replace on the selector everywhere, update it in page class and leave the tests be.
+Centralizing locators to POMs (Page Object Models) reduces the code change scope and impact when they require updating. It is preferable to use user-facing built in locators when possible (see [Locators](https://playwright.dev/docs/locators))
 
 ### Example test suite
 
-Below is a simplified annotated example of a test suite that deletes an FxA account.
+Below is a simplified annotated example of a test case that deletes an FxA account.
 
 ```ts
-import { test, expect } from '../../lib/fixtures/standard';
+import { test, expect } from "../../lib/fixtures/standard";
 
-test.describe('severity-1 #smoke', () => {
-  test('delete account', async ({
-    credentials,
-    pages: { settings, deleteAccount, page },
+test.describe("severity-1 #smoke", () => {
+  test("delete account", async ({
+    target,
+    page,
+    pages: { deleteAccount, settings, signin },
+    testAccountTracker,
   }) => {
-    test.slow();
+    const credentials = await testAccountTracker.signUp();
+    await page.goto(target.contentServerUrl);
+    await signin.fillOutEmailFirstForm(credentials.email);
+    await signin.fillOutPasswordForm(credentials.password);
+
+    await expect(settings.settingsHeading).toBeVisible();
+
     await settings.goto();
-    await settings.clickDeleteAccount();
+    await settings.deleteAccountButton.click();
+
+    await expect(deleteAccount.deleteAccountHeading).toBeVisible();
+    await expect(deleteAccount.step1Heading).toBeVisible();
+
     await deleteAccount.checkAllBoxes();
-    await deleteAccount.clickContinue();
+    await deleteAccount.continueButton.click();
 
-    // Enter incorrect password
-    await deleteAccount.setPassword('incorrect password');
-    await deleteAccount.submit();
+    await expect(deleteAccount.step2Heading).toBeVisible();
 
-    // Verifying that the tooltip throws error
-    expect(await deleteAccount.toolTipText()).toContain('Incorrect password');
+    await deleteAccount.passwordTextbox.fill("incorrect password");
+    await deleteAccount.deleteButton.click();
 
-    // Enter correct password
-    await deleteAccount.setPassword(credentials.password);
-    await deleteAccount.submit();
-    const success = await page.waitForSelector('.success');
-    expect(await success.isVisible()).toBeTruthy();
+    await expect(deleteAccount.tooltip).toHaveText("Incorrect password");
   });
 });
 ```
 
-Above example makes use of the POM model which has a `settings` and `deleteAccount` page class. This page class holds all the selectors and functions, such as `clickDeleteAccount`, `checkAllBoxes` etc. This example also makes use of the assertions provided in Playwright using the `expect()` and `toContain()`.
+The above example makes use of the `deleteAccount`, `settings` and `signin` POMs. These page classes hold all the relevent locators and functions, such as `fillOutEmailFirstForm`, `fillOutPasswordForm` and `checkAllBoxes`, needed to execute this test flow. This example also makes use of the auto-awaiting assertions provided in Playwright.
 
 ### Find an element
-Use the `page.locator()` function:
+
+Use the built in locators, such as the `page.getByRole()` function:
 
 ```ts
-async cannotCreateAccountHeader() {
-    return this.page.locator(selectors.COPPA_HEADER);
-  }
-```
-
-### Check if an element is visible
-Use the `page.locator().isVisible()` function:
-
-```ts
-async cannotCreateAccountHeader() {
-    return this.page.locator(selectors.COPPA_HEADER).isVisible();
+  get continueButton() {
+    return this.page.getByRole('button', { name: 'Continue' });
   }
 ```
 
 ### Type into an element
-Use the `page.locator().fill()` or `page.locator().type()`  function:
+
+Use the `page.locator().fill()` or `page.locator().type()` function:
 
 ```ts
-setRecoveryKey() {
-    return this.page.locator(selectors.RECOVERY_KEY_TEXT_INPUT).fill('1234');
-  }
+await deleteAccount.passwordTextbox.fill("incorrect password");
 ```
 
 ```ts
-setRecoveryKey() {
-    return this.page.locator(selectors.RECOVERY_KEY_TEXT_INPUT).type('1234');
-  }
+await deleteAccount.passwordTextbox.type("incorrect password");
+```
+
+### Check an element's visibility
+
+Use the auto-awaiting `toBeVisible()` assertion function:
+
+```ts
+await expect(deleteAccount.deleteAccountHeading).toBeVisible();
 ```
 
 ### Check an element's value
-Use the LocatorAssertions with `expect`. Such as `toContain()`, `toContainText()`, `toMatch()` etc
+
+Use the auto-awaiting `toContainText()`, `.toHaveText()`, `toHaveValue()` etc
 
 ```ts
- expect(await deleteAccount.toolTipText()).toContain('Incorrect password');
+await expect(deleteAccount.tooltip).toHaveText("Incorrect password");
 ```
 
 ### Click on an element
+
 Use the `page.locator().click()` function:
 
 ```ts
-async clickSignIn() {
-    return this.page.locator(selectors.SUBMIT_USER_SIGNED_IN).click();
-  }
+await deleteAccount.deleteButton.click();
 ```
 
-### Create a unique email
-Use the `createEmail` function or make use of the `credentials.email` in place of emails.
+### Create a unique email, password or setup an account
+
+Use the [TestAccountTracker](https://github.com/mozilla/fxa/blob/main/packages/functional-tests/lib/testAccountTracker.ts) when in need of an email or password. The TestAccountTracker is available for use via a fixture of the same name in all tests. The TestAccountTracker has the responsibility of creating and deleting accounts in all tests.
 
 ```ts
-const email = createEmail();
+// create an email
+const email = testAccountTracker.generateEmail();
+
+// create a password
+const password = testAccountTracker.generatePassword();
+
+// create an email & password
+const { email, password } = testAccountTracker.generateAccountDetails();
+
+// create an email & password and signup the user
+const credentials = testAccountTracker.signUp();
 ```
 
 ### Simulate interaction with the browser, e.g., WebChannels
@@ -227,7 +241,6 @@ const eventDetailStatus = createCustomEventDetail(
 By default, all functional tests run with the [user-agent string](https://github.com/mozilla/fxa/blob/8da5f79c9ae486eb4a5dbd82e33751a583c9c16f/packages/functional-tests/lib/ua-strings.ts)
 
 > Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:58.0) Gecko/20100101 Firefox/58.0,
-
 
 If your code relies on parsing the user agent string for a particular version number, use the `forceUA` query parameter
 of `goto()` to specify a UA string override.
@@ -286,76 +299,58 @@ on DOM elements unless they are 100% visible, meaning elements that are in the p
 of being faded in or out sometimes causes errors. This is particularly problematic
 on tooltips and status messages that use animations.
 
-If this occurs, use the `locator().isVisible()` or `waitForSelector()`.
-
-```ts
-const error = await page.locator('.error').isVisible();
-```
-
-```ts
-const error = await page.waitForSelector('.error');
-```
+Use built in locators whenever possible to avoid this problem.
 
 ### Avoiding Race condition while writing tests
 
-> Use `waitFor` function to wait for specific conditions to be met, such as an element to appear or be visible, or an attribute to change. Use these functions instead of hard-coding time delays in your tests.
-
-Example:
-
-```ts
-async showError() {
-  const error = this.page.locator('#error');
-  await error.waitFor({ state: 'visible' });
-  return error.isVisible();
-}
-```
-
-> Use the `waitForUrl` or `waitForNavigation` function to wait for page navigation to complete before continuing with the test.
+Use the `waitForUrl` or `waitForNavigation` function to wait for page navigation to complete before continuing with the test.
 
 Example:
 
 ```ts
 async clickForgotPassword() {
-  await this.page.locator(selectors.LINK_RESET_PASSWORD).click();
+  await this.page.getByRole("link", {name: "reset_password"}).click();
   await this.page.waitForURL(/reset_password/);
 }
 ```
+
 ```ts
 async performNavigation() {
   const waitForNavigation = this.page.waitForNavigation();
-  await this.page.locator('button[id=navigate]').click();
+  await this.page.getByRole("button", {name: "navigate"}).click();
   return waitForNavigation;
 }
 ```
 
-> Use unique selectors to identify elements on the page to avoid confusion or ambiguity in selecting the correct element.
+Use unique locators to identify elements on the page to avoid confusion or ambiguity in selecting the correct element.
 
 Example:
 
 ```ts
-this.page.getByRole('link', { name: 'name1' });
-```
-```ts
-this.page.locator('[data-testid="change"]');
-```
-```ts
-this.page.locator('#id');
-```
-```ts
-this.page.locator('.class');
+this.page.getByRole("link", { name: "name1" });
 ```
 
-> Use locator actions to wait for an element to appear before interacting with it.
+```ts
+this.page.page.getByTestId("change");
+```
+
+```ts
+this.page.locator("#id");
+```
+
+```ts
+this.page.locator(".class");
+```
+
+Use locator actions to wait for an element to appear before interacting with it.
 
 Example:
 
 ```ts
-performClick() {
-  return this.page.locator('button[id=Save]').click();
-}
+this.page.getByRole("button", { name: "Save" }).click();
 ```
 
-> Use Promise.all to execute multiple asynchronous tasks simultaneously and wait for them to complete before continuing with the test.
+Use Promise.all to execute multiple asynchronous tasks simultaneously and wait for them to complete before continuing with the test.
 
 Example:
 
@@ -368,28 +363,15 @@ async signOut() {
 }
 ```
 
-> Use `beforeEach` and `afterEach` to set up and tear down the test environment, or using `test.slow()` to mark the test as slow and tripling the test timeout, or running a test in a particular environment etc.
-
-> When writing any test that uses Firefox Sync, use the `newPagesForSync` helper function. This function creates a new browser and a new browser context to avoid any Sync data being shared between tests. After your test is complete, ensure that the browser is closed to free up memory.
+When writing any test that uses Firefox Sync, use the `syncBrowserPages` fixture. This fixture creates a new browser and a new browser context to avoid any Sync data being shared between tests. The fixture ensures that after your test is complete, that the browser is closed to free up memory.
 
 Example:
 
 ```ts
-let syncBrowserPages;
-test.beforeEach(async ({ target, pages: { login } }) => {
-  test.slow();
-  syncBrowserPages = await newPagesForSync(target);
-});
-
-test.afterEach(async () => {
-  await syncBrowserPages.browser?.close();
-});
-
 test('open directly to /signup page, refresh on the /signup page', async ({
-  target,
-}) => {
   // Open new pages in browser specifically for Sync
-  const { page, login } = syncBrowserPages;
+  syncBrowserPages: { page, login }, 
+}) => {
   // ... The rest of your test
 });
 ```
@@ -413,32 +395,58 @@ When encountering a failed test in CircleCI, follow these systematic steps for e
 - Post the issue in the `FXA-team` channel for collective input.
 - Engage the Test Engineering team to leverage their expertise.
 - Create a Jira ticket encapsulating all details and findings.
-- Temporarily disable the test using `test.skip()` and annotate it with the Jira ticket link.
+- Temporarily disable the test using `test.fixme()` and annotate it with the Jira ticket link.
    ```ts
-   test.skip(); //FXA-8717
+   // For all projects
+   test.fixme(true, "FXA-8717");
+
+   // For stage & production projects
+   test.fixme(
+      project.name !== "local",
+      "Test is broken in stage & production (see FXA-8717)"
+   );
    ```
 
 **Key Considerations:**
-> *Flaky Test Alert:* Be cautious, as CircleCI may tag failures as `Flaky` indiscriminately. Rely on personal debugging over this tag.
+
+> *Flaky Test Alert:* Be cautious, as CircleCI considers all workflows, including the `test_pull_request` workflow, when labeling tests as `Flaky`.
 > *Test Consistency Check:* After the initial investigation, rerun the test once to ensure consistency. A consistent failure indicates a genuine test issue, not a flaky one.
 
 ## Guidelines and Best Practices for Functional Test Automation
 
-In our continuous pursuit of maintaining a robust and efficient testing ecosystem, the following key takeaways have been identified during the ongoing audit. These insights, which may be supplemented as the audit progresses, are crucial for fostering a standardized and high-quality approach to test automation:
+In our continuous pursuit of maintaining a robust and efficient testing ecosystem, the following key takeaways are crucial for fostering a standardized and high-quality approach to test automation:
 
-1. Avoid Commenting Out Test Cases:
-It is recommended to refrain from commenting out test cases. Instead, consider utilizing *fixme()* annotations for broken tests or *skip()* annotations for environmental/conditional skips . This ensures transparency and accountability in the development process.
+1. Do not comment-out test cases:
+   Instead, use `test.fixme()` and `test.skip()` [annotations](https://playwright.dev/docs/test-annotations). This allows for better metric calculation and Static Analysis/IDE feedback.
+   - Reference a JIRA ticket in the annotations whenever possible
+   - `test.fixme()` is preferred for tests in progress or tests requiring maintenance
+   - `test.skip()` is preferred for project or feature flag constraints
+    ```ts
+    // Project
+    test.skip(
+      project.name === "production",
+      "The test case is unsupported in production."
+    );
 
-2. Exclude Partially Implemented Tests from CI Execution:
-Partially implemented tests should not be executed in the Continuous Integration (CI) pipeline. Only fully functional and thoroughly validated tests should be included in CI runs to maintain the reliability of our testing infrastructure.
+    // Feature Flag
+    test.skip(config.showReactApp.signInRoutes === true, "FXA-9410");
+    ```
 
-3. Exercise Prudent Judgment with 3rd Party UIs & Flows:
-When interacting with third-party User Interfaces (UIs) and workflows, exercise caution and discretion. Ensure that test scenarios align with expected behaviors and handle potential variations in third-party components.
+2. Exclude partially implemented tests from CI execution:
+   Partial implementation can lead to miscommunication in the form of false positives
 
-4. Prefer Fixtures Over Setup & Teardown Lifecycle Methods:
-Favor the use of fixtures over traditional setup and teardown lifecycle methods. Fixtures provide a more modular and reusable approach, enhancing the maintainability and scalability of our test suites.
+3. Exercise judgment with 3rd party UIs & flows:
+   Generally speaking automating 3rd party interfaces is discouraged, since it can introduce brittleness and be the cause of false negatives
 
-5. Avoid Deprecated Playwright Functions:
-Stay vigilant and avoid the use of deprecated functions in Playwright. Regularly consult the Playwright documentation for updates and transition to recommended alternatives to ensure compatibility and future-proofing of our test scripts.
+4. Prefer [fixtures](https://playwright.dev/docs/test-fixtures) over setup & teardown lifecycle methods:
+   As recommended by Playwright, fixtures best promote reusability and facilitate test concurrency
 
-> These guidelines are pivotal for promoting consistency, reliability, and efficiency within our testing practices. Adherence to these best practices will contribute to the overall success and resilience of our test automation ecosystem.
+5. Assure tests are distributed evenly accross workers:
+   The Playwright test runner will split tests at module level on CI. In order to facilitate even distribution it is best to split large modules into smaller modules. Playwright will emit a warning message if a test module is too large. Example:
+   ```
+   Slow test file: [stage] › test.spec.ts (3.7m)
+   Consider splitting slow test files to speed up parallel execution
+   ```
+
+6. Employ targetted timeouts or modify default timeouts instead of using `test.slow()` [annotations](https://playwright.dev/docs/test-annotations):
+   Overuse of `test.slow()` can have a componding effect and prevent the test suite from failing fast
