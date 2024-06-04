@@ -141,6 +141,11 @@ is configured properly before we move on to the rest of the steps:
 :::warning
 `yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo:mozilla/fxa+filename:pm2.config.js+filename:infrastructure.config.js)). Doing so may result in errors.
 :::
+:::tip
+Additional `start` command options are available to partially start the stack. E.g. `yarn start mza` to start only required Mozilla Accounts services.
+
+For a full list of these commands, run `yarn nps -h`.
+:::
 
 1. Once your services have all started up you should now be able to [visit FxA
 locally](http://localhost:3030). Next up you may want to [create an account](../how-tos/creating-an-account-locally).
