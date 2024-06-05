@@ -99,6 +99,7 @@ module.exports = {
                             'reference/application-logging',
                             'reference/application-tracing',
                             'reference/browser-support',
+                            'reference/canceling-subscriptions-to-plan',
                             {
                               type: 'link',
                               label: '⚙️ Customs API Reference',
