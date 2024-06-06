@@ -442,7 +442,7 @@ In our continuous pursuit of maintaining a robust and efficient testing ecosyste
    As recommended by Playwright, fixtures best promote reusability and facilitate test concurrency
 
 5. Assure tests are distributed evenly accross workers:
-   The Playwright test runner will split tests at module level on CI. In order to facilitate even distribution it is best to split large modules into smaller modules. Playwright will emit a warning message if a test module is too large. By default a module is considered too large if execution surpases a [15 second threshold](https://playwright.dev/docs/api/class-testconfig#test-config-report-slow-tests). Example:
+   The Playwright test runner will split tests at file level on CI. In order to facilitate even distribution it is best to split large files into smaller files. Playwright will emit a warning message if a test file is too large. By default a file is considered too large if execution surpases a [15 second threshold](https://playwright.dev/docs/api/class-testconfig#test-config-report-slow-tests). Example:
    ```
    Slow test file: [stage] › test.spec.ts (3.7m)
    Consider splitting slow test files to speed up parallel execution
