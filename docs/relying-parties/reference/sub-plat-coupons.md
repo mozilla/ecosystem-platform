@@ -26,7 +26,7 @@ Coupons can be found under Products -> Coupons
 
 After you land on the coupon page press the +New button to create a coupon. This will open up the coupon creation screen. Enter the mandatory information:
 
-- **Name** - This is the name of the coupon that will be displayed on the invoice. This should be user friendly.
+- **Name** - This is the name of the coupon that will be displayed on the invoice, as well as the customer's Subscription Management page (`/subscriptions`). This should be user friendly.
 - **Type** - Choose the type of coupon you are creating ( % off or, fixed amount).
 - **Percent off** - If you have chosen a percentage discount, fill in the % box.
 - **Currency & Discount amount** - If you have chosen a fixed amount discount choose your currency and the discount amount.
