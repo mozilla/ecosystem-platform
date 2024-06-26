@@ -52,7 +52,7 @@ yarn nx g @nx/js:lib <name of library> --directory=<path/to> --importPath=<TS pa
 
 For example:
 ```
-yarn nx g @nx/node:library payments-stripe --directory=libs/payments/stripe --importPath=@fxa/payments/stripe --bundler=esbuild --unitTestRunner=jest --projectNameAndRootFormat=as-provided
+yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPath=@fxa/payments/stripe --bundler=esbuild --unitTestRunner=jest --projectNameAndRootFormat=as-provided
 ```
 
 ### Post-creation steps
