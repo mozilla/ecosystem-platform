@@ -44,7 +44,7 @@ These dependencies also work across packages. So if fxa-shared has changed, and 
 The following command can be used to create a Nx library in the monorepo.
 
 ```
-yarn nx g @nx/node:library <name of library> --directory=<path/to> --importPath=<TS path alias> --buildable
+yarn nx g @nx/js:lib <name of library> --directory=<path/to> --importPath=<TS path alias> --bundler=esbuild --unitTestRunner=jest --projectNameAndRootFormat=as-provided
 ```
 - `<name of library>` - Should follow the pattern of `{sub_dir}-{lib_name}`. e.g. `shared-l10n` or `payments-stripe`.
 - `<path/to>` - Should be the full path to root directory of the library. e.g. `libs/shared/l10n` or `libs/payments/stripe`
@@ -52,30 +52,205 @@ yarn nx g @nx/node:library <name of library> --directory=<path/to> --importPath=
 
 For example:
 ```
-yarn nx g @nx/node:library payments-stripe --directory=libs/payments/stripe --importPath=@fxa/payments/stripe --buildable
+yarn nx g @nx/node:library payments-stripe --directory=libs/payments/stripe --importPath=@fxa/payments/stripe --bundler=esbuild --unitTestRunner=jest --projectNameAndRootFormat=as-provided
 ```
 
-- This will create a Nx library with the directory `libs/payments/stripe`
-- You can use the `--dry-run` flag to see what will be generated.
+### Post-creation steps
 
-:::note
-When generating the library, select the "As provided" option. In Nx 19, generating projects will no longer derive the name and root.
-:::
+#### Required
 
+- Modify `project.json` with the following changes.
 
-After generating the Nx library, you will also need to make the following changes in the library (see other libraries in the monorepo for examples):
+  <details>
+    <summary>Add build `decleration` option</summary>
 
-- Duplicate the `test` target in `project.json`, and rename both targets to `test-unit` and `test-integration`. Make sure to update the README to reflect these changes.
-  - For the `test-unit` target, add `"testPathPattern": ["^(?!.*\\.in\\.spec\\.ts$).*$"]` to `targets -> test-unit -> options`
-  - For the `test-integration` target, add `"testPathPattern": ["\\.in\\.spec\\.ts$"]` to `targets -> test-integration -> options`
-  - For more information, see [FXA-8120](https://mozilla-hub.atlassian.net/browse/FXA-8120)
-- Add the open source legal blurb to the top of source code and test TS files
-- Rename TS files to better reflect the module in question (e.g. if adding a library in `libs/shared`, rename `shared-${libraryName}.ts` to `${libraryName}.ts`)
-- Be sure to run `yarn nx reset` to make sure Nx picks up the new library
+    ```json
+    {
+      "targets": {
+        ...
+        "build": {
+          ...
+          "options": {
+            ...
+            "declaration": true,
+            ...
+          }
+          ...
+        },
+      }
+    }
+    ```
+  </details>
+  <details>
+    <summary>Remove target `test`</summary>
 
-:::note
-At the moment (Sept 2023), we see a validation warning regarding `coverageDirectory` when running the test command. This is a bug in Nx and does not affect our potential use of code coverage analysis tools. This warning can be safely ignored for now.
-:::
+    ```json
+    {
+      "targets": {
+        ...
+        "test": { <--- delete all of this
+          ...
+        },
+      }
+    }
+    ```
+  </details>
+  <details>
+    <summary>Add new target `test-unit`</summary>
+
+    ```json
+    {
+      "targets": {
+        ...
+        "test-unit": {
+          "executor": "@nx/jest:jest",
+          "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+          "options": {
+            "jestConfig": "libs/payments/stripe/jest.config.ts",
+            "testPathPattern": ["^(?!.*\\.in\\.spec\\.ts$).*$"]
+          }
+        },
+      }
+    }
+    ```
+  </details>
+  <details>
+    <summary>Add new target `test-integration`</summary>
+
+    ```json
+    {
+      "targets": {
+        ...
+        "test-integration": {
+          "executor": "@nx/jest:jest",
+          "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+          "options": {
+            "jestConfig": "libs/payments/stripe/jest.config.ts",
+            "testPathPattern": ["\\.in\\.spec\\.ts$"]
+          }
+        },
+      }
+    }
+    ```
+  </details>
+  <details>
+    <summary>Update the project README</summary>
+
+    ```md
+    ## Running unit tests
+
+    Run `nx run payments-stripe:test-unit` to execute the unit tests via [Jest](https://jestjs.io).
+
+    ## Running integration tests
+
+    Run `nx run payments-stripe:test-integration` to execute the integration tests via [Jest](https://jestjs.io).
+    ```
+  </details>
+
+#### Optional (but recommended)
+
+- Modify `project.json` with the following changes.
+
+  <details>
+    <summary>Remove build option `format`, to use default of `esm`</summary>
+
+    ```json
+    {
+      "targets": {
+        ...
+        "build": {
+          ...
+          "options": {
+            ...
+            "format": ["cjs"], <---- Delete this
+            ...
+          }
+          ...
+        },
+      }
+    }
+    ```
+  </details>
+- Change test runner to `@swc/jest` 
+
+  <details>
+    <summary>Add this `.swcrc` to the library root. (Same folder as project.json)</summary>
+
+    ```json
+    {
+      "jsc": {
+        "target": "es2017",
+        "parser": {
+          "syntax": "typescript",
+          "decorators": true,
+          "dynamicImport": true
+        },
+        "transform": {
+          "decoratorMetadata": true,
+          "legacyDecorator": true
+        },
+        "keepClassNames": true,
+        "externalHelpers": true,
+        "loose": true
+      },
+      "module": {
+        "type": "commonjs"
+      },
+      "sourceMaps": true,
+      "exclude": [
+        "jest.config.ts",
+        ".*\\.spec.tsx?$",
+        ".*\\.test.tsx?$",
+        "./src/jest-setup.ts$",
+        "./**/jest-setup.ts$",
+        ".*.js$"
+      ]
+    }
+
+    ```
+  </details>
+
+  <details>
+    <summary>Update `jest.config.ts`</summary>
+
+    ```typescript
+    // Start ----- Add to the top of the file
+
+    /* eslint-disable */
+    import { readFileSync } from 'fs';
+
+    // Reading the SWC compilation config and remove the "exclude"
+    // for the test files to be compiled by SWC
+    const { exclude: _, ...swcJestConfig } = JSON.parse(
+      readFileSync(`${__dirname}/.swcrc`, 'utf-8')
+    );
+
+    // disable .swcrc look-up by SWC core because we're passing in swcJestConfig ourselves.
+    // If we do not disable this, SWC Core will read .swcrc and won't transform our test files due to "exclude"
+    if (swcJestConfig.swcrc === undefined) {
+      swcJestConfig.swcrc = false;
+    }
+
+    // Uncomment if using global setup/teardown files being transformed via swc
+    // https://nx.dev/packages/jest/documents/overview#global-setup/teardown-with-nx-libraries
+    // jest needs EsModule Interop to find the default exported setup/teardown functions
+    // swcJestConfig.module.noInterop = false;
+
+    // End ----- Add to the top of the file
+
+    //Make the following changes to `export default {}`
+
+    export default {
+      ...
+      transform: {
+        '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig], // <---- Change this line
+      },
+      testEnvironment: 'node',
+      ...
+    }
+
+    ```
+  </details>
 
 ## General Formatting Of Script Names
 
