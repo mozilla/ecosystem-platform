@@ -62,7 +62,7 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
 - Modify `project.json` with the following changes.
 
   <details>
-    <summary>Add build `decleration` option</summary>
+    <summary>Add build `declaration` option</summary>
 
     ```json
     {
