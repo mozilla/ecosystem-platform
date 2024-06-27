@@ -188,23 +188,8 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
         "transform": {
           "decoratorMetadata": true,
           "legacyDecorator": true
-        },
-        "keepClassNames": true,
-        "externalHelpers": true,
-        "loose": true
-      },
-      "module": {
-        "type": "commonjs"
-      },
-      "sourceMaps": true,
-      "exclude": [
-        "jest.config.ts",
-        ".*\\.spec.tsx?$",
-        ".*\\.test.tsx?$",
-        "./src/jest-setup.ts$",
-        "./**/jest-setup.ts$",
-        ".*.js$"
-      ]
+        }
+      }
     }
 
     ```
