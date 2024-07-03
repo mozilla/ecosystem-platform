@@ -20,14 +20,18 @@ The port used by default for structurizr overlaps with ports needed by the FxA s
 
 1. Create a local structurizr directory in your home directory:
    ```bash
-   $ mkdir ~/structurizr
+   $ mkdir -p ~/structurizr
    ```
-2. Run the docker container:
+2. Configure structurizr to enable the DSL Editor:
    ```bash
-   $ docker run -it --rm -p 8080:8080 -v ~/structurizr:/usr/local/structurizr structurizr/onpremises
+   $ echo 'structurizr.feature.ui.dslEditor=true' > ~/structurizr/structurizr.properties
    ```
-3. Create a new workspace if none exist
-4. Import the workspace file as noted above
+3. Run the docker container:
+   ```bash
+   $ docker-compose up
+   ```
+4. Create a new workspace if none exist
+5. Import the workspace file as noted above
 
 Visiting `http://localhost:8080/` will present the structurizr interface, the default credentials are:
 

@@ -12,12 +12,19 @@ Instructions for working on these can be found in the [architecture README](http
 
 ## System Landscapes (Level 1)
 
+### Entire FxA / Subscription Platform
+
 System Landscapes Key:
 ![](../../static/diagrams/structurizr-1-SystemLandscape-key.png)
 
-### Entire FxA / Subscription Platform
-
 ![](../../static/diagrams/structurizr-1-SystemLandscape.png)
+
+### Subscription Platform
+
+Subscription Platform Landscapes Key:
+![](../../static/diagrams/structurizr-1-PaymentSystemLandscape-key.png)
+
+![](../../static/diagrams/structurizr-1-PaymentSystemLandscape.png)
 
 ### Account Authentication Specific
 
@@ -29,12 +36,26 @@ System Landscapes Key:
 
 ## Container Diagram (Level 2)
 
+### Entire FxA / Subscription Platform
+
 Containers Key:
 ![](../../static/diagrams/structurizr-1-Containers-key.png)
 
-### Entire FxA / Subscription Platform
-
 ![](../../static/diagrams/structurizr-1-Containers.png)
+
+### Subscription Platform 2.5
+
+Subscription Platform 2.5 Key:
+![](../../static/diagrams/structurizr-1-ContainersPaymentSystem2_5-key.png)
+
+![](../../static/diagrams/structurizr-1-ContainersPaymentSystem2_5.png)
+
+### subscription Platform 3.0
+
+Subscription Platform 3.0 Key:
+![](../../static/diagrams/structurizr-1-ContainersPaymentSystem3-key.png)
+
+![](../../static/diagrams/structurizr-1-ContainersPaymentSystem3.png)
 
 ### Send Tab
 
