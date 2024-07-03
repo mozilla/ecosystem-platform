@@ -1300,18 +1300,18 @@
     postcss-sort-media-queries "^4.4.1"
     tslib "^2.6.0"
 
-"@docusaurus/logger@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@docusaurus/logger/-/logger-3.0.0.tgz"
-  integrity sha512-6eX0eOfioMQCk+qgCnHvbLLuyIAA+r2lSID6d6JusiLtDKmYMfNp3F4yyE8bnb0Abmzt2w68XwptEFYyALSAXw==
-  dependencies:
-    chalk "^4.1.2"
-    tslib "^2.6.0"
-
 "@docusaurus/logger@3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@docusaurus/logger/-/logger-3.0.1.tgz"
   integrity sha512-I5L6Nk8OJzkVA91O2uftmo71LBSxe1vmOn9AMR6JRCzYeEBrqneWMH02AqMvjJ2NpMiviO+t0CyPjyYV7nxCWQ==
+  dependencies:
+    chalk "^4.1.2"
+    tslib "^2.6.0"
+
+"@docusaurus/logger@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@docusaurus/logger/-/logger-3.4.0.tgz#8b0ac05c7f3dac2009066e2f964dee8209a77403"
+  integrity sha512-bZwkX+9SJ8lB9kVRkXw+xvHYSMGG4bpYHKGXeXFvyVc79NMeeBSGgzd4TQLHH+DYeOJoCdl8flrFJVxlZ0wo/Q==
   dependencies:
     chalk "^4.1.2"
     tslib "^2.6.0"
@@ -1621,6 +1621,13 @@
   dependencies:
     tslib "^2.6.0"
 
+"@docusaurus/utils-common@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@docusaurus/utils-common/-/utils-common-3.4.0.tgz#2a43fefd35b85ab9fcc6833187e66c15f8bfbbc6"
+  integrity sha512-NVx54Wr4rCEKsjOH5QEVvxIqVvm+9kh7q8aYTU5WzUU9/Hctd6aTrcZ3G0Id4zYJ+AeaG5K5qHA4CY5Kcm2iyQ==
+  dependencies:
+    tslib "^2.6.0"
+
 "@docusaurus/utils-validation@3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@docusaurus/utils-validation/-/utils-validation-3.0.1.tgz"
@@ -1655,13 +1662,14 @@
     url-loader "^4.1.1"
     webpack "^5.88.1"
 
-"@docusaurus/utils@>=2.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@docusaurus/utils/-/utils-3.0.0.tgz"
-  integrity sha512-JwGjh5mtjG9XIAESyPxObL6CZ6LO/yU4OSTpq7Q0x+jN25zi/AMbvLjpSyZzWy+qm5uQiFiIhqFaOxvy+82Ekg==
+"@docusaurus/utils@>=3.2.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@docusaurus/utils/-/utils-3.4.0.tgz#c508e20627b7a55e2b541e4a28c95e0637d6a204"
+  integrity sha512-fRwnu3L3nnWaXOgs88BVBmG1yGjcQqZNHG+vInhEa2Sz2oQB+ZjbEMO5Rh9ePFpZ0YDiDUhpaVjwmS+AU2F14g==
   dependencies:
-    "@docusaurus/logger" "3.0.0"
-    "@svgr/webpack" "^6.5.1"
+    "@docusaurus/logger" "3.4.0"
+    "@docusaurus/utils-common" "3.4.0"
+    "@svgr/webpack" "^8.1.0"
     escape-string-regexp "^4.0.0"
     file-loader "^6.2.0"
     fs-extra "^11.1.1"
@@ -1672,10 +1680,12 @@
     js-yaml "^4.1.0"
     lodash "^4.17.21"
     micromatch "^4.0.5"
+    prompts "^2.4.2"
     resolve-pathname "^3.0.0"
     shelljs "^0.8.5"
     tslib "^2.6.0"
     url-loader "^4.1.1"
+    utility-types "^3.10.0"
     webpack "^5.88.1"
 
 "@emotion/is-prop-valid@^1.2.1":
@@ -1700,51 +1710,50 @@
   resolved "https://registry.npmjs.org/@exodus/schemasafe/-/schemasafe-1.3.0.tgz"
   integrity sha512-5Aap/GaRupgNx/feGBwLLTVv8OQFfv3pq2lPRzPg9R+IOBnDgghTGW7l7EuVXOvg5cc/xSAlRW8rBrjIC3Nvqw==
 
-"@graphql-markdown/core@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.npmjs.org/@graphql-markdown/core/-/core-1.7.3.tgz"
-  integrity sha512-li6XDpA09yvN5thXZRaVARI3WpLTGYPji+F0S78muVJjWp2DPLY9ae16ipkuzy1kh/WaSzI09pSOJcxaLgeE1g==
+"@graphql-markdown/core@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.10.2.tgz#9f3738d18609193f96cc5142e9fa4eb27302934c"
+  integrity sha512-IqhBDljrWTWF2RkLDM/kNzCY+bUQM16vkvkh+uQ3H3RKzMZvx6A+DdQtHaI9dbQddg7vjmxFYcFWHKx91EOd4w==
   dependencies:
-    "@graphql-markdown/graphql" "^1.0.1"
-    "@graphql-markdown/logger" "^1.0.0"
-    "@graphql-markdown/utils" "^1.6.1"
+    "@graphql-markdown/graphql" "^1.1.3"
+    "@graphql-markdown/logger" "^1.0.3"
+    "@graphql-markdown/utils" "^1.6.5"
 
-"@graphql-markdown/docusaurus@^1.21.3":
-  version "1.21.3"
-  resolved "https://registry.npmjs.org/@graphql-markdown/docusaurus/-/docusaurus-1.21.3.tgz"
-  integrity sha512-9yAEd/ilcn35rxpuJmw0O10URYFs5laIuYqNF4g/W7diIMPblEy2VunLNWjiEnedcjYdQLS3vx+2JapKZ3tkow==
+"@graphql-markdown/docusaurus@^1.24.2":
+  version "1.24.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.24.2.tgz#c22a3c763c7fab915497f067d9022885ab8d0fad"
+  integrity sha512-AhQuJxlqm0jMfeYoiZEM3FqxhuXQ0ABc1WuLMVFGGzWNkex7cvIy4ryIfRfBODmjj0V28nSHJgNJVGrhHnYHmg==
   dependencies:
-    "@graphql-markdown/core" "^1.7.3"
-    "@graphql-markdown/logger" "^1.0.0"
-    "@graphql-markdown/printer-legacy" "^1.5.3"
+    "@graphql-markdown/core" "^1.10.2"
+    "@graphql-markdown/logger" "^1.0.3"
+    "@graphql-markdown/printer-legacy" "^1.8.2"
 
-"@graphql-markdown/graphql@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@graphql-markdown/graphql/-/graphql-1.0.1.tgz"
-  integrity sha512-l38BqQzIv3sqL7flis3az+5gjLBMLxGzBfIirYW7VUx2fZocd7HJ9cvTVLs2lDefNABs0dw/pQaRl4QouW8blA==
+"@graphql-markdown/graphql@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/graphql/-/graphql-1.1.3.tgz#d5f4dad2422e68f9684a206c5252a02372706da7"
+  integrity sha512-ybdhrhrPYKx8IORPyoyEuSUkHzo+9Lc2oT5Ch12ir0MVE1STWuxLr0i0m4axbJ8Y1jm2TuFne7WU5cERf6yONA==
   dependencies:
-    "@graphql-markdown/utils" "^1.6.1"
+    "@graphql-markdown/utils" "^1.6.5"
+    "@graphql-tools/load" "^8.0.2"
 
-"@graphql-markdown/logger@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@graphql-markdown/logger/-/logger-1.0.0.tgz"
-  integrity sha512-VTzBIhGcfvUBwmxxcGFQVZhzD8oGkdZK53LSDvcchNZ/yQKbD77M8u6U10P4673wMWPq7p6r+CSKuluG6SRjow==
+"@graphql-markdown/logger@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/logger/-/logger-1.0.3.tgz#4e758e09987e87c852b401ce10031d6d8e82ad38"
+  integrity sha512-lcfMehjxHez4TDrWHo1+sNIHA5+/0yUzJxXJKR6qOladPdUmL8d/FWseoNEPu3ZQvdQAyDGeJ9GaEYLweCj07A==
 
-"@graphql-markdown/printer-legacy@^1.5.3":
-  version "1.5.3"
-  resolved "https://registry.npmjs.org/@graphql-markdown/printer-legacy/-/printer-legacy-1.5.3.tgz"
-  integrity sha512-bft3KynVPcKPC+BMGVkFZ7WFvRdTtqR1HX/GsrtKitlpeRafS3UJNKLBoGM0pIKPPAMCVYYKmfIgCK2/03WYkg==
+"@graphql-markdown/printer-legacy@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.8.2.tgz#1db599f451c3a88628000c56599fa0945f2aa79b"
+  integrity sha512-YgT51wE6UthHflvIif0khwtNIMTFg1zuRfWsbhFo/3dypS30tpngQ7KZlTpjxqDIdqIhyVfhh3gKWBFUAcdQKw==
   dependencies:
-    "@docusaurus/utils" ">=2.0.0"
-    "@graphql-markdown/graphql" "^1.0.1"
-    "@graphql-markdown/utils" "^1.6.1"
+    "@docusaurus/utils" ">=3.2.0"
+    "@graphql-markdown/graphql" "^1.1.3"
+    "@graphql-markdown/utils" "^1.6.5"
 
-"@graphql-markdown/utils@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.npmjs.org/@graphql-markdown/utils/-/utils-1.6.1.tgz"
-  integrity sha512-PQlsGvTxO2yqlmeRwe3pqDtVAjw5I0mCgYJdWI7hJHM1YUDhLBdjIgaY25cUYvURd87g8NQqS3jpxh7jvb1tTQ==
-  dependencies:
-    "@graphql-tools/load" "^8.0.0"
+"@graphql-markdown/utils@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/utils/-/utils-1.6.5.tgz#c36d7981e60a6c94f4e12e485905656448001c4e"
+  integrity sha512-E6LcPxdgFZ8pA88jd5zgRu3+6Gux76/Db6N/nnozk1dqgGKL/A8EUQueQiy75oHa3fGBgNWUQsc8ugRantLgmg==
 
 "@graphql-tools/graphql-file-loader@^8.0.1":
   version "8.0.1"
@@ -1766,38 +1775,48 @@
     resolve-from "5.0.0"
     tslib "^2.4.0"
 
-"@graphql-tools/load@^8.0.0":
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/@graphql-tools/load/-/load-8.0.1.tgz"
-  integrity sha512-qSMsKngJhDqRbuWyo3NvakEFqFL6+eSjy8ooJ1o5qYD26N7dqXkKzIMycQsX7rBK19hOuINAUSaRcVWH6hTccw==
+"@graphql-tools/load@^8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-8.0.2.tgz#47d9916bf96dea05df27f11b53812f4327d9b6d2"
+  integrity sha512-S+E/cmyVmJ3CuCNfDuNF2EyovTwdWfQScXv/2gmvJOti2rGD8jTt9GYVzXaxhblLivQR9sBUCNZu/w7j7aXUCA==
   dependencies:
-    "@graphql-tools/schema" "^10.0.0"
-    "@graphql-tools/utils" "^10.0.11"
+    "@graphql-tools/schema" "^10.0.3"
+    "@graphql-tools/utils" "^10.0.13"
     p-limit "3.1.0"
     tslib "^2.4.0"
 
-"@graphql-tools/merge@^9.0.1":
-  version "9.0.1"
-  resolved "https://registry.npmjs.org/@graphql-tools/merge/-/merge-9.0.1.tgz"
-  integrity sha512-hIEExWO9fjA6vzsVjJ3s0cCQ+Q/BEeMVJZtMXd7nbaVefVy0YDyYlEkeoYYNV3NVVvu1G9lr6DM1Qd0DGo9Caw==
+"@graphql-tools/merge@^9.0.3":
+  version "9.0.4"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-9.0.4.tgz#66c34cbc2b9a99801c0efca7b8134b2c9aecdb06"
+  integrity sha512-MivbDLUQ+4Q8G/Hp/9V72hbn810IJDEZQ57F01sHnlrrijyadibfVhaQfW/pNH+9T/l8ySZpaR/DpL5i+ruZ+g==
   dependencies:
-    "@graphql-tools/utils" "^10.0.10"
+    "@graphql-tools/utils" "^10.0.13"
     tslib "^2.4.0"
 
-"@graphql-tools/schema@^10.0.0":
-  version "10.0.2"
-  resolved "https://registry.npmjs.org/@graphql-tools/schema/-/schema-10.0.2.tgz"
-  integrity sha512-TbPsIZnWyDCLhgPGnDjt4hosiNU2mF/rNtSk5BVaXWnZqvKJ6gzJV4fcHcvhRIwtscDMW2/YTnK6dLVnk8pc4w==
+"@graphql-tools/schema@^10.0.3":
+  version "10.0.4"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-10.0.4.tgz#d4fc739a2cc07b4fc5f31a714178a561cba210cd"
+  integrity sha512-HuIwqbKxPaJujox25Ra4qwz0uQzlpsaBOzO6CVfzB/MemZdd+Gib8AIvfhQArK0YIN40aDran/yi+E5Xf0mQww==
   dependencies:
-    "@graphql-tools/merge" "^9.0.1"
-    "@graphql-tools/utils" "^10.0.10"
+    "@graphql-tools/merge" "^9.0.3"
+    "@graphql-tools/utils" "^10.2.1"
     tslib "^2.4.0"
     value-or-promise "^1.0.12"
 
-"@graphql-tools/utils@^10.0.10", "@graphql-tools/utils@^10.0.11", "@graphql-tools/utils@^10.0.13":
+"@graphql-tools/utils@^10.0.13":
   version "10.1.3"
   resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-10.1.3.tgz#e9c8913a74c97f9a9210d22b45f520762f2fa299"
   integrity sha512-loco2ctrrMQzdpSHbcOo6+Ecp21BV67cQ2pNGhuVKAexruu01RdLn3LgtK47B9BpLz3cUD6U0u1R0rur7xMOOg==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.1.1"
+    cross-inspect "1.0.0"
+    dset "^3.1.2"
+    tslib "^2.4.0"
+
+"@graphql-tools/utils@^10.2.1":
+  version "10.2.3"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-10.2.3.tgz#262359e230e8e16fd15b996217ab4cac8ce0d5d3"
+  integrity sha512-j7x0sO0VtWVhD3FubyY42abx+g61/at5W5Y3DSOckPkBo7yVjkcnAsXoB4jiUnznhGme/o+uX5VgA8HrjyR5ZQ==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     cross-inspect "1.0.0"
