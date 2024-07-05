@@ -296,7 +296,7 @@ The Mozilla accounts service is part of Mozilla's [bug bounty program][moz-bug-b
 
 
 
-[bugzilla-triage-process]: https://mozilla.github.io/bug-handling/triage-bugzilla
+[bugzilla-triage-process]: https://firefox-source-docs.mozilla.org/bug-mgmt/policies/triage-bugzilla.html
 [bugzilla-fxa-server]: https://bugzilla.mozilla.org/buglist.cgi?list_id=15067999&resolution=---&classification=Client%20Software&classification=Developer%20Infrastructure&classification=Components&classification=Server%20Software&classification=Other&query_based_on=CloudServices%3A%3AServer%3AFirefoxAccounts&query_format=advanced&component=Server%3A%20Firefox%20Accounts&product=Cloud%20Services&known_name=CloudServices%3A%3AServer%3AFirefoxAccounts
 [fxa-calendar]: https://www.google.com/calendar/embed?src=mozilla.com_urbkla6jvphpk1t8adi5c12kic%40group.calendar.google.com
 [fxa-deploy-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
@@ -319,7 +319,7 @@ The Mozilla accounts service is part of Mozilla's [bug bounty program][moz-bug-b
 [subplat-roadmap]: https://mozilla-hub.atlassian.net/jira/plans/34/scenarios/34?vid=136#plan/backlog
 [pi-jira]: https://mozilla-hub.atlassian.net/jira/software/c/projects/QA/issues/
 [bug-severity]: https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity
-[bugzilla-triage]: ./triage-process.md#bugzilla-skip-for-subplat
+[bugzilla-triage]: ./triage-process.md#bugzilla-fxa-only
 
 [contributing-md]: https://github.com/mozilla/fxa/blob/main/CONTRIBUTING.md
 [issue-forked-prs]: https://github.com/mozilla/fxa/issues/12261
