@@ -121,7 +121,7 @@ SubPlat observes the following Grafana dashboards:
 
 If there's time left in the FxA triage meeting, Bugzilla can be looked at as a team that day. Ideally, the triage owner will check Bugzilla every day on their own.
 
-There is no longer much activity in our Bugzilla component to this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
+There is no longer much activity in our Bugzilla component so this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
 
 If a Bugzilla bug includes a user's email address or any PII (personal identifiable information) in the bug description, then do the following:
 
