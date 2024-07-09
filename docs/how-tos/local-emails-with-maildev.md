@@ -5,7 +5,7 @@ title: Local Emails with MailDev
 If you're interested in receiving emails locally you can use [MailDev](https://www.npmjs.com/package/maildev) to intercept emails and display them in a local inbox. 
 
 :::important
-MailDev is handy to verify that emails looks as expected. However, functional tests that rely on email require the inbox service and will fail if MailDev is on.
+MailDev is handy to verify that emails look as expected. However, functional tests that rely on email require the inbox service and will fail if MailDev is on.
 :::
 
 1. Install the MailDev CLI globally:
