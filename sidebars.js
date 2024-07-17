@@ -24,8 +24,8 @@ module.exports = {
                       'relying-parties/reference/query-parameters',
                       'relying-parties/reference/sub-plat-overview',
                       'relying-parties/reference/sub-plat-features',
-                      'relying-parties/reference/sub-plat-contentful',
                       'relying-parties/reference/sub-plat-coupons',
+                      'relying-parties/reference/sub-plat-strapi',
                       'relying-parties/reference/using-apis',
                       {
                         type: 'link',
