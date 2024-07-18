@@ -83,7 +83,7 @@ Each tiered plan should have its own Offering with the product name and tier lev
 
 In Offering, include the capabilities for the product in the Capabilities field.
 
-For example, in the "123 Foxkeh" Offering below, the capabilities "123donePro" (for 123 Done Pro Plus) and "foxkeh for Cooking with Foxkeh 2" (for Cooking with Foxkeh 2) are included in the Capabilities field.
+For example, in the "123 Foxkeh" Offering below, the capabilities "123donePro" (for 123 Done Pro Plus) and "foxkeh" (for Cooking with Foxkeh) are included in the Capabilities field.
 
 <img src={require('../../assets/subplat-strapi-bundle.png').default} alt="Bundle" width="500" />
 
