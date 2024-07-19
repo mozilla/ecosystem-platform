@@ -1,0 +1,69 @@
+---
+id: basic-payload
+title: BasicPayload
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+No description
+
+
+```graphql
+type BasicPayload {
+  clientMutationId: String
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>BasicPayload.<b>clientMutationId</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
+> 
+> 
+> A unique identifier for the client performing the mutation.
+> 
+
+
+
+
+
+### Returned By
+
+[`attachedClientDisconnect`](/gql-api/api/mutations/attached-client-disconnect)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`createPassword`](/gql-api/api/mutations/create-password)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`createSecondaryEmail`](/gql-api/api/mutations/create-secondary-email)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`deleteAvatar`](/gql-api/api/mutations/delete-avatar)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`deleteRecoveryKey`](/gql-api/api/mutations/delete-recovery-key)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`deleteSecondaryEmail`](/gql-api/api/mutations/delete-secondary-email)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`deleteTotp`](/gql-api/api/mutations/delete-totp)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`destroySession`](/gql-api/api/mutations/destroy-session)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`emailVerifyCode`](/gql-api/api/mutations/email-verify-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`metricsOpt`](/gql-api/api/mutations/metrics-opt)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`rejectUnblockCode`](/gql-api/api/mutations/reject-unblock-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`resendSecondaryEmailCode`](/gql-api/api/mutations/resend-secondary-email-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`resendVerifyCode`](/gql-api/api/mutations/resend-verify-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`sendSessionVerificationCode`](/gql-api/api/mutations/send-session-verification-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`updatePrimaryEmail`](/gql-api/api/mutations/update-primary-email)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`verifyCode`](/gql-api/api/mutations/verify-code)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`verifySecondaryEmail`](/gql-api/api/mutations/verify-secondary-email)  <Badge class="badge badge--secondary" text="mutation"/><Bullet />[`verifySession`](/gql-api/api/mutations/verify-session)  <Badge class="badge badge--secondary" text="mutation"/>
+
