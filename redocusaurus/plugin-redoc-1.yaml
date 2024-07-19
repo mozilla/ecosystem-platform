@@ -55,7 +55,7 @@ info:
 schemes:
   - https
 swagger: '2.0'
-host: graphql.accounts.firefox.com
+host: accounts-api-documentation.stage.mozaws.net
 tags: []
 paths:
   /allowedEmailDomains:
