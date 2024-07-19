@@ -1,0 +1,63 @@
+---
+id: float
+title: Float
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+
+
+```graphql
+scalar Float
+```
+
+
+
+
+
+
+
+
+### Returned By
+
+[`created`](/gql-api/api/subscriptions/created)  <Badge class="badge badge--secondary" text="subscription"/><Bullet />[`currentPeriodEnd`](/gql-api/api/subscriptions/current-period-end)  <Badge class="badge badge--secondary" text="subscription"/><Bullet />[`currentPeriodStart`](/gql-api/api/subscriptions/current-period-start)  <Badge class="badge badge--secondary" text="subscription"/><Bullet />[`endAt`](/gql-api/api/subscriptions/end-at)  <Badge class="badge badge--secondary" text="subscription"/>
+
+### Member Of
+
+[`Account`](/gql-api/types/objects/account)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`AccountResetPayload`](/gql-api/types/objects/account-reset-payload)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`AttachedClient`](/gql-api/types/objects/attached-client)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`LinkedAccount`](/gql-api/types/objects/linked-account)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`MetricsContext`](/gql-api/types/inputs/metrics-context)  <Badge class="badge badge--secondary" text="input"/><Bullet />[`PasswordChangePayload`](/gql-api/types/objects/password-change-payload)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`PasswordForgotCodeStatusPayload`](/gql-api/types/objects/password-forgot-code-status-payload)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`SecurityEvent`](/gql-api/types/objects/security-event)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`SessionReauthedAccountPayload`](/gql-api/types/objects/session-reauthed-account-payload)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`SignedInAccountPayload`](/gql-api/types/objects/signed-in-account-payload)  <Badge class="badge badge--secondary" text="object"/><Bullet />[`SignedUpAccountPayload`](/gql-api/types/objects/signed-up-account-payload)  <Badge class="badge badge--secondary" text="object"/>
+
