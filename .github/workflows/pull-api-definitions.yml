@@ -30,7 +30,7 @@ jobs:
         run: |
           # Run script to pull docs
           curl https://api.accounts.firefox.com/swagger.json -o api-swagger.json
-          curl https://graphql.accounts.firefox.com/swagger.json -o api-customs.json
+          curl https://accounts-api-documentation.stage.mozaws.net/swagger.json -o api-customs.json
           curl https://accounts-static.cdn.mozilla.net/fxa-graphql-api/schema.gql -o api-gql.gql
 
       - name: See if anything changed
