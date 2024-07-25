@@ -55,7 +55,7 @@ info:
 schemes:
   - https
 swagger: '2.0'
-host: accounts-api-documentation.stage.mozaws.net
+host: api-documentation.accounts.firefox.com
 tags: []
 paths:
   /allowedEmailDomains:
