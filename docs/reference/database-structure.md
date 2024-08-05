@@ -2,7 +2,7 @@
 title: Database Structure
 ---
 
-Current as of `July 22nd, 2023`, patch level `147`
+Current as of patch level `148`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
@@ -92,6 +92,7 @@ erDiagram
         varchar email
         int amount
         smallint version "unsigned"
+        enum eligibilityStatus "create,upgrade,downgrade,blocked_iap,invalid"
     }
     dbMetadata {
         varchar name
