@@ -65,6 +65,16 @@ erDiagram
         binary wrapWrapKbVersion2 "32 bytes; CONFIDENTIAL, key for 'class-B' material. Only unwrappable on the client."
         tinyint atLeast18AtReg
     }
+    accounts }|--|{ accountGroups: in
+    group }|--|{ accountGroups: in
+    accountGroups {
+        binary uid PK "FK 16 bytes"
+        smallint group_id PK "FK unsigned"
+        enum role "admin,owner,participant"
+        enum managed_by "automatic,manual"
+        bigint expires "unsigned"
+        text notes
+    }
     accounts }|--o{ carts: has
     carts {
         binary id PK "16 bytes"
@@ -86,6 +96,12 @@ erDiagram
     dbMetadata {
         varchar name
         varchar value
+    }
+    group {
+        smallint id PK "unsigned"
+        varchar name
+        varchar display_name
+        varchar capabilities
     }
 ```
 ```mermaid
