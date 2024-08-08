@@ -1319,14 +1319,6 @@
     chalk "^4.1.2"
     tslib "^2.6.0"
 
-"@docusaurus/logger@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@docusaurus/logger/-/logger-3.4.0.tgz#8b0ac05c7f3dac2009066e2f964dee8209a77403"
-  integrity sha512-bZwkX+9SJ8lB9kVRkXw+xvHYSMGG4bpYHKGXeXFvyVc79NMeeBSGgzd4TQLHH+DYeOJoCdl8flrFJVxlZ0wo/Q==
-  dependencies:
-    chalk "^4.1.2"
-    tslib "^2.6.0"
-
 "@docusaurus/mdx-loader@3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@docusaurus/mdx-loader/-/mdx-loader-3.0.1.tgz"
@@ -1632,13 +1624,6 @@
   dependencies:
     tslib "^2.6.0"
 
-"@docusaurus/utils-common@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@docusaurus/utils-common/-/utils-common-3.4.0.tgz#2a43fefd35b85ab9fcc6833187e66c15f8bfbbc6"
-  integrity sha512-NVx54Wr4rCEKsjOH5QEVvxIqVvm+9kh7q8aYTU5WzUU9/Hctd6aTrcZ3G0Id4zYJ+AeaG5K5qHA4CY5Kcm2iyQ==
-  dependencies:
-    tslib "^2.6.0"
-
 "@docusaurus/utils-validation@3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@docusaurus/utils-validation/-/utils-validation-3.0.1.tgz"
@@ -1673,32 +1658,6 @@
     url-loader "^4.1.1"
     webpack "^5.88.1"
 
-"@docusaurus/utils@>=3.2.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@docusaurus/utils/-/utils-3.4.0.tgz#c508e20627b7a55e2b541e4a28c95e0637d6a204"
-  integrity sha512-fRwnu3L3nnWaXOgs88BVBmG1yGjcQqZNHG+vInhEa2Sz2oQB+ZjbEMO5Rh9ePFpZ0YDiDUhpaVjwmS+AU2F14g==
-  dependencies:
-    "@docusaurus/logger" "3.4.0"
-    "@docusaurus/utils-common" "3.4.0"
-    "@svgr/webpack" "^8.1.0"
-    escape-string-regexp "^4.0.0"
-    file-loader "^6.2.0"
-    fs-extra "^11.1.1"
-    github-slugger "^1.5.0"
-    globby "^11.1.0"
-    gray-matter "^4.0.3"
-    jiti "^1.20.0"
-    js-yaml "^4.1.0"
-    lodash "^4.17.21"
-    micromatch "^4.0.5"
-    prompts "^2.4.2"
-    resolve-pathname "^3.0.0"
-    shelljs "^0.8.5"
-    tslib "^2.6.0"
-    url-loader "^4.1.1"
-    utility-types "^3.10.0"
-    webpack "^5.88.1"
-
 "@emotion/is-prop-valid@1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-1.2.2.tgz#d4175076679c6a26faa92b03bb786f9e52612337"
@@ -1721,23 +1680,22 @@
   resolved "https://registry.npmjs.org/@exodus/schemasafe/-/schemasafe-1.3.0.tgz"
   integrity sha512-5Aap/GaRupgNx/feGBwLLTVv8OQFfv3pq2lPRzPg9R+IOBnDgghTGW7l7EuVXOvg5cc/xSAlRW8rBrjIC3Nvqw==
 
-"@graphql-markdown/core@^1.10.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.10.2.tgz#9f3738d18609193f96cc5142e9fa4eb27302934c"
-  integrity sha512-IqhBDljrWTWF2RkLDM/kNzCY+bUQM16vkvkh+uQ3H3RKzMZvx6A+DdQtHaI9dbQddg7vjmxFYcFWHKx91EOd4w==
+"@graphql-markdown/core@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/core/-/core-1.11.0.tgz#f8bc9697699ab557af6c512451b3dc93e8999b0c"
+  integrity sha512-pUtf1PG3uuTE/U3a5lYv+wy5mdtgTELnbelFg2PAJick6RC4vUzEydfwaMJDk8ftyQuu5srmHs+YPD1HH3hXMg==
   dependencies:
     "@graphql-markdown/graphql" "^1.1.3"
     "@graphql-markdown/logger" "^1.0.3"
     "@graphql-markdown/utils" "^1.6.5"
 
-"@graphql-markdown/docusaurus@^1.24.2":
-  version "1.24.2"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.24.2.tgz#c22a3c763c7fab915497f067d9022885ab8d0fad"
-  integrity sha512-AhQuJxlqm0jMfeYoiZEM3FqxhuXQ0ABc1WuLMVFGGzWNkex7cvIy4ryIfRfBODmjj0V28nSHJgNJVGrhHnYHmg==
+"@graphql-markdown/docusaurus@^1.25.0":
+  version "1.25.0"
+  resolved "https://registry.yarnpkg.com/@graphql-markdown/docusaurus/-/docusaurus-1.25.0.tgz#7beb4d03e60f80422fd9da682fc6ba6f0462414e"
+  integrity sha512-BqR4VvmyRq4kodY5GJyrlAwMwqIORn45nQ+NJFb1ASB2XfsypV/FD2edZodZ7WBdblgS+yGAW7twxfmGhTrOpg==
   dependencies:
-    "@graphql-markdown/core" "^1.10.2"
+    "@graphql-markdown/core" "^1.11.0"
     "@graphql-markdown/logger" "^1.0.3"
-    "@graphql-markdown/printer-legacy" "^1.8.2"
 
 "@graphql-markdown/graphql@^1.1.3":
   version "1.1.3"
@@ -1751,15 +1709,6 @@
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@graphql-markdown/logger/-/logger-1.0.3.tgz#4e758e09987e87c852b401ce10031d6d8e82ad38"
   integrity sha512-lcfMehjxHez4TDrWHo1+sNIHA5+/0yUzJxXJKR6qOladPdUmL8d/FWseoNEPu3ZQvdQAyDGeJ9GaEYLweCj07A==
-
-"@graphql-markdown/printer-legacy@^1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@graphql-markdown/printer-legacy/-/printer-legacy-1.8.2.tgz#1db599f451c3a88628000c56599fa0945f2aa79b"
-  integrity sha512-YgT51wE6UthHflvIif0khwtNIMTFg1zuRfWsbhFo/3dypS30tpngQ7KZlTpjxqDIdqIhyVfhh3gKWBFUAcdQKw==
-  dependencies:
-    "@docusaurus/utils" ">=3.2.0"
-    "@graphql-markdown/graphql" "^1.1.3"
-    "@graphql-markdown/utils" "^1.6.5"
 
 "@graphql-markdown/utils@^1.6.5":
   version "1.6.5"
