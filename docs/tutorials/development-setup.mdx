@@ -154,6 +154,18 @@ locally](http://localhost:3030). Next up you may want to [create an account](../
 FxA should only be accessed locally using the `localhost` host, and not via `127.0.0.1`.
 :::
 
+### Step 3: Optional Additions
+
+#### Do you need a relying party to test with?
+123done is automatically started with `yarn start` but it won't work until [you finish setting it up](https://github.com/mozilla/fxa/blob/main/packages/123done/README.md#running-locally).  Talk to someone on the team for the right value to put in the `packages/123done/secrets.json` file.
+
+#### Do you want to test with 3rd party logins (e.g. Apple or Google)?  
+Those need [some additional configuration](../reference/third-party-authentication).  Talk to someone on the team for the right values to put in your `packages/fxa-auth-server/config/secrets.json` file.
+
+#### Do you need the payments services up and running?
+Those need [additional configuration](../tutorials/subscription-platform) also. You'll need to talk to someone on the team for the right values to put in your `packages/fxa-auth-server/config/secrets.json` file.
+
+
 ### Troubleshooting
 
 If a `NX - Daemon processes terminated and closed the connect` error message appears when attempting to start the stack, you may turn off the nx daemon locally by adding this setting to a .env file in fxa root: 
