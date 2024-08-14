@@ -24,7 +24,7 @@
     "@docusaurus/preset-classic": "^3.0.1",
     "@docusaurus/theme-mermaid": "^3.0.1",
     "@docusaurus/theme-search-algolia": "^3.0.1",
-    "@graphql-markdown/docusaurus": "^1.24.2",
+    "@graphql-markdown/docusaurus": "^1.26.0",
     "@graphql-tools/graphql-file-loader": "^8.0.1",
     "@mdx-js/react": "^3.0.1",
     "@svgr/webpack": "^8.1.0",
