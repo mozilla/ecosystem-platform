@@ -27,7 +27,7 @@ When planning your workload for the sprint, consider taking on around 50% less t
 
 ### SubPlat
 
-The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform channel.
+The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform Slack channel.
 
 If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority.
 
@@ -104,18 +104,15 @@ Sometimes, errors come up that seem unlikely to come up again or that we’d wan
 
 If you’re finishing Sentry triage by yourself because there wasn't enough time during the team triage and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
 
-#### SubPlat
-
-In addition to reviewing the Sentry issues in `fxa-auth` and `fxa-payments`, also keep an eye on the `paypal-processor` check-ins within the Crons section.
-
 ### Grafana
 
-SubPlat observes the following Grafana dashboards:
+SubPlat observes the following Grafana dashboards (see links under Resources/Triage within the SubPlat Weekly Check-in doc attached to the calendar event 'SubPlat Team & Triage Weekly'):
 
 - Auth Server (Subscription Platform section)
 - Event Broker
-  - If there is any unusual activity, identify the relying parties by looking up the IDs in FxA Admin Panel and inform both teams in the fxa-team channel.
+  - If there is any unusual activity, identify the relying parties by looking up the IDs in FxA Admin Panel and inform both teams in the fxa-team channel
 - Payments Server
+  - Keep an eye on check-ins in `PayPal Processor Cron Job`
 
 ### Bugzilla (FxA only)
 
