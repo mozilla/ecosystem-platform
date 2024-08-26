@@ -71,7 +71,12 @@ In addition, the SubPlat triage owner is also responsible for:
 
 FxA and SubPlat have separate triage meetings which are hosted by their respective triage owners. To discuss each issue and make decisions as a group, the triage owner will share their screen in Zoom with the team while going through Jira, Sentry, Grafana, Bugzilla (FxA only), and Stripe (SubPlat only).
 
-The most up-to-date links can be found in the triage meeting calendar invite. Prior to the meeting, it is recommended to pull up the links to get an idea of what you’ll be discussing and to make sure you don’t need to re-authenticate.
+The most up-to-date links can be found in:
+
+- the triage meeting calendar invite (for FxA), or
+- the weekly check-in doc attached to the calendar event 'SubPlat Team & Triage Weekly'
+
+Prior to the meeting, it is recommended to pull up the links to get an idea of what you’ll be discussing and to make sure you don’t need to re-authenticate.
 
 ### Jira
 
@@ -90,7 +95,7 @@ When reviewing issues, leave tickets as-is if they are not applicable to your te
 
 ### Sentry
 
-We use Sentry to capture errors that occur across the entire stack. While we should monitor our production instances most closely, we should also keep an eye out on staging instances for new issues exposed by QA. While there are many projects in the FxA group on Sentry and it’s always helpful to poke through more than what’s listed here, we generally check the following deployments (see triage calendar invite for links):
+We use Sentry to capture errors that occur across the entire stack. While we should monitor our production instances most closely, we should also keep an eye out on staging instances for new issues exposed by QA. While there are many projects in the FxA group on Sentry and it’s always helpful to poke through more than what’s listed here, we generally check the following deployments:
 
 - `fxa-auth-prod` (FxA and SubPlat)
 - `fxa-content-server-prod` (FxA - this covers `fxa-content-server` and `fxa-settings`)
