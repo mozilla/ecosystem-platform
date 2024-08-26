@@ -20,6 +20,39 @@ After the script you need to rebuild _firefox-ios_.
 
 ### Android debugging
 
+#### Emulator setup
+
+The Android emulator is most accessible through the Android Studio IDE, and confusingly, we do not need to build an app project in order to use only the emulator with a released version of Firefox for Android.
+
+1. Install Android Studio from [the website](https://developer.android.com/studio).
+2. In the Welcome dialog, click More Actions > Virtual Device Manager and follow the prompts to setup an emulator.
+    * Any Hardware Profile will work.
+    * Select an image with a higher API version. Avoid using the "named" pre-release versions.
+    * Ensure you select an image that is compatible with your system. e.g. if you have an Apple Silicon MacBook, then choose the arm64-v8a images only.
+3. Download a recent version of Firefox for Android from [archive.mozilla.org](https://archive.mozilla.org).
+    * Nightly: https://archive.mozilla.org/pub/fenix/nightly/
+    * Release variants: https://archive.mozilla.org/pub/fenix/releases/
+    * When you find the version that you want to install, choose the same CPU architecture that you selected for your emulator.
+4. Once your emulator has started up, drag-and-drop the APK file on the emulator to install it.
+5. Open and verify everything is working as expected.
+
+#### Pointing to the Custom Mozilla Account server
+
+To communicate with an Android device, we need to install the Android platform command-line tools first (namely `adb`).
+
+You can download these in multiple ways:
+1. (Preferred) Install them from your OS package manager. For example, on Mac OS using HomeBrew: `brew install --cask android-platform-tools`
+2. Download the binaries directly from the developer site and (optionally) add them to your `PATH`: https://developer.android.com/tools/releases/platform-tools
+3. Install Android Studio and locate the binaries within the built-in Android SDK.
+
+In addition, for Firefox for Android, follow [the instructions on support.mozilla.org](https://support.mozilla.org/en-US/kb/how-set-firefox-sync-firefox-android) to make the application use your local server by setting the Custom Mozilla Account and/or Sync server fields.
+
+:::tip
+⚠️ Ensure you enter a fully-qualified URL that includes the `http://` scheme. e.g. `http://localhost:3030`
+:::
+
+#### Forwarding local server ports
+
 The following technique works with any Android application and can also be used for Firefox for Android.
 
 Simply forward the following ports from the host machine to the Android device:
