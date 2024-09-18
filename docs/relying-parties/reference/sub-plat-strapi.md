@@ -10,7 +10,7 @@ Product managers and Relying parties can manage Mozilla Subscriptions with [Stra
 
 ## Getting Started
 
-You can log into Strapi through [Mozilla Dashboard](https://sso.mozilla.com/dashboard).
+You can log into a Strapi instance with Strapi App Credentials ([see 1Password Business Account](https://mozilla-hub.atlassian.net/wiki/spaces/SD/pages/26742230/1Password+Overview)). Please note, there is an instance for each environment (dev, stage, and production).
 
 - If you do not have access to Subscription Platform in Strapi, please let us know in the `#subscription-platform` Slack channel.
   <!-- TODO: Update instructions -->
