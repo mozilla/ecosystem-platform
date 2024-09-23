@@ -58,7 +58,7 @@ To view the hapi-swagger generated JSON file locally:
 To view the API documentation within Ecosystem Platform locally:
 
 - `yarn start` the [Ecosystem Platform](https://github.com/mozilla/ecosystem-platform) repository
-- Go to [localhost:3000/ecosystem-platform/api](http://localhost:3000/ecosystem-platform/api)
+- Go to [localhost:3333/ecosystem-platform/api](http://localhost:3333/ecosystem-platform/api)
 
 :::note
 If you are modifying the Swagger JSON file and want to view the API documentation locally, temporarily use the Swagger JSON file (e.g., `http://localhost:9000/swagger.json`) in the specs array within `docusaurus.config.js`
