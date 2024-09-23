@@ -14,7 +14,7 @@ cross-app and cross-device experience for users.
 
 ### Working on the Docs
 
-Our documentation is organized following a [Divio strategy](https://documentation.divio.com/).  
+Our documentation is organized following a [Divio strategy](https://documentation.divio.com/).
 If you modify these docs please use that structure.
 
 The site is build using [Docusaurus](https://docusaurus.io/en/) and is automatically
@@ -26,4 +26,4 @@ $> yarn start
 ```
 
 That should open a new browser window automatically, or you can manually browse
-to http://localhost:3000/ecosystem-platform/ to view the docs.
+to http://localhost:3333/ecosystem-platform/ to view the docs.

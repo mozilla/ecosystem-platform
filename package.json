@@ -9,7 +9,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --port ${FXA_PLATFORM_DOCS_PORT:-3333}",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
