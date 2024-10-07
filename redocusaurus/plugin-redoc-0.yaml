@@ -733,20 +733,6 @@ paths:
           schema:
             type: string
           description: Successful
-    delete:
-      summary: /securityEvents
-      operationId: deleteSecurityevents
-      description: |-
-        🔒 Authenticated with session token
-
-        Deletes all the security events of a signed in account.
-      tags:
-        - Security events
-      responses:
-        default:
-          schema:
-            type: string
-          description: Successful
   /verify_email:
     get:
       summary: /verify_email
@@ -2425,11 +2411,10 @@ paths:
       summary: /recoveryKey/exists
       operationId: postRecoverykeyExists
       description: >-
-        🔒🔓 Optionally authenticated with session token<br/><br/>This route
-        checks to see if given user has setup an account recovery key. When used
-        during the password reset flow, an email can be provided (instead of a
-        sessionToken) to check for the status. However, when using an email, the
-        request is rate limited.
+        🔒🔓 Authenticated with session token or password-forgot
+        token<br/><br/>This route checks to see if given user has setup an
+        account recovery key. When used during the password reset flow, a
+        password-forgot token to check for the status.
       parameters:
         - in: body
           name: body
@@ -6750,6 +6735,8 @@ definitions:
     properties:
       exists:
         type: boolean
+      hint:
+        type: string
       estimatedSyncDeviceCount:
         type: number
     required:
