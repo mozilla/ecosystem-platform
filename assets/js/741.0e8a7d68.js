@@ -23185,7 +23185,7 @@ const db = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
 /* harmony import */ var elkjs_lib_elk_bundled_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62954);
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74353);
 /* harmony import */ var _braintree_sanitize_url__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16750);
-/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77046);
+/* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(99418);
 
 
 

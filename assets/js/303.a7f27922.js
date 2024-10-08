@@ -50468,8 +50468,8 @@ var darken = __webpack_require__(75263);
 var dayjs_min = __webpack_require__(74353);
 // EXTERNAL MODULE: ./node_modules/@braintree/sanitize-url/dist/index.js
 var sanitize_url_dist = __webpack_require__(16750);
-// EXTERNAL MODULE: ./node_modules/dompurify/dist/purify.es.js
-var purify_es = __webpack_require__(77046);
+// EXTERNAL MODULE: ./node_modules/dompurify/dist/purify.es.mjs
+var purify_es = __webpack_require__(99418);
 ;// CONCATENATED MODULE: ./node_modules/mermaid/dist/mindmap-definition-307c710a.js
 
 
