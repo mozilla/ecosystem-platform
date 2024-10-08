@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfirefox_ecosystem_platform=self.webpackChunkfirefox_ecosystem_platform||[]).push([[9861],{85424:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-redoc","id":"plugin-redoc-1"}')}}]);
