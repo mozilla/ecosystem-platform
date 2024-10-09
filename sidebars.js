@@ -83,7 +83,12 @@ module.exports = {
                               label: 'Style Guides',
                               items: [
                                 'reference/style-guides/node-style-guide',
-                                'reference/style-guides/react-style-guide',                                
+                                {
+                                  'Node Style Guide Supplemental': [
+                                    'reference/style-guides/supplemental/software-architecture-implementation', 
+                                  ],
+                                },
+                                'reference/style-guides/react-style-guide',        
                               ]
                             },
                             {
