@@ -66,89 +66,61 @@ type Account {
 
 ### Fields
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>uid</b></code>](#)<Bullet />[`ID!`](/gql-api/types/scalars/id) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Firefox Account User ID.
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>uid</b></code>](#)<Bullet />[`ID!`](/gql-api/types/scalars/id.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+Firefox Account User ID.
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>accountCreated</b></code>](#)<Bullet />[`Float!`](/gql-api/types/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Timestamp when the account was created.
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>passwordCreated</b></code>](#)<Bullet />[`Float!`](/gql-api/types/scalars/float) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Timestamp the password was created or last changed.
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>accountCreated</b></code>](#)<Bullet />[`Float!`](/gql-api/types/scalars/float.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+Timestamp when the account was created.
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>displayName</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Display name the user has set.
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>avatar</b></code>](#)<Bullet />[`Avatar!`](/gql-api/types/objects/avatar) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> 
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>passwordCreated</b></code>](#)<Bullet />[`Float!`](/gql-api/types/scalars/float.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+Timestamp the password was created or last changed.
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>locale</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string) <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> User locale.
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>subscriptions</b></code>](#)<Bullet />[`[Subscription!]!`](/gql-api/types/objects/subscription) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> Active subscriptions for the user.
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>displayName</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string.mdx) <Badge class="badge badge--secondary" text="scalar"/> 
+Display name the user has set.
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>totp</b></code>](#)<Bullet />[`Totp!`](/gql-api/types/objects/totp) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> 
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>recoveryKey</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Whether the user has had an account recovery key issued.
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>avatar</b></code>](#)<Bullet />[`Avatar!`](/gql-api/types/objects/avatar.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>metricsEnabled</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
-> 
-> 
-> Whether metrics are enabled and may be reported
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>emails</b></code>](#)<Bullet />[`[Email!]!`](/gql-api/types/objects/email) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> Email addresses for the user.
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>attachedClients</b></code>](#)<Bullet />[`[AttachedClient!]!`](/gql-api/types/objects/attached-client) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> Client sessions attached to the user.
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>locale</b></code>](#)<Bullet />[`String`](/gql-api/types/scalars/string.mdx) <Badge class="badge badge--secondary" text="scalar"/> 
+User locale.
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>linkedAccounts</b></code>](#)<Bullet />[`[LinkedAccount!]!`](/gql-api/types/objects/linked-account) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> Linked accounts
-> 
 
-#### [<code style={{ fontWeight: 'normal' }}>Account.<b>securityEvents</b></code>](#)<Bullet />[`[SecurityEvent!]!`](/gql-api/types/objects/security-event) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
-> 
-> 
-> Security events
-> 
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>subscriptions</b></code>](#)<Bullet />[`[Subscription!]!`](/gql-api/types/objects/subscription.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+Active subscriptions for the user.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>totp</b></code>](#)<Bullet />[`Totp!`](/gql-api/types/objects/totp.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>recoveryKey</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+Whether the user has had an account recovery key issued.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>metricsEnabled</b></code>](#)<Bullet />[`Boolean!`](/gql-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="scalar"/> 
+Whether metrics are enabled and may be reported
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>emails</b></code>](#)<Bullet />[`[Email!]!`](/gql-api/types/objects/email.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+Email addresses for the user.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>attachedClients</b></code>](#)<Bullet />[`[AttachedClient!]!`](/gql-api/types/objects/attached-client.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+Client sessions attached to the user.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>linkedAccounts</b></code>](#)<Bullet />[`[LinkedAccount!]!`](/gql-api/types/objects/linked-account.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+Linked accounts
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Account.<b>securityEvents</b></code>](#)<Bullet />[`[SecurityEvent!]!`](/gql-api/types/objects/security-event.mdx) <Badge class="badge badge--secondary" text="non-null"/> <Badge class="badge badge--secondary" text="object"/> 
+Security events
+
 
 
 
@@ -156,5 +128,5 @@ type Account {
 
 ### Returned By
 
-[`account`](/gql-api/api/queries/account)  <Badge class="badge badge--secondary" text="query"/>
+[`account`](/gql-api/operations/queries/account.mdx)  <Badge class="badge badge--secondary" text="query"/>
 
