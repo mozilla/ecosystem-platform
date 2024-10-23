@@ -313,13 +313,15 @@ as part of a `prompt=none` flow has already been granted authorization.
 
 ### Requesting `prompt=none` during authorization
 
-[`prompt=none` and either `login_hint=<email>` or `id_token_hint=<ID Token>`](/api#tag/OAuth-Server-API-Overview/operation/getAuthorization) are appended onto the query parameters when opening the `/authorization` endpoint.
+[`prompt=none` and optionally `login_hint=<email>` or `id_token_hint=<ID Token>`](/api#tag/OAuth-Server-API-Overview/operation/getAuthorization) are appended onto the query parameters when opening the `/authorization` endpoint.
 
 ```
 GET https://accounts.firefox.com/authorization?client_id=ea3ca969f8c6bb0d&state=2sfas415FSSF@A5f&scope=profile&prompt=none&login_hint=conscious.chooser%40mozilla.com
 ```
 
 If a different user is currently signed in to the email specified by the `login_hint` or `id_token_hint`, an [`account_selection_required` error will be returned](#handling-errors).
+
+If neither `login_hint` nor `id_token_hint` is specified, then the current signed-in account is used.
 
 ### Handling errors
 
