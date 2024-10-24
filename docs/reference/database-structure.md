@@ -2,7 +2,7 @@
 title: Database Structure
 ---
 
-Current as of patch level `148`
+Current as of patch level `157`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
@@ -66,7 +66,7 @@ erDiagram
         tinyint atLeast18AtReg
     }
     accounts }|--|{ accountGroups: in
-    group }|--|{ accountGroups: in
+    groups }|--|{ accountGroups: in
     accountGroups {
         binary uid PK "FK 16 bytes"
         smallint group_id PK "FK unsigned"
@@ -85,10 +85,12 @@ erDiagram
         varchar interval
         varchar experiment
         json taxAddress
+        varchar currency
         bigint createdAt "unsigned"
         bigint updatedAt "unsigned"
         varchar couponCode
         varchar stripeCustomerId
+        varchar stripeSubscriptionId
         varchar email
         int amount
         smallint version "unsigned"
@@ -98,7 +100,7 @@ erDiagram
         varchar name
         varchar value
     }
-    group {
+    groups {
         smallint id PK "unsigned"
         varchar name
         varchar display_name
