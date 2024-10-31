@@ -7650,6 +7650,8 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
       accountResetWithRecoveryKey:
         type: boolean
+      includeRecoveryKeyPrompt:
+        type: boolean
     required:
       - code
   Model149:
