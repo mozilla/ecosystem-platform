@@ -9,14 +9,13 @@ Skip this if you are not working on Firefox for iOS and FxA.
 :::
 
 You can test sync locally in Firefox iOS using the XCode simulator.
-[Follow the steps at github.com/mozilla/firefox-ios and setup _firefox-ios_ ](https://github.com/mozilla/firefox-ios) build locally.
-Currently there is no way to dynamically switch servers in Firefox for iOS, to use **local** servers you need to run the script below:
+[Follow the steps at github.com/mozilla/firefox-ios and setup _firefox-ios_ ](https://github.com/mozilla-mobile/firefox-ios) build locally.
 
-```shell
-FIREFOX_IOS_HOME=<path_to_firefox_ios_project> npm run config-fxios
-```
-
-After the script you need to rebuild _firefox-ios_.
+To change which FxA servers to use, in XCode simulator while in a signed-out state:
+1. Go into Firefox browser settings and tap 5 consecutive times on the version (e.g. "Firefox 133.0"), which will open a "Debug" section
+1. Look under the "Account" section and tap "Advanced Sync Settings"
+    * For stage testing, toggle "Use stage servers"
+    * For local testing, toggle "Use Custom FxA Content Server" and set "Custom Account Content Server URI" to `http://localhost:3030`
 
 ### Android debugging
 
