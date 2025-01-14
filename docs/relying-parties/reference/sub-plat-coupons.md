@@ -85,5 +85,9 @@ There are two ways to apply a coupon:
 - **Invoice Minimums** - Stripe has a list of minimum and maximum charge amounts. This means that a discount coupon that goes below/above the minimum/maximums allowed will not allow the user to complete the subscription process. [Stripe documentation](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts)
 - **Monthly Repeating Coupons** - Monthly repeating coupons can only be applied to subscriptions that are billed monthly or daily. This will ensure that the user has an accurate representation of future billings. Since the discount is applied to the invoice, monthly repeating coupons will not alter a yearly subscription unless they repeat for 13+ months. This is the same for 6 month subscriptions.
 
+## Coupons API
+
+To apply an existing, valid promotion code to an active customer subscription, see [Coupons API documentation](https://mozilla.github.io/ecosystem-platform/api#tag/Subscriptions/operation/putOauthSubscriptionsCouponApply).
+
 [team page]: /ecosystem-platform/docs/process/integration-with-subscription-platform
 [jira board]: https://jira.mozilla.com/secure/RapidBoard.jspa?rapidView=360&projectKey=FXA&view=detail&quickFilter=1923#
