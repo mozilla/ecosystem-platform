@@ -67,7 +67,7 @@ See more details for each of these below. The triage owner should post a daily u
 :::
 
 :::note[Optionally include these for bonus points]
-:bugzilla-2023: New major bugs or other updates in Bugzilla?
+:bugzilla-2023: New major bugs or other updates in Bugzilla?  
 :matrix-org: Has anything come up in Matrix?  
 :dependabot: Any dependabot updates?
 :::
