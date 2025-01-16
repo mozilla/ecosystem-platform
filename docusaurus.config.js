@@ -77,7 +77,6 @@ import mdxMermaid from 'mdx-mermaid'
     ({
       colorMode: {
         defaultMode: "light",
-        disableSwitch: true,
         respectPrefersColorScheme: true,
       },
       docs: {
