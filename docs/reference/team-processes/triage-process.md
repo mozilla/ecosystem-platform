@@ -60,16 +60,20 @@ In addition, the FxA triage owner is also responsible for:
 See more details for each of these below. The triage owner should post a daily update in the #fxa-team Slack channel which can be copied and pasted and should only take 5-10 minutes:
 
 :::note[Triage owner daily update]
+```
 :jira: New tickets in Jira that we should consider moving up in the backlog, or other updates?  
 :sentry2: Major spikes or issues in Sentry?  
 :grafana-intensifies: Any abnormalities in Grafana? [Handy link 1](https://earthangel-b40313e5.influxcloud.net/d/BeBr8TiIz/fxa-gcp-load-balancers?orgId=1&from=now-3h&to=now&refresh=1m), [handy link 2](https://earthangel-b40313e5.influxcloud.net/d/J81nRFfWz/auth-server?orgId=1&refresh=1m)  
 :slack: Anything in #fxa or #fxa-bots that needs #fxa-team attention?
+```
 :::
 
 :::note[Optionally include these for bonus points]
+```
 :bugzilla-2023: New major bugs or other updates in Bugzilla?  
 :matrix-org: Has anything come up in Matrix?  
 :dependabot: Any dependabot updates?
+```
 :::
 
 ### SubPlat
