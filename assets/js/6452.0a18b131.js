@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfirefox_ecosystem_platform=self.webpackChunkfirefox_ecosystem_platform||[]).push([[6452],{6452:(e,s,c)=>{c.d(s,{createPacketServices:()=>f.$});var f=c(71609);c(19369)}}]);
