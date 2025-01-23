@@ -39,7 +39,7 @@ Here's the steps to do this:
 For almost all test cases we can rely on Twilio magic phone numbers. These numbers represent different possible success and error states when sending out messages. For example, when a sending a valid text message use `+15005550006` as the from number
 and any valid number as the ‘to’ phone number, the SMS will appear to go through. Note, that using a non real phone number like `+12345678900` for the `to` phone number is a good idea, since it avoids hardcoding a potentially real phone number, and this is also a magic number that plays nicely with Twilio's lookup api. For more examples and ideas for testing, see the recovery-phone integration tests @ `fxa-auth-server/test/remote/recovery_phone_tests.js`.
 
-
+Another trick for testing confirmation codes with magic numbers is ‘peeking’ at the redis database state. Each confirmation code is stored in redis until it’s verified. The simplest way to look at redis is to `redis-commander` (`npm install -g redis-commander`). This will bring up a web ui, and let you browse through all the values saved in Redis. Codes for recovery-phones will be held under keys prefixed with `recovery-phone:`.
 
 For more info about testing and magic phone numbers in general check out the following Twilio docs:
 
