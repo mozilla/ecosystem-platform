@@ -1,6 +1,6 @@
-!constant ORGANZATION_NAME "Mozilla"
-!constant ACCOUNT_NAME "Mozilla Accounts"
-!constant PAYMENTS_NAME "Subscription Platform"
+!const ORGANZATION_NAME "Mozilla"
+!const ACCOUNT_NAME "Mozilla Accounts"
+!const PAYMENTS_NAME "Subscription Platform"
 
 workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
     model {
@@ -71,6 +71,11 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
                 tags "accounts"
                 description "Handles account creation, authentication, and payment processing"
 
+                accountEventsTopic = container "Account Events Topic" {
+                    tags "Amazon Web Services - Simple Notification Service Topic"
+                    description "Receives account events"
+                    technology "Amazon Web Services - Simple Notification Service"
+                }
                 authBouncesApplication = container "Auth Bounces Application" {
                     description "Processes bounces from email providor (SES) and updates customer email status"
                     technology "Node and Express"
@@ -125,9 +130,14 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
                     description "Processes customer events from configured event source and forwards them to registered relying parties"
                     technology "Node and NestJS"
                 }
+                eventBrokerQueue = container "Event Broker Queue" {
+                    tags "Amazon Web Services - Simple Queue Service Queue"
+                    description "Receives user events and forwards them to registered relying parties"
+                    technology "Amazon Web Services - Simple Queue Service"
+                }
                 eventBrokerLoginDatabase = container "Event Broker Database" {
                     tags "Database"
-                    description "Stores oauth relying parties a customer has logged into"
+                    description "Stores oauth relying party webhook URLs and oauth relying parties a customer has logged into"
                     technology "Firestore"
                 }
                 eventBrokerPubSub = container "Event Broker PubSub" {
@@ -254,6 +264,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         stripe -> paypal "Processes invoices for PayPal customers with" "${PAYMENTS_NAME} Integration" "Payments"
 
         # containers relationships
+        accountEventsTopic -> eventBrokerQueue "Sends account events to" "SQS"
         adminPanelApplication -> adminPanelServer "Uses"
 
         adminPanelServer -> adminPanelApplication "Delivers to the employee's web browser"
@@ -265,6 +276,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
 
         authBouncesApplication -> authServerDatabase "Uses"
         
+        authServerApplication -> accountEventsTopic "Sends account events to" "SNS"
         authServerApplication -> appStore "Validates iOS receipts and gets notifications with"
         authServerApplication -> authServerDatabase "Uses"
         authServerApplication -> authServerRedis "Uses"
@@ -293,6 +305,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         eventBrokerApplication -> eventBrokerLoginDatabase "Uses"
         eventBrokerApplication -> eventBrokerPubSub "Uses"
         eventBrokerApplication -> supportedProduct "Sends customer events to" "webhook"
+        eventBrokerQueue -> eventBrokerApplication "Receives customer events from" "SQS"
 
         firefoxMobile -> authServerApplication "Uses"
         firefoxBrowser -> authServerApplication "Uses"
@@ -387,6 +400,19 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
             firefoxMobile -> authServerApplication "Requests tab data from"
             authServerApplication -> pushboxDatabase "Retrieves tab data from"
             authServerApplication -> firefoxMobile "Delivers tab data to"
+        }
+
+        dynamic accountPaymentSystem "EventBrokerSystem" "Summarizes how an account event propagates to relying parties" {
+            title "[Dynamic] Event Broker"
+            authServerApplication -> accountEventsTopic "Sends an account event to"
+            accountEventsTopic -> eventBrokerQueue "Queue subscriber gets account events sent to"
+            eventBrokerQueue -> eventBrokerApplication "Sends the account event to"
+            eventBrokerApplication -> eventBrokerLoginDatabase "Stores relying party for each account in"
+            eventBrokerLoginDatabase -> eventBrokerApplication "Retrieves relying parties that the account has logged into"
+            eventBrokerLoginDatabase -> eventBrokerApplication "Retrieves webhook URL for each relying party"
+            eventBrokerApplication -> eventBrokerPubSub "Stores the account event for each relying party in"
+            eventBrokerPubSub -> eventBrokerApplication "Attemps to deliver the event to each relying party via"
+            eventBrokerApplication -> supportedProduct "Forwards the account event to" "webhook"
         }
 
         branding {

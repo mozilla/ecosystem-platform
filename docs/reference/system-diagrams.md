@@ -61,6 +61,10 @@ Subscription Platform 3.0 Key:
 
 ![](../../static/diagrams/structurizr-1-SendTab.png)
 
+### Event Broker
+
+![](../../static/diagrams/structurizr-1-EventBrokerSystem.png)
+
 # A few additional diagrams
 
 There are a few more private diagrams maintained by the operations group about
