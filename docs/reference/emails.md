@@ -341,6 +341,10 @@ subplat-footer-mozilla-logo = <img data-l10n-name="mozilla-logo" alt="{ -brand-m
 
 We could have technically localized strings this way as well rather than wrap text elements in `span`s, but that would have been significantly messier and confusing.
 
+### `emailTypes` DB Table
+
+Once the name of the new templates have been finalized, create a DB migration to insert them into the `fxa` MySQL database's `emailTypes` table.
+
 ## Bounces and complaints
 
 [SES delivery, bounce and complaint notifications](https://docs.aws.amazon.com/ses/latest/dg/notification-contents.html) are published to SQS queues. As well as emitting metrics (see below), we also store bounce records in the auth db whenever a bounce or complaint occurs. The email service then checks those records against thresholds defined in the config and if any thresholds are violated, sending will fail.
