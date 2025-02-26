@@ -105,7 +105,7 @@ erDiagram
         varchar phoneNumber
         bigint createdAt "unsigned"
         bigint lastConfirmed "unsigned"
-        json taxAddress
+        json lookupData
     }
     dbMetadata {
         varchar name
