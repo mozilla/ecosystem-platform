@@ -2,7 +2,10 @@
 title: Database Structure
 ---
 
-Current as of patch level `157`
+Current as of:
+- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `163`
+- [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `32`
+- [Profile db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_profile): `4`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
 Platform databases.  Some notes:
@@ -79,7 +82,7 @@ erDiagram
     carts {
         binary id PK "16 bytes"
         binary uid "16 bytes"
-        enum state "start,processing,success,fail"
+        enum state "start,processing,success,fail,needs_input"
         varchar errorReasonId
         varchar offeringConfigId
         varchar interval
@@ -95,6 +98,14 @@ erDiagram
         int amount
         smallint version "unsigned"
         enum eligibilityStatus "create,upgrade,downgrade,blocked_iap,invalid"
+    }
+    accounts }|--o{ recoveryPhones: has
+    recoveryPhones {
+        binary uid PK "16 bytes"
+        varchar phoneNumber
+        bigint createdAt "unsigned"
+        bigint lastConfirmed "unsigned"
+        json taxAddress
     }
     dbMetadata {
         varchar name
