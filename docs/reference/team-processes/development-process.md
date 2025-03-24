@@ -2,6 +2,8 @@
 title: Planning and Development
 ---
 
+_Last update Mar 15, 2025_
+
 We develop and deploy on a two-week cycle. Every other Wednesday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process).
 
 ## Our weekly process
@@ -60,7 +62,7 @@ Issues filed in GitHub (and comments on those issues) will sync to Jira automati
 
 We also have a component in Bugzilla: [Cloud Services :: Server: Firefox Accounts][bugzilla-fxa-server] .  This component is generally no longer used except by teams who aren't using Jira yet.  For related info, see our [Bugzilla triage docs][bugzilla-triage].
 
-**If you're wondering where to file a bug, please file it in Jira.**  If it's a security bug set the `Security Level` field to `Accounts Security Access`.
+**If you're wondering where to file a bug, please file it in Jira.**  
 
 ### Labels we use
 
@@ -69,7 +71,6 @@ This isn't a comprehensive list but is a good selection to be aware of.  We shou
 * `qa+`: Critical flow or high chance of regression. QA should focus on testing this issue.  When you use this label *leave a comment in the issue with context about how to test it*.
 * `qa-`: This is not something that should be tested by QA
 * `regression`: This used to work and now it doesn't
-* `maintenance`: This is work related to the quality of our code base.  This can often be overlooked if we're focusing on feature work but it's important to make time for improving and maintaining the code. Do not mistake this with the uppercase `Maintenance` label which is used by other teams.
 * `needs:*`: We need input from a team, for example, `needs:product` means we need a product manager.
 
 ## Product Planning
@@ -80,7 +81,7 @@ We maintain roadmaps for what we're working on.  See what [Mozilla accounts][fxa
 
 ### New Features
 
-New features are expected to be described thoroughly in an Epic with a description, acceptance criteria, and eventually supporting Tasks filed under it.
+New features are expected to be described thoroughly in an Epic with a description, acceptance criteria, risks, measures of success, and eventually supporting Tasks filed under it.
 
 ```mermaid
 graph TD
@@ -89,11 +90,11 @@ A --> C(Task)
 A --> D(Task)
 A --> E(Bug)
 ```
-Generally, we can expect Epics to be written by the Product team.  Tasks will likely be written by the Product and Engineering teams as they need to be broken down small enough to fit inside of a sprint.  [Learn more about user stories][moz-user-stories].
+Often epics will be filed by the Product team for new Feature Engineering work and Engineers for new Engineering Excellence work.  Tasks will likely be written by the Engineering teams as they need to be broken down small enough to fit inside of a sprint.  [Learn more about user stories][moz-user-stories].  [Learn more about Feature Engineering and Engineering Excellence][FE_EE_OE].
 
 As Tasks and Bugs pop up, they should be associated with open Epics as appropriate.
 
-When a task is in the `Ready for Engineering` column, it's expected that:
+When a task is `Ready for Engineering` it's expected that:
 * A [PI Ticket][pi-jira] has been filed
 * If there are interesting security changes, the security team has been notified
 * If there are significant string changes, the L10n team has been notified
@@ -162,18 +163,21 @@ The goal of estimation is for us to assess the issue in terms of its relative co
 
 The team meets regularly to stay in sync about development status and ensure nothing is falling through the cracks.  During meetings we take notes in a central document that anyone in the meeting can reference.
 
-Please see our [project calendar][fxa-calendar] for details.
+Please see our [team calendar][fxa-calendar] for details.
 
-## Developing on a long running branch
+## Project Leads
 
-:::warning
-You should probably be using a feature flag instead of a branch.
-:::
+Each project (epic or group of epics) will have a project lead.  Project leads rotate among the team.  If you are a project lead the epic will be assigned to you and you'll have additional responsibilities regarding the project:
 
-If a branch will survive beyond a couple of days its important to have a bit of strategy so as to avoid merging frustrations for yourself and your team.  If possible you should use other options like feature flags, but sometimes a branch is the best way to go.  Ask your team if you're unsure.  If you need to use a branch, please keep in mind:
-* Your team won't be keeping up with what is landing on the branch.  Regular communication and/or demos of where you are at and where you are going can help keep your changes in peoples' minds.
-* You should rebase against main often to avoid a giant headache when you eventually merge
-* Consider creating new components instead of editing old ones if you have extensive enough changes.  This way it's a very small change to flip from one to the other instead of trying to merge.
+- Feedback on the project (e.g. in a requirements document or early discussions)
+- [Breaking a project down into issues](work-breakdown-process), including [writing and maintaining a tech spec](work-breakdown-process#using-a-technical-specification-document)
+- Coordination among teams (e.g. UX, QA, L10n, Security, etc.)
+- Representing the project in meetings, including meetings outside of our team (e.g. org-wide product reviews)
+- Ensuring the issues in the backlog represent the work to be done, are in the proper order, and the Jira fields are up to date
+- Reporting project status routinely in the epic(s)
+- Ensuring code related to the project is being reviewed & landing
+
+Not everything in the list needs to be done by one person, but the lead is responsible for keeping the ball rolling.
 
 ## Pull requests
 
@@ -282,13 +286,13 @@ Additionally, we should notify our relying parties if we're going to change APIs
 
 Since most of our work happens in the open, we need special procedures for dealing with security-sensitive issues that must be fixed in production before being made visible to the public.
 
-We use private bugzilla bugs for tracking security-related issues, because this allows us to manage visibility for other stakeholders at Mozilla while maintaining confidentiality.
+Security issues in Jira have the `Security Level` field set to `Accounts Security Access`.  This allows us to manage visibility for other stakeholders at Mozilla while maintaining confidentiality.
 
 We use private github repos for developing security fixes and tagging security-related releases. See the [Security Releases](release-process#security-releases) section on the release process page for more information on how to handle releasing this code.
 
 ### Filing security issues
 
-If you believe you have found a security-sensitive issue with any part of the Mozilla accounts service, please file it as confidential security bug in Bugzilla via this link:
+As only employees have access to Jira, if you believe you have found a security-sensitive issue with any part of the Mozilla accounts service, please file it as confidential security bug in Bugzilla via this link:
 
 * [File a security-sensitive FxA bug][fxa-security-bug]
 
@@ -324,3 +328,5 @@ The Mozilla accounts service is part of Mozilla's [bug bounty program][moz-bug-b
 [contributing-md]: https://github.com/mozilla/fxa/blob/main/CONTRIBUTING.md
 [issue-forked-prs]: https://github.com/mozilla/fxa/issues/12261
 [adr-squash-and-merge]: https://github.com/mozilla/fxa/blob/main/docs/adr/0030-disable-squash-and-merge.md
+
+[FE_EE_OE]: https://mozilla-hub.atlassian.net/wiki/spaces/IP/pages/1397817345/Feature+Engineering+Engineering+Excellence+and+Operational+Excellence

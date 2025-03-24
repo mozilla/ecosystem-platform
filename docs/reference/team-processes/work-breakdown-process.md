@@ -59,10 +59,7 @@ When responsible for an Epic, the epic owner should:
   timelines and estimates.
 
 ### Template
-To aid in creating a Technical Specification, use the FxA Epic Technical
-Specification from the [Mozilla templates][mozilla-templates] under Planners
-(at the bottom).  Sections that don’t apply should be left as `Not Applicable`.
-
+To aid in creating a Technical Specification, use the [FxA Epic Technical Specification](https://docs.google.com/document/d/1Y2s0BUxibALQPnzBa7jqm4VpwklsKtRgE5nccHvWB7w/copy).  Sections that don’t apply should be left as `Not Applicable`.
 
 
 ## Breaking down work
@@ -97,13 +94,12 @@ to proceed are roughly:
 
 
 ## Small Epic Examples
-[Multiple Product Support][jira-multiproduct-support]
-
+- 2020 - [Multiple Product Support][jira-multiproduct-support]
+- 2025 - [Integrate Mozilla Accounts with Nimbus](https://mozilla-hub.atlassian.net/browse/FXA-9122)
 ## Large Epic Examples
-TBD
-
+- 2025 - [SMS Phase 1 2FA backup in USA/Canada](https://mozilla-hub.atlassian.net/browse/FXA-10267) (so large it's a collection of epics)
+- 2025 - [Delete Inactive Accounts Phase I](https://mozilla-hub.atlassian.net/browse/FXA-8735)
 
 [estimation-guidelines]: https://mozilla.github.io/ecosystem-platform/reference/team-processes/development-process#estimation-and-point-values
 [jira-multiproduct-support]: https://jira.mozilla.com/browse/FXA-457
 [on-writing-tech-specs]: https://codeburst.io/on-writing-tech-specs-6404c9791159
-[mozilla-templates]: https://docs.google.com/document/u/0/?tgif=d&ftv=1:whj

@@ -1,6 +1,7 @@
 ---
 title: Triage Owner Duties
 ---
+_Last update Mar 15, 2025_
 
 ## What is a Triage Owner?
 
@@ -21,6 +22,8 @@ If you're new to owning triage, make sure you have access to Bugzilla (FxA) or S
 To access the FxA Admin Panel, set up your VPN ([see instructions on Confluence][mana-vpn]) and request to be added to the appropriate [LDAP groups][bugzilla-common-scenarios-ldap].
 :::
 
+In general, the triage owner should be consistently checking whether there are new urgent or severe issues throughout the day, and be prepared to switch focus and/or redirect issues.
+
 ### FxA
 
 When planning your workload for the sprint, consider taking on around 50% less than usual in order to allocate a portion of each day to triage ownership duties. If you’re in the middle of high priority feature work, fill your availability with that work. Otherwise, favor taking on a high priority maintenance item(s).
@@ -33,13 +36,11 @@ If you are currently working on an issue and there are new S1 or S2 issues, re-e
 
 If there are multiple S1s and S2s of seemingly equal importance and help is needed, inform your manager and the team in the subplat-team channel.
 
-In general, the triage owner should be consistently checking whether there are new urgent or severe issues throughout the day, and be prepared to switch focus and/or redirect issues.
-
 ## What are the Triage Owner Responsibilities?
 
-At a high level, each team's triage owner is responsible for hosting the weekly triage meeting, in which new issues in Jira and Sentry are triaged as a team.
+Each team's triage owner is responsible for hosting the weekly triage meeting, in which new issues are triaged as a team.
 
-If necessary, feel free to rely on the team's general consensus of the urgency of new issues, either in the triage meeting or async in Slack.
+If necessary, rely on the team's general consensus of the urgency of new issues, either in the triage meeting or async in Slack.
 
 Any issues picked up as Triage Owner which land within a Sprint boundary should be added to that Sprint in Jira. This sets clear expectations on when a ticket is available for testing in Staging and Production across Engineering and QA.
 
@@ -51,9 +52,9 @@ If an error, issue, work request, etc., is reported to our team in Slack, the fi
 
 In addition, the FxA triage owner is also responsible for:
 
-- Triaging new issues in FxA Bugzilla (as a team if there is time in the triage meeting)
+- Triaging new issues in [FxA Bugzilla](#bugzilla-fxa-only) (as a team if there is time in the triage meeting)
 - Checking if there are any PRs (from team members or contributors) without a reviewer that you can help move along
-- Helping with Dependabot PRs
+- Helping fixing and merging Dependabot PRs
 - Assisting with any high priority bugs that come up during the sprint
 - Hanging out in the #fxa Matrix room
 
@@ -73,6 +74,7 @@ See more details for each of these below. The triage owner should post a daily u
 :bugzilla-2023: New major bugs or other updates in Bugzilla?  
 :matrix-org: Has anything come up in Matrix?  
 :dependabot: Any dependabot updates?
+:looker: Any interesting changes on our dashboards?
 ```
 :::
 
@@ -108,9 +110,10 @@ When reviewing issues, leave tickets as-is if they are not applicable to your te
 - **Add an initial estimated number of story points**, see [Estimation and Point Values][point-estimation].
 - **Add the appropriate epic, labels, and/or issue links, if applicable.**
   - It’s uncommon for a new issue in triage to lack an epic if it should be associated with one, though it’s good to be aware of existing epics and the roadmap.
-  - Add the appropriate labels (e.g. `needsdiscussion`, `needslegal`, `needsproduct`, `needsux`). Other common labels to consider are `maintenance` and `qa-` (see [labels][labels-we-use] for more).
+  - Add the appropriate labels (e.g. `needs:discussion`, `needs:legal`, `needs:product`, `needs:ux`, or `qa-`). See [labels][labels-we-use] for more.
   - Issue links create a link between issues (e.g., issues can be “blocked by X issue”, “relates to X issue”, and more).
-- **Move the issue out of the backlog section.** If the issue seems high priority, it can either be added to the current or following sprint by updating the “Sprint” field, or moved to the top of the “To Do” list by right-clicking and following the context menu. If someone on the call asks to be assigned, fill out the Assignee field. Finally, update the status from "New" to "To Do".
+- **Set the Work Category**, see [Feature Engineering, Engineering Excellence, and Operational Excellence][FE_EE_OE].
+- **Move the issue out of the NEW status.** If the issue seems high priority, it can either be added to the current or following sprint by updating the “Sprint” field, or moved to the top of the “To Do” list by right-clicking and following the context menu. If someone on the call asks to be assigned, fill out the Assignee field. Finally, update the status from "New" to "To Do".
 
 ### Sentry
 
@@ -124,9 +127,9 @@ We use Sentry to capture errors that occur across the entire stack. While we sho
 
 When you’re looking at new issues, check that there’s not already a comment or linked issue that might give you more context for it. If there’s discussion in the triage meeting, consider leaving a comment on the issue in Sentry.
 
-Sometimes, errors come up that seem unlikely to come up again or that we’d want to look at later if it persists. You can check “ignore until...” and choose an appropriate option. If you notice a new problem since a previous deployment or an issue that affects a lot of users through a lot of events, it’s very likely worth filing an issue for. File an issue with a link to the Sentry error and (likely) add the `maintenance` label in Jira, and then link it in Sentry via the “Link Github Issues” on the right-hand side.
+Sometimes, errors come up that seem unlikely to come up again or that we’d want to look at later if it persists. You can check “ignore until...” and choose an appropriate option. If you notice a new problem since a previous deployment or an issue that affects a lot of users through a lot of events, it’s very likely worth filing an issue for. You can file an issue directly from Sentry via the menu on the right-hand side.
 
-If you’re finishing Sentry triage by yourself because there wasn't enough time during the team triage and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
+If you’re triaging Sentry by yourself and aren’t sure about an issue, feel free to ask the team, and/or go ahead and file an issue for it. It’s fine to timebox yourself, though, there’s a lot of issues that come in and we only have so much time to evaluate and fix issues.
 
 ### Grafana
 
@@ -140,9 +143,11 @@ SubPlat observes the following Grafana dashboards (see links under Resources/Tri
 
 ### Bugzilla (FxA only)
 
-If there's time left in the FxA triage meeting, Bugzilla can be looked at as a team that day. Ideally, the triage owner will check Bugzilla every day on their own.
+:::warning
+Some longstanding bugzilla bugs have other dependencies.  Exercise some restraint commenting on particularly old bugs as there are likely other considerations at play.  Ask your manager if unsure.
+:::
 
-There is no longer much activity in our Bugzilla component so this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”. When you respond to an issue, consider assigning yourself to the bug.
+There is no longer much activity in our Bugzilla component so this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”.
 
 If a Bugzilla bug includes a user's email address or any PII (personal identifiable information) in the bug description, then do the following:
 
@@ -152,17 +157,11 @@ If a Bugzilla bug includes a user's email address or any PII (personal identifia
 
 This is to protect their email address from being on a publicly accessible link and users will be able to see their own issues even if they’re marked confidential.
 
-⭐️ Many Bugzilla tickets we triage from our users create tickets for similar reasons. Check out the [FxA Bugzilla Common Scenarios & Responses doc][bugzilla-common-scenarios] for examples of typical user requests and our response. If you come across a scenario we may see again in the future, please document it there for future reference. Also, remember the people you're helping are our users. Feel free to personalize or change a "canned response" as needed.
-
 :::tip
-Sometimes all a user needs to resolve their issue, for example, and depending on what they report, is the date they enabled 2FA on their account so they can search their files to find saved recovery codes. You might consider providing users relevant info from the Admin Panel if there's nothing we can do on our end in case it rings any bells for them.
+Bugzilla used to be the suggested route for people needing support (e.g. they were locked out of their account).  We still occasionally get these issues filed in bugzilla.  Please add a comment asking them to contact `support@mozilla.com` and resolving the bug.
 :::
 
-If the reported bug is around an [email bounce account block][email-bounce-types] and you successfully clear it in the Admin Panel, go ahead and close the bug after you comment back. Many users don't report back after they've successfully logged in after being unblocked.
-
 You may need to file an issue in Jira for bugs in Bugzilla to surface issues to the team that would require changes in our codebase.
-
-If you see a bug filed requesting [OAuth client details][oauth-integration], post in the FxA team Slack channel. Reference the bug, and bring it to the attention of SRE.
 
 ### Stripe Triage (SubPlat only)
 
@@ -178,7 +177,11 @@ The FxA and SubPlat team typically reviews [pull requests][fxa-prs] and merges d
 
 If there's an open, unreviewed, or unassigned pull request, consider reviewing it if you can. If a PR has been opened by a contributor, either review or request someone else to review it. If a PR has been hanging around for a while and it's not clear why, consider investigating in case there's a blocker you can help with, or a hold for a specific reason that could be noted in a comment in the PR.
 
-**If you're the FxA triage owner,** check for PRs in the [ecosystem-docs repo][ecosystem-prs].
+**If you're the FxA triage owner,** check for issues, security issues, and PRs in the following repositories:
+- https://github.com/mozilla/fxa/
+- https://github.com/mozilla/ecosystem-platform/
+- https://github.com/mozilla-services/channelserver
+
 
 ### Dependency Management
 
@@ -202,13 +205,13 @@ Try not to merge dependency updates if we're planning on tagging a release the s
 
 If a Dependabot PR fails CI, investigate the failure. If it was a flaky test failure, rerun CI from failed. If the failure is legit and it looks like it can be resolved quickly or easily, consider checking into the Dependabot branch, fixing what caused the failure, and pushing the fix to the PR. If the needed change was anything other than a small tweak, request a review from a teammate to double check your work before merging.
 
-If there are many failures and/or it's not feasible to fix the failures at the moment, create a Jira ticket for the package upgrade failure if one doesn’t already exist and give it the labels `maintenance` and `dependencies`, link to it from the Dependabot PR, comment `@dependabot ignore this major version`, and close the PR. We ignore until the next major version instead of a minor version because the chance that it will fail again is very high, but we want it to remind us again when a dependency has a major upgrade so that the dependency doesn't just get lost in the backlog (plus, wishful thinking that maybe it will magically pass 🤞).
+If there are many failures and/or it's not feasible to fix the failures at the moment, create a Jira ticket for the package upgrade failure if one doesn’t already exist, set the Work Category to `Engineering Excellence`, give it the label `dependencies`, link to it from the Dependabot PR, comment `@dependabot ignore this major version`, and close the PR. We ignore until the next major version instead of a minor version because the chance that it will fail again is very high, but we want it to remind us again when a dependency has a major upgrade so that the dependency doesn't just get lost in the backlog (plus, wishful thinking that maybe it will magically pass 🤞).
 
 If a ticket has already been filed for a previous failure of the same package and the new failure is because of a Dependabot attempt to upgrade to the new major version, comment on the ticket to note how far behind the dependency is. Consider bringing it up in the next triage meeting - if our backlog is full of needed dependency upgrades, we'll likely find the time to work through at least some of them.
 
 #### Security Warnings
 
-Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical (or even high) severity. You may also choose review these as a team in the triage meeting if you wish, and it may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix.
+Dependabot will produce [Security Alerts][dependabot-security-alerts] for packages that have registered [CVE][wiki-CVE] numbers that cannot be resolved automatically. At least once during your triage ownership rotation, check these alerts to see if there are any vulnerabilities identified, especially those marked as as critical (or even high) severity. You may also choose to review these as a team in the triage meeting if you wish, and it may be good to collaborate with the other triage owner to either make sure you're not working on fixing the same vulnerability, or to pair on a fix.
 
 If Dependabot thinks it can automatically fix the alert for us, a "Create dependabot security update" button will be present. This is a good clue, as well as a "Dependabot can't update vulnerable dependencies without a lockfile" note, that the upgrade should be simple. You can check what packages are affected by running `yarn why <package name>`. If there's only one or two affected packages, consider trying to manually upgrade the dependency to the patched version shown in the alert.
 
@@ -228,7 +231,7 @@ However, sometimes, security alerts are for deeply nested dependencies. In this 
 
 If the dependency needs to be reverted or if CI fails after the PR is created and it's not feasible to fix the failures at the moment, you may be able to determine that certain vulnerabilities don't affect FxA in production anyway, like if a dependency is a dev dependency or something ran at build-time. These kinds of alerts can usually be dismissed. This is also a good time to evaluate if we _need_ a dependency - maybe the fix is to uninstall the dependency if we use it sparingly, especially if it's an old and outdated package, rather than spend time upgrading it.
 
-Otherwise, [file an issue in Bugzilla](https://bugzilla.mozilla.org/enter_bug.cgi?product=Cloud%20Services&component=Server%3A%20Firefox%20Accounts) for each critical issue, and mark them as "Confidential Mozilla Employee Bug (non-security)". While these are security issues, marking them as "security" requires more process and sign off from another team that we don't need for these alerts. File an issue in Jira, and reference only "Bugzilla #####" with the number, and in the issue body, add a link to the Bugzilla ticket without other context. The issue will then be triaged normally.
+Otherwise, [file a security issue](development-process#filing-security-issues) for each critical issue.
 
 ## Assist with New High Priority Bugs
 
@@ -236,7 +239,7 @@ Sometimes a blocking or major bug is identified by QA that needs to be patched A
 
 ## Hang Out in the #fxa Matrix Room
 
-Many teams at Mozilla use Matrix, also known as IRC or Element, for communication. While the FxA and SubPlat team primarily communicates via Slack, we link to [our Matrix chat room][matrix-fxa] in our documentation as a way to contact us, and sometimes contributors and other folks reach out to us with questions through it.
+While the FxA and SubPlat teams primarily communicate via Slack, we link to [our Matrix chat room][matrix-fxa] in our documentation as a way to contact us, and sometimes contributors and other folks reach out to us with questions through it.
 
 Triage owners should occasionally check to see if they can answer any questions asked in the #fxa Matrix room.
 
@@ -256,3 +259,4 @@ Triage owners should occasionally check to see if they can answer any questions 
 [wiki-cve]: https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures
 [matrix-fxa]: https://chat.mozilla.org/#/room/#fxa:mozilla.org
 [email-bounce-types]: ../emails.md#bounce-types
+[FE_EE_OE]: https://mozilla-hub.atlassian.net/wiki/spaces/IP/pages/1397817345/Feature+Engineering+Engineering+Excellence+and+Operational+Excellence
