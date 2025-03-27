@@ -111,7 +111,6 @@ module.exports = {
                             'reference/emails',
                             'reference/experiments-ab-testing',
                             'reference/github-strategies',
-                            'reference/incident-response',
                             'reference/localization',
                             'reference/metrics',
                             'reference/mobile-specifics',

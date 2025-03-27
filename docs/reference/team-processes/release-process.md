@@ -2,6 +2,10 @@
 title: Release Owner Duties
 ---
 
+:::warning
+We're transitioning to a more automated release process based on ArgoCD.  The process below is probably mostly still accurate but some steps may be different.  While we're transitioning notes [are being recorded](https://docs.google.com/document/d/1kedPqT4jqUr3RO-1L1vj0baLTWNtKUXPepnlSBDKnBE/edit).  There are also some more [generic ArgoCD instructions](https://mozilla-hub.atlassian.net/wiki/spaces/CS1/pages/1118994493/Common+Operations+in+ArgoCD).  Once the process settles down we'll update this page with the new process.
+:::
+
 ## What is a Release Owner?
 The main duty of the release owner is to be the designated engineer to follow the "Releasing Code" process described below. The release owner should communicate and work with the rest of the team to ensure a smooth close-out of the current sprint, as well as create patch (AKA dot) releases as necessary throughout the sprint.
 
@@ -22,7 +26,7 @@ If you are the designated release owner, consider the following suggestions to m
       * [Patch releases](#patch-releases) can be requested as necessary but they'll need to be justified according to the criteria
 
 :::tip
-If you're new to release ownership, check that you have access to the [`cloudops-deployment`][cloudops-deployment] and [`cloudops-infra`][cloudops-infra] repos. While not crucial, access to `cloudops-deployment` and `cloudops-infra` allows you to see PRs that may be listed in the deploy doc as well as make PRs in that repo when you make code changes that necessitate them.
+If you're new to release ownership, check that you have access to the [`cloudops-deployment`][cloudops-deployment], [`webservices-infra`](webservices-infra) and [`cloudops-infra`][cloudops-infra] repos.
 :::
 
 ## Releasing Code
@@ -220,6 +224,7 @@ In staging, a single service will not stop the rest from deploying. In productio
 
 [cloudops-deployment]: https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa
 [cloudops-infra]: https://github.com/mozilla-services/cloudops-infra/tree/master/projects/fxa
+[webservices-infra]: https://github.com/mozilla-it/webservices-infra/tree/main/fxa
 [deployment-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [example-deployment-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=1575233
 [release.sh]: https://github.com/mozilla/fxa/blob/main/release.sh
