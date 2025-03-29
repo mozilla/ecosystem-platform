@@ -168,10 +168,29 @@ Those need [additional configuration](../tutorials/subscription-platform) also. 
 
 ### Troubleshooting
 
+Be sure to check the PM2 logs to see what, if any errors are reported.  To do this:
+```
+yarn pm2 logs
+```
+To get logs from a specific service, add the service name as an argument.  For example, to check auth-server logs:
+```
+yarn pm2 logs auth
+```
+A full log file can also be found at `~/.pm2/pm2.log` and for each service, `~/.pm2/logs/`.
+
+
 If a `NX - Daemon processes terminated and closed the connect` error message appears when attempting to start the stack, you may turn off the nx daemon locally by adding this setting to a .env file in fxa root: 
 ```
 NX_DAEMON=false
 ```
+
+
+If you encounter errors with auth-server, you may need to generate an openID key.  You can check to see if it's present at `packages/fxa-auth-server/config/key.json`.  If it's missing, try running: 
+```
+NODE_ENV=dev yarn workspace fxa-auth-server gen-keys
+```
+You might also notice auth-server showing errors related to missing `packages/fxa-auth-server/config/secrets.json`.  This shouldn't be required to run, but if you'd like to resolve the errors, ask a team member for their auth secrets.json file.
+
 
 ### Handy commands
 
