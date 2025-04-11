@@ -40,6 +40,12 @@ These are logs from Mozilla accounts code.  These are probably the most useful l
   * See the section below about raw logs also
 
 
+### Submitting a Data Review request
+Before new metrics can be collected with Glean, they must pass the Data Review process.
+* Create a github issue with the data review request with the Data Review template
+* Directly contact [a member of the Data Review stewards](https://wiki.mozilla.org/Data_Collection), or request a review in the #data-stewardship-help channel.
+* Create a PR containing the changes that will record the data. Do not merge the PR until the Data Review request has been approved.
+
 ### Working with Raw Logs
 
 If you need real-time data you need to be looking at the raw logs in `moz-fx-fxa-prod.gke-fx-fxa-prod` or `moz-fx-fxa-nonprod.gke-fx-fxa-stage`.  Otherwise there will be a 24 hour delay.  We don't run our normal metrics out of those logs because it is too expensive and slow.
