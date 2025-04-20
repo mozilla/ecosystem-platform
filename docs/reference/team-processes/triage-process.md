@@ -32,7 +32,7 @@ When planning your workload for the sprint, consider taking on around 50% less t
 
 The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform Slack channel.
 
-If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority.
+If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority. Consult your team leads as needed for support.
 
 If there are multiple S1s and S2s of seemingly equal importance and help is needed, inform your manager and the team in the subplat-team channel.
 
