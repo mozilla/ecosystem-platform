@@ -77,7 +77,6 @@ adb reverse tcp:1111  tcp:1111  # profile-server
 adb reverse tcp:9292  tcp:9292  # Fortress
 adb reverse tcp:8080  tcp:8080  # 123done
 adb reverse tcp:10139 tcp:10139 # 321done
-adb reverse tcp:5050  tcp:5050  # browserid-verifier
 adb reverse tcp:3031  tcp:3031  # payments server
 adb reverse tcp:7100  tcp:7100  # support admin panel
 adb reverse tcp:8002  tcp:8002  # pushbox

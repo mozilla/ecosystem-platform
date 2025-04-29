@@ -180,7 +180,6 @@ When the user accepts the confirmation screen on the Desktop device, it will use
 - Check that client_id is the expected value; error out if not.
 - Check that state exists and is well formed; error out if not.
 - Build the scoped-key bundle for `"https://identity.mozilla.com/apps/oldsync"`, encrypting it with the provided `keys_jwk` to produce `keys_jwe`.
-- Generate a BrowserID assertion with the fxa-oauth-server as audience.
 - POST all of this to fxa-oauth-server at `/v1/authorization` and receive back an OAuth code and state response parameters.
 
 Desktop will then send the code and state parameters back to Mobile over the WebSocket channel, encrypted as before with the channel key.
