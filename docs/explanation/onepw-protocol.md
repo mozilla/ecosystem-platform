@@ -90,7 +90,7 @@ If the client merely wants certificates and doesn't care about encryption keys, 
 
 # Signing Certificates
 
-Clients who have a active sessionToken, for an account on which the email address has been verified, can use the `/certificate/sign` endpoint to obtain a signed BrowserID/Persona certificate. This certificate can then be used to produce signed BrowserID assertions for delivery to RPs.
+Clients who have an active sessionToken, for an account on which the email address has been verified, can use the `/certificate/sign` endpoint to obtain a signed BrowserID/Persona certificate. This certificate can then be used to produce signed BrowserID assertions for delivery to RPs.
 
 The sessionToken is used to derive two values:
 
@@ -99,7 +99,7 @@ The sessionToken is used to derive two values:
 
 ![Diagram of certificate creation flow](../assets/IdPAuth-use-session.png)
 
-The requestHMACkey is used in a HAWK request to provide integrity over many APIs, including /certificate/sign. requestHMACkey is used as credentials.key, while tokenID is used as credentials.id . HAWK includes the URL and the HTTP method ("POST") in the HMAC-protected data, and will optionally include the HTTP request body (payload) if requested.
+The requestHMACkey is used in a HAWK request to provide integrity over many APIs, including `/certificate/sign`. requestHMACkey is used as "credentials.key", while tokenID is used as "credentials.id". HAWK includes the URL and the HTTP method ("POST") in the HMAC-protected data, and will optionally include the HTTP request body (payload) if requested.
 
 # Fetching Sync Keys
 
@@ -181,7 +181,7 @@ All class-B data will be lost. The `/account/reset` API is just like the `/accou
 
 ![Diagram of password reset flow](../assets/onepw-reset.png)
 
-accountResetToken is used to derive `tokenID` and `requestHMACkey` as usual, then the request data is delivered in the body of a HAWK request that uses tokenID as credentials.id and requestHMACkey as credentials.key .
+accountResetToken is used to derive `tokenID` and `requestHMACkey` as usual, then the request data is delivered in the body of a HAWK request that uses tokenID as "credentials.id" and requestHMACkey as "credentials.key".
 
 After using `/account/reset`, clients should immediately perform the login protocol from above: a new sessionToken is required, since old sessions and tokens are revoked by `/account/reset`. Clients can retain the new authPW value during this process to avoid needing to run the key-stretching routine a second time.
 
