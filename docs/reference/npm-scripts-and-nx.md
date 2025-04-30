@@ -203,6 +203,7 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
 
     /* eslint-disable */
     import { readFileSync } from 'fs';
+    import { config } from 'jest';
 
     // Reading the SWC compilation config and remove the "exclude"
     // for the test files to be compiled by SWC
@@ -225,14 +226,26 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
 
     //Make the following changes to `export default {}`
 
-    export default {
+    const config: Config = {
       ...
       transform: {
         '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig], // <---- Change this line
       },
       testEnvironment: 'node',
+      reporters: [
+        'default',
+        [
+          'jest-junit',
+          {
+            outputDirectory: 'artifacts/tests/PACKAGE_NAME',    // <---- Replace PACKAGE_NAME
+            outputName: 'PACKAGE_NAME-jest-unit-results.xml',   // <---- Replace PACKAGE_NAME
+          }
+        ]
+      ]
       ...
-    }
+    };
+
+    export default config; // <---- Don't forget to export the default config
 
     ```
   </details>
@@ -276,7 +289,7 @@ For example, we can require that all build operations run the prebuild operation
 We’d like to avoid creating scripts for specific options. For example, consider this:
 
 ```
-    "test:watch": "jest --watch",
+ "test:watch": "jest --watch",
  "test:cov": "jest --coverage",
 ```
 
