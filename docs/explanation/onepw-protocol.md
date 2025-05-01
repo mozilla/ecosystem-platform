@@ -4,7 +4,7 @@ title: onepw Protocol
 
 # Mozilla accounts/Sync Protocol
 
-This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the [FxA auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server). Clients use this protocol to prove their knowledge of the account password, for which they receive a `sessionToken`, which can be used to obtain a signed BrowserID certificate (which can be used to convince subsequent relying parties that they control the account). This protocol is also used to retrieve a pair of encryption keys (`kA` and `kB`) which will be used to encrypt Sync data.
+This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the [FxA auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server). Clients use this protocol to prove their knowledge of the account password, for which they receive a `sessionToken`. This protocol is also used to retrieve a pair of encryption keys (`kA` and `kB`) which will be used to encrypt Sync data.
 
 The protocol is designed to protect the user's data as best as possible given the design constraints (including the use of a single user password, and CPU+memory limitations of slow mobile clients). Other protocols will be introduced later, in environments that can handle them, to improve data protection further.
 
@@ -87,19 +87,6 @@ As above, to prevent fixation attacks, new accounts must verify their email addr
 A successful `/account/login` response includes information about the verification status of the account. If necessary, the client can use `/recovery_email/status` endpoint (which requires a sessionToken but not account verification) until the user clicks the email link and the API reports verification is complete. Then the client can use `GET /account/keys` and `POST /certificate/sign`, described below.
 
 If the client merely wants certificates and doesn't care about encryption keys, it can use `POST /account/login` instead. This returns a sessionToken but not a keyFetchToken.
-
-# Signing Certificates
-
-Clients who have an active sessionToken, for an account on which the email address has been verified, can use the `/certificate/sign` endpoint to obtain a signed BrowserID/Persona certificate. This certificate can then be used to produce signed BrowserID assertions for delivery to RPs.
-
-The sessionToken is used to derive two values:
-
-* tokenID
-* request HMAC key
-
-![Diagram of certificate creation flow](../assets/IdPAuth-use-session.png)
-
-The requestHMACkey is used in a HAWK request to provide integrity over many APIs, including `/certificate/sign`. requestHMACkey is used as "credentials.key", while tokenID is used as "credentials.id". HAWK includes the URL and the HTTP method ("POST") in the HMAC-protected data, and will optionally include the HTTP request body (payload) if requested.
 
 # Fetching Sync Keys
 
@@ -637,7 +624,7 @@ This defines some of the jargon we've developed for this protocol.
 | kA | the master key for data stored as "class-A", a 32-byte binary string. Individual encryption keys for different datatypes are derived from kA. |
 | kB | the master key for data stored as "class-B", a 32-byte binary string. |
 | wrap(kB) | an encrypted copy of kB. The keyserver stores wrap(kB) and never sees kB itself. The client (browser) uses a key derived from the user's password to decrypt wrap(kB), obtaining the real kB. |
-| sessionToken | a long-lived per-device token which allows the device to obtained signed BrowserID certificates for the account's identity (GUID@picl-something.org). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of "revoke a specific device" or "revoke all devices" function). |
+| sessionToken | a long-lived per-device token (GUID@picl-something.org). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of "revoke a specific device" or "revoke all devices" function). |
 
 # References
 

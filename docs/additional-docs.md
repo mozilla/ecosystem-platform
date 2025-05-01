@@ -7,7 +7,6 @@ title: Additional Docs
 In addition to the ecosystem docs, each package has it's own README.md and some have a `docs/` directory with info specific to that project.
 
 - 123done [README](https://github.com/mozilla/fxa/blob/main/packages/123done/README.md)
-- browserid-verifier [README](https://github.com/mozilla/fxa/blob/main/packages/browserid-verifier/README.md)
 - fortress [README](https://github.com/mozilla/fxa/blob/main/packages/fortress/README.md)
 - fxa-admin-panel [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-admin-panel/README.md)
 - fxa-admin-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-admin-server/README.md)

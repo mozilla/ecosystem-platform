@@ -44,10 +44,9 @@ never be visible to Relying Parties:
 * [Password Forgot Tokens](#password-forgot-tokens)
 * [Account Reset Tokens](#account-reset-tokens)
 
-Relying Parties that wish to integrate with Firefox Sync may also need to know about these additional types
+Relying Parties that wish to integrate with Firefox Sync may also need to know about this additional type
 of token:
 
-* [BrowserID Assertions](#browserid-assertions)
 * [Sync Storage Credentials](#sync-storage-credentials)
 
 
@@ -200,17 +199,6 @@ During the password reset process, a user who has an account recovery key can us
     providing `recoveryKeyId` and `wrapKb` in the request body.
 - Upon successful password reset, the FxA auth-server deletes the
   account recovery key and its associated recovery data.
-
-### BrowserID Assertions
-
-:::warning
-BrowserID stopped being used in Firefox 78 and we're eagerly awaiting the long
-tail of users to upgrade so we can remove this code.  See details in
-[Issue #9007 / FXA-2715](https://github.com/mozilla/fxa/issues/9007).
-:::
-
-Legacy identity assertion format. Used by sync, and accepted when granting OAuth tokens, but
-should not be used for anything new.
 
 ### JWT Access Tokens
 

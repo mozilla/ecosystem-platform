@@ -193,7 +193,7 @@ Common script for deploying the Docker container built from an FxA package to Do
 
 The basic gist of this script is that it takes a `{MODULE}:build` container - e.g. as created via `build.sh` - and re-tags it as appropriate for the current CI run before pushing it to Docker Hub.
 
-These images are deployed to Mozilla's Docker Hub account. So, for example, many modules can be found with a search for [`mozilla/fxa-`](https://hub.docker.com/search?q=mozilla%2Ffxa-&type=image). Also look for images such as [`mozilla/123done`](https://hub.docker.com/r/mozilla/123done) and [`mozilla/browserid-verifier`](https://hub.docker.com/r/mozilla/browserid-verifier), which are listed under `packages` but do not follow the `fxa-*` naming convention.
+These images are deployed to Mozilla's Docker Hub account. So, for example, many modules can be found with a search for [`mozilla/fxa-`](https://hub.docker.com/search?q=mozilla%2Ffxa-&type=image). Also look for images such as [`mozilla/123done`](https://hub.docker.com/r/mozilla/123done), which are listed under `packages` but do not follow the `fxa-*` naming convention.
 
 The rest of the tag name depends on a few other conditions:
 
