@@ -102,6 +102,10 @@ Anyone at Mozilla can view the SubPlat Looker dashboards, which are in the [Subs
 
 To obtain edit access, ask SubPlat's engineering manager to request it in the [`#data-help` Slack channel](https://app.slack.com/client/T027LFU12/C4D5ZA91B).
 
+Grafana dashboards have been moved to [Yardstick](https://yardstick.mozilla.org)
+
+To obtain edit access for Yardstick dashboards, [see the instructions on the Prometheus and Grafana Confluence page](https://mozilla-hub.atlassian.net/wiki/spaces/CS1/pages/886866077/Prometheus+and+Grafana+Yardstick#How-to%3A-Requesting-editor-access)
+
 #### Subscription Platform > Logical Subscription(s) explores
 
 There are currently four Logical Subscription(s) explores:
