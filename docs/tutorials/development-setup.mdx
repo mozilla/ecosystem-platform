@@ -43,6 +43,7 @@ Finally, manually install the following:
 
 - [Docker Desktop](https://docs.docker.com/desktop/mac/install/) (required)
 - [Google Cloud SDK CLI](https://cloud.google.com/sdk/docs/quickstart#mac)
+  - Instead of `gcloud init`, you may login with `gcloud auth application-default login` to skip project selection 
 
 </TabItem>
 <TabItem value="ubuntu" label="Ubuntu">
@@ -134,6 +135,9 @@ is configured properly before we move on to the rest of the steps:
   ## Install the node dependencies
   yarn install
 
+  ## On first run, generate an openID key
+  NODE_ENV=dev yarn workspace fxa-auth-server gen-keys
+
   ## Start the project!
   yarn start
   ```
@@ -187,10 +191,11 @@ NX_DAEMON=false
 ```
 
 
-If you encounter errors with auth-server, you may need to generate an openID key.  You can check to see if it's present at `packages/fxa-auth-server/config/key.json`.  If it's missing, try running: 
+If you encounter errors with auth-server's key server on startup (`Failed to get response from: localhost:9000/__heartbeat__`) , you may need to generate an openID key.  You can check to see if it's present at `packages/fxa-auth-server/config/key.json`.  If it's missing, try running: 
 ```
 NODE_ENV=dev yarn workspace fxa-auth-server gen-keys
 ```
+
 You might also notice auth-server showing errors related to missing `packages/fxa-auth-server/config/secrets.json`.  This shouldn't be required to run, but if you'd like to resolve the errors, ask a team member for their auth secrets.json file.
 
 
