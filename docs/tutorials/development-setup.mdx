@@ -172,8 +172,10 @@ Those need [additional configuration](../tutorials/subscription-platform) also. 
 
 ### Troubleshooting
 
-If the FxA stack has trouble starting after running `yarn start`, (for example, a process hangs or you don't see a success message similar to "# Stack Started Successfully !") try starting without cache: `NX_SKIP_NX_CACHE=true yarn start`. If this solves your issue, you can likely revert to `yarn start` eventually, after cache cleans up.  
-
+If the FxA stack has trouble starting after running `yarn start`, (for example, a process hangs or you don't see a success message similar to "# Stack Started Successfully !") try starting without cache: 
+```
+NX_SKIP_NX_CACHE=true yarn start
+```
 Be sure to check the PM2 logs to see what, if any errors are reported.  To do this:
 ```
 yarn pm2 logs
@@ -238,7 +240,7 @@ To avoid wasting computer resources while not working on FxA make sure to stop t
 While it is possible to run the entire code base's test suite, in development you'll likely want to run a specific test or a subset of tests. Please refer to each package's documentation for detailed instructions on how to test its respective code.
 :::
 
-### Test all or some packages
+### Run unit tests on all or some packages
 
 :::note
 You might need to run `yarn start infrastructure` to start services before running tests.
@@ -258,6 +260,26 @@ yarn test all
 ```
 
 The above commands invoke the same tests that CI uses, and is not necessarily the same as running yarn test in any given package.
+
+### Run integration tests on all or some packages
+
+From the root directory you may test all or some FxA packages:
+
+```shell
+# Test only `fxa-auth-server`
+nx test-integration fxa-auth-server
+
+# Test `fxa-shared` and `fxa-auth-server`
+nx run-many -t test-integration -p fxa-shared fxa-auth-server
+
+# Test `fxa-shared` and `fxa-auth-server` with 5 parallel workers
+nx run-many -t test-integration -p fxa-shared fxa-auth-server --parallel=5
+
+# Test all packages
+nx run-many -t test-integration
+```
+
+For details and additional commands, try the [NX documentation](https://nx.dev/reference/nx-commands)
 
 ### Functional Playwright Tests
 
