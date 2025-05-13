@@ -261,9 +261,10 @@ yarn test all
 
 The above commands invoke the same tests that CI uses, and is not necessarily the same as running yarn test in any given package.
 
-### Run integration tests on all or some packages
+### Integration Tests
+You may need credentials to pass all tests, e.g. for auth-server or recovery phone tests.  Check 1password or ask a teammate!
 
-From the root directory you may test all or some FxA packages:
+Make sure the the infrastructure stack has been started and is running: `yarn start infrastructure`. From the root directory, run integration tests on some or all FxA packages:
 
 ```shell
 # Test only `fxa-auth-server`
