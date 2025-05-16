@@ -696,7 +696,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model175'
+            $ref: '#/definitions/Model174'
           description: Successful
   /recovery_emails:
     get:
@@ -890,7 +890,6 @@ paths:
         scopes that the token is authorized for:
           - `email` requires `profile:email` scope.
           - `locale` requires `profile:locale` scope.
-          - `atLeast18AtReg` requires `profile:age_check` scope.
           - `authenticationMethods` and `authenticatorAssuranceLevel` require `profile:amr` scope.
           - `accountDisabledAt` requires `profile:account_disabled_at` scope.
           - `accountLockedAt` requires `profile:account_locked_at` scope.
@@ -1044,17 +1043,16 @@ paths:
 
         Currently, each account is associated with exactly one email address.
         This address must be verified before the account can be used
-        (specifically, `POST /certificate/sign` and `GET /account/keys` will
-        return errors until the address is verified). In the future, this may be
-        expanded to include multiple addresses, and/or alternate types of
-        recovery methods (e.g. SMS). A new API will be provided for this extra
-        functionality.
+        (specifically, `GET /account/keys` will return errors until the address
+        is verified). In the future, this may be expanded to include multiple
+        addresses, and/or alternate types of recovery methods (e.g. SMS). A new
+        API will be provided for this extra functionality.
 
 
         This call is used to determine the current state (verified or
         unverified) of the account. During account creation, until the address
         is verified, the agent can poll this method to discover when it should
-        proceed with `POST /certificate/sign` and `GET /account/keys`.
+        proceed with  `GET /account/keys`.
       parameters:
         - type: string
           maxLength: 16
@@ -2137,77 +2135,6 @@ paths:
               "refresh_token_id": "6e8c38f6a9c27dc0e4df698dc3e3e8b101ad6d79e87842b1ca96ad9b3cd8ed28",
               "assertion": "eyJhbGciOiJSUzI1NiJ9.eyJwdWJsaWMta2V5Ijp7Imt0eSI6IlJTQSIsIm4iOiJvWmdsNkpwM0Iwcm5BVXppNThrdS1iT0RvR3ZuUGNnWU1UdXQ1WkpyQkJiazBCdWU4VUlRQ0dnYVdrYU5Xb29INkktMUZ6SXU0VFpZYnNqWGJ1c2JRRlQxOGREUkN6VVRubFlXdVZXUzhoSWhKc3lhZHJwSHJOVkI1VndmSlRKZVgwTjFpczBXcU1qdUdOc2VMLXluYnFjOVhueElncFJaai05QnZqY2ZKYXNOUTNZdHR3VHZVaFJOLVFGNWgxQkY1MnA2QmdOTVBvWmQ5MC1EU0xydlpseXp6MEh0Q2tFZnNsc013czVkR0ExTlZ1dEwtcGVDeU50VTFzOEtFaDlzcGxXeF9lQlFybTlYQU1kYXp5ZWR6VUpJU1UyMjZmQzhEUHh5c0ZreXpCbjlDQnFDQUpTNjQzTGFydUVDaS1rMGhKOWFmM2JXTmJnWmpSNVJ2NXF4THciLCJlIjoiQVFBQiJ9LCJwcmluY2lwYWwiOnsiZW1haWwiOiIwNjIxMzM0YzIwNjRjNmYzNmJlOGFkOWE0N2M1NTliY2FwaS5hY2NvdW50cy5maXJlZm94LmNvbSJ9LCJpYXQiOjE1MDY5Njk2OTU0MzksImV4cCI6MTUwNjk2OTY5NjQzOSwiZnhhLXZlcmlmaWVkRW1haWwiOiIzMjM2NzJiZUBtb3ppbGxhLmNvbSIsImlzcyI6ImFwaS5hY2NvdW50cy5maXJlZm94LmNvbSJ9.hFZd5zFheXOFrXKkJvw6Vpv2l7ctlxuBTvuh5f_jLPAjZoJ9ri-vaJjL_WYBFUvS2xHzfx3-ldxLddyTKwCDAJeB_NkOFL_WJSrMet9C7_Z1hH9HmydeXIT82xJmhrwzW-WOO4ibQvRbocEFiNujynKsg1gS8v0iiYjIX-0cXCrlkxkbVx_8EXJFKDDOGzK9v7Zq6D7gkhP-CHEaNYaTHMn65tLQtBS6snGdaXlxoGHMWmDL6STbnJzWa7sa4QwHf-AgT1rUkQQAUHNa_XLZ0FEzqiCPctMadlihiUZL2V6vxIDBS4mHUF4qj0FvIMJflivDnJVkRNijDuP-h-Lh_A~eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJvYXV0aC5meGEiLCJleHAiOjE1MDY5Njk2OTY0MzksImlzcyI6ImFwaS5hY2NvdW50cy5maXJlZm94LmNvbSJ9.M5xyk3RffucgaavjbUm7Eqnt47hzeGbGa2VR3jnVEIlRHfz5S25Qf3ngejwee7XECvIywbaKWeijXFOwS-EkB-7qP1gl4oNJjPmbnCk7S1lgckLWvdMIU-HLGKjrN6Mw76__LzvAbsusSeGmsvTCIVuOJ49Xs3tC1fLyB_re0QNpCcS6AUnJ1KOxIMEM3Om7ysNO5F_AqcD3PwlEti5lbwSk8iP5TWL12C2Nkb_6Hxze_mA1NZNAHOips9bF2J7oy1hqGoMYj1XYZrsyjpPWEuZQATAPlKSjbh1hq-UtDeT7DlwEmIbIUd3JA8qh1MkHKGgavd4fIMap0IPmr9rs4A",
             }'
-  /certificate/sign:
-    post:
-      summary: /certificate/sign
-      operationId: postCertificateSign
-      description: >-
-        🔒 Authenticated with session token
-
-
-        Sign a BrowserID public key. The server is given a public key and
-        returns a signed certificate using the same JWT-like mechanism as a
-        BrowserID primary IdP would (see
-        [browserid-certifier](https://github.com/mozilla/browserid-certifier)
-        for details). The signed certificate includes a `principal.email`
-        property to indicate the Firefox Account identifier (a UUID at the
-        account server's primary domain) and is stamped with an expiry time
-        based on the `duration` parameter.
-
-
-        This request will fail unless the primary email address for the account
-        has been verified.
-
-
-        Clients should include a query parameter, `service`, for metrics and
-        validation purposes. The value of `service` should be `sync` when
-        connecting to Firefox Sync or the OAuth `client_id` when connecting to
-        an OAuth relier.
-
-
-        If you do not specify a `service parameter`, or if you specify
-        `service=sync`, this endpoint assumes the request is from a legacy Sync
-        client. If the session token doesn't have a corresponding device record,
-        one will be created automatically by the server.
-
-
-        The signed certificate includes these additional claims:
-
-          - `fxa-generation`: A number that increases each time the user's password is changed.
-          - `fxa-keysChangedAt`: A timestamp that increases each time the user's encryption key is changed.
-          - `fxa-profileChangedAt`: A timestamp that increases each time the user's core profile data is changed.
-          - `fxa-lastAuthAt`: Authentication time for this session, in seconds since epoch.
-          - `fxa-verifiedEmail`: The user's verified recovery email address.
-          - `fxa-tokenVerified`: A boolean indicating whether the user's login was verified using an email confirmation or 2FA in addition to their password.
-          - `fxa-amr`: A list of strings giving the ways in which the user was authenticated. Possible values include:
-            - `pwd`: the user provided the account password
-            - `email`: the user completed an email confirmation loop
-            - `otp`: the user completed a 2FA challenge
-          - `fxa-aal`: An integer giving the authenticator assurance level at which the user was authenticated - that is, the number of independent auth factors that they provided during login.
-      parameters:
-        - type: string
-          maxLength: 16
-          pattern: ^[a-zA-Z0-9\-]*$
-          name: service
-          in: query
-          required: false
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/Model75'
-      tags:
-        - Sign
-      responses:
-        '400':
-          description: >-
-            Failing requests may be caused by the following errors (this is not
-            an exhaustive list):
-
-            - `errno: 104` - Unverified account
-
-            - `errno: 108` - Missing parameter in request body
-
-            - `errno: 138` - Unverified session
   /linked_account/login:
     post:
       summary: /linked_account/login
@@ -2216,13 +2143,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model76'
+            $ref: '#/definitions/Model75'
       tags:
         - Third Party Authentication
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model77'
+            $ref: '#/definitions/Model76'
           description: Successful
   /linked_account/unlink:
     post:
@@ -2233,13 +2160,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model78'
+            $ref: '#/definitions/Model77'
       tags:
         - Third Party Authentication
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model79'
+            $ref: '#/definitions/Model78'
           description: Successful
   /oauth/authorization:
     post:
@@ -2261,13 +2188,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model81'
+            $ref: '#/definitions/Model80'
       tags:
         - Oauth
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model82'
+            $ref: '#/definitions/Model81'
           description: Successful
   /oauth/destroy:
     post:
@@ -2292,7 +2219,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model83'
+            $ref: '#/definitions/Model82'
       tags:
         - Oauth
       responses:
@@ -2325,13 +2252,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model84'
+            $ref: '#/definitions/Model83'
       tags:
         - Miscellaneous
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model85'
+            $ref: '#/definitions/Model84'
           description: Successful
   /oauth/token:
     post:
@@ -2360,13 +2287,13 @@ paths:
           in: body
           name: body
           schema:
-            $ref: '#/definitions/Model87'
+            $ref: '#/definitions/Model86'
       tags:
         - Oauth
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model88'
+            $ref: '#/definitions/Model87'
             x-alternatives:
               - $ref: '#/x-alt-definitions/Model6'
               - $ref: '#/x-alt-definitions/Model8'
@@ -2398,7 +2325,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model89'
+            $ref: '#/definitions/Model88'
       tags:
         - Password
       responses:
@@ -2419,13 +2346,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model90'
+            $ref: '#/definitions/Model89'
       tags:
         - Account recovery key
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model91'
+            $ref: '#/definitions/Model90'
           description: Successful
   /recoveryKey/hint:
     post:
@@ -2438,7 +2365,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model92'
+            $ref: '#/definitions/Model91'
       tags:
         - Account recovery key
       responses:
@@ -2455,7 +2382,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model93'
+            $ref: '#/definitions/Model92'
       tags:
         - Account recovery key
       responses:
@@ -2475,7 +2402,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model94'
+            $ref: '#/definitions/Model93'
       tags:
         - Emails
       responses:
@@ -2526,7 +2453,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model95'
+            $ref: '#/definitions/Model94'
       tags:
         - Emails
       responses:
@@ -2551,7 +2478,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model96'
+            $ref: '#/definitions/Model95'
       tags:
         - Emails
       responses:
@@ -2586,7 +2513,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model99'
+            $ref: '#/definitions/Model98'
       tags:
         - Emails
       responses:
@@ -2611,7 +2538,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model100'
+            $ref: '#/definitions/Model99'
       tags:
         - Session
       responses:
@@ -2636,7 +2563,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model101'
+            $ref: '#/definitions/Model100'
       tags:
         - Session
       responses:
@@ -2679,13 +2606,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model103'
+            $ref: '#/definitions/Model102'
       tags:
         - Session
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model104'
+            $ref: '#/definitions/Model103'
           description: Successful
         '400':
           description: >-
@@ -2728,7 +2655,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model107'
+            $ref: '#/definitions/Model106'
       tags:
         - Session
       responses:
@@ -2750,13 +2677,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model108'
+            $ref: '#/definitions/Model107'
       tags:
         - Miscellaneous
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model109'
+            $ref: '#/definitions/Model108'
           description: Successful
   /totp/create:
     post:
@@ -2772,13 +2699,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model110'
+            $ref: '#/definitions/Model109'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model112'
+            $ref: '#/definitions/Model111'
           description: Successful
   /totp/destroy:
     post:
@@ -2809,13 +2736,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model113'
+            $ref: '#/definitions/Model112'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model114'
+            $ref: '#/definitions/Model113'
           description: Successful
   /account/attached_client/destroy:
     post:
@@ -2838,13 +2765,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model115'
+            $ref: '#/definitions/Model114'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model116'
+            $ref: '#/definitions/Model115'
           description: Successful
   /account/credentials/status:
     post:
@@ -2859,13 +2786,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model117'
+            $ref: '#/definitions/Model116'
       tags:
         - Account
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model118'
+            $ref: '#/definitions/Model117'
           description: Successful
         '400':
           description: >-
@@ -2888,13 +2815,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model119'
+            $ref: '#/definitions/Model118'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model120'
+            $ref: '#/definitions/Model119'
           description: Successful
   /account/devices/invoke_command:
     post:
@@ -2915,13 +2842,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model122'
+            $ref: '#/definitions/Model121'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model123'
+            $ref: '#/definitions/Model122'
           description: Successful
         '400':
           description: >-
@@ -2949,13 +2876,13 @@ paths:
           in: body
           name: body
           schema:
-            $ref: '#/definitions/Model125'
+            $ref: '#/definitions/Model124'
       tags:
         - Devices and Sessions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model126'
+            $ref: '#/definitions/Model125'
           description: Successful
         '400':
           description: >-
@@ -2980,7 +2907,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model127'
+            $ref: '#/definitions/Model126'
       tags:
         - Unblock codes
       responses:
@@ -2997,7 +2924,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model128'
+            $ref: '#/definitions/Model127'
       tags:
         - Unblock codes
       responses:
@@ -3056,13 +2983,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model129'
+            $ref: '#/definitions/Model128'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model130'
+            $ref: '#/definitions/Model129'
           description: Successful
   /oauth/subscriptions/customer:
     post:
@@ -3076,13 +3003,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model131'
+            $ref: '#/definitions/Model130'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model136'
           description: Successful
   /oauth/subscriptions/paypal-checkout:
     post:
@@ -3095,13 +3022,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model138'
+            $ref: '#/definitions/Model137'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model139'
+            $ref: '#/definitions/Model138'
           description: Successful
   /oauth/subscriptions/reactivate:
     post:
@@ -3117,7 +3044,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model140'
+            $ref: '#/definitions/Model139'
       tags:
         - Subscriptions
       responses:
@@ -3146,7 +3073,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model141'
+            $ref: '#/definitions/Model140'
       tags:
         - Password
       responses:
@@ -3168,7 +3095,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model142'
+            $ref: '#/definitions/Model141'
       tags:
         - Password
       responses:
@@ -3208,13 +3135,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model143'
+            $ref: '#/definitions/Model142'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model144'
+            $ref: '#/definitions/Model143'
           description: Successful
   /password/forgot/send_code:
     post:
@@ -3263,13 +3190,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model145'
+            $ref: '#/definitions/Model144'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model146'
+            $ref: '#/definitions/Model145'
           description: Successful
         '400':
           description: >-
@@ -3302,7 +3229,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model147'
+            $ref: '#/definitions/Model146'
       tags:
         - Password
       responses:
@@ -3327,13 +3254,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model148'
+            $ref: '#/definitions/Model147'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model149'
+            $ref: '#/definitions/Model148'
           description: Successful
         '400':
           description: >-
@@ -3352,7 +3279,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model150'
+            $ref: '#/definitions/Model149'
       tags:
         - Password
       responses:
@@ -3372,7 +3299,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model151'
+            $ref: '#/definitions/Model150'
       tags:
         - Emails
       responses:
@@ -3397,7 +3324,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model152'
+            $ref: '#/definitions/Model151'
       tags:
         - Emails
       responses:
@@ -3438,13 +3365,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model153'
+            $ref: '#/definitions/Model152'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model154'
+            $ref: '#/definitions/Model153'
           description: Successful
   /session/verify/verify_push:
     post:
@@ -3455,7 +3382,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model155'
+            $ref: '#/definitions/Model154'
       tags:
         - Session
       responses:
@@ -3478,13 +3405,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model156'
+            $ref: '#/definitions/Model155'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model157'
+            $ref: '#/definitions/Model156'
           description: Successful
   /oauth/subscriptions/active/new:
     post:
@@ -3498,13 +3425,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model158'
+            $ref: '#/definitions/Model157'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model159'
+            $ref: '#/definitions/Model158'
           description: Successful
   /oauth/subscriptions/active/new-paypal:
     post:
@@ -3515,13 +3442,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model160'
+            $ref: '#/definitions/Model159'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model161'
+            $ref: '#/definitions/Model160'
           description: Successful
   /oauth/subscriptions/iap/app-store-notification:
     post:
@@ -3535,7 +3462,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model162'
+            $ref: '#/definitions/Model161'
       tags:
         - Subscriptions
       responses:
@@ -3552,7 +3479,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model163'
+            $ref: '#/definitions/Model162'
       tags:
         - Subscriptions
       responses:
@@ -3573,13 +3500,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model164'
+            $ref: '#/definitions/Model163'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model165'
+            $ref: '#/definitions/Model164'
           description: Successful
   /oauth/subscriptions/invoice/retry:
     post:
@@ -3593,13 +3520,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model166'
+            $ref: '#/definitions/Model165'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model167'
+            $ref: '#/definitions/Model166'
           description: Successful
   /oauth/subscriptions/paymentmethod/billing-agreement:
     post:
@@ -3613,13 +3540,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model168'
+            $ref: '#/definitions/Model167'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model136'
           description: Successful
   /oauth/subscriptions/paymentmethod/default:
     post:
@@ -3635,13 +3562,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model169'
+            $ref: '#/definitions/Model168'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model137'
+            $ref: '#/definitions/Model136'
           description: Successful
   /oauth/subscriptions/setupintent/create:
     post:
@@ -3658,7 +3585,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model170'
+            $ref: '#/definitions/Model169'
           description: Successful
   /oauth/subscriptions/stripe/event:
     post:
@@ -3697,7 +3624,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model171'
+            $ref: '#/definitions/Model170'
       tags:
         - Subscriptions
       responses:
@@ -3723,7 +3650,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model172'
+            $ref: '#/definitions/Model171'
       tags:
         - Subscriptions
       responses:
@@ -3746,13 +3673,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model173'
+            $ref: '#/definitions/Model172'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model174'
+            $ref: '#/definitions/Model173'
           description: Successful
   /oauth/subscriptions/active/{subscriptionId}:
     put:
@@ -3776,13 +3703,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model176'
+            $ref: '#/definitions/Model175'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model177'
+            $ref: '#/definitions/Model176'
           description: Successful
     delete:
       summary: /oauth/subscriptions/active/{subscriptionid}
@@ -3830,7 +3757,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model178'
+            $ref: '#/definitions/Model177'
       tags:
         - Subscriptions
       responses:
@@ -4271,11 +4198,11 @@ definitions:
         minimum: 0
       metricsEnabled:
         type: boolean
-      atLeast18AtReg:
-        type: boolean
       accountLockedAt:
         type: number
       accountDisabledAt:
+        type: number
+      keysChangedAt:
         type: number
   Model14:
     type: object
@@ -4863,6 +4790,8 @@ definitions:
   Model35:
     type: object
     properties:
+      currency:
+        type: string
       subscriptionId:
         type: string
       period_start:
@@ -4878,6 +4807,7 @@ definitions:
       tax:
         $ref: '#/definitions/Model34'
     required:
+      - currency
       - subscriptionId
       - period_start
       - subtotal
@@ -5768,13 +5698,6 @@ definitions:
         $ref: '#/definitions/style'
       verificationMethod:
         $ref: '#/definitions/verificationMethod'
-      atLeast18AtReg:
-        type: boolean
-        description: >-
-          True if age submitted at signup is equal or higher than 18, otherwise
-          null if >18, account created before this column was added or if COPPA
-          is disabled. Used by some relying parties to verify if they need to
-          perform another age check.
     required:
       - email
       - authPW
@@ -6271,57 +6194,13 @@ definitions:
         pattern: ^[a-zA-Z0-9_\-\.~=]+$
     required:
       - client_id
-  algorithm:
-    type: string
-    enum:
-      - RS
-      - DS
-  publicKey:
-    type: object
-    description: >-
-      The key to sign (run bin/generate-keypair from
-      [**browserid-crypto**](https://github.com/mozilla/browserid-crypto)).
-    properties:
-      algorithm:
-        $ref: '#/definitions/algorithm'
-      'n':
-        type: string
-      e:
-        type: string
-      'y':
-        type: string
-      p:
-        type: string
-      q:
-        type: string
-      g:
-        type: string
-      version:
-        type: string
-    required:
-      - algorithm
-  Model75:
-    type: object
-    properties:
-      publicKey:
-        $ref: '#/definitions/publicKey'
-      duration:
-        type: integer
-        description: >-
-          Time interval in milliseconds until the certificate will expire, up to
-          a maximum of 24 hours.
-        minimum: 0
-        maximum: 86400000
-    required:
-      - publicKey
-      - duration
   provider:
     type: string
     enum:
       - google
       - apple
     maxLength: 256
-  Model76:
+  Model75:
     type: object
     properties:
       idToken:
@@ -6340,7 +6219,7 @@ definitions:
         pattern: ^[a-zA-Z0-9\-]*$
     required:
       - provider
-  Model77:
+  Model76:
     type: object
     properties:
       uid:
@@ -6373,21 +6252,21 @@ definitions:
       - sessionToken
       - providerUid
       - email
-  Model78:
+  Model77:
     type: object
     properties:
       provider:
         $ref: '#/definitions/provider'
     required:
       - provider
-  Model79:
+  Model78:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model80:
+  Model79:
     type: string
     description: >-
       Determines the format of the response. Since we only support the
@@ -6395,11 +6274,11 @@ definitions:
     default: code
     enum:
       - code
-  Model81:
+  Model80:
     type: object
     properties:
       response_type:
-        $ref: '#/definitions/Model80'
+        $ref: '#/definitions/Model79'
       client_id:
         type: string
         description: >-
@@ -6473,7 +6352,7 @@ definitions:
     required:
       - client_id
       - state
-  Model82:
+  Model81:
     type: object
     properties:
       redirect:
@@ -6483,7 +6362,7 @@ definitions:
       state:
         type: string
         maxLength: 512
-  Model83:
+  Model82:
     type: object
     properties:
       client_id:
@@ -6535,7 +6414,7 @@ definitions:
         maxLength: 64
     required:
       - client_id
-  Model84:
+  Model83:
     type: object
     properties:
       client_id:
@@ -6552,7 +6431,7 @@ definitions:
     type: array
     items:
       type: string
-  Model85:
+  Model84:
     type: object
     properties:
       acr:
@@ -6575,7 +6454,7 @@ definitions:
         type: string
       sub:
         type: string
-  Model86:
+  Model85:
     type: string
     description: >-
       The type of grant flow being used. If not specified, it will default to
@@ -6597,11 +6476,11 @@ definitions:
     default: authorization_code
     enum:
       - authorization_code
-  Model87:
+  Model86:
     type: object
     properties:
       grant_type:
-        $ref: '#/definitions/Model86'
+        $ref: '#/definitions/Model85'
       client_id:
         type: string
         description: >-
@@ -6665,7 +6544,7 @@ definitions:
     required:
       - client_id
       - code
-  Model88:
+  Model87:
     type: object
     properties:
       access_token:
@@ -6732,7 +6611,7 @@ definitions:
       - token_type
       - expires_in
       - auth_at
-  Model89:
+  Model88:
     type: object
     properties:
       authPW:
@@ -6770,7 +6649,7 @@ definitions:
           ^identity\.mozilla\.com\/picl\/v1\/quickStretch:|^identity\.mozilla\.com\/picl\/v1\/quickStretchV2:
     required:
       - authPW
-  Model90:
+  Model89:
     type: object
     properties:
       email:
@@ -6778,7 +6657,7 @@ definitions:
         maxLength: 255
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
-  Model91:
+  Model90:
     type: object
     properties:
       exists:
@@ -6789,7 +6668,7 @@ definitions:
         type: number
     required:
       - exists
-  Model92:
+  Model91:
     type: object
     properties:
       hint:
@@ -6800,14 +6679,14 @@ definitions:
         maxLength: 255
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
-  Model93:
+  Model92:
     type: object
     properties:
       recoveryKeyId:
         type: string
         maxLength: 32
         pattern: ^(?:[a-fA-F0-9]{2})+$
-  Model94:
+  Model93:
     type: object
     properties:
       email:
@@ -6825,7 +6704,7 @@ definitions:
     maxLength: 32
     x-format:
       alphanum: true
-  Model95:
+  Model94:
     type: object
     properties:
       email:
@@ -6851,7 +6730,7 @@ definitions:
         $ref: '#/definitions/style'
       type:
         $ref: '#/definitions/type'
-  Model96:
+  Model95:
     type: object
     properties:
       email:
@@ -6862,7 +6741,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model97:
+  Model96:
     type: string
     enum:
       - firefox-accounts-journey
@@ -6875,11 +6754,11 @@ definitions:
       - mozilla-accounts
       - hubs
       - mdnplus
-  Model98:
+  Model97:
     type: array
     items:
-      $ref: '#/definitions/Model97'
-  Model99:
+      $ref: '#/definitions/Model96'
+  Model98:
     type: object
     properties:
       uid:
@@ -6911,11 +6790,11 @@ definitions:
       marketingOptIn:
         type: boolean
       newsletters:
-        $ref: '#/definitions/Model98'
+        $ref: '#/definitions/Model97'
     required:
       - uid
       - code
-  Model100:
+  Model99:
     type: object
     properties:
       customSessionToken:
@@ -6924,13 +6803,13 @@ definitions:
         minLength: 64
         maxLength: 64
         pattern: ^(?:[a-fA-F0-9]{2})+$
-  Model101:
+  Model100:
     type: object
     properties:
       reason:
         type: string
         maxLength: 16
-  Model102:
+  Model101:
     type: string
     enum:
       - email
@@ -6938,7 +6817,7 @@ definitions:
       - email-2fa
       - email-captcha
       - totp-2fa
-  Model103:
+  Model102:
     type: object
     properties:
       email:
@@ -6976,11 +6855,11 @@ definitions:
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
       verificationMethod:
-        $ref: '#/definitions/Model102'
+        $ref: '#/definitions/Model101'
     required:
       - email
       - authPW
-  Model104:
+  Model103:
     type: object
     properties:
       uid:
@@ -7009,7 +6888,7 @@ definitions:
       type: string
       maxLength: 256
       pattern: ^[a-zA-Z0-9 _\/.:-]*$
-  Model105:
+  Model104:
     type: string
     enum:
       - firefox-accounts-journey
@@ -7022,11 +6901,11 @@ definitions:
       - mozilla-accounts
       - hubs
       - mdnplus
-  Model106:
+  Model105:
     type: array
     items:
-      $ref: '#/definitions/Model105'
-  Model107:
+      $ref: '#/definitions/Model104'
+  Model106:
     type: object
     properties:
       code:
@@ -7041,10 +6920,10 @@ definitions:
       marketingOptIn:
         type: boolean
       newsletters:
-        $ref: '#/definitions/Model106'
+        $ref: '#/definitions/Model105'
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model108:
+  Model107:
     type: object
     properties:
       email:
@@ -7074,7 +6953,7 @@ definitions:
       - productName
       - topic
       - message
-  Model109:
+  Model108:
     type: object
     properties:
       success:
@@ -7085,16 +6964,16 @@ definitions:
         type: string
     required:
       - success
-  Model110:
+  Model109:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model111:
+  Model110:
     type: array
     items:
       type: string
-  Model112:
+  Model111:
     type: object
     properties:
       qrCodeUrl:
@@ -7102,12 +6981,12 @@ definitions:
       secret:
         type: string
       recoveryCodes:
-        $ref: '#/definitions/Model111'
+        $ref: '#/definitions/Model110'
     required:
       - qrCodeUrl
       - secret
       - recoveryCodes
-  Model113:
+  Model112:
     type: object
     properties:
       code:
@@ -7117,12 +6996,12 @@ definitions:
         pattern: ^[0-9]+$
     required:
       - code
-  Model114:
+  Model113:
     type: object
     properties:
       success:
         type: boolean
-  Model115:
+  Model114:
     type: object
     properties:
       clientId:
@@ -7143,9 +7022,9 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 32
-  Model116:
+  Model115:
     type: object
-  Model117:
+  Model116:
     type: object
     properties:
       email:
@@ -7159,7 +7038,7 @@ definitions:
     enum:
       - v1
       - v2
-  Model118:
+  Model117:
     type: object
     properties:
       currentVersion:
@@ -7170,7 +7049,7 @@ definitions:
           ^identity\.mozilla\.com\/picl\/v1\/quickStretch:|^identity\.mozilla\.com\/picl\/v1\/quickStretchV2:
       upgradeNeeded:
         type: boolean
-  Model119:
+  Model118:
     type: object
     properties:
       id:
@@ -7180,12 +7059,12 @@ definitions:
           length: 32
     required:
       - id
+  Model119:
+    type: object
   Model120:
     type: object
-  Model121:
-    type: object
     description: Opaque payload to be forwarded to the device.
-  Model122:
+  Model121:
     type: object
     properties:
       target:
@@ -7200,7 +7079,7 @@ definitions:
           The id of the command to be invoked, as found in the device's
           availableCommands set.
       payload:
-        $ref: '#/definitions/Model121'
+        $ref: '#/definitions/Model120'
       ttl:
         type: integer
         description: >-
@@ -7212,7 +7091,7 @@ definitions:
       - target
       - command
       - payload
-  Model123:
+  Model122:
     type: object
     properties:
       enqueued:
@@ -7242,12 +7121,12 @@ definitions:
       pattern: ^(?:[a-fA-F0-9]{2})+$
       x-constraint:
         length: 32
-  Model124:
+  Model123:
     type: object
     description: >-
       Push payload, validated against
       [**pushpayloads.schema.json**](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/lib/pushpayloads.schema.json).
-  Model125:
+  Model124:
     type: object
     properties:
       to:
@@ -7257,7 +7136,7 @@ definitions:
       excluded:
         $ref: '#/definitions/excluded'
       payload:
-        $ref: '#/definitions/Model124'
+        $ref: '#/definitions/Model123'
       TTL:
         type: integer
         description: Push notification TTL, defaults to `0`.
@@ -7265,9 +7144,9 @@ definitions:
     required:
       - to
       - payload
-  Model126:
+  Model125:
     type: object
-  Model127:
+  Model126:
     type: object
     properties:
       uid:
@@ -7284,7 +7163,7 @@ definitions:
     required:
       - uid
       - unblockCode
-  Model128:
+  Model127:
     type: object
     properties:
       email:
@@ -7297,7 +7176,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model129:
+  Model128:
     type: object
     properties:
       priceId:
@@ -7312,7 +7191,7 @@ definitions:
     required:
       - priceId
       - promotionCode
-  Model130:
+  Model129:
     type: object
     properties:
       promotionCode:
@@ -7336,7 +7215,7 @@ definitions:
       - valid
       - expired
       - maximallyRedeemed
-  Model131:
+  Model130:
     type: object
     properties:
       displayName:
@@ -7353,7 +7232,7 @@ definitions:
         type: string
     required:
       - id
-  Model132:
+  Model131:
     type: object
     properties:
       id:
@@ -7366,18 +7245,18 @@ definitions:
       - id
       - created
       - price
-  Model133:
+  Model132:
     type: array
     items:
-      $ref: '#/definitions/Model132'
+      $ref: '#/definitions/Model131'
   items:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Model133'
+        $ref: '#/definitions/Model132'
     required:
       - data
-  Model134:
+  Model133:
     type: object
     properties:
       id:
@@ -7430,25 +7309,25 @@ definitions:
       - current_period_end
       - current_period_start
       - status
-  Model135:
+  Model134:
     type: array
     items:
-      $ref: '#/definitions/Model134'
-  Model136:
+      $ref: '#/definitions/Model133'
+  Model135:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Model135'
+        $ref: '#/definitions/Model134'
     required:
       - data
-  Model137:
+  Model136:
     type: object
     properties:
       invoices_settings:
         $ref: '#/definitions/invoices_settings'
       subscriptions:
-        $ref: '#/definitions/Model136'
-  Model138:
+        $ref: '#/definitions/Model135'
+  Model137:
     type: object
     properties:
       currencyCode:
@@ -7458,14 +7337,14 @@ definitions:
           case: upper
     required:
       - currencyCode
-  Model139:
+  Model138:
     type: object
     properties:
       token:
         type: string
     required:
       - token
-  Model140:
+  Model139:
     type: object
     properties:
       subscriptionId:
@@ -7476,7 +7355,7 @@ definitions:
         maxLength: 255
     required:
       - subscriptionId
-  Model141:
+  Model140:
     type: object
     properties:
       authPW:
@@ -7520,7 +7399,7 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
     required:
       - authPW
-  Model142:
+  Model141:
     type: object
     properties:
       email:
@@ -7538,50 +7417,50 @@ definitions:
     required:
       - email
       - oldAuthPW
+  Model142:
+    type: object
+    properties:
+      email:
+        type: string
+        description: Recovery email for the account.
+        maxLength: 255
+        pattern: >-
+          ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
+      service:
+        type: string
+        description: >-
+          Identifies the relying service the user was interacting with that
+          triggered the password reset.
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
+      redirectTo:
+        type: string
+        description: >-
+          URL that the client should be redirected to after handling the
+          request.
+        maxLength: 2048
+      resume:
+        type: string
+        description: >-
+          Opaque URL-encoded string to be included in the verification link as a
+          query parameter.
+        maxLength: 2048
+    required:
+      - email
   Model143:
     type: object
     properties:
-      email:
+      passwordForgotToken:
         type: string
-        description: Recovery email for the account.
-        maxLength: 255
-        pattern: >-
-          ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
-      service:
-        type: string
-        description: >-
-          Identifies the relying service the user was interacting with that
-          triggered the password reset.
-        maxLength: 16
-        pattern: ^[a-zA-Z0-9\-]*$
-      redirectTo:
-        type: string
-        description: >-
-          URL that the client should be redirected to after handling the
-          request.
-        maxLength: 2048
-      resume:
-        type: string
-        description: >-
-          Opaque URL-encoded string to be included in the verification link as a
-          query parameter.
-        maxLength: 2048
-    required:
-      - email
+      ttl:
+        type: number
+      codeLength:
+        type: number
+      tries:
+        type: number
   Model144:
     type: object
     properties:
-      passwordForgotToken:
-        type: string
-      ttl:
-        type: number
-      codeLength:
-        type: number
-      tries:
-        type: number
-  Model145:
-    type: object
-    properties:
       email:
         type: string
         description: Recovery email for the account.
@@ -7611,7 +7490,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model146:
+  Model145:
     type: object
     properties:
       passwordForgotToken:
@@ -7622,7 +7501,7 @@ definitions:
         type: number
       tries:
         type: number
-  Model147:
+  Model146:
     type: object
     properties:
       email:
@@ -7642,7 +7521,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model148:
+  Model147:
     type: object
     properties:
       code:
@@ -7657,12 +7536,12 @@ definitions:
         type: boolean
     required:
       - code
-  Model149:
+  Model148:
     type: object
     properties:
       accountResetToken:
         type: string
-  Model150:
+  Model149:
     type: object
     properties:
       email:
@@ -7680,7 +7559,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model151:
+  Model150:
     type: object
     properties:
       email:
@@ -7691,7 +7570,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model152:
+  Model151:
     type: object
     properties:
       email:
@@ -7708,7 +7587,7 @@ definitions:
     required:
       - email
       - code
-  Model153:
+  Model152:
     type: object
     properties:
       code:
@@ -7722,14 +7601,14 @@ definitions:
         pattern: ^[a-zA-Z0-9\-]*$
     required:
       - code
-  Model154:
+  Model153:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model155:
+  Model154:
     type: object
     properties:
       code:
@@ -7740,7 +7619,7 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 32
-  Model156:
+  Model155:
     type: object
     properties:
       code:
@@ -7748,12 +7627,12 @@ definitions:
         minLength: 8
         maxLength: 20
         pattern: ^[a-zA-Z0-9]*$
-  Model157:
+  Model156:
     type: object
     properties:
       remaining:
         type: number
-  Model158:
+  Model157:
     type: object
     properties:
       priceId:
@@ -7774,18 +7653,18 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - priceId
-  Model159:
+  Model158:
     type: object
     properties:
       subscription:
-        $ref: '#/definitions/Model134'
+        $ref: '#/definitions/Model133'
       sourceCountry:
         type: string
         x-constraint:
           length: 2
     required:
       - sourceCountry
-  Model160:
+  Model159:
     type: object
     properties:
       priceId:
@@ -7810,18 +7689,18 @@ definitions:
     required:
       - priceId
       - idempotencyKey
-  Model161:
+  Model160:
     type: object
     properties:
       subscription:
-        $ref: '#/definitions/Model134'
+        $ref: '#/definitions/Model133'
       sourceCountry:
         type: string
         x-constraint:
           length: 2
     required:
       - sourceCountry
-  Model162:
+  Model161:
     type: object
     properties:
       signedPayload:
@@ -7835,14 +7714,14 @@ definitions:
         type: string
     required:
       - data
-  Model163:
+  Model162:
     type: object
     properties:
       message:
         $ref: '#/definitions/message'
     required:
       - message
-  Model164:
+  Model163:
     type: object
     properties:
       priceId:
@@ -7856,7 +7735,7 @@ definitions:
         description: A customer-redeemable code for a coupon.
     required:
       - priceId
-  Model165:
+  Model164:
     type: object
     properties:
       line_items:
@@ -7883,7 +7762,7 @@ definitions:
       - subtotal_excluding_tax
       - total
       - total_excluding_tax
-  Model166:
+  Model165:
     type: object
     properties:
       invoiceId:
@@ -7908,7 +7787,7 @@ definitions:
       - invoiceId
       - paymentMethodId
       - idempotencyKey
-  Model167:
+  Model166:
     type: object
     properties:
       id:
@@ -7920,7 +7799,7 @@ definitions:
           - $ref: '#/x-alt-definitions/payment_intent'
     required:
       - id
-  Model168:
+  Model167:
     type: object
     properties:
       token:
@@ -7928,7 +7807,7 @@ definitions:
         maxLength: 30
     required:
       - token
-  Model169:
+  Model168:
     type: object
     properties:
       paymentMethodId:
@@ -7939,7 +7818,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model170:
+  Model169:
     type: object
     properties:
       client_secret:
@@ -7970,14 +7849,14 @@ definitions:
     required:
       - created
       - status
-  Model171:
+  Model170:
     type: object
     properties:
       originalTransactionId:
         type: string
     required:
       - originalTransactionId
-  Model172:
+  Model171:
     type: object
     properties:
       sku:
@@ -7987,7 +7866,7 @@ definitions:
     required:
       - sku
       - token
-  Model173:
+  Model172:
     type: object
     properties:
       paymentMethodId:
@@ -7998,7 +7877,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model174:
+  Model173:
     type: object
     properties:
       id:
@@ -8009,12 +7888,12 @@ definitions:
         maxLength: 30
     required:
       - id
-  Model175:
+  Model174:
     type: object
     properties:
       success:
         type: boolean
-  Model176:
+  Model175:
     type: object
     properties:
       planId:
@@ -8025,12 +7904,12 @@ definitions:
         maxLength: 255
     required:
       - planId
-  Model177:
+  Model176:
     type: object
     properties:
       subscriptionId:
         type: string
-  Model178:
+  Model177:
     type: object
     properties:
       promotionId:
