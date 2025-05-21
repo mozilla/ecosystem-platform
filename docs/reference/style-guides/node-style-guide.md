@@ -132,6 +132,18 @@ interface ThirdCustomUser extends CustomUser {}
 abstract class BaseAccount {}
 ```
 
+#### Enum Naming
+
+- Always use PascalCase for your enum keys
+- Prefer Enums over `as const` notation on an object
+
+```typescript
+enum Example {
+  PropertyOne = 'abc',
+  PropertyTwo = 'abc2',
+}
+```
+
 #### Index Exporting
 
 1. It is recommended to place index.ts in each folder and export. Unless it's a special case, it is imported from a folder instead of directly from a file.
