@@ -7599,6 +7599,8 @@ definitions:
         type: string
         maxLength: 16
         pattern: ^[a-zA-Z0-9\-]*$
+      metricsContext:
+        $ref: '#/definitions/metricsContext'
     required:
       - code
   Model153:
