@@ -58,6 +58,7 @@ module.exports = {
                             'how-tos/local-emails-with-maildev',
                             'how-tos/managing-yarn-dependencies',
                             'how-tos/node-debugging',
+                            'how-tos/serve-settings-production-build-locally',
                             'how-tos/using-a-custom-profile-with-firefox',
                             'how-tos/using-sentry-locally',
                             'how-tos/using-swagger-for-api-documentation',
