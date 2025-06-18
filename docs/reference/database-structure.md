@@ -3,7 +3,7 @@ title: Database Structure
 ---
 
 Current as of:
-- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `163`
+- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `172`
 - [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `32`
 - [Profile db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_profile): `4`
 
@@ -94,7 +94,7 @@ erDiagram
         varchar couponCode
         varchar stripeCustomerId
         varchar stripeSubscriptionId
-        varchar email
+        varchar stripeIntentId
         int amount
         smallint version "unsigned"
         enum eligibilityStatus "create,upgrade,downgrade,blocked_iap,invalid"
