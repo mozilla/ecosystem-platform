@@ -69,7 +69,7 @@ determine the rate limit. So the redis state would like this after calling check
 When developing new features, running functional test suites locally, or running smoke tests remotely, rate-limiting behavior can be annoying — or even downright disruptive. To work around this, there are a few options:
 
 - You override ride them via an environment variable, RATE_LIMIT__RULES="" _(Preferred option, since it works across the board.)_
-- You use dev.json and override the config, { rateLimit: { rules: "" } }
+- You use dev.json and override the config.
 - You can set the maxAttempt to be all be very high (or vary low if you want to test blocking scenarios quickly). _(Not great, you might accidently commit your changes.)_
 - You can simply delete the contents of the rules in rate-limit-rules.txt. _(Not preferred cause you might accidently commit the change!)_
 
