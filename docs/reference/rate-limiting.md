@@ -2,6 +2,114 @@
 title: Rate limiting
 ---
 
+# Customs V2 Docs
+
+FxA now users a rate-limit library that communicates with a dedicate Redis instance to conduct rate-limiting operations. The following is essentially just a rehashed verison of
+of the libraries readme file which can be found here. Always check the lib's readme for the most up to date doc!
+
+## Defining Rules
+
+This library is driven by a simple grammar for defining rules. The grammar is as follows:
+
+` ${action} : ${property} : ${attempts} : ${window} : ${duration} : ${policy}`
+
+Where a 'section' is separated by ':' and leading and trailing whitespace within a section is trimmed.
+Note that comments can be added by starting a line with '#'. Adding comments explaining what the rulesets try to acheive is encouraged!
+
+- `action`   - This is the user action being checked and counted. For example, accountLogin would check when an account login is attempted.
+- `property` - The property/attribute we are counting for a given action. Options are ip, email, ip_email, uid and ip_uid.
+- `attempts` - Number of tries until the rule is considered violated and block (or ban) occurs
+- `window`   - Time span over which actions are counted. Once the window ends, actions are allowed again.
+- `duration` - How long the block (or ban) remains active. Note that while active, attempts are being not counted!
+- `policy`   - Determines what happens after a rate limit is exceed options are block, ban, or report
+
+### Property Options
+
+Here the valid options that can be provided in the properyt column, and their signifigance.
+
+- ip        - The user's IP. This is often useful for 'ban' policies, were we want to flag an IP that is making a large number of requests.
+- ip_email  - The user's IP with the user's email appended. This is useful for ensuring one user cannot impact another user's experience.
+- email     - The user's email. This is useful only when the account isn't known and for some reason, we don't want to use ip_email.
+- uid       - The user's account id. This can be useful from stopping a user that has logged in from doing something malicious, like trying to mine data.
+- ip_uid    - The user's account id with the user's uid appended. This is useful for ensure one user cannot impact another user's experience.
+
+### Policy Options
+
+The block on policy describes what happens when a rate limit is exceeded. Or in other words when a given block on property is has seen more than the 
+the allotted max attempts.
+
+- block  - The action+property for the rule is no longer permitted until the duration expires or the user provides an unblock code on sign in and clears the block.
+- ban    - Any and all rules for the given property are no longer permitted until the duration expires. Bans cannot be cleared by end users! So be very careful defining bans.
+- report - The rule for the given action and property is only reported on, ie we emit metrics that can be monitored, but we do not actually block the action/property.  
+
+### The 'default' Rule
+
+To avoid lots of repetitive configuration, we have one special rule known as the 'default' rule. This rule
+is used as a fallback in the event an action is supplied to the rate limiter, but it cannot be found in the
+set of configured rules. When the 'default' rule is used, the action count is still kept distinct per action, 
+but the policy from the default rule is used.
+
+For example, if we were to call
+
+`rateLimit.check('foo', { ip:0.0.0.0})`
+
+And our rules file looked like this:
+
+```
+default : ip       : 100 : 10 minutes : 10 minutes : block
+bar     : ip_email : 5   : 10 mintues : 10 minutes : block
+```
+
+Then we'd increment the redis count for action foo blocking on ip, but we'd use the default rule's settings to 
+determine the rate limit. So the redis state would like this after calling check:
+
+  `rate-limit:attempts:ip=0.0.0.0:foo:100-600-600 => 1`
+
+### Testing & Development Considerations
+
+When developing new features, running functional test suites locally, or running smoke tests remotely, rate-limiting behavior can be annoying — or even downright disruptive. To work around this, there are a few options:
+
+- You override ride them via an environment variable, RATE_LIMIT__RULES="" _(Preferred option, since it works across the board.)_
+- You use dev.json and override the config, { rateLimit: { rules: "" } }
+- You can set the maxAttempt to be all be very high (or vary low if you want to test blocking scenarios quickly). _(Not great, you might accidentally commit your changes.)_
+- You can simply delete the contents of the rules in rate-limit-rules.txt. _(Not preferred cause you might accidently commit the change!)_
+
+_ Note, you could also just add your IP to the RATE_LIMIT__IGNORE_IPS filter as mentioned below. Same options above apply here as to where / how you set this filter._
+
+#### Exclude specific attributes like ip, email, or UID
+When running smoke tests against a remote server, the first approach may not work — so we also support excluding specific emails or IP addresses from being checked by the rate limiter. To do this, define these values in your server's config file and pass them to the rate limiter.
+
+ - Email ignore values can use regex filters.
+ - IP addresses and UIDs must be exact string matches.
+
+_Note that when using the email filter, checks run on IP only may still be suspetable to getting blocked! For this reason the IP filter might be a better approach if you can use static IPs._
+
+### Auth Server specifics
+
+The auth server has special config for auto checking all endpoints. To turn this on set `RATE_LIMIT__CHECK_ALL_ENDPOINTS=true`. 
+
+At the time of writing this isn't currently enabled, but it might be in the future. And if it is, a couple things to note:
+
+- When this is enabled, we should have define the 'default' rule! Otherwise calls will fall back to the legacy customs service, and this could result in a spike of blocked requests.
+- It's also important to note that individual endpoints can be configured with the following pattern, `${HTTP_METHOD}_${PATH}` where path is lower case and non alpha numeric characters are converted to underscores.
+- Some endpoints like like `/v1/verify` have very high traffic, so specific rules should be added for these endpoints. For example `post__v1_verify : 100 : ip : 1 minute : 1 minute : report` would be a safe rule to add if turning on check all end points.
+- Alternatively we might even consider skipping high traffic endpoints from rate-limiting checks. To do this add the high traffic endpoint to the `RATE_LIMIT__SKIP_ENDPOINTS` config setting.
+
+
+### Graphql Specifics
+
+Graphql also has the ability to run custom checks on on various actions. To do this simply deocrate the endpoint to protect with `@UseGuards(GqlCustomsGuard('updateDisplayName'))`, where updateDisplayName is the action you wan to rate limit.
+
+Same as auth server, you can define default rules in the rate-limit-rules.txt file, or via the RATE_LIMIT__RULES env. 
+
+At the time of writing, there is no way to check all graphql endpoints automatically...
+
+
+
+_________
+
+## Legacy Customs V1 Docs (Kept for historical Record, will be removed!)
+
 Last updated: `June 21th, 2022`
 
 The [Customs server](https://github.com/mozilla/fxa/blob/main/packages/fxa-customs-server/README.md) is the service responsible for maintaining and implementing rate limiting in FxA.
