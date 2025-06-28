@@ -109,6 +109,77 @@ _At the time of writing, there is no way to check all graphql endpoints automati
 We have begun to collect blocking scenarios as a team in an attempt to strategize around how to provide rules that protect our end users, but also aren't overly aggressive or annoying. If you are interested in these scnearios, or are considering adding a new one, please reach out to an FxA team member or look for the blocking scenarios in our internal docs for more info on how we approach setting up robust rate limiting rules.
 
 
+## FAQ
+
+
+### How is it different from V1?
+
+The new version no longer uses a ‘service’. It talks directly to redis via the `libs/accounts/rate-limit` library. This library serves as the abstraction for configuring and enforcing rate limit policies.
+
+
+### Why the rewrite?
+
+There’s several reasons. 
+
+- It’s smaller. The service had 3426 lines of codes, and the new library had 960 lines.
+- It’s config driven. The customs configuration is now easy to read and understand. There’s no more second guessing what customs is doing, just check the config. There’s also no need to edit code to add a rule, just update the config. 
+- It’s more efficient and more direct. We skip a whole round of http web requests and json serialization. The new lib talks directly to redis.
+- It allows for more grain tuning of rules. We can now distinguish between blocking and banning, and we can do this on ip, email, uid, ip+email, or ip+uid. The old service would inevitably block on ip or email and bugs like this would happen.
+- It can be configured independently per service. Previously the custom’s service had a config that was specific to the services that used it. This is a prime example of feature envy. The old customs service was effectively concerned with aspects of the services it was being called from. This relationship is backward. In the new approach the library has no configuration defined. And has no knowledge of the calling code. The requirements for configuration have been shifted to calling code where they belong.
+
+
+
+### Great, can I just turn it off? It’s annoying while developing…
+
+Yes, this is very easy. Simply set the rateLimit.rules to an empty string, and voila it’s off. Any of the following work for this:
+
+- Set RATE_LIMIT__RULES=”” in your .env file or .bashrc
+- Override the config setting in dev.json as you would any other config in fxa.
+- Delete the contents of rate-limit-rules.txt that customs reads from by default.
+
+Please note, we’d like you to develop with customs on! Ignoring customs is like ignoring an important piece of functionality in the code base. 
+
+We currently have plenty of examples where customs errors are not handled correctly. This probably stems from people developing with customs off. A better approach is to alter the ‘max attempts’ in the rate-limit-rules.txt files as needed. You could increase max attempts value to make customs less active, or decrease the max attempts value to make customs more active and make it easier to test blocking behavior.
+
+### What’s the difference between a block, a ban, and report policy again?
+
+Blocks only apply to the current rule. You can think of a block as blocking an isolated action once the max attempts are hit.
+
+Bans apply to the current rule, and all other rules. If a user trips a ban, then they are effectively blocked from that action, and all other actions, hence the term ‘ban’.
+
+Report is the final policy option for . It allows you to record metrics, but not actually do a block. This is great for testing out hypotheticals with little risk. But, be careful not to clobber other existing rules when you use this!
+
+
+### What’s up with the ‘default’ rule again?
+
+The default rule is a special case. When configured, it will act as the fallback in the event a rule isn’t found. For example, let’s say you have a call like this: rateLimit.check(‘foo’, {ip}); If there is no rule for action foo in the current rate limit rules config, then if and only if there’s a default rule defined, we will use that. 
+
+Be sure to set defaults for ALL blocks on policies. Otherwise, you might get an error.
+
+Be very careful with the default. It should have plenty of overhead!
+
+
+### I’m adding a new rule but I’m concerned about the impact, can I monitor this?
+
+Yep! We got graphs over in yardstick. If you can't find them reach out to a teammate.
+
+A couple things to note about these graphs. We have some that are specific to auth-server. These metrics look like fxa_auth_server_customs_*. These are legacy metrics and we use these comparisons before and after a rule rolls out.
+
+We also have the metrics emitted by the rate-limit library. These metrics offer further information about what got blocked and why. This graph provides a lot of detail about the exact nature of blocks that are occurring. These are rules targeting ${SERVICE_NAME}_rate_limit_*. These will be referenced in dashboards titled ‘Rate Limit Library - $VIEW`. 
+
+As noted above, when rolling out a new rule, it’s often a good idea to roll it out initially with the ‘report’ policy, so no blocks occur at first. This can give a baseline for whether or not blocks seem reasonable. Once you feel good with blocking, i.e. we don’t see a sky high number of blocks, you can change the ‘report’ policy to a block or ban policy.
+
+
+### Once a user is blocked, do they get unblocked? How does this work exactly?
+
+Yes, a user can become unblocked if they provide an unblock code at sign in. If the code is valid, all blocks will be cleared for the users’s current IP, email, uid, ip+email, and ip+uid that proved the sign in code correct… Checkout how the `/account/login/send_unblock_code` is invoked, and how the `RateLimit::unblock` method is called for exact details. 
+
+It’s important to note that ‘bans’ WILL NOT BE CLEARED. Which is why we should be very careful with ban operations and only apply them in cases where the behavior is clearly malicious like incorrect attempts at passwords or codes. 
+
+### A user is having trouble with being blocked. Can I help them?
+
+This is a work in progress, but sometime soon, you sure can go to admin panel, and navigate to the rate limit section. You will have 3 OR filters at the top for ip, email, and uid. If you enter any of these, any active block or ban will be displayed below. Assuming you have admin privileges, you can clear these blocks and bans.
+
 _________
 
 ## Legacy Customs V1 Docs (Kept for historical Record, will be removed!)
