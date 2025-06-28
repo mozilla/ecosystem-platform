@@ -133,7 +133,7 @@ There’s several reasons.
 
 Yes, this is very easy. Simply set the rateLimit.rules to an empty string, and voila it’s off. Any of the following work for this:
 
-- Set RATE_LIMIT__RULES=”” in your .env file or .bashrc
+- Set `RATE_LIMIT__RULES=””` in your .env file or .bashrc
 - Override the config setting in dev.json as you would any other config in fxa.
 - Delete the contents of rate-limit-rules.txt that customs reads from by default.
 
@@ -152,7 +152,7 @@ Report is the final policy option for . It allows you to record metrics, but not
 
 ### What’s up with the ‘default’ rule again?
 
-The default rule is a special case. When configured, it will act as the fallback in the event a rule isn’t found. For example, let’s say you have a call like this: rateLimit.check(‘foo’, {ip}); If there is no rule for action foo in the current rate limit rules config, then if and only if there’s a default rule defined, we will use that. 
+The default rule is a special case. When configured, it will act as the fallback in the event a rule isn’t found. For example, let’s say you have a call like this: `rateLimit.check(‘foo’, {ip});` If there is no rule for action foo in the current rate limit rules config, then if and only if there’s a default rule defined, we will use that. 
 
 Be sure to set defaults for ALL blocks on policies. Otherwise, you might get an error.
 
