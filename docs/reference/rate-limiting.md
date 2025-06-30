@@ -165,7 +165,7 @@ Yep! We got graphs over in yardstick. If you can't find them reach out to a team
 
 A couple things to note about these graphs. We have some that are specific to auth-server. These metrics look like fxa_auth_server_customs_*. These are legacy metrics and we use these comparisons before and after a rule rolls out.
 
-We also have the metrics emitted by the rate-limit library. These metrics offer further information about what got blocked and why. This graph provides a lot of detail about the exact nature of blocks that are occurring. These are rules targeting ${SERVICE_NAME}_rate_limit_*. These will be referenced in dashboards titled ‘Rate Limit Library - $VIEW`. 
+We also have the metrics emitted by the rate-limit library. These metrics offer further information about what got blocked and why. This graph provides a lot of detail about the exact nature of blocks that are occurring. These are rules targeting `${SERVICE_NAME}_rate_limit_*`. These will be referenced in dashboards titled ‘Rate Limit Library - $VIEW`. 
 
 As noted above, when rolling out a new rule, it’s often a good idea to roll it out initially with the ‘report’ policy, so no blocks occur at first. This can give a baseline for whether or not blocks seem reasonable. Once you feel good with blocking, i.e. we don’t see a sky high number of blocks, you can change the ‘report’ policy to a block or ban policy.
 
