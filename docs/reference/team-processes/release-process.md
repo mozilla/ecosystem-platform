@@ -224,7 +224,7 @@ In staging, a single service will not stop the rest from deploying. In productio
 
 [cloudops-deployment]: https://github.com/mozilla-services/cloudops-deployment/tree/master/projects/fxa
 [cloudops-infra]: https://github.com/mozilla-services/cloudops-infra/tree/master/projects/fxa
-[webservices-infra]: https://github.com/mozilla-it/webservices-infra/tree/main/fxa
+[webservices-infra]: https://github.com/mozilla/webservices-infra/tree/main/fxa
 [deployment-doc]: https://docs.google.com/document/d/1lc5T1ZvQZlhXY6j1l_VMeQT9rs1mN7yYIcHbRPR2IbQ/edit
 [example-deployment-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=1575233
 [release.sh]: https://github.com/mozilla/fxa/blob/main/release.sh
