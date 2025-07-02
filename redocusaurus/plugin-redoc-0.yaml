@@ -6163,8 +6163,6 @@ definitions:
           length: 16
       metricsContext:
         $ref: '#/definitions/metricsContext'
-      wantsSetupToken:
-        type: boolean
     required:
       - email
       - clientId
