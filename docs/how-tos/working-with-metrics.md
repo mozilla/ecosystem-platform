@@ -2,7 +2,7 @@
 title: Working with Metrics
 ---
 
-Last updated: `May 21st, 2024`
+Last updated: `July 16th, 2025`
 
 Other relevant documents include our [metrics reference](../reference/metrics) and [metrics explanation](../explanation/metrics).
 
@@ -46,7 +46,7 @@ For event specific properties, we have a `event.reason` string metric to capture
 ### Settings
 
 0. Update the YAML in `packages/fxa-shared/metrics/glean/fxa-ui-metrics.yaml`.
-0. Run `yarn glean-generate` from `packages/fxa-shared`.
+0. Run `yarn glean-generate && yarn build` from `packages/fxa-shared`.
 0. Add the event to `eventsMap` in `packages/fxa-shared/metrics/glean/web/index.ts`.
 0. Update `recordEventMetric` in `packages/fxa-settings/src/lib/glean/index.ts` to include the new event in the switch statement.
 
