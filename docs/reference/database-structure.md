@@ -3,7 +3,8 @@ title: Database Structure
 ---
 
 Current as of:
-- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `172`
+
+- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `174`
 - [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `32`
 - [Profile db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_profile): `4`
 
@@ -116,6 +117,13 @@ erDiagram
         varchar name
         varchar display_name
         varchar capabilities
+    }
+```
+```mermaid
+erDiagram
+    deletedAccounts {
+       binary uid PK "16 bytes" 
+       bigint deletedAt "unsigned"
     }
 ```
 ```mermaid
