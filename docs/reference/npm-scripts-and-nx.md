@@ -224,7 +224,7 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
 
     // End ----- Add to the top of the file
 
-    //Make the following changes to `export default {}`
+    // Make the following changes to `export default {}`
 
     const config: Config = {
       ...
@@ -238,6 +238,11 @@ yarn nx g @nx/js:lib payments-stripe --directory=libs/payments/stripe --importPa
           'jest-junit',
           {
             outputDirectory: 'artifacts/tests/PACKAGE_NAME',    // <---- Replace PACKAGE_NAME
+            
+            // It is critical that the package_name here is unique among all
+            // Jest configs. This file is uploaded to GCS and will error on upload
+            // if not unique because permissions for the upload deliberately prevent
+            // overwriting files.
             outputName: 'PACKAGE_NAME-jest-unit-results.xml',   // <---- Replace PACKAGE_NAME
           }
         ]
