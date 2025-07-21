@@ -16,11 +16,11 @@ libraries on our domain.
 
 At the end of the third party oauth flow, FxA receives an OpenID connect `id_token` and uses that to create
 the associated FxA account. After successfully creating a Firefox account, a session token is created
-and then the user is sent through the FxA OAuth flow and redirected back to the relying party. Note that 
+and then the user is sent through the FxA OAuth flow and redirected back to the relying party. Note that
 at the end of this flow, the relying party gets an FxA OAuth token.
 
-Please reference the [feature doc](https://docs.google.com/document/d/1pFzugkDOIR6eoXrBCx9FWWJhfnxFgWnRtk2mWFOp8DQ/edit#heading=h.qrbb2drvq5dg) for 
-additional design details and flow charts.
+Please reference the [feature doc](https://docs.google.com/document/d/1pFzugkDOIR6eoXrBCx9FWWJhfnxFgWnRtk2mWFOp8DQ/edit#heading=h.qrbb2drvq5dg) for
+additional design details and flow charts.  Note also the [Apple Usage Guidelines](https://developer.apple.com/sign-in-with-apple/usage-guidelines-for-websites-and-other-platforms/).
 
 ### How to enable third party authentication for relying party
 
@@ -102,7 +102,7 @@ Update the content server [config](https://github.com/mozilla/fxa/blob/e31b9deb2
 
 ### How to setup Apple auth locally
 
-To create an Apple OAuth client you will need to have an Apple developer account. To run Apple authentication locally you 
+To create an Apple OAuth client you will need to have an Apple developer account. To run Apple authentication locally you
 will also need to have https unfortunately, see [setup instructions](#how-to-setup-local-env-for-https).
 
 #### Auth server config
