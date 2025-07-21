@@ -16,11 +16,11 @@ Platform databases.  Some notes:
   different choice now (and you can see newer tables do have foreign keys).
 - Unless noted, all charsets are some form of `utf8`.
 
-<!-- Author's note: The ER diagram below is broken up into several mermaid 
-     declarations.  This is only for readability in docusaurus because 
-     otherwise the final diagram's elements are too small to be readable.  
-     If mermaid gets zoom sometime or if we add FKs which rearrange how 
-     mermaid draws the diagram in the future we might be able to remove the 
+<!-- Author's note: The ER diagram below is broken up into several mermaid
+     declarations.  This is only for readability in docusaurus because
+     otherwise the final diagram's elements are too small to be readable.
+     If mermaid gets zoom sometime or if we add FKs which rearrange how
+     mermaid draws the diagram in the future we might be able to remove the
      arbitrary divisions.
 -->
 
@@ -40,6 +40,7 @@ erDiagram
         binary tokenData "32 bytes; CONFIDENTIAL"
         binary uid "Unique Key, 16 bytes"
         bigint createdAt "unsigned"
+        int verificationMethod
     }
 ```
 ```mermaid
@@ -122,7 +123,7 @@ erDiagram
 ```mermaid
 erDiagram
     deletedAccounts {
-       binary uid PK "16 bytes" 
+       binary uid PK "16 bytes"
        bigint deletedAt "unsigned"
     }
 ```
@@ -214,6 +215,7 @@ erDiagram
         binary passcode "16 bytes; CONFIDENTIAL"
         bigint createdAt "unsigned"
         smallint tries "unsigned"
+        int verificationMethod
     }
 ```
 ```mermaid
@@ -257,6 +259,7 @@ erDiagram
         bigint createdAt
         binary tokenVerificationId "16 bytes"
         varchar ipAddr
+        json additionalInfo
     }
     sentEmails }|--|| emailTypes : is
     sentEmails {
