@@ -45,28 +45,28 @@ If necessary, rely on the team's general consensus of the urgency of new issues,
 Any issues picked up as Triage Owner which land within a Sprint boundary should be added to that Sprint in Jira. This sets clear expectations on when a ticket is available for testing in Staging and Production across Engineering and QA.
 
 :::note
-If an error, issue, work request, etc., is reported to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting.
+If an error, issue, work request, etc., is reported to our team in Slack, the first person to see and respond should file a bug in Jira and add the link to the Slack conversation. It will then be triaged normally in the triage meeting or escalated by the triage owner if needed.
 :::
 
 ### FxA
 
-The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, and Grafana, as well as questions in the fxa Slack channel.
+The triage owner should begin each day by checking whether there are any new urgent issues in [Jira](#jira), [Sentry](#sentry), and [Grafana](#grafana), as well as questions in the fxa Slack channel. (See more details for each of these lower down in the page.)
 
 In addition, the FxA triage owner is also responsible for:
 
 - Triaging new issues in [FxA Bugzilla](#bugzilla-fxa-only) (as a team if there is time in the triage meeting)
 - Checking if there are any PRs (from team members or contributors) without a reviewer that you can help move along
-- Helping fixing and merging Dependabot PRs
+- Helping to fix and merge [Dependabot PRs](#dependency-management-dependabot)
 - Assisting with any high priority bugs that come up during the sprint
 - Hanging out in the #fxa Matrix room
 
-See more details for each of these below. The triage owner should post a daily update in the #fxa-team Slack channel which can be copied and pasted and should only take 5-10 minutes:
+The triage owner should post a daily update in the #fxa-team Slack channel which can be copied and pasted and should only take 5-10 minutes. Include links to graphs or tickets.
 
 :::note[Triage owner daily update]
 ```
 :jira: New tickets in Jira that we should consider moving up in the backlog, or other updates?  
 :sentry2: Major spikes or issues in Sentry?  
-:grafana-intensifies: Any abnormalities in Grafana? [Handy link 1](https://earthangel-b40313e5.influxcloud.net/d/BeBr8TiIz/fxa-gcp-load-balancers?orgId=1&from=now-3h&to=now&refresh=1m), [handy link 2](https://earthangel-b40313e5.influxcloud.net/d/J81nRFfWz/auth-server?orgId=1&refresh=1m)  
+:grafana-intensifies: Any abnormalities in Grafana?  
 :slack: Anything in #fxa or #fxa-bots that needs #fxa-team attention?
 ```
 :::
@@ -135,6 +135,16 @@ If you’re triaging Sentry by yourself and aren’t sure about an issue, feel f
 
 ### Grafana
 
+See the [Rolodex](https://yardstick.mozilla.org/d/dee9ln1r5jqwwc/fxa-rolodex-f09f9387?orgId=1&from=now-6h&to=now&timezone=browser) for a general overview of dashboards with descriptions.
+
+The main dashboards that should be reviewed regularly by the Fxa triage owner are:
+
+- [Overall Infrastructure Health](https://yardstick.mozilla.org/d/feht7f4wub5s0e/overall-infrastructure-health?orgId=1&from=now-24h&to=now&timezone=browser&var-environment=prod&var-datasource=adpvtjmrxoc1sb&refresh=1m)
+- [Auth Server](https://yardstick.mozilla.org/d/J81nRFfWz/auth-server?orgId=1&from=now-3h&to=now&timezone=browser&var-environment=prod&var-datasource=adpvtjmrxoc1sb)
+- [Auth Server Errors panel in Wil's Fxa Events](https://yardstick.mozilla.org/d/QkkF4ay7z3/wil-s-fxa-events?orgId=1&from=now-7d&to=now&timezone=utc)
+
+By default, the timespan shown in dashboards is quite short - changing to a longer view may help spot trends and abnormalities. If you learn any useful information that may help future triage owners, consider adding notes in the dashboard/chart description. Conversations in Slack are deleted after 6 months, so this may not be a good place to document critical information.
+
 SubPlat observes the following Grafana dashboards (see links under Resources/Triage within the SubPlat Weekly Check-in doc attached to the calendar event 'SubPlat Team & Triage Weekly'):
 
 - Auth Server (Subscription Platform section)
@@ -185,7 +195,7 @@ If there's an open, unreviewed, or unassigned pull request, consider reviewing i
 - https://github.com/mozilla-services/channelserver
 
 
-### Dependency Management
+### Dependency Management (Dependabot)
 
 FxA uses Dependabot to automate dependency updates for us. Every day, it checks our dependency files for outdated requirements and opens individual PRs for any it finds with a daily limit we set. Our Dependabot config lives in [`dependabot.yml`][dependabot-yml].
 
