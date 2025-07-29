@@ -50,6 +50,8 @@ If an error, issue, work request, etc., is reported to our team in Slack, the fi
 
 ### FxA
 
+The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, and Grafana, as well as questions in the fxa Slack channel.
+
 In addition, the FxA triage owner is also responsible for:
 
 - Triaging new issues in [FxA Bugzilla](#bugzilla-fxa-only) (as a team if there is time in the triage meeting)
