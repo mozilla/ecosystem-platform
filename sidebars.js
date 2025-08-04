@@ -68,6 +68,7 @@ module.exports = {
                             'how-tos/using-vscode-with-fxa',
                             'how-tos/working-with-metrics',
                             'how-tos/rotating-secrets',
+                            'how-tos/working-with-strapi-cms',
                            ],
           'Reference':     [
                               {
