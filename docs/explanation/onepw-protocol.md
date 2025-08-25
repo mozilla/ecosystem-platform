@@ -12,7 +12,7 @@ Note that all messages are delivered over an HTTPS connection. The client browse
 
 This is the protocol used to manage FxA accounts and Sync clients for Firefox 29, due to be shipped in late April 2014. It replaces the J-PAKE -based pairing setup protocol that's been in use since Firefox 4.0.
 
-# Overview
+## Overview
 
 Clients have an email address and a password (which is never sent directly to the fxa-auth-server). A fairly simple protocol is used to prove knowledge of the password, which gives the client a session token that they can use later.
 
@@ -22,7 +22,7 @@ The server remembers several secrets per client. The main one is the "verifier h
 
 Note that the class-A key is not currently used for any sync data.
 
-## Client-Side Key Stretching
+### Client-Side Key Stretching
 
 "Key Stretching" is the practice of running a password through a computationally-expensive one-way function before using it for encryption or authentication. The goal is to make brute-force dictionary attacks more expensive, by raising the cost of testing each guess.
 
@@ -32,7 +32,7 @@ On the server, we use the memory-hard "scrypt" function (pronounced "ess-crypt")
 
 The goal is to ensure all values in the server's long-term storage will require at least the hard scrypt-based stretch to test each password guess. All values sent over the wire or temporarily held in server memory should require at least the weaker PBKDF stretch for each guess.
 
-# Creating The Account
+## Creating The Account
 
 The first act performed by a user is to create the account. They enter email+password into their browser, which then does the following steps:
 
@@ -52,7 +52,7 @@ To prevent fixation attacks, we require new accounts to verify their configured 
 
 The account will issue sessionTokens and keyFetchTokens without email verification, but they cannot be used (for much) until verification is complete.
 
-# Login: Obtaining the sessionToken
+## Login: Obtaining the sessionToken
 
 To connect a browser to an existing account, we use the following login protocol to transform an email+password pair into a sessionToken. The sessionToken will be used in the next section to obtain signed certificates.
 
@@ -68,7 +68,7 @@ The `/account/login` call should also include information about the client devic
 
 If the client wants to get encryption keys for Sync in addition to signed certificates, it should use `POST /account/login?keys=true`, which returns a keyFetchToken in addition to the usual sessionToken.
 
-## Creating a Session
+### Creating a Session
 
 Each successful call to `/account/login` or `/account/login?keys=true` results in a new session (with a unique+unguessable sessionToken). The server can support multiple sessions per account (typically one per client device, plus perhaps others for account-management portals). The sessionToken lasts forever (until revoked by a password change or explicit revocation command), and can be used an unlimited number of times.
 
@@ -80,7 +80,7 @@ Many keyserver APIs require a HAWK-protected request that uses the sessionToken.
 * POST /recovery_email/resend_code
 * POST /certificate/sign (requires "verified" account)
 
-## Email Verification
+### Email Verification
 
 As above, to prevent fixation attacks, new accounts must verify their email address before they can learn keys or obtain a certificate. Nevertheless, we wish clients to forget the user's password while they wait for email verification to complete. To achieve this, clients can obtain a sessionToken before verification, but most APIs that require it will raise errors until verification is finished.
 
@@ -88,7 +88,7 @@ A successful `/account/login` response includes information about the verificati
 
 If the client merely wants certificates and doesn't care about encryption keys, it can use `POST /account/login` instead. This returns a sessionToken but not a keyFetchToken.
 
-# Fetching Sync Keys
+## Fetching Sync Keys
 
 If the client also wants kA/kB for Sync, it uses `/account/login?keys=true` instead of `/account/login`. When the server sees this, in addition to creating a sessionToken, it also allocates a random `keyFetchToken` and prepares an encrypted response for a future call that will redeem this token.
 
@@ -125,7 +125,7 @@ Crypto note: while the two returned keys are encrypted with (a derivative of) ke
 We use the `/account/keys` API (instead of merely returning the keys directly in `/account/login` and `password/change/start`) so that clients can forget the master password while they wait for the recovery email to be verified. If there were not a second key-fetch API, clients would need to poll with `/account/login` repeatedly until verification had finished, requiring both the original password and a new server-side keystretch operation each time.
 
 
-# Changing the Password
+## Changing the Password
 
 The account may be reset in two circumstances: when the user changes their password (i.e. they still know the old password), or when the user forgets their password.
 
@@ -141,7 +141,7 @@ The `passwordChangeToken` is single-use and expires quickly, within 10 minutes.
 
 When the account is reset (for any reason), all active sessions and tokens will be cancelled (disconnecting all devices from the account). The client should immediately establish a new session as described above.
 
-# Handling a Forgotten Password
+## Handling a Forgotten Password
 
 When the user has forgotten their password, they will use a web-based flow to reset the account. This starts by visiting a page on the fxa-content-server, continues by sending an email with a secret code to the user, then finishes when the user clicks on a link in that email and establishes a new password.
 
@@ -158,7 +158,7 @@ When the user clicks this link, the fxa-content-server page that gets loaded wil
 
 The API uses a distinct token and code for historical reasons: the original scheme assumed an agent-based flow instead of a web-based one, in which the user's browser chrome (or other client) would remember the passwordForgotToken while waiting for the user to transcribe the recovery code from the email into the client. In that scheme, the code needed to be short enough to transcribe, and there were additional security considerations involving limited re-use of the `passwordForgotToken` and code length. In the new web-based flow, the recovery code is a full-strength (256-bit) random string.
 
-## Using accountResetToken
+### Using accountResetToken
 
 The client puts their new password through the same stretching procedure as described in the new-account section above, resulting in a new authPW. The client then uses the accountResetToken to HAWK-authenticate a request to the `/account/reset` API, including the new authPW.
 
@@ -172,7 +172,7 @@ accountResetToken is used to derive `tokenID` and `requestHMACkey` as usual, the
 
 After using `/account/reset`, clients should immediately perform the login protocol from above: a new sessionToken is required, since old sessions and tokens are revoked by `/account/reset`. Clients can retain the new authPW value during this process to avoid needing to run the key-stretching routine a second time.
 
-# Deleting The Account
+## Deleting The Account
 
 When the user wishes to completely delete their account, the browser needs to perform two actions:
 
@@ -183,7 +183,7 @@ The user should be prompted for their password as confirmation (i.e. a browser i
 
 The device submits `authPW` to the `/account/destroy` endpoint. This request contains no body and returns only a success code.
 
-# Keyserver Protocol Summary
+## Keyserver Protocol Summary
 
 ```
 * POST /account/create (email,authPW) -> ok (server sends verification email)
@@ -218,7 +218,7 @@ The device submits `authPW` to the `/account/destroy` endpoint. This request con
 * POST /get_random_bytes
 ```
 
-## Typical Client Flows
+### Typical Client Flows
 
 Create account
 
@@ -267,7 +267,7 @@ Change Password
 * GOTO "Attach to new device"
 ```
 
-# HAWK Notes
+## HAWK Notes
 
 The following calls are HAWK-authenticated by some sort of token:
 
@@ -298,7 +298,7 @@ This is safe, because all requests are delivered inside a TLS-protected channel:
 
 So payload protection is a "nice-to-have", not a requirement. New clients should send the hash. Once we've fixed the android client, and the number of old android clients drops below some comfortable threshold, we will change the server to require payload hashes for all POST requests.
 
-# Crypto Notes
+## Crypto Notes
 
 Strong entropy is needed in the following places:
 
@@ -323,7 +323,7 @@ There is no MAC on wrap(kB). If the keyserver chooses to deliver a bogus wrap(kB
 
 It might be useful to add a checksum to kA and wrap(kB) to detect accidental corruption (e.g. store and deliver kA+SHA256(kA), or wrap(kB)+HMAC(unwrapBkey, wrap(kB))), but this doesn't protect against intentional changes, and a MAC on kB would introduce an additional oracle to feed a dictionary attack. We omit this checksum for now, assuming that disks will be reliable enough to let us never experience such failures.
 
-# Security Analysis
+## Security Analysis
 
 This protocol aims to have two main security properties:
 
@@ -340,7 +340,7 @@ The passive attacker gets access to two values that serve as password-guessing o
 
 The stored pre-encrypted response to `GET /account/keys` would also serve as an oracle, but the server explicitly doesn't retain the `keyFetchToken` that encrypts it. Since keyFetchToken is randomly generated and independent of the user's password, the data it encrypts does not help test password guesses.
 
-## vs. old-Sync
+### vs. old-Sync
 
 Given the Sync legacy of full-strength random keys, exchanged with J-PAKE pairing, we'd like to make it possible to achieve similar levels of security with the new protocol. When viewed from the perspective of old-Sync, this new protocol has the following weaknesses:
 
@@ -356,7 +356,7 @@ These weaknesses are the result of compromises. The features obtained in this ba
 * use slow/old clients (rather than doing expensive scrypt stretching client-side)
 * generalized Mozilla accounts, with more features than just Sync
 
-## vs. earlier SRP-based protocol
+### vs. earlier SRP-based protocol
 
 Relative to the SRP-based protocol described in https://wiki.mozilla.org/Identity/AttachedServices/KeyServerProtocol , this "onepw" protocol has the following weaknesses:
 
@@ -369,9 +369,9 @@ In exchange for these weaknesses, this protocol gains the following advantages:
 * faster client: less client-side stretching
 * server can upgrade protection of stored data (e.g. do more stretching) with minimal client involvement
 
-# Extensions
+## Extensions
 
-## Changing Server-Side Protections
+### Changing Server-Side Protections
 
 If we need to change the scrypt stretching parameters (or move to some other algorithm entirely), the server can do this any time the user logs in or otherwise presents `authPW`. The server should store some version marker in the database with each account row, to perform the same stretching each time, but can use different values for different accounts. The requirements are that the server can 1: compare `authPW` against an earlier value, 2: return the same `wrap(kB)` as was submitted earlier, and 3: provides adequate protection against database compromise.
 
@@ -380,11 +380,11 @@ Likely changes include:
 * store verifyHash and `wrap(wrap(kB))` in encrypted form, protected by an HSM, or with a key that is manually typed into the server instead of being stored on disk
 * adding two-factor (2FA) verifiers to the database
 
-## Changing Client-Side Protection
+### Changing Client-Side Protection
 
 We can change the client-side stretching parameters (perhaps to increase the number of PBKDF2 rounds) without affecting the server's behavior (it only sees `authPW`, and doesn't care how the client derives it). But we would need a way to coordinate such changes among the various clients using this account. We might define a v2 API which adds an extra round-trip: starting by submitting an email address and getting back the client-side stretching parameters. Once an account was upgraded to use a longer stretch, they could no longer be accessed by v1 clients. The server could know this and return errors to v1 clients (incidentally learning the default-stretched authPW in the process).
 
-## two-password extension
+### two-password extension
 
 One proposal to address the "Use of Password in a Web Context" weakness above is to introduce an optional second password, with improved security. The general idea is to feed the second password into the original SRP protocol (client-side scrypt, SRP-protected exchange of strong wrapped kB). The second password would only be used for Sync (not for plain Firefox Account login), and only entered into chrome UI (never into web content).
 
@@ -394,13 +394,13 @@ If we implement this, it will require a `/v2` API call to use. When an account i
 
 Use of a second password will restore all the security properties of the earlier SRP-based protocol: only the scrypt-helper gets the "easy" brute-force attack, and the only "hard" brute-force attacks are available to a malicious active server or a TLS-level eavesdropper on the create-account and forgot-password flows. kA is protected from all eavesdroppers.
 
-## pairing extension
+### pairing extension
 
 An even stronger improvement would be to re-introduce an optional pairing flow. When this is enabled for the first time, the client will produce a strong random key and include it in the derivation of unwrapBkey. The server will make a note of the fact that pairing is enabled. When connecting later devices, the client will see this flag and initiate the J-PAKE pairing UI to transfer the additional key.
 
 This pairing flow can be better than the old-Sync flow because we have more information to work with. Depending upon how much the user types before we start the transfer, we may know an email address (reducing the number of candidate machines to talk to), and the account password (making it harder to for the attacker to participate in the pairing process). This will allow us to automatically pop up the pairing dialog on the sending machine, and to reduce the length of the sync code considerably (perhaps just a 4-digit PIN).
 
-# delta from old SRP protocol
+## delta from old SRP protocol
 
 The following endpoints are modified:
 
@@ -421,9 +421,9 @@ and these are removed:
 * `POST /auth/finish`
 * `POST /session/create` (since sessionToken comes from /account/login)
 
-# Test Vectors
+## Test Vectors
 
-### client stretch-KDF
+#### client stretch-KDF
 
 email:
 616e6472c3a94065
@@ -464,7 +464,7 @@ a4765bf103dc057f
 16e8a4333cc55e1d
 3c449f31f0eec4f1
 
-### /account/keys
+#### /account/keys
 
 wrapwrapKey:
 3ebea117efa9faf5
@@ -588,7 +588,7 @@ a095c51c1c6e384e
 4fc2128a00ab395a
 73d57fedf41631f0
 
-### use session (certificate/sign, etc)
+#### use session (certificate/sign, etc)
 
 sessionToken:
 a0a1a2a3a4a5a6a7
@@ -611,7 +611,7 @@ reqHMACkey:
 
 
 
-# Glossary
+## Glossary
 
 This defines some of the jargon we've developed for this protocol.
 
@@ -626,6 +626,6 @@ This defines some of the jargon we've developed for this protocol.
 | wrap(kB) | an encrypted copy of kB. The keyserver stores wrap(kB) and never sees kB itself. The client (browser) uses a key derived from the user's password to decrypt wrap(kB), obtaining the real kB. |
 | sessionToken | a long-lived per-device token (GUID@picl-something.org). This token remains valid until the user revokes it (either by changing their password, or triggering some kind of "revoke a specific device" or "revoke all devices" function). |
 
-# References
+## References
 
 This file was last substantially edited in early 2014. Its commit history can be found in the old fxa-auth-server repo: https://github.com/mozilla/fxa-auth-server/wiki/onepw-protocol
