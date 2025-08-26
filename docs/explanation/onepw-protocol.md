@@ -116,6 +116,8 @@ Finally, the server-provided wrap(kB) value is simply XORed with the password-de
 
 "kA" and "kB" enable the browser to encrypt/decrypt synchronized data records. They will be used to derive separate encryption and HMAC keys for each data collection (bookmarks, form-fill data, saved-password, open-tabs, etc). This will allow the user to share some data, but not everything, with a third party. The client may intentionally forget kA and kB (only retaining the derived keys) to reduce the power available to someone who steals their device.
 
+In early 2025, the desktop Firefox Sync client migrated to the [Scoped Keys OAuth flow](scoped-keys) and is no longer deriving its keys directly from kB.
+
 Note that /account/keys will not succeed until the account's email address has been verified, which could take hours or days if the user does not respond to the challenge email promptly. Also note that each keyFetchToken is single-use and short-lived: it will only be used for a specific kA/wrapKB message, and expires immediately if/when the account password is changed.
 
 :::note
