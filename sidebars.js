@@ -137,6 +137,7 @@ module.exports = {
                             'explanation/onepw-protocol',
                             'explanation/pairing-flow-architecture',
                             'explanation/scoped-keys',
+                            'explanation/cms-strapi-l10n',
 
                            ],
         },
