@@ -3398,7 +3398,7 @@ paths:
           description: Successful
   /session/verify/totp:
     post:
-      summary: /session/verifiy/totp
+      summary: /session/verify/totp
       operationId: postSessionVerifyTotp
       description: |-
         🔒 Authenticated with session token
@@ -3946,6 +3946,22 @@ definitions:
       - line_items
       - subtotal
       - total
+  priceInfo:
+    type: object
+    properties:
+      amount:
+        type: number
+      currency:
+        type: string
+      interval:
+        type: string
+      interval_count:
+        type: number
+    required:
+      - amount
+      - currency
+      - interval
+      - interval_count
   Model3:
     type: object
     properties:
@@ -4005,6 +4021,8 @@ definitions:
       product_name:
         type: string
         description: The name of the product purchased.
+      priceInfo:
+        $ref: '#/definitions/priceInfo'
       status:
         type: string
         description: >-
