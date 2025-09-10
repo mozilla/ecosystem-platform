@@ -76,6 +76,7 @@ The triage owner should post a daily update in the #fxa-team Slack channel which
 :bugzilla-2023: New major bugs or other updates in Bugzilla?  
 :matrix-org: Has anything come up in Matrix?  
 :dependabot: Any dependabot updates?
+:waffle_cute: Any WAF spikes or false positives?
 :looker: Any interesting changes on our dashboards?
 ```
 :::
@@ -174,6 +175,16 @@ Bugzilla used to be the suggested route for people needing support (e.g. they we
 :::
 
 You may need to file an issue in Jira for bugs in Bugzilla to surface issues to the team that would require changes in our codebase.
+
+### Fastly WAF Triage
+Fastly WAF protects our publicly available web services from web-application and DDoS attacks. Access to the dashboards for each endpoint are available via SSO (select "Sites" dropdown to choose an endpoint): https://dashboard.signalsciences.net/corps/mozilla/overview
+Visit production endpoints (with names that end with `prod-prod`) and take note of any spikes or anomalies. You might also consider the following routine:
+- visit each production endpoint or at least highly trafficked ones
+- navigate to "Monitor > Events"
+- investigate each IP labeled "Active". These are actively being flagged/blocked and are mostly all obvious attackers. 
+- keep an eye out for any false positives, for example, IPs that originate from USA from reputable datacenters that don't have many flags
+
+See also https://mozilla.github.io/ecosystem-platform/reference/rate-limiting#fastly-next-gen-waf 
 
 ### Stripe Triage (SubPlat only)
 
