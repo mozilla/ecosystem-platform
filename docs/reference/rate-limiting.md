@@ -33,12 +33,6 @@ Settings and custom rules have been created and should be updated via Terraform.
 ### Blocking/unblock emergencies
 From the overview dashboard of an endpoint, notice the green pill button at the top-right that reads "Blocking". In case of emergency, e.g. a false-positive block of a relying party, this can be switched to "Not blocking" to quickly and temporarily unblock all IPs. Preferably, we would instead identify a single IP to unblock under "Monitor > Events" and pressing the "Allow IP" button. Use the GUI to quickly unblock as needed, but if it's not an emergency commit changes using Terraform instead.
 
-### Triage (WIP)
-Triage duty is still being worked out, however we should spend ~30 min monitoring activity each morning. In the future we might link WAF data to Grafana for a single source to monitor all endpoints.  For now, triage might include the following routine:
-- visit each production endpoint
-- navigate to "Monitor > Events"
-- investigate each IP labeled "Active". These are actively being flagged/blocked and are mostly all obvious attackers.
-
 ## Customs V2
 
 FxA now uses a rate-limit library that communicates with a dedicated Redis instance to conduct rate-limiting operations. The following is essentially just a rehashed version of the libraries readme file which can be found here. Always check the lib's readme for the most up to date doc!
