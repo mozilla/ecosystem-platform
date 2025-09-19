@@ -298,7 +298,7 @@ Some Stripe webhooks will trigger emails. These emails are behind a feature flag
 }
 ```
 
-or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true". In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://stripe.com/docs/stripe-cli/webhooks)'s event forwarding feature. (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
+or the environment variable `SUBSCRIPTIONS_TRANSACTIONAL_EMAILS_ENABLED` to "true". In order to receive Stripe webhook events in your local development, you need to use the [Stripe CLI](https://docs.stripe.com/stripe-cli/use-cli#forward-events-to-your-local-webhook-endpoint)'s event forwarding feature. (For how to view these and other FxA emails, see [the FxA README section on MailDev](https://github.com/mozilla/fxa/#running-with-maildev).)
 
 ### Enabling Stripe Tax
 
