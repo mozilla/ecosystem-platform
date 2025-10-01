@@ -46,7 +46,7 @@ sequenceDiagram
     Channel Server->>Firefox Desktop: Return channel ID
     Firefox Desktop->>Firefox Mobile: Send channel ID and key via QR code
     Firefox Mobile->>Channel Server: Connect to channel
-    rect rgb(100, 55, 100)
+    rect rgb(219, 190, 219)
     note left of Firefox Desktop: Communication between Firefox Desktop and Mobile<br/> happen via the websocket open on the channel server.  <br/>For simplicity in this diagram the two are <br/>shown sending data directly to each other.
     Firefox Mobile->>Firefox Desktop: Send OAuth Request
     note left of Firefox Desktop: Prompt for confirmation
