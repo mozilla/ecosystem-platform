@@ -4,7 +4,7 @@ jobs:
   Deploy to GitHub pages:
     resource_class: medium+
     docker:
-      - image: cimg/node:18.12
+      - image: cimg/node:22.20
     steps:
       - add_ssh_keys:
           fingerprints:
