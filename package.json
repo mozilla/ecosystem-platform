@@ -20,33 +20,33 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.7.0",
-    "@docusaurus/preset-classic": "^3.7.0",
-    "@docusaurus/theme-mermaid": "^3.7.0",
+    "@docusaurus/core": "^3.9.1",
+    "@docusaurus/preset-classic": "^3.9.1",
+    "@docusaurus/theme-mermaid": "^3.9.1",
     "@docusaurus/theme-search-algolia": "^3.7.0",
-    "@graphql-markdown/docusaurus": "^1.27.0",
-    "@graphql-tools/graphql-file-loader": "^8.0.16",
-    "@mdx-js/react": "^3.0.1",
+    "@graphql-markdown/docusaurus": "^1.30.3",
+    "@graphql-tools/graphql-file-loader": "^8.1.2",
+    "@mdx-js/react": "^3.1.1",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",
-    "graphql": "^16.10.0",
+    "graphql": "^16.11.0",
     "mdx-mermaid": "^2.0.3",
     "mermaid": "11.4.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "redocusaurus": "^2.2.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "redocusaurus": "^2.5.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.98.0"
+    "webpack": "^5.102.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.7.0",
     "@tsconfig/docusaurus": "^2.0.3",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.2.0",
     "@types/react-helmet": "^6.1.11",
-    "@types/react-router-dom": "^5.1.8",
-    "typescript": "^5.7.3"
+    "@types/react-router-dom": "^5.3.3",
+    "typescript": "^5.9.3"
   },
   "browserslist": {
     "production": [
