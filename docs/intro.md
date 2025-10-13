@@ -6,7 +6,7 @@ slug: /
 ---
 
 :::note
-Firefox accounts was recently renamed to Mozilla accounts.  The focus was on the front-end user experience.  We'll do our best to refer to it as Mozilla accounts in this documentation, but it's possible you'll still see some places mention Firefox Accounts or `FxA`.
+Firefox accounts was renamed to Mozilla accounts but is often still called Firefox Accounts or `FxA` in this documentation.
 :::
 
 **Welcome to the Ecosystem Platform docs.** The goal of this site is to serve as a documentation hub for Mozilla accounts and Subscription Platform. It provides detailed breakdowns of the various components that make up these services, including technical references, guides, concepts, deep-dives, and much more.

@@ -28,16 +28,6 @@ module.exports = {
                       'relying-parties/reference/sub-plat-coupons',
                       'relying-parties/reference/sub-plat-strapi',
                       'relying-parties/reference/using-apis',
-                      {
-                        type: 'link',
-                        label: '⚙️ API Reference',
-                        href: '/api',
-                      },
-                      {
-                        type: 'link',
-                        label: '⚙️ GQL API Reference',
-                        href: '/gql-api',
-                      }
                      ],
       },
       ]
@@ -56,7 +46,6 @@ module.exports = {
                             'how-tos/connecting-to-a-local-mysql-db',
                             'how-tos/creating-an-account-locally',
                             'how-tos/local-emails-with-maildev',
-                            'how-tos/managing-yarn-dependencies',
                             'how-tos/node-debugging',
                             'how-tos/serve-settings-production-build-locally',
                             'how-tos/using-a-custom-profile-with-firefox',
@@ -67,7 +56,6 @@ module.exports = {
                             'how-tos/using-twilio-locally',
                             'how-tos/using-vscode-with-fxa',
                             'how-tos/working-with-metrics',
-                            'how-tos/rotating-secrets',
                             'how-tos/working-with-strapi-cms',
                            ],
           'Reference':     [
@@ -104,14 +92,8 @@ module.exports = {
                             'reference/application-tracing',
                             'reference/browser-support',
                             'reference/canceling-subscriptions-to-plan',
-                            {
-                              type: 'link',
-                              label: '⚙️ Customs API Reference',
-                              href: '/customs-api',
-                            },
                             'reference/database-structure',
                             'reference/emails',
-                            'reference/experiments-ab-testing',
                             'reference/github-strategies',
                             'reference/localization',
                             'reference/metrics',
@@ -125,15 +107,19 @@ module.exports = {
                             'reference/tokens',
                             'reference/webchannels',
                             {
-                              type: "link",
-                              label: "Telemetry Data Docs",
-                              href: "https://docs.telemetry.mozilla.org/datasets/fxa.html"
+                              type: 'link',
+                              label: '⚙️ API Reference',
+                              href: '/api',
+                            },
+                            {
+                              type: 'link',
+                              label: '⚙️ GQL API Reference',
+                              href: '/gql-api',
                             },
                            ],
           'Explanation':   [
                             'explanation/architectural-decision-records',
                             'explanation/content-server-architecture',
-                            'explanation/metrics',
                             'explanation/onepw-protocol',
                             'explanation/pairing-flow-architecture',
                             'explanation/scoped-keys',

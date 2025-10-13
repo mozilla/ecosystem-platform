@@ -1,5 +1,5 @@
 ---
-title: Mozilla Accounts Localization Workflow
+title: Localization Workflow
 ---
 
 Last updated: `Aug 25th, 2025`
@@ -87,6 +87,7 @@ graph TB
 ### 1. Content Creation and Publishing
 
 **Location**: Strapi CMS
+
 **Participants**: Content editors, marketing teams
 
 1. Content creators log into Strapi CMS
@@ -97,6 +98,7 @@ graph TB
 ### 2. Webhook Processing and FTL Generation
 
 **Location**: `packages/fxa-auth-server/lib/routes/cms.ts:178-297`
+
 **Participants**: Webhook handler, GitHub API
 
 #### Webhook Validation
@@ -152,7 +154,7 @@ sync-signin-primary-button-text-e5f6g7h8 = Continue
 ### 4. Human Review and Approval
 
 **Participants**: Development team, localization coordinators
-**Process**:
+
 1. Automated PR contains generated FTL file
 2. Reviewers verify content extraction accuracy
 3. Check for proper FTL format compliance
@@ -161,7 +163,7 @@ sync-signin-primary-button-text-e5f6g7h8 = Continue
 ### 5. Pontoon Integration
 
 **Location**: External to FxA codebase
-**Process**:
+
 1. **Detection**: Pontoon monitors the FxA repository for FTL file changes
 2. **Project Update**: New strings are imported into Pontoon projects
 3. **Translation**: Community translators and staff work on localizations

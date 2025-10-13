@@ -52,7 +52,6 @@ integrate with FxA. If portions of the architecture seem byzantine and complex, 
   - Firefox for iOS
 - WebExtensions such as Notes and the Firefox Private Network "secure proxy" (FPN)
 - OAuth 2.0 such as [Monitor](https://monitor.firefox.com/)
-- Native applications such as the [Firefox Private Network VPN](https://fpn.firefox.com/vpn)
 - "Direct access", i.e., users browsing directly to https://accounts.firefox.com
 
 ## Content server architecture basics
@@ -144,9 +143,8 @@ Any long lived data (e.g., email address, uid, `client_id`), coming from an RP o
 **MUST BE** validated and transformed within Reliers. While it seems natural to ingest and sanitize
 data in the Views, we are unable to control what users and malicious actors do. Assuming users always
 enter at `/`, or at `/complete_sign_up`, etc, _does not hold_. To prevent XSS, we would have to validate
-and sanitize long lived data *on every screen it is used*, and we saw many cases in the past where we
-forgot to do this. Ingesting and validating the data on startup in the Relier model ensures the data
-is checked once and is ensured to be safe afterwards.
+and sanitize long lived data *on every screen it is used*. Ingesting and validating the data on startup 
+in the Relier model ensures the data is checked once and is ensured to be safe afterwards.
 :::
 
 :::note
