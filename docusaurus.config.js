@@ -59,11 +59,6 @@ import mdxMermaid from 'mdx-mermaid'
             spec: 'api-swagger.json',
             route: '/api',
           },
-          {
-            // Comes from https://graphql.accounts.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, we pull updates in via a github action
-            spec: 'api-customs.json',
-            route: '/customs-api',
-          },
         ],
         option: {
           sortTagsAlphabetically: true,

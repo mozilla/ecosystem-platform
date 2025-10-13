@@ -4,9 +4,7 @@ title: Third Party Authentication
 
 Last updated: `Sep 06th, 2023`
 
-FxA currently supports Apple and Google as third party authentication providers. This feature
-was developed to support migrating Pocket users over to FxA. To maintain feature parity with Pocket, FxA added
-support for users to log in with their existing Apple/Google accounts within the FxA ecosystem.
+FxA currently supports Apple and Google as third party authentication providers. 
 
 ### Design
 
@@ -24,7 +22,7 @@ additional design details and flow charts.  Note also the [Apple Usage Guideline
 
 ### How to enable third party authentication for relying party
 
-Third party authentication is currently enabled for all relying on parties (except Sync). If a user only has a linked third party account and no password then attempt to login to Sync, they will be prompted to create a password.
+Third party authentication is currently enabled for all relying on parties (except Sync). If a user only has a linked third party account and no password then attempts to login to Sync, they will be prompted to create a password.
 
 ### How to setup Google auth locally
 

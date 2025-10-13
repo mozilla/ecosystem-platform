@@ -16,12 +16,13 @@ This tutorial will help you integrate with Mozilla accounts but there are [addit
 
 ## Pre-Development
 
-Before starting integration, please send a request to fxa-staff[at]mozilla.com to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the email:
+Before starting integration, please file an issue in the FXA project in Jira to request a short meeting so we can all document our expectations and timelines.  Please include answers to the following questions in the issue:
+
+0. **Do you expect to be a Relying Party or a Resource Server?**
+    Most integrations will be a Relying Party, not a Resource Server. [See below for clarification](#relying-party-vs-resource-server) on the differences.
 
 0. **What type of Relying Party / Resource Server are you integrating?**
     Examples would be, a web site, a native app, a browser, an API, or an extension in the browser.
-
-    Most integrations will be a Relying Party, not a Resource Server. [See below for clarification](#relying-party-vs-resource-server) on the differences.
 
 0. **Do you know how to implement OIDC/OAuth?**
 
@@ -65,7 +66,7 @@ Before starting integration, please send a request to fxa-staff[at]mozilla.com t
 
 0. **Roughly, what amount of traffic do you expect?**
 
-0. **Will your integration provide a subscription service?**
+0. **Will your integration provide a subscription/paid service?**
     If it will, please describe the products your integration will provide
     service for.
 
@@ -93,7 +94,7 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 :::
 
 0. Review the [OpenID Connect][how connect works] and [OAuth 2.0][oauth] documentation.
-0. Register for staging OAuth credentials by filing an issue in the SVCSE project in [Mozilla's Jira](https://mozilla-hub.atlassian.net). See [OAuth credentials](#oauth-credentials).
+0. Register for staging OAuth credentials by filing an issue in the FXA project in [Mozilla's Jira](https://mozilla-hub.atlassian.net). See [OAuth credentials](#oauth-credentials).
 0. Your development servers should point to: `https://oauth.stage.mozaws.net`.
 0. User authentication follows the [OpenID Connect][openidconnect] protocol.
 0. [Query parameters](#authorization-query-parameters) are set and validate when redirecting to Mozilla accounts.
@@ -104,7 +105,7 @@ You are encouraged to use [our staging servers](https://accounts.stage.mozaws.ne
 
 ### Preparing for Production
 
-0. Update your deployment bug asking for production OAuth credentials and setup of your production [webhook endpoint](#register-for-webhooks).
+0. Update your credentials issue asking for production OAuth credentials and setup of your production [webhook endpoint](#register-for-webhooks).
 0. Production servers point to `https://oauth.accounts.firefox.com/`.  Additional endpoints can be discovered dynamically at `https://accounts.firefox.com/.well-known/openid-configuration`.
 0. Someone from the FxA team has reviewed the integration code and tested the flow.
 

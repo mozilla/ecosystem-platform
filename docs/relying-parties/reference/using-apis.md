@@ -6,7 +6,7 @@ sidebar_label: Using APIs
 
 # Using APIs
 
-The Ecosystem Platform provides some public APIs.  Usage and expectations are detailed below.  Narrower requirements and rate limits may apply to more specific APIs.
+The Ecosystem Platform provides [some OAuth APIs for relying parties](/api#tag/OAuth-Server-API-Overview) to use while providing OAuth services to customers.  **Relying Parties should only use OAuth API endpoints**.  Usage and expectations are detailed below.  Narrower requirements and rate limits may apply to more specific APIs.
 
 If these rules change significantly we'll notify the [firefox-accounts-notices group](https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices).  If you're using this API please subscribe to that group.
 
