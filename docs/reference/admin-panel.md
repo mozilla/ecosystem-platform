@@ -89,8 +89,6 @@ This section holds actions that potentially alter a user’s account state. Plea
 
 Executing the ‘Unverify Email’ action in this section will do a couple things. First, it will automatically sign out the user from their account. Second, it sets a flag on the account indicating that a verification code, which will be sent to the user’s primary email address, will also be required for their next login.
 
-![email verification screen capture](../assets/admin-panel/image13.png "image_tooltip")
-
 :::tip
 This can be useful in the event that a user’s account password has been compromised by another malicious user. By ‘unverifying’ the email address, the malicious user would not be able to access the account with a password alone.
 :::
