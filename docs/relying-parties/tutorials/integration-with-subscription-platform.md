@@ -12,7 +12,7 @@ Last updated: `Oct 6th, 2023`
 
 #### File A ticket
 
-First thing's first. File an FxA ticket in Jira. This ticket can be used to track documentation for your subscription. You can use the component "Subscription Platform" but otherwise, don't worry too much about format for your issue. We will use this request to set up an initial meeting and get the ball rolling. We will track your subscription setup in Confluence in order to keep sensitive details such as price and release dates and market confidential.
+First thing's first. File a ticket in Jira in the PAY project. This ticket can be used to track documentation for your subscription. Don't worry too much about format for your issue. We will use this request to set up an initial meeting and get the ball rolling. We will track your subscription setup in Confluence in order to keep sensitive details such as price and release dates and market confidential.
 
 #### Have a kickoff meeting
 

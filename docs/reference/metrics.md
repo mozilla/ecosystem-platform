@@ -2,23 +2,17 @@
 title: Metrics
 ---
 
-Last updated: `Oct 6th, 2023`
+Last updated: `Oct 2025`
 
 Mozilla accounts collects metrics from servers running our code and clients accessing our services.  Mozilla takes data collection seriously so our policies and processes around it may seem more complex than most organizations but it is in an effort to grant agency to users over their own data.
 
 Note that the [Mozilla Data Collection policies](https://wiki.mozilla.org/Data_Collection) apply to Mozilla accounts.
 
-Our code is deployed to a staging environment before it goes to production so the metrics detailed below are available for both environments.  The details below will focus mostly on production.
+Our code is deployed to a staging environment before it goes to production so the metrics detailed below are available for both environments.  The details below will focus on production.
 
 Keep in mind that Mozilla accounts allows users to opt-out of data collection via a toggle on the account settings page.
 
-We also have a [metrics section which expands on the history of our system and how these are implemented](../explanation/metrics).
-
 ## Application metrics
-
-:::note
-This is all undergoing major changes now with the move to GCP as well as FxA's migration to using Glean.  Hopefully we can remove this message in 2024 and simplify these docs, though it is unclear if/when SubPlat will migrate to using Glean.
-:::
 
 These are logs from Mozilla accounts code.  These are probably the most useful logs for product decision making as they were written by hand by engineers.  They are also the most complex.
 
@@ -28,7 +22,7 @@ These are logs from Mozilla accounts code.  These are probably the most useful l
 * Recorded with
   * These are logged via [mozlog](https://github.com/mozilla/mozlog/) as regular server logs.
   * The logs are immediately ingested into [GCP Cloud Logging](https://cloud.google.com/logging)
-  * From there they are passed and stored in BigQuery in the `moz-fx-fxa-prod.gke-fx-fxa-prod` or `moz-fx-fxa-nonprod.gke-fx-fxa-stage` projects depending on which environment they are coming out of.  These projects are relatively restricted and not for general consumption.
+  * From there they are passed and stored in BigQuery in the `moz-fx-fxa-prod.gke_fxa_prod_log` dataset.
   * Every 24 hours, [some ETL jobs](https://github.com/mozilla/bigquery-etl/tree/main/sql/moz-fx-data-shared-prod/firefox_accounts_derived) run which create derived tables from the original logs and store them in the `mozdata` project in BigQuery.  `mozdata` is accessible by anyone at Mozilla.  Please note: *Derived tables do not include all the events or details in the original logs.  You can read the queries that create the derived tables to see what is included.*
 
   * Additionally, there are some [user-facing datasets](https://github.com/mozilla/bigquery-etl/tree/main/sql/moz-fx-data-shared-prod/firefox_accounts) of that same data, and also in `mozdata`, which are designed to be easier to use.
@@ -36,7 +30,7 @@ These are logs from Mozilla accounts code.  These are probably the most useful l
   * [BigQuery](https://console.cloud.google.com/bigquery?).  Look for the `firefox_accounts` dataset in the `mozdata` project.  *Be aware that there are large amounts of data in BigQuery and you can spend a lot of money if you don't restrict your queries.*
   * Looker is backed by BigQuery and there is a [Mozilla accounts folder](https://mozilla.cloud.looker.com/folders/374) there.
     * Subscription Platform dashboards are located in the [Subscription Platform folder](https://mozilla.cloud.looker.com/folders/1355). See also [Subscription product metrics](#subscription-product-metrics).
-  * There are [several dashboards in grafana](https://earthangel-b40313e5.influxcloud.net/?orgId=1&search=open&query=fxa) with a mix of these metrics on them
+  * There are [several dashboards in grafana](https://yardstick.mozilla.org/dashboards/f/ee3c7w31w1qf4e/firefox-accounts-fxa) with a mix of these metrics on them
   * See the section below about raw logs also
 
 
@@ -48,9 +42,7 @@ Before new metrics can be collected with Glean, they must pass the Data Review p
 
 ### Working with Raw Logs
 
-If you need real-time data you need to be looking at the raw logs in `moz-fx-fxa-prod.gke-fx-fxa-prod` or `moz-fx-fxa-nonprod.gke-fx-fxa-stage`.  Otherwise there will be a 24 hour delay.  We don't run our normal metrics out of those logs because it is too expensive and slow.
-
-As noted above, these datasets are restricted but if you have access you'll find each package logging to those datasets in either the `stderr` or `stdout` tables.  You can (and should) filter your queries by the package.  For example, to only look at logs from `fxa-customs-server` we would filter where `labels.k8s_pod_deployment="customs" AND resource.labels.container_name="customs"`.  This will capture the pod name and the container name.  We need to filter on both because each pod runs the package as well as nginx.
+If you need real-time data you need to be looking at the raw logs in `moz-fx-fxa-prod.gke_fxa_prod_log` or `moz-fx-fxa-nonprod.gke_fxa_stage_log`.  Otherwise there will be a 24 hour delay.
 
 
 ## Crashes
@@ -67,21 +59,21 @@ As noted above, these datasets are restricted but if you have access you'll find
 ## Server Health
 
 * Example data recorded
-  * There are 30 healthy hosts running
-  * A host is running at 100% cpu
+  * There are 30 healthy pods running
+  * A pod is running at 100% cpu
 * Recorded with
   * The reporting tools built into the clouds we use
 * Accessible via
-  * In their most detailed form, you'd need access to the cloud consoles themselves, but most of the data is also available in our Grafana instance.  [Here is one of our dashboards hitting CloudWatch for metrics](https://earthangel-b40313e5.influxcloud.net/d/HqOQKXoZk/fxa-auth-prod-elb?orgId=1)
+  * In their most detailed form, you'd need access to the cloud consoles themselves, but most of the data is also available in our Grafana instance.  [Here is one of our dashboards reporting system health](https://yardstick.mozilla.org/d/feht7f4wub5s0e/overall-infrastructure-health)
 
 ## Front-end Performance 
 
 * Example data recorded
   * It took 400ms to load `/settings`
 * Recorded with
-  * As of this writing we record the data using our own library (which maybe isn't totally accurate) and write the data via `statsd` which ends up in influxdb.  We expect to move to [Sentry Performance](https://sentry.io/for/performance/) soon
+  * [Sentry Performance](https://sentry.io/for/performance/)
 * Accessible via
-  * Look for the `svcops_aws` project in Grafana.  [Here is a dashboard with some examples](https://earthangel-b40313e5.influxcloud.net/d/1tthDDrWk/content-server?orgId=1)
+  * Here is the [content server](https://mozilla.sentry.io/insights/frontend/?project=6231069)
 
 ## Subscription product metrics
 

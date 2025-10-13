@@ -6,33 +6,6 @@ Our CI process is largely automatic. By simply pushing up a branch and opening a
 
 Even though this is all seamless, there are a few best practices to keep in mind. Following these will help pipelines run faster in the future and with fewer errors. Also, if unfamiliar with CI concepts, we have some more info [here](/ecosystem-platform/reference/tests-in-circleci#workflows).
 
-## Rebase Off Main Before Pushing Code
-
-This might just be the most important tip! Always try to rebase your code on main before pushing up a PR. This ensures a couple things. First it decreases the possibility of merge conflict or a ‘bad’ merge state occurring when the PR finally lands. Second, it ensures that your branch and the docker images we use to run our CI pipelines will be similar, and therefore have low start up time.
-
-If there are no changes to npm packages in your PR and it has been rebased off main, we can skip the yarn install step in the CI, which leads to much faster execution times. If your branch meets these criteria, you’ll see a message saying something like ‘Congrats! No changes detected on yarn.lock’ in the base install step.
-
-It’s possible that at some point in the future we will enforce that PRs have been rebased off of main. But for the time being this is the honors system.
-
-## Be mindful when adding or updating packages
-As discussed in the [Continuous Integration](/ecosystem-platform/reference/continuous-integration-for-monorepos) Reference. One of the challenges faced in mono repos is large sets dependencies. There are a few things we can do going forward to help ensure this doesn’t get worse:
-
-- Before adding a new package, make sure it’s really needed. Ideally we consolidate / gravitate towards a fixed set of high level frameworks.
-- Try to have a one in one out policy. If a new package is added, look to phase out an old package.
-- If updating a package, try to update across all workspaces, so we don’t have different versions. This is much easier said than done; however, and oftentimes it’s not possible. Running `yarn dedupe -c $package_name` can give an idea of the extent of the problem.
-- Be mindful of upstream dependencies. Run `yarn why` to see the dependency tree for any package. 
-
-Also be aware that making changes to packages means a yarn install will be needed in each CI job to ensure the packages are up to date. It will also likely trigger a full rerun of all test suites. This adds unavoidable overhead to your CI pipeline. It isn’t all that big a deal, but it is something to be avoided when possible.
-
-
-## Helpful yarnrc.yml configurations
-There are two settings that result in a pretty drastic reduction in the size of the yarn cache needed to run FxA.
-
-First, `nmMode: hardlinks-global` reduces the size of the internal yarn cache for FxA by about a third. This essentially uses hard links to reduce the amount of redundant packages held in the node_modules folder.  When enabled, if two modules both reference the same package, yarn will hardlink the package instead of copying it into both modules folders which can end up saving a lot of space on disk.
-
-Second, `enableGlobalCache: true`, reduces the size of the internal yarn cache by 1/2 in the CI. When this is not enabled, all the packages will get stored as zips in the global cache located in the ~/.yarn/berry, as well as the project local cache located in fxa/.yarn/berry. This redundancy really isn’t helpful in most scenarios, and particularly unhelpful in the CI as it results in bloat.
-
-
 ## Tag tests as unit or integration tests
 In order to provide better performance, and to fail bad PRs more quickly, break our tests up into unit tests and integration tests and run these tests in separate CI jobs.
 
@@ -87,10 +60,6 @@ We have a lot of tests. No one really wants to dig through command line output t
 ![test report](../assets/ci/test-report.png "image_tooltip")
 
 Test reports are fairly easy to export. Most testing frameworks will export a json format, typically in the junit reporter format, which can be interpreted by CircleCI. Any test report that ultimately ends up in the artifacts/tests will be accessible in the tests tab in circle ci as depicted above.
-
-## Review the CI Workflows
-The CI workflows in FxA have been crafted to address some of the side effects that mono repos can have on CI. Checkout the [Continuous Integration](/ecosystem-platform/reference/tests-in-circleci) reference to learn more about how our CI design attempts to address some of these issues.
-
 
 ## Updating CI Runner Images
 The day will come when it might be necessary to update the base images we use in our CI runners. A good example is upgrading a major version of node. When this happens we must update images to reference `cimg/node:$VER` and `node:$VER`. 

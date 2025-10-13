@@ -59,11 +59,7 @@ is "do an OAuth flow, but using the pairing channel instead of HTTP redirects".
 
 ### Detailed implementation description
 
-The implementation is described [here](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/pairing-architecture.md).
-
-Please note that the [FxA Pairing Flow - Application Layer](https://lucid.app/lucidchart/1bc1b604-0047-4542-8827-ed8518b0433e/edit?page=0) Lucidchart diagram should be treated as the __source of truth__
-regarding the pairing protocol and kept up-to-date. There is also a rendered png of the diagram available on the [detailed architecture docs](
-https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/pairing-architecture.md#detailed-flow).
+The implementation, security concerns, and desired security proeperties are described [here](../../explanation/pairing-flow-architecture.md).
 
 ### Where does the code live?
 
@@ -72,10 +68,6 @@ https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/pairin
 - [Desktop client implementation](https://searchfox.org/mozilla-central/rev/23c25cd32a1e87095301273937b4ee162f41e860/services/fxaccounts/FxAccountsPairing.jsm) ([UI](https://searchfox.org/mozilla-central/rev/23c25cd32a1e87095301273937b4ee162f41e860/browser/components/preferences/fxaPairDevice.js))
 - [Mobile client implementation](https://github.com/mozilla/application-services/blob/40bef1314d9cf20fdfa8e1c1539a5205c4bdd462/components/fxa-client/src/oauth.rs#L111-L136)
 - [Content server implementation](https://github.com/mozilla/fxa/blob/44bbb161d958f084c1bb39902554f69a2333de90/packages/fxa-content-server/app/scripts/models/pairing/supplicant-state-machine.js)
-
-## Security concerns and desired security properties
-
-Described [here](https://github.com/mozilla/fxa/blob/main/packages/fxa-content-server/docs/pairing-architecture.md#intended-security-properties).
 
 ## Possible evolutions
 

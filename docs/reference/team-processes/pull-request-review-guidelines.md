@@ -1,12 +1,6 @@
 ---
-title: Pull Request review guidelines
+title: Pull Request Reviews
 ---
-
-:::note
-Subscription Platform Only - Currently these guidelines apply to the Subscription Platform team only
-:::
-
-Pull requests are hard!! The guidelines provided below will hopefully make your pull requests reviews a little easier.
 
 ## Why we do reviews
 
@@ -75,3 +69,5 @@ Pull requests are hard!! The guidelines provided below will hopefully make your 
     change a style, create a new pull request to update the linter or style guide
   - [React style guide](/ecosystem-platform/reference/style-guides/react-style-guide)
   - [Node style guide](/ecosystem-platform/reference/style-guides/node-style-guide)
+- Look for alternatives before adding new dependencies.  Ideally we gravitate towards a fixed set of high level frameworks.
+  - At the very least if a package is updated or added the version should be consistent across all workspaces.
