@@ -1,6 +1,7 @@
 ---
 title: Triage Owner Duties
 ---
+
 _Last update Mar 15, 2025_
 
 ## What is a Triage Owner?
@@ -17,7 +18,12 @@ Triage owners rotate throughout the team. At the time of writing, triage ownersh
 ## I am the Triage Owner: How should I prioritize my Sprint?
 
 :::tip
-If you're new to owning triage, make sure you have access to Bugzilla (FxA) or Stripe (SubPlat).
+If you're new to owning triage, make sure you have access to:
+
+- Bugzilla (FxA)
+- Stripe (SubPlat)
+- Fastly WAF via SSO
+- FxA Admin Panel
 
 To access the FxA Admin Panel, set up your VPN ([see instructions on Confluence][mana-vpn]) and request to be added to the appropriate [LDAP groups][bugzilla-common-scenarios-ldap].
 :::
@@ -63,22 +69,26 @@ In addition, the FxA triage owner is also responsible for:
 The triage owner should post a daily update in the #fxa-team Slack channel which can be copied and pasted and should only take 5-10 minutes. Include links to graphs or tickets.
 
 :::note[Triage owner daily update]
+
 ```
-:jira: New tickets in Jira that we should consider moving up in the backlog, or other updates?  
-:sentry2: Major spikes or issues in Sentry?  
-:grafana-intensifies: Any abnormalities in Grafana?  
+:jira: New tickets in Jira that we should consider moving up in the backlog, or other updates?
+:sentry2: Major spikes or issues in Sentry?
+:grafana-intensifies: Any abnormalities in Grafana?
 :slack: Anything in #fxa or #fxa-bots that needs #fxa-team attention?
 ```
+
 :::
 
 :::note[Optionally include these for bonus points]
+
 ```
-:bugzilla-2023: New major bugs or other updates in Bugzilla?  
-:matrix-org: Has anything come up in Matrix?  
+:bugzilla-2023: New major bugs or other updates in Bugzilla?
+:matrix-org: Has anything come up in Matrix?
 :dependabot: Any dependabot updates?
 :waffle_cute: Any WAF spikes or false positives?
 :looker: Any interesting changes on our dashboards?
 ```
+
 :::
 
 ### SubPlat
@@ -157,7 +167,7 @@ SubPlat observes the following Grafana dashboards (see links under Resources/Tri
 ### Bugzilla (FxA only)
 
 :::warning
-Some longstanding bugzilla bugs have other dependencies.  Exercise some restraint commenting on particularly old bugs as there are likely other considerations at play.  Ask your manager if unsure.
+Some longstanding bugzilla bugs have other dependencies. Exercise some restraint commenting on particularly old bugs as there are likely other considerations at play. Ask your manager if unsure.
 :::
 
 There is no longer much activity in our Bugzilla component so this won't take long. Check [Bugzilla Cloud Services FxA][bugzilla-fxa-cloud] and check out the newest issues, as well as the newest with activity by clicking on “Updated on.” Look at new issues filed, but also check if you can mark previous issues as “resolved”.
@@ -171,20 +181,22 @@ If a Bugzilla bug includes a user's email address or any PII (personal identifia
 This is to protect their email address from being on a publicly accessible link and users will be able to see their own issues even if they’re marked confidential.
 
 :::tip
-Bugzilla used to be the suggested route for people needing support (e.g. they were locked out of their account).  We still occasionally get these issues filed in bugzilla.  Please add a comment asking them to contact `support@mozilla.com` and resolving the bug.
+Bugzilla used to be the suggested route for people needing support (e.g. they were locked out of their account). We still occasionally get these issues filed in bugzilla. Please add a comment asking them to contact `support@mozilla.com` and resolving the bug.
 :::
 
 You may need to file an issue in Jira for bugs in Bugzilla to surface issues to the team that would require changes in our codebase.
 
 ### Fastly WAF Triage
+
 Fastly WAF protects our publicly available web services from web-application and DDoS attacks. Access to the dashboards for each endpoint are available via SSO (select "Sites" dropdown to choose an endpoint): https://dashboard.signalsciences.net/corps/mozilla/overview
 Visit production endpoints (with names that end with `prod-prod`) and take note of any spikes or anomalies. You might also consider the following routine:
+
 - visit each production endpoint or at least highly trafficked ones
 - navigate to "Monitor > Events"
-- investigate each IP labeled "Active". These are actively being flagged/blocked and are mostly all obvious attackers. 
+- investigate each IP labeled "Active". These are actively being flagged/blocked and are mostly all obvious attackers.
 - keep an eye out for any false positives, for example, IPs that originate from USA from reputable datacenters that don't have many flags
 
-See also https://mozilla.github.io/ecosystem-platform/reference/rate-limiting#fastly-next-gen-waf 
+See also https://mozilla.github.io/ecosystem-platform/reference/rate-limiting#fastly-next-gen-waf
 
 ### Stripe Triage (SubPlat only)
 
@@ -201,10 +213,10 @@ The FxA and SubPlat team typically reviews [pull requests][fxa-prs] and merges d
 If there's an open, unreviewed, or unassigned pull request, consider reviewing it if you can. If a PR has been opened by a contributor, either review or request someone else to review it. If a PR has been hanging around for a while and it's not clear why, consider investigating in case there's a blocker you can help with, or a hold for a specific reason that could be noted in a comment in the PR.
 
 **If you're the FxA triage owner,** check for issues, security issues, and PRs in the following repositories:
+
 - https://github.com/mozilla/fxa/
 - https://github.com/mozilla/ecosystem-platform/
 - https://github.com/mozilla-services/channelserver
-
 
 ### Dependency Management (Dependabot)
 
