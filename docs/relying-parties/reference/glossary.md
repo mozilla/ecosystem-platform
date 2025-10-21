@@ -7,6 +7,10 @@ Last updated: `Jan  16th, 2025`
 
 This is a working document, it is intended to facilitate teams’ alignment through a common language. Please contribute to it.
 
+:::tip
+The design team maintains [their own glossary](https://acorn.firefox.com/latest/content/word-list/mozilla-accounts-9UwXB5P1) as well.
+:::
+
 
 ### offering
 A generic term that includes one or more products, services, features, and/or applications.
