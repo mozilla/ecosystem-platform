@@ -30,10 +30,6 @@ Integration with FxA is the primary development task to complete for a working s
 
 If your integration includes an application service, it will need a webhook handler to receive relying party events from the FxA Event Broker.
 
-#### Demoing Subscription Flows
-
-The FxA Team maintains the Firefox Fortress package `fxa/packages/fortress` in order to demonstrate various SubPlat capabilities including tiers & different cycle durations. This package runs at `127.0.0.1:9292`, and is an up-to-date representation of SubPlat features. In order complete the demo, you will need access to a Stripe dev instance. An Accounts team member can provide this upon request. Please see our [developer docs][config] to learn more.
-
 #### Setting up your marketing pages
 
 If your integration includes lead pages to start a subscription flow, you will need to include the product and plan id's in the subscription 'buy' URL. This link for production has the form of:
