@@ -4,7 +4,7 @@ title: Integration with Subscription Platform
 sidebar_label: Integration with Subscription Platform
 ---
 
-Last updated: `Oct 6th, 2023`
+Last updated: `Nov 25th, 2025`
 
 ## Setting up A Subscription
 
