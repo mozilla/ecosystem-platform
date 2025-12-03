@@ -143,7 +143,7 @@ is configured properly before we move on to the rest of the steps:
   ```
 
 :::warning
-`yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo:mozilla/fxa+filename:pm2.config.js+filename:infrastructure.config.js)). Doing so may result in errors.
+`yarn start` starts up **all** required services via PM2. This includes Redis, MySQL, and Memcached. It is recommended that you don't run these services yourself, or occupy any of the server ports (check out our [PM2 configs](https://github.com/search?type=code&q=repo%3Amozilla%2Ffxa+%28path%3A**%2Fpm2.config.js+OR+path%3A**%2Finfrastructure.config.js%29)). Doing so may result in errors.
 :::
 :::tip
 Additional `start` command options are available to partially start the stack. E.g. `yarn start mza` to start only required Mozilla Accounts services.
