@@ -36,7 +36,7 @@ When planning your workload for the sprint, consider taking on around 50% less t
 
 ### SubPlat
 
-The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform Slack channel.
+The triage owner should begin each day by checking whether there are any new urgent issues in Jira, Sentry, Stripe, and Grafana, as well as questions in the subscription-platform Slack channel. Any member of the team who identifies a potential incident should raise awareness to the team immediately by mentioning @subplat-engineering on Slack.
 
 If you are currently working on an issue and there are new S1 or S2 issues, re-evaluate whether the new issue(s) should take higher priority. Consult your team leads as needed for support.
 
