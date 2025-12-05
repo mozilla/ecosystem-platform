@@ -171,6 +171,7 @@ Each project (epic or group of epics) will have a project lead.  Project leads r
 
 - Feedback on the project (e.g. in a requirements document or early discussions)
 - [Breaking a project down into issues](work-breakdown-process), including [writing and maintaining a tech spec](work-breakdown-process#using-a-technical-specification-document)
+- [Filing an issue in the QA project](https://docs.google.com/document/d/1oz1YyaaBI-oHUDsktWA-dLtX7WzhYqs7C121yOPKo2w/edit?tab=t.0) with the `WAITING FOR DEVELOPERS` status and updating to the `TEST DEV` status when ready for QA
 - Coordination among teams (e.g. UX, QA, L10n, Security, etc.)
 - Representing the project in meetings, including meetings outside of our team (e.g. org-wide product reviews)
 - Ensuring the issues in the backlog represent the work to be done, are in the proper order, and the Jira fields are up to date
