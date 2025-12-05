@@ -95,7 +95,7 @@ Often epics will be filed by the Product team for new Feature Engineering work a
 As Tasks and Bugs pop up, they should be associated with open Epics as appropriate.
 
 When a task is `Ready for Engineering` it's expected that:
-* A [PI Ticket][pi-jira] has been filed
+* A [QA Ticket][pi-jira] has been filed
 * If there are interesting security changes, the security team has been notified
 * If there are significant string changes, the L10n team has been notified
 * Appropriate metrics have been documented and will be implemented (ie. How will we know this is a success?)
