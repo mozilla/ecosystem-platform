@@ -2,7 +2,7 @@
 title: Planning and Development
 ---
 
-_Last update Mar 15, 2025_
+_Last update Dec 5, 2025_
 
 We develop and deploy on a two-week cycle. Every other Wednesday we cut a release "Train" (ie. a Sprint) that goes through [deployment to stage and into production](release-process).
 
