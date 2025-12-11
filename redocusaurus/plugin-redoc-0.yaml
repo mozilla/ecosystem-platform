@@ -719,7 +719,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model206'
+            $ref: '#/definitions/Model207'
           description: Successful
   /recovery_emails:
     get:
@@ -2332,7 +2332,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model207'
+            $ref: '#/definitions/Model208'
           description: Successful
   /mfa/recoveryKey:
     post:
@@ -4131,6 +4131,31 @@ paths:
           schema:
             $ref: '#/definitions/Model179'
           description: Successful
+  /mfa/recovery_email/secondary/resend_code:
+    post:
+      summary: /recovery_email/secondary/resend_code
+      operationId: postMfaRecovery_emailSecondaryResend_code
+      description: |-
+        🔒 Authenticated with session token
+
+        This endpoint resend the otp verification to verify the secondary email.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model180'
+      tags:
+        - Emails
+      responses:
+        '400':
+          description: >-
+            Failing requests may be caused by the following errors (this is not
+            an exhaustive list):
+
+            - `errno: 138` - Unverified session
+
+            - `errno: 150` - Can not resend email code to an email that does not
+            belong to this account
   /mfa/recovery_email/secondary/verify_code:
     post:
       summary: /recovery_email/secondary/verify_code
@@ -4143,7 +4168,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model180'
+            $ref: '#/definitions/Model181'
       tags:
         - Emails
       responses:
@@ -4170,13 +4195,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model181'
+            $ref: '#/definitions/Model182'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model182'
+            $ref: '#/definitions/Model183'
           description: Successful
   /mfa/totp/replace/start:
     post:
@@ -4193,13 +4218,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model183'
+            $ref: '#/definitions/Model184'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model184'
+            $ref: '#/definitions/Model185'
           description: Successful
   /mfa/totp/setup/complete:
     post:
@@ -4216,13 +4241,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model185'
+            $ref: '#/definitions/Model186'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model186'
+            $ref: '#/definitions/Model187'
           description: Successful
   /mfa/totp/setup/verify:
     post:
@@ -4239,13 +4264,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model187'
+            $ref: '#/definitions/Model188'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model188'
+            $ref: '#/definitions/Model189'
           description: Successful
   /oauth/subscriptions/active/new:
     post:
@@ -4259,13 +4284,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model189'
+            $ref: '#/definitions/Model190'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model190'
+            $ref: '#/definitions/Model191'
           description: Successful
   /oauth/subscriptions/active/new-paypal:
     post:
@@ -4276,13 +4301,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model191'
+            $ref: '#/definitions/Model192'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model192'
+            $ref: '#/definitions/Model193'
           description: Successful
   /oauth/subscriptions/iap/app-store-notification:
     post:
@@ -4296,7 +4321,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model193'
+            $ref: '#/definitions/Model194'
       tags:
         - Subscriptions
       responses:
@@ -4313,7 +4338,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model194'
+            $ref: '#/definitions/Model195'
       tags:
         - Subscriptions
       responses:
@@ -4334,13 +4359,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model195'
+            $ref: '#/definitions/Model196'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model196'
+            $ref: '#/definitions/Model197'
           description: Successful
   /oauth/subscriptions/invoice/retry:
     post:
@@ -4354,13 +4379,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model197'
+            $ref: '#/definitions/Model198'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model198'
+            $ref: '#/definitions/Model199'
           description: Successful
   /oauth/subscriptions/paymentmethod/billing-agreement:
     post:
@@ -4374,7 +4399,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model199'
+            $ref: '#/definitions/Model200'
       tags:
         - Subscriptions
       responses:
@@ -4396,7 +4421,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model200'
+            $ref: '#/definitions/Model201'
       tags:
         - Subscriptions
       responses:
@@ -4419,7 +4444,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model201'
+            $ref: '#/definitions/Model202'
           description: Successful
   /oauth/subscriptions/stripe/event:
     post:
@@ -4458,7 +4483,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model202'
+            $ref: '#/definitions/Model203'
       tags:
         - Subscriptions
       responses:
@@ -4484,7 +4509,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model203'
+            $ref: '#/definitions/Model204'
       tags:
         - Subscriptions
       responses:
@@ -4507,13 +4532,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model204'
+            $ref: '#/definitions/Model205'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model205'
+            $ref: '#/definitions/Model206'
           description: Successful
   /oauth/subscriptions/active/{subscriptionId}:
     put:
@@ -4537,13 +4562,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model208'
+            $ref: '#/definitions/Model209'
       tags:
         - Subscriptions
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model209'
+            $ref: '#/definitions/Model210'
           description: Successful
     delete:
       summary: /oauth/subscriptions/active/{subscriptionid}
@@ -4591,7 +4616,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model210'
+            $ref: '#/definitions/Model211'
       tags:
         - Subscriptions
       responses:
@@ -8770,6 +8795,17 @@ definitions:
         maxLength: 255
         pattern: >-
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
+    required:
+      - email
+  Model181:
+    type: object
+    properties:
+      email:
+        type: string
+        description: The secondary email address to verify.
+        maxLength: 255
+        pattern: >-
+          ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
       code:
         type: string
         description: Time based code to verify secondary email
@@ -8778,7 +8814,7 @@ definitions:
     required:
       - email
       - code
-  Model181:
+  Model182:
     type: object
     properties:
       code:
@@ -8788,17 +8824,17 @@ definitions:
         pattern: ^[0-9]+$
     required:
       - code
-  Model182:
+  Model183:
     type: object
     properties:
       success:
         type: boolean
-  Model183:
+  Model184:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model184:
+  Model185:
     type: object
     properties:
       qrCodeUrl:
@@ -8808,19 +8844,19 @@ definitions:
     required:
       - qrCodeUrl
       - secret
-  Model185:
+  Model186:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model186:
+  Model187:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model187:
+  Model188:
     type: object
     properties:
       code:
@@ -8832,14 +8868,14 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - code
-  Model188:
+  Model189:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model189:
+  Model190:
     type: object
     properties:
       priceId:
@@ -8860,7 +8896,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - priceId
-  Model190:
+  Model191:
     type: object
     properties:
       subscription:
@@ -8871,7 +8907,7 @@ definitions:
           length: 2
     required:
       - sourceCountry
-  Model191:
+  Model192:
     type: object
     properties:
       priceId:
@@ -8896,7 +8932,7 @@ definitions:
     required:
       - priceId
       - idempotencyKey
-  Model192:
+  Model193:
     type: object
     properties:
       subscription:
@@ -8907,7 +8943,7 @@ definitions:
           length: 2
     required:
       - sourceCountry
-  Model193:
+  Model194:
     type: object
     properties:
       signedPayload:
@@ -8921,14 +8957,14 @@ definitions:
         type: string
     required:
       - data
-  Model194:
+  Model195:
     type: object
     properties:
       message:
         $ref: '#/definitions/message'
     required:
       - message
-  Model195:
+  Model196:
     type: object
     properties:
       priceId:
@@ -8942,7 +8978,7 @@ definitions:
         description: A customer-redeemable code for a coupon.
     required:
       - priceId
-  Model196:
+  Model197:
     type: object
     properties:
       line_items:
@@ -8969,7 +9005,7 @@ definitions:
       - subtotal_excluding_tax
       - total
       - total_excluding_tax
-  Model197:
+  Model198:
     type: object
     properties:
       invoiceId:
@@ -8994,7 +9030,7 @@ definitions:
       - invoiceId
       - paymentMethodId
       - idempotencyKey
-  Model198:
+  Model199:
     type: object
     properties:
       id:
@@ -9006,7 +9042,7 @@ definitions:
           - $ref: '#/x-alt-definitions/payment_intent'
     required:
       - id
-  Model199:
+  Model200:
     type: object
     properties:
       token:
@@ -9014,7 +9050,7 @@ definitions:
         maxLength: 30
     required:
       - token
-  Model200:
+  Model201:
     type: object
     properties:
       paymentMethodId:
@@ -9025,7 +9061,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model201:
+  Model202:
     type: object
     properties:
       client_secret:
@@ -9056,14 +9092,14 @@ definitions:
     required:
       - created
       - status
-  Model202:
+  Model203:
     type: object
     properties:
       originalTransactionId:
         type: string
     required:
       - originalTransactionId
-  Model203:
+  Model204:
     type: object
     properties:
       sku:
@@ -9073,7 +9109,7 @@ definitions:
     required:
       - sku
       - token
-  Model204:
+  Model205:
     type: object
     properties:
       paymentMethodId:
@@ -9084,7 +9120,7 @@ definitions:
         maxLength: 30
     required:
       - paymentMethodId
-  Model205:
+  Model206:
     type: object
     properties:
       id:
@@ -9095,17 +9131,17 @@ definitions:
         maxLength: 30
     required:
       - id
-  Model206:
-    type: object
-    properties:
-      success:
-        type: boolean
   Model207:
     type: object
     properties:
       success:
         type: boolean
   Model208:
+    type: object
+    properties:
+      success:
+        type: boolean
+  Model209:
     type: object
     properties:
       planId:
@@ -9116,12 +9152,12 @@ definitions:
         maxLength: 255
     required:
       - planId
-  Model209:
+  Model210:
     type: object
     properties:
       subscriptionId:
         type: string
-  Model210:
+  Model211:
     type: object
     properties:
       promotionId:
