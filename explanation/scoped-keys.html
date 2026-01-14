@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Scoped Keys | Firefox Ecosystem Platform</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mozilla.github.io/ecosystem-platform/explanation/scoped-keys"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Scoped Keys | Firefox Ecosystem Platform"><meta data-rh="true" name="description" content="Scoped Encryption Keys for Mozilla accounts"><meta data-rh="true" property="og:description" content="Scoped Encryption Keys for Mozilla accounts"><link data-rh="true" rel="icon" href="/ecosystem-platform/img/firefox-logo.png"><link data-rh="true" rel="canonical" href="https://mozilla.github.io/ecosystem-platform/explanation/scoped-keys"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/explanation/scoped-keys" hreflang="en"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/explanation/scoped-keys" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://RFM5H13DFK-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Scoped Keys","item":"https://mozilla.github.io/ecosystem-platform/explanation/scoped-keys"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Firefox Ecosystem Platform" href="/ecosystem-platform/opensearch.xml"><link rel="stylesheet" href="/ecosystem-platform/assets/css/styles.f0831482.css">
-<script src="/ecosystem-platform/assets/js/runtime~main.213d460b.js" defer="defer"></script>
+<script src="/ecosystem-platform/assets/js/runtime~main.3cceee1f.js" defer="defer"></script>
 <script src="/ecosystem-platform/assets/js/main.3f47d57a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -145,14 +145,17 @@ Finally, <a href="#risks-and-mitigations" class="">Risks and Mitigations</a> ste
 <p>Since we must operate within a standard OAuth protocol flow, there is no way for FxA web content to communicate directly with the client application.  The key material must transit the OAuth redirect flow and hence be handled by servers on both sides.  To guard against exposure, we will encrypt it for transit using public-key cryptography with an ephemeral key generated at the start of the OAuth flow.</p>
 <p><img decoding="async" loading="lazy" alt="Protocol Flow Diagram" src="/ecosystem-platform/assets/images/fxa-scoped-keys-2-828bf00f3b2ddef01993ba8b78645f5d.png" width="1591" height="1395" class="img_ev3q"></p>
 <p>At a high level, the flow will operate as follows:</p>
-<ol start="0">
+<ol>
 <li class="">When initiating the OAuth dance, the client application generates a new P-256 ECDH keypair, stores the private key locally, and includes the JWK-serialized public key in its request to the FxA authorization endpoint.</li>
-<li class="">FxA web content is loaded, and prompts the user to enter their password and to grant access to the application. If granted then it will do the following before continuing with the standard OAuth dance:
-0. Authenticate to the FxA server via the onepw protocol, to obtain the master key material kB.
-0. Use HKDF to derive the requested scope-specific keys.
-0. Serialize the derived key material to a JSON object of JWKs as shown in the previous section.
-0. Encrypt the bundle of key material to the provided public key, serializing the result into a JWE using using alg=&quot;ECDH-ES&quot; and enc=&quot;A256GCM&quot;.
-0. Store the resulting JWE on the FxA servers for later retrieval by the client application.</li>
+<li class="">FxA web content is loaded, and prompts the user to enter their password and to grant access to the application. If granted then it will do the following before continuing with the standard OAuth dance:<!-- -->
+<ol>
+<li class="">Authenticate to the FxA server via the onepw protocol, to obtain the master key material kB.</li>
+<li class="">Use HKDF to derive the requested scope-specific keys.</li>
+<li class="">Serialize the derived key material to a JSON object of JWKs as shown in the previous section.</li>
+<li class="">Encrypt the bundle of key material to the provided public key, serializing the result into a JWE using using alg=&quot;ECDH-ES&quot; and enc=&quot;A256GCM&quot;.</li>
+<li class="">Store the resulting JWE on the FxA servers for later retrieval by the client application.</li>
+</ol>
+</li>
 <li class="">The OAuth dance completes as usual and redirects back to the client application, which receives an authorization code.</li>
 <li class="">The client application passes the authorization code to the FxA server to complete the OAuth flow.  In addition to the usual access token, it receives back the JWE containing key material from step (2). The FxA server deletes the JWE from its database.</li>
 <li class="">The client application uses its saved ECDH private key to decrypt the JWE and retrieve the granted key material, discarding the private key after use.</li>
