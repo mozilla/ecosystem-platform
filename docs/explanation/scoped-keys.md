@@ -161,9 +161,9 @@ Since we must operate within a standard OAuth protocol flow, there is no way for
 
 At a high level, the flow will operate as follows:
 
-0. When initiating the OAuth dance, the client application generates a new P-256 ECDH keypair, stores the private key locally, and includes the JWK-serialized public key in its request to the FxA authorization endpoint.
+1. When initiating the OAuth dance, the client application generates a new P-256 ECDH keypair, stores the private key locally, and includes the JWK-serialized public key in its request to the FxA authorization endpoint.
 0. FxA web content is loaded, and prompts the user to enter their password and to grant access to the application. If granted then it will do the following before continuing with the standard OAuth dance:
-    0. Authenticate to the FxA server via the onepw protocol, to obtain the master key material kB.
+    1. Authenticate to the FxA server via the onepw protocol, to obtain the master key material kB.
     0. Use HKDF to derive the requested scope-specific keys.
     0. Serialize the derived key material to a JSON object of JWKs as shown in the previous section.
     0. Encrypt the bundle of key material to the provided public key, serializing the result into a JWE using using alg="ECDH-ES" and enc="A256GCM".
