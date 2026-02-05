@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Working with Strapi CMS | Firefox Ecosystem Platform</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mozilla.github.io/ecosystem-platform/how-tos/working-with-strapi-cms"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Working with Strapi CMS | Firefox Ecosystem Platform"><meta data-rh="true" name="description" content="Last updated: June 30th, 2025"><meta data-rh="true" property="og:description" content="Last updated: June 30th, 2025"><link data-rh="true" rel="icon" href="/ecosystem-platform/img/firefox-logo.png"><link data-rh="true" rel="canonical" href="https://mozilla.github.io/ecosystem-platform/how-tos/working-with-strapi-cms"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/how-tos/working-with-strapi-cms" hreflang="en"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/how-tos/working-with-strapi-cms" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://RFM5H13DFK-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Working with Strapi CMS","item":"https://mozilla.github.io/ecosystem-platform/how-tos/working-with-strapi-cms"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Firefox Ecosystem Platform" href="/ecosystem-platform/opensearch.xml"><link rel="stylesheet" href="/ecosystem-platform/assets/css/styles.f0831482.css">
-<script src="/ecosystem-platform/assets/js/runtime~main.3cceee1f.js" defer="defer"></script>
+<script src="/ecosystem-platform/assets/js/runtime~main.77fe16f6.js" defer="defer"></script>
 <script src="/ecosystem-platform/assets/js/main.3f47d57a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -26,6 +26,8 @@
 <li class=""><a href="#enabling-cms-on-the-frontend" class="">Enabling CMS on the Frontend</a></li>
 <li class=""><a href="#testing-the-integration" class="">Testing the Integration</a></li>
 <li class=""><a href="#creating-a-relying-party-customization" class="">Creating a Relying Party Customization</a></li>
+<li class=""><a href="#customizing-the-content-entry-view" class="">Customizing the Content Entry View</a></li>
+<li class=""><a href="#viewing-your-customization" class="">Viewing your Customization</a></li>
 <li class=""><a href="#landing-code-back-into-fxa-strapi-repo" class="">Landing Code Back into fxa-strapi Repo</a></li>
 <li class=""><a href="#additional-resources" class="">Additional Resources</a></li>
 </ol>
@@ -166,6 +168,62 @@
 <li class="">Save the entry.</li>
 </ol>
 <hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="customizing-the-content-entry-view">Customizing the Content Entry View<a href="#customizing-the-content-entry-view" class="hash-link" aria-label="Direct link to Customizing the Content Entry View" title="Direct link to Customizing the Content Entry View" translate="no">​</a></h2>
+<p>Strapi supports limited customization of the <strong>content entry view</strong> (the form used to create or edit entries). This is primarily useful for adding short descriptions or guidance text to help editors enter correct data.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="permissions-and-access">Permissions and access<a href="#permissions-and-access" class="hash-link" aria-label="Direct link to Permissions and access" title="Direct link to Permissions and access" translate="no">​</a></h3>
+<p>To edit the entry view, you must have:</p>
+<ul>
+<li class=""><strong>Admin access</strong>, or</li>
+<li class="">A role with permission to <strong>configure content types and views</strong></li>
+</ul>
+<p>Important notes:</p>
+<ul>
+<li class="">Some users <strong>cannot see roles or permissions at all</strong>. In these cases, request support from the <strong>FxA</strong> or <strong>SubPlat</strong> teams.</li>
+<li class="">Depending on your permissions, you may see a <strong>restricted edit view</strong> that does <strong>not include the Description field</strong>. If so, you cannot add helper text yourself.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="environment-specific-behavior">Environment-specific behavior<a href="#environment-specific-behavior" class="hash-link" aria-label="Direct link to Environment-specific behavior" title="Direct link to Environment-specific behavior" translate="no">​</a></h3>
+<p>⚠️ <strong>View configuration does not carry across environments.</strong>
+Any changes made in <strong>dev</strong> must be repeated manually in <strong>stage</strong> and <strong>prod</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ways-to-edit-the-view-not-equivalent">Ways to edit the view (not equivalent)<a href="#ways-to-edit-the-view-not-equivalent" class="hash-link" aria-label="Direct link to Ways to edit the view (not equivalent)" title="Direct link to Ways to edit the view (not equivalent)" translate="no">​</a></h3>
+<p>There are multiple entry points to “edit the view,” and they do <strong>different things</strong>:</p>
+<ul>
+<li class="">
+<p><strong>From the list view (<code>Configure the view</code>)</strong></p>
+<ul>
+<li class="">Controls <strong>table columns</strong>, sorting, filters, and list behavior</li>
+<li class="">Does <strong>not</strong> allow editing field descriptions</li>
+</ul>
+</li>
+<li class="">
+<p><strong>From an entry or new entry</strong></p>
+<ul>
+<li class="">Allows editing <strong>field-level settings</strong></li>
+<li class="">This is where you can add <strong>Descriptions</strong> for form fields</li>
+</ul>
+</li>
+</ul>
+<p>To add descriptions, you must use the <strong>entry-level configuration</strong>, not the list view.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-add-descriptions-to-fields">How to add descriptions to fields<a href="#how-to-add-descriptions-to-fields" class="hash-link" aria-label="Direct link to How to add descriptions to fields" title="Direct link to How to add descriptions to fields" translate="no">​</a></h3>
+<ol>
+<li class="">Open the <strong>Strapi Admin</strong> dashboard.</li>
+<li class="">Navigate to <strong>Content Manager</strong>. (NOT Content-Type Builder)</li>
+<li class="">Open an existing entry <em>or</em> create a new entry for the content type.</li>
+<li class="">Open the <strong>Configure the view</strong>.</li>
+<li class="">Select a field.</li>
+<li class="">Add text to the <strong>Description</strong> field.</li>
+<li class="">Save the configuration.</li>
+<li class="">Verify the description appears in the entry form.</li>
+</ol>
+<p>📹 <em>Screen recording:</em></p>
+<p><a href="https://github.com/user-attachments/assets/65669ea8-1119-4fb7-a0c0-b5530ee24918" target="_blank" rel="noopener noreferrer" class="">https://github.com/user-attachments/assets/65669ea8-1119-4fb7-a0c0-b5530ee24918</a></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="recommendations">Recommendations<a href="#recommendations" class="hash-link" aria-label="Direct link to Recommendations" title="Direct link to Recommendations" translate="no">​</a></h3>
+<ul>
+<li class="">Avoid repeating what’s already obvious from the field name.</li>
+<li class="">Add links (for example to Storybook component) when helpful for context.</li>
+<li class="">Add examples if content must be added in a specific format.</li>
+<li class="">Add information that reduces ambiguity at the moment of data entry.</li>
+</ul>
+<hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="viewing-your-customization">Viewing Your Customization<a href="#viewing-your-customization" class="hash-link" aria-label="Direct link to Viewing Your Customization" title="Direct link to Viewing Your Customization" translate="no">​</a></h2>
 <ul>
 <li class="">Start a login or signup flow in the client.</li>
@@ -223,6 +281,25 @@
 </ul>
 </li>
 <li class="">
+<p><strong>Collection type is missing from the Content Manager</strong></p>
+<ul>
+<li class="">If a newly created collection type does not appear in the Content Manager, this is usually due to permissions.<!-- -->
+<ul>
+<li class="">The collection type may not be enabled for your role under Content Manager permissions</li>
+<li class="">Your role may not have access to view, create, or edit entries for that type</li>
+</ul>
+</li>
+<li class="">How to fix:<!-- -->
+<ul>
+<li class="">Go to Settings → Users &amp; Permissions → Roles</li>
+<li class="">Select your role and enable the collection type under Content Manager</li>
+<li class="">If you do not have access to roles or permissions, request help from the FxA or SubPlat teams.</li>
+</ul>
+</li>
+<li class="">This is expected Strapi behavior and does not indicate an issue with the collection type itself.</li>
+</ul>
+</li>
+<li class="">
 <p><strong>Need to reset Strapi?</strong></p>
 <ul>
 <li class="">Delete <code>.tmp/data.db</code> and restart Strapi to reset the local database.</li>
@@ -231,6 +308,6 @@
 </ul>
 <hr>
 <p>If you have questions or run into issues, check the <a href="https://mozilla.slack.com/archives/C03QY2X1K" target="_blank" rel="noopener noreferrer" class="">FxA Slack</a> or file an issue in the <a href="https://github.com/mozilla/fxa-strapi/issues" target="_blank" rel="noopener noreferrer" class="">fxa-strapi repo</a>.</p>
-<p>---`st</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/mozilla/ecosystem-platform/edit/master/docs/how-tos/working-with-strapi-cms.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/ecosystem-platform/how-tos/working-with-metrics"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Working with Metrics</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/ecosystem-platform/reference/team-processes/development-process"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Planning and Development</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#table-of-contents" class="table-of-contents__link toc-highlight">Table of Contents</a></li><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#prerequisites" class="table-of-contents__link toc-highlight">Prerequisites</a></li><li><a href="#cloning-and-running-strapi-locally" class="table-of-contents__link toc-highlight">Cloning and Running Strapi Locally</a></li><li><a href="#configuring-the-environment" class="table-of-contents__link toc-highlight">Configuring the Environment</a></li><li><a href="#starting-strapi-and-creating-an-admin-account" class="table-of-contents__link toc-highlight">Starting Strapi and Creating an Admin Account</a></li><li><a href="#verifying-content-types" class="table-of-contents__link toc-highlight">Verifying Content Types</a></li><li><a href="#generating-an-api-key" class="table-of-contents__link toc-highlight">Generating an API Key</a></li><li><a href="#configuring-the-auth-server" class="table-of-contents__link toc-highlight">Configuring the Auth Server</a></li><li><a href="#enabling-cms-on-the-frontend" class="table-of-contents__link toc-highlight">Enabling CMS on the Frontend</a></li><li><a href="#testing-the-integration" class="table-of-contents__link toc-highlight">Testing the Integration</a></li><li><a href="#creating-a-relying-party-customization" class="table-of-contents__link toc-highlight">Creating a Relying Party Customization</a></li><li><a href="#viewing-your-customization" class="table-of-contents__link toc-highlight">Viewing Your Customization</a></li><li><a href="#landing-code-back-into-fxa-strapi-repo" class="table-of-contents__link toc-highlight">Landing Code Back into fxa-strapi Repo</a><ul><li><a href="#development-deployment" class="table-of-contents__link toc-highlight">Development Deployment</a></li><li><a href="#stage-deployment" class="table-of-contents__link toc-highlight">Stage Deployment</a></li><li><a href="#production-deployment" class="table-of-contents__link toc-highlight">Production Deployment</a></li></ul></li><li><a href="#additional-resources" class="table-of-contents__link toc-highlight">Additional Resources</a></li><li><a href="#troubleshooting" class="table-of-contents__link toc-highlight">Troubleshooting</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Mozilla Corporation.</div></div></div></footer></div>
+<p>---`st</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/mozilla/ecosystem-platform/edit/master/docs/how-tos/working-with-strapi-cms.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/ecosystem-platform/how-tos/working-with-metrics"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Working with Metrics</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/ecosystem-platform/reference/team-processes/development-process"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Planning and Development</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#table-of-contents" class="table-of-contents__link toc-highlight">Table of Contents</a></li><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#prerequisites" class="table-of-contents__link toc-highlight">Prerequisites</a></li><li><a href="#cloning-and-running-strapi-locally" class="table-of-contents__link toc-highlight">Cloning and Running Strapi Locally</a></li><li><a href="#configuring-the-environment" class="table-of-contents__link toc-highlight">Configuring the Environment</a></li><li><a href="#starting-strapi-and-creating-an-admin-account" class="table-of-contents__link toc-highlight">Starting Strapi and Creating an Admin Account</a></li><li><a href="#verifying-content-types" class="table-of-contents__link toc-highlight">Verifying Content Types</a></li><li><a href="#generating-an-api-key" class="table-of-contents__link toc-highlight">Generating an API Key</a></li><li><a href="#configuring-the-auth-server" class="table-of-contents__link toc-highlight">Configuring the Auth Server</a></li><li><a href="#enabling-cms-on-the-frontend" class="table-of-contents__link toc-highlight">Enabling CMS on the Frontend</a></li><li><a href="#testing-the-integration" class="table-of-contents__link toc-highlight">Testing the Integration</a></li><li><a href="#creating-a-relying-party-customization" class="table-of-contents__link toc-highlight">Creating a Relying Party Customization</a></li><li><a href="#customizing-the-content-entry-view" class="table-of-contents__link toc-highlight">Customizing the Content Entry View</a><ul><li><a href="#permissions-and-access" class="table-of-contents__link toc-highlight">Permissions and access</a></li><li><a href="#environment-specific-behavior" class="table-of-contents__link toc-highlight">Environment-specific behavior</a></li><li><a href="#ways-to-edit-the-view-not-equivalent" class="table-of-contents__link toc-highlight">Ways to edit the view (not equivalent)</a></li><li><a href="#how-to-add-descriptions-to-fields" class="table-of-contents__link toc-highlight">How to add descriptions to fields</a></li><li><a href="#recommendations" class="table-of-contents__link toc-highlight">Recommendations</a></li></ul></li><li><a href="#viewing-your-customization" class="table-of-contents__link toc-highlight">Viewing Your Customization</a></li><li><a href="#landing-code-back-into-fxa-strapi-repo" class="table-of-contents__link toc-highlight">Landing Code Back into fxa-strapi Repo</a><ul><li><a href="#development-deployment" class="table-of-contents__link toc-highlight">Development Deployment</a></li><li><a href="#stage-deployment" class="table-of-contents__link toc-highlight">Stage Deployment</a></li><li><a href="#production-deployment" class="table-of-contents__link toc-highlight">Production Deployment</a></li></ul></li><li><a href="#additional-resources" class="table-of-contents__link toc-highlight">Additional Resources</a></li><li><a href="#troubleshooting" class="table-of-contents__link toc-highlight">Troubleshooting</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Mozilla Corporation.</div></div></div></footer></div>
 </body>
 </html>
