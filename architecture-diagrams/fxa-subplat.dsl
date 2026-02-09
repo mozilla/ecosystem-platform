@@ -158,23 +158,18 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
                     description "Provides customer settings and account management via GraphQL API"
                     technology "Node and NestJS"
                 }
-                nextPaymentsApplication = container "Payments SSR / Hydrated Application" {
+                nextPayments = container "SubPlat 3.0 Web App and Server" {
                     tags "Web Browser,Payments3"
-                    description "Provides checkout/upgrade payment flows"
+                    description "Provides checkout/upgrade payment flows and subscription managaement"
                     technology "TypeScript and NextJS"
                 }
-                nextPaymentsServer = container "Payments 3 Web Application" {
-                    tags "Payments3"
-                    description "Renders the payments front-end for check-out and API's for subscription management"
-                    technology "Node and Express"
-                }
                 paymentsApplication = container "Payments Single-Page Application" {
-                    tags "Web Browser,Payments"
+                    tags "Web Browser,Payments,Payments2"
                     description "Provides checkout/upgrade payment flows and subscription mangement"
                     technology "TypeScript and Create React App"
                 }
                 paymentsServer = container "Payments Web Application" {
-                    tags "Payments"
+                    tags "Payments,Payments2"
                     description "Delivers the payments single page application and receives metrics data from it"
                     technology "Node and Express"
                 }
@@ -226,12 +221,9 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         accountCustomer -> contentServerServer "Visits login or settings page using" "HTTPS"
         accountCustomer -> firefoxBrowser "Uses"
         accountCustomer -> firefoxMobile "Uses"
-        accountCustomer -> nextPaymentsApplication "Purchases subscriptions/upgrades with" "Payments3"
-        accountCustomer -> nextPaymentsServer "Visits checkout page using" "HTTPS" "Payments3"
         accountCustomer -> paymentsServer "Visits checkout or payment management page using" "HTTPS" "Payments2"
-        accountCustomer -> paymentsServer "Visits payment management page using" "HTTPS" "Payments3"
         accountCustomer -> paymentsApplication "Purchases subscriptions/upgrades and manages subscriptions with" "" "Payments2"
-        accountCustomer -> paymentsApplication "Manages subscriptions with" "" "Payments3"
+        accountCustomer -> nextPayments "Purchases subscriptions/upgrades and manages subscriptions with" "HTTPS" "Payments3"
         accountCustomer -> supportedProduct "Uses and purchases subscriptions to use"
         accountCustomer -> settingsApplication "Views and updates account security settings, profile, and payment management link"
 
@@ -316,16 +308,16 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         graphqlApplication -> authServerRedis "Uses"
         graphqlApplication -> oauthDatabase "Uses"
 
-        nextPaymentsServer -> authServerDatabase "Uses"
-        nextPaymentsServer -> authServerRedis "Uses"
-        nextPaymentsServer -> hCMS "Fetches product configuration from" "GraphQL API" "Payments3"
-        nextPaymentsServer -> nextPaymentsApplication "Delivers to the customer's web browser"
-        nextPaymentsServer -> paypal "Integrates Stripe invoicing with"
-        nextPaymentsServer -> stripe "Uses"
+        nextPayments -> authServerDatabase "Uses"
+        nextPayments -> paypal "Integrates Stripe invoicing with"
+        nextPayments -> stripe "Uses"
+        nextPayments -> hCMS "Fetches product configuration from" "GraphQL API"
+        nextPayments -> googlePlay "Reads subscriptions from"
+        nextPayments -> appStore "Reads subscriptions from"
 
-        paymentsApplication -> authServerApplication "Uses"
+        paymentsApplication -> authServerApplication "Uses" "" "Payments2"
 
-        paymentsServer -> paymentsApplication "Delivers to the customer's web browser"
+        paymentsServer -> paymentsApplication "Delivers to the customer's web browser" "" "Payments2"
 
         profileServerApplication -> authServerApplication "Uses"
         profileServerApplication -> profileServerDatabase "Uses"
@@ -366,7 +358,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         systemlandscape "PaymentSystemLandscape" {
             title "[System Landscape] Subscription Platform"
             description "Systems for subscription handling 2.5 & 3.0"
-            include accountCustomer accountPaymentSystem paymentProviders supportedProduct supportStaff zendesk productManager hCMS
+            include accountCustomer accountPaymentSystem paymentProviders supportedProduct productManager hCMS
             exclude relationship==accountPaymentSystem->paypal relationship==supportedProduct->accountPaymentSystem relationship.tag==Payments2
         }
 
@@ -386,7 +378,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
             title "[Container] Subscription Platform 3.0"
             description "Containers for Subscription Platform 3"
             include element.tag==Payments element.tag==Payments3 
-            exclude relationship==stripe->paypal firefoxBrowser firefoxMobile pushSystem relationship.tag==Payments2
+            exclude element.tag==Payments2 relationship==stripe->paypal zendesk supportStaff firefoxBrowser firefoxMobile pushSystem relationship.tag==Payments2
         }
 
         dynamic accountPaymentSystem "SendTab" "Summarizes how a customer sends a tab to another device" {
