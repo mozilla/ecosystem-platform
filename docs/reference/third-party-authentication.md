@@ -4,7 +4,7 @@ title: Third Party Authentication
 
 Last updated: `Sep 06th, 2023`
 
-FxA currently supports Apple and Google as third party authentication providers. 
+FxA currently supports Apple and Google as third party authentication providers.
 
 ### Design
 
@@ -18,7 +18,7 @@ and then the user is sent through the FxA OAuth flow and redirected back to the 
 at the end of this flow, the relying party gets an FxA OAuth token.
 
 Please reference the [feature doc](https://docs.google.com/document/d/1pFzugkDOIR6eoXrBCx9FWWJhfnxFgWnRtk2mWFOp8DQ/edit#heading=h.qrbb2drvq5dg) for
-additional design details and flow charts.  Note also the [Apple Usage Guidelines](https://developer.apple.com/sign-in-with-apple/usage-guidelines-for-websites-and-other-platforms/).
+additional design details and flow charts. Note also the [Apple Usage Guidelines](https://developer.apple.com/sign-in-with-apple/usage-guidelines-for-websites-and-other-platforms/).
 
 ### How to enable third party authentication for relying party
 
@@ -26,77 +26,46 @@ Third party authentication is currently enabled for all relying on parties (exce
 
 ### How to setup Google auth locally
 
-To enable Google auth locally, you will need to either setup a new client in the Google developer console or use the default config.
+To enable Google auth locally, you will need to create a new OAuth client in the Google Cloud Console.
 
-#### Auth server config
+1. Go to [Google Cloud Console](https://console.cloud.google.com) and sign in with your Mozilla account if needed.
 
-Update the auth server [config](https://github.com/mozilla/fxa/blob/e31b9deb2d7e6ca89b9fc932f2c4f0fa0a89e93c/packages/fxa-auth-server/config/index.ts#L167) to reflect the current client.
+2. Click the project picker (top bar), then choose **New Project**.
+   - **Project name:** Whatever you like (e.g. `YourName FxA Dev`)
+   - **Organization:** `firefox.gcp.mozilla.com`
+   - **Location:** `developers`
+   - Click **Create**.
 
-```
-  googleAuthConfig: {
-    clientId: {
-      default:
-        '210899493109-gll5587a3bo8huare772alo08734o4kh.apps.googleusercontent.com',
-      env: 'GOOGLE_AUTH_CLIENT_ID',
-      format: String,
-      doc: 'Google auth client id',
-    },
-    clientSecret: {
-      default: 'SSHH',
-      env: 'GOOGLE_AUTH_CLIENT_SECRET',
-      format: String,
-      doc: 'Google auth client secret',
-    },
-    redirectUri: {
-      default: 'http://localhost:3030/post_verify/third_party_auth/callback',
-      env: 'GOOGLE_AUTH_REDIRECT_URI',
-      format: String,
-      doc: 'Google auth redirect uri',
-    },
-    tokenEndpoint: {
-      default: 'https://oauth2.googleapis.com/token',
-      env: 'GOOGLE_AUTH_TOKEN_ENDPOINT',
-      format: String,
-      doc: 'Google auth token endpoint',
-    },
-  },
-```
+3. Go to [Auth Clients](https://console.cloud.google.com/auth/clients) for your new project and click **Create Client**.
+   - **Application type:** Web application
+   - **Name:** Whatever you like (e.g. `Mozilla Accounts`)
+   - **Authorized JavaScript origins:**
+     - `http://localhost:3030`
+     - `http://localhost`
+   - **Authorized redirect URIs:**
+     - `http://localhost:3030/oauth/signin`
+     - `http://localhost:3030/post_verify/third_party_auth/callback`
+   - Click **Create**.
 
-Note that you should update your `secrets.json` file in `/packages/fxa-auth-server/config/` to override the `clientSecret`.
-This will help reduce the risk of accidentally committing secrets into git.
+4. Your client ID and client secret will be shown. Set these credentials in your `.env`:
 
-#### Content server config
+   ```
+   GOOGLE_AUTH_CLIENT_ID=your-client-id
+   GOOGLE_AUTH_SECURITY_EVENTS_CLIENT_IDS=your-client-id
+   GOOGLE_AUTH_CLIENT_SECRET=your-client-secret
+   ```
 
-Update the content server [config](https://github.com/mozilla/fxa/blob/e31b9deb2d7e6ca89b9fc932f2c4f0fa0a89e93c/packages/fxa-content-server/server/lib/configuration.js#L246) to reflect the Google client.
+5. Go to **Audience** and publish the app so you can use any Google account locally. You may see the publishing status set to "Testing" — click **Publish App** and confirm "Push to production". Either option (Testing or In Production) will work, but "Testing" requires you to add allowed test emails.
 
-```
-  googleAuthConfig: {
-    enabled: {
-      default: true,
-      env: 'GOOGLE_AUTH_ENABLED',
-      format: String,
-    },
-    clientId: {
-      default:
-        '210899493109-gll5587a3bo8huare772alo08734o4kh.apps.googleusercontent.com',
-      env: 'GOOGLE_AUTH_CLIENT_ID',
-      format: String,
-      doc: 'Google auth client id',
-    },
-    redirectUri: {
-      default: 'http://localhost:3030/post_verify/third_party_auth/callback',
-      env: 'GOOGLE_AUTH_REDIRECT_URI',
-      format: String,
-      doc: 'Google auth redirect uri',
-    },
-    authorizationEndpoint: {
-      default: 'https://accounts.google.com/o/oauth2/v2/auth',
-      env: 'GOOGLE_AUTH_AUTHORIZATION_ENDPOINT',
-      format: String,
-      doc: 'Google auth token endpoint',
-    },
-  },
-```
+6. You may need to wait several minutes before the client is fully activated. Do a full `yarn stop` and then start with dotenv:
+
+   ```
+   dotenv -- yarn start mza
+   ```
+
+:::note
+You may need to clear out any old values set in configs, as you can also have these values set in auth-server and content-server config files instead of using environment variables. If after restarting and trying to log in with Google the client ID in the URL does not match the value you set in your `.env`, search the repo for `googleAuthConfig` to make sure it's not set in a different gitignored file.
+:::
 
 ### How to setup Apple auth locally
 
