@@ -337,5 +337,3 @@ After making changes to your local Strapi instance, you need to deploy them thro
 ---
 
 If you have questions or run into issues, check the [FxA Slack](https://mozilla.slack.com/archives/C03QY2X1K) or file an issue in the [fxa-strapi repo](https://github.com/mozilla/fxa-strapi/issues).
-
----`st
