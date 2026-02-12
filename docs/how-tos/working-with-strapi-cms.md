@@ -22,7 +22,9 @@ This guide will help you set up and use the [Strapi](https://strapi.io/) CMS for
 12. [Customizing the Content Entry View](#customizing-the-content-entry-view)
 13. [Viewing your Customization](#viewing-your-customization)
 14. [Landing Code Back into fxa-strapi Repo](#landing-code-back-into-fxa-strapi-repo)
-15. [Additional Resources](#additional-resources)
+15. [Localization of Strapi content](#localization-of-strapi-content)
+16. [Additional Resources](#additional-resources)
+17. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -297,6 +299,16 @@ After making changes to your local Strapi instance, you need to deploy them thro
 2. Production deployment takes ~10 minutes to complete
 
 > **Note:** Deploy to stage and production a few days before a tag release to ensure readiness.
+
+---
+
+## Localization of Strapi content
+
+Strings in production are extracted to Pontoon through coordination of fxa and fxa-cms-l10n repos.
+
+Note: Strings added to dev or stage Strapi are not extracted for localization.
+
+See: [fxa-cms-l10n repository](https://github.com/mozilla/fxa-cms-l10n)
 
 ---
 
