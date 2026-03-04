@@ -59,17 +59,6 @@ module.exports = {
                             'how-tos/working-with-strapi-cms',
                            ],
           'Reference':     [
-                              {
-                                type: 'category',
-                                label: 'Team Processes',
-                                items: [
-                                  'reference/team-processes/development-process',
-                                  'reference/team-processes/work-breakdown-process',
-                                  'reference/team-processes/triage-process',
-                                  'reference/team-processes/release-process',
-                                  'reference/team-processes/pull-request-review-guidelines',
-                                ]
-                            },
                             {
                               type: 'category',
                               label: 'Style Guides',
