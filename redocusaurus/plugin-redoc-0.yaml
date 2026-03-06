@@ -6995,6 +6995,8 @@ definitions:
         default: false
       checkDomain:
         type: string
+      clientId:
+        type: string
     required:
       - email
   Model81:
@@ -7007,6 +7009,8 @@ definitions:
       hasPassword:
         type: boolean
       invalidDomain:
+        type: boolean
+      passwordlessSupported:
         type: boolean
     required:
       - exists
