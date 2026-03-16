@@ -52,11 +52,6 @@ Before starting integration, please file an issue in the FXA project in Jira to 
     from the user's password and **if the user changes or forgets their
     password this key will change**.
 
-0. **Will your application display its own “enter your email” form?**
-    Providing your own form can give users a tight knit experience, but you'll
-    need to send your own [top of funnel
-    metrics](#self-hosted-email-first-flow) if you do.
-
 0. **Who are the stakeholders?**
 
 0. **Who can be contacted for important updates, e.g., API changes?**
@@ -76,6 +71,11 @@ Before starting integration, please file an issue in the FXA project in Jira to 
 
 0. **Will you utilize JWT tokens?**
     This is rare.  [Learn more](../../reference/tokens#jwt-access-tokens).
+
+0. **Please provide an oauth redirect URL for stage and production instances**
+
+0. **Please provide a notification URL for Relying Party events**
+    [Learn more](#webhook-events)
 
 We communicate with our relying parties via the [firefox-accounts-notices group][firefox-accounts-notices].  Please join this list to avoid any surprises.
 
