@@ -2,6 +2,10 @@
 title: onepw Protocol
 ---
 
+:::warning Deprecated endpoint
+`POST /certificate/sign` has been removed. See [current OAuth flow](/relying-parties/tutorials/integrating-with-fxa).
+:::
+
 # Mozilla accounts/Sync Protocol
 
 This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the [FxA auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server). Clients use this protocol to prove their knowledge of the account password, for which they receive a `sessionToken`. This protocol is also used to retrieve a pair of encryption keys (`kA` and `kB`) which will be used to encrypt Sync data.
