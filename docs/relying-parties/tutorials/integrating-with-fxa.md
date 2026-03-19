@@ -145,6 +145,9 @@ import jwkToPem from 'jwk-to-pem';
 // Fetch and cache these at startup from the jwks_uri
 let publicJwks: Array<{ kid: string; [key: string]: any }>;
 
+// Your client_id, provided when you registered your OAuth credentials
+const CLIENT_ID = 'your_client_id';
+
 async function verifyWebhook(authHeader: string): Promise<object> {
   if (!authHeader?.startsWith('Bearer ')) {
     throw new Error('Invalid authorization header');
@@ -162,7 +165,11 @@ async function verifyWebhook(authHeader: string): Promise<object> {
     throw new Error(`Unknown key ID: ${decoded.header.kid}`);
   }
 
-  return jwt.verify(token, jwkToPem(jwk), { algorithms: ['RS256'] });
+  return jwt.verify(token, jwkToPem(jwk), {
+    algorithms: ['RS256'],
+    issuer: 'https://accounts.firefox.com',
+    audience: CLIENT_ID,
+  });
 }
 
 app.post('/webhook', async (req, res) => {
