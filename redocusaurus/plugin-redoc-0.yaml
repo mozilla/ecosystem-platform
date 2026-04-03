@@ -7098,6 +7098,10 @@ definitions:
         type: string
       clientId:
         type: string
+      service:
+        type: string
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
     required:
       - email
   Model81:
@@ -8219,6 +8223,11 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 16
+      service:
+        type: string
+        description: Opaque alphanumeric token to be included in verification links.
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
@@ -8272,6 +8281,11 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 16
+      service:
+        type: string
+        description: Opaque alphanumeric token to be included in verification links.
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
@@ -8295,6 +8309,11 @@ definitions:
         pattern: ^(?:[a-fA-F0-9]{2})+$
         x-constraint:
           length: 16
+      service:
+        type: string
+        description: Opaque alphanumeric token to be included in verification links.
+        maxLength: 16
+        pattern: ^[a-zA-Z0-9\-]*$
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
