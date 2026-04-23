@@ -23,7 +23,7 @@ There are some closely related projects which have their own documentation.  We 
 
 * [Mozilla Push Service](https://mozilla-push-service.readthedocs.io/en/latest/)
 * [Application Services Rust Components](https://mozilla.github.io/application-services/book/index.html)
-* [Sync](https://mozilla-services.readthedocs.io/en/latest/)
+* [Sync](https://mozilla-services.github.io/syncstorage-rs/)
 
 ## About this site
 
