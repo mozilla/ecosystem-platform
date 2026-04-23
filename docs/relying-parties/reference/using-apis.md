@@ -43,3 +43,16 @@ Content-Type: application/json
   "retryAfterLocalized": "in a few seconds"
 }
 ```
+
+## Handling Expired Access Tokens
+
+OAuth access tokens are short-lived and will eventually expire. When a resource server returns a `401 Unauthorized` response, the RP should attempt to obtain a new access token using its refresh token before treating the failure as fatal.
+
+The recommended approach is:
+
+1. Make the API request with the current access token.
+2. If you receive a `401`, use the refresh token to request a new access token from the FxA OAuth server.
+3. Retry the original request with the new access token.
+4. If the refresh token request also returns a `401`, the user has disconnected the RP from their account (or their session has been otherwise invalidated). At this point the RP should discard stored tokens and prompt the user to re-authenticate.
+
+Avoid immediately prompting re-authentication on every `401` without first attempting a token refresh — this creates unnecessary friction for users whose access token has simply expired.
