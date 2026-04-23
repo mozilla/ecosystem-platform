@@ -32,7 +32,7 @@ Before you can integrate, gather the following information:
 If you're familiar with OAuth 2.0 and OIDC:
 
 1. File a Jira issue in the FXA project requesting OAuth credentials (include info from the table above)
-2. Join the [firefox-accounts-notices group][firefox-accounts-notices] for updates
+2. Join the [mozilla-accounts-notices group][mozilla-accounts-notices] for updates
 3. Use staging endpoints for development:
    - Authorization: `https://accounts.stage.mozaws.net/authorization`
    - Token: `https://oauth.stage.mozaws.net/v1/token`
@@ -245,7 +245,7 @@ Most integrations are Relying Parties. Resource Servers are typically internal M
 
 [api-docs]: https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs/API.md#api-endpoints
 [connected-services]: https://accounts.firefox.com/settings#connected-services
-[firefox-accounts-notices]: https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices
+[mozilla-accounts-notices]: https://groups.google.com/a/mozilla.com/g/mozilla-accounts-notices
 [metrics-flow-request]: https://mozilla.github.io/application-services/docs/accounts/metrics.html#self-hosted-email-forms-and-metrics-tracking-aka-the-fxa-email-first-flow
 [oauth]: https://auth0.com/docs/protocols/oauth2
 [openidconnect]: https://openid.net/connect/
