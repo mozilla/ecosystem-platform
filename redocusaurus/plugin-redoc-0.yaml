@@ -8453,7 +8453,7 @@ definitions:
         description: The OTP code sent to the user email
         pattern: ^[0-9]+$
         x-constraint:
-          length: 8
+          length: 6
       clientId:
         type: string
         description: >-
