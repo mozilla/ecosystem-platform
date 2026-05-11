@@ -32,7 +32,7 @@
     "file-loader": "^6.2.0",
     "graphql": "^16.13.1",
     "mdx-mermaid": "^2.0.3",
-    "mermaid": "11.13.0",
+    "mermaid": "11.15.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
