@@ -41,6 +41,7 @@ Run `yarn start firefox`, which will open an instance of Firefox. It is configur
 ### Stage environment setup on desktop browser:
 1. Launch Firefox browser.
 2. Go to `about:profiles` and create a new profile.
-3. Go to `about:config`.
-4. Change the preference `identity.fxaccounts.autoconfig.uri` to `https://accounts.stage.mozaws.net`.
+3. Scroll to the new profile and click on "Launch profile in new browser".
+4. In the new browser window, go to `about:config`.
+5. Change the preference `identity.fxaccounts.autoconfig.uri` to `https://accounts.stage.mozaws.net`.
 
