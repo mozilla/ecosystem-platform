@@ -79,6 +79,7 @@ module.exports = {
                             },
                             'reference/application-logging',
                             'reference/application-tracing',
+                            'reference/authentication-schemes',
                             'reference/browser-support',
                             'reference/canceling-subscriptions-to-plan',
                             'reference/database-structure',
