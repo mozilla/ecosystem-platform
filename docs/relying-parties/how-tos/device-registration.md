@@ -20,6 +20,10 @@ A device may access the user's Sync data using either a sessionToken or an appro
 
 Devices can manage their details by POSTing a registration record to `/v1/account/device`, like so:
 
+:::note
+The preferred header is `Authorization: Bearer fxs_<hex>` (see [Authentication Schemes](../../reference/authentication-schemes)). The `sessionToken HAWK header` shown below is a legacy fallback. Firefox Desktop, iOS, and Android use it today and are planned to move to Bearer.
+:::
+
 ```js
 POST /v1/account/device HTTP/1.1
 Authorization: < sessionToken HAWK header | refreshToken Bearer header >

@@ -6,6 +6,10 @@ title: onepw Protocol
 `POST /certificate/sign` has been removed. See [current OAuth flow](/relying-parties/tutorials/integrating-with-fxa).
 :::
 
+:::note In-monorepo callers now use Bearer
+Since [ADR-0022](https://github.com/mozilla/fxa/blob/main/docs/adr/0022-deprecate-hawk.md), prefixed Bearer tokens are the preferred scheme and have replaced Hawk for in-monorepo callers. Hawk is now a fallback. Firefox Desktop, iOS, and Android still use it today and are planned to move to Bearer. The HAWK sections below stay accurate for those clients and as a historical record. See [Authentication Schemes](../reference/authentication-schemes).
+:::
+
 # Mozilla accounts/Sync Protocol
 
 This document describes the protocol used by FxA clients (including FF Sync clients) and the key-server implemented in the [FxA auth-server](https://github.com/mozilla/fxa/tree/main/packages/fxa-auth-server). Clients use this protocol to prove their knowledge of the account password, for which they receive a `sessionToken`. This protocol is also used to retrieve a pair of encryption keys (`kA` and `kB`) which will be used to encrypt Sync data.
@@ -274,6 +278,10 @@ Change Password
 ```
 
 ## HAWK Notes
+
+:::note
+This section describes the Hawk scheme, now a fallback. Prefixed Bearer tokens are the preferred scheme (see [Authentication Schemes](../reference/authentication-schemes)). Firefox Desktop, iOS, and Android still use Hawk today and are planned to move to Bearer.
+:::
 
 The following calls are HAWK-authenticated by some sort of token:
 
