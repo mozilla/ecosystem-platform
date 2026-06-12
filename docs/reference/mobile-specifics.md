@@ -19,6 +19,11 @@ To change which FxA servers to use, in XCode simulator while in a signed-out sta
 
 ### Android debugging
 
+#### Connecting to a remote Android device
+
+See the steps here for initial setup:
+https://firefox-source-docs.mozilla.org/devtools-user/about_colon_debugging/index.html#connecting-to-a-remote-device
+
 #### Emulator setup
 
 The Android emulator is most accessible through the Android Studio IDE, and confusingly, we do not need to build an app project in order to use only the emulator with a released version of Firefox for Android.
