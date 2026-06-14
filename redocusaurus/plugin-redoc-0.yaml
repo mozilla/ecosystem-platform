@@ -7219,6 +7219,14 @@ definitions:
       state:
         type: string
         maxLength: 512
+      scope:
+        type: string
+        description: >-
+          A space-separated list of scope values that the user has authorized,
+          or is held by the granted access token that the connecting client will
+          be granted. The requested scope will be provided by the connecting
+          client as part of its authorization request, but may be pruned by the
+          user in a confirmation dialog before being sent to this endpoint.
   Model92:
     type: object
     properties:
