@@ -128,11 +128,11 @@ FxA sends [Security Event Tokens (SET)][set] via webhooks when users change pass
 
 #### Register Your Webhook
 
-Create a pull request in [cloudops-infra](https://github.com/mozilla-services/cloudops-infra) (FxA can help with this if needed):
-- **Stage:** Edit [projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/nonprod/envs/stage/resources/eventbroker.tf)
-- **Production:** Edit [projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf](https://github.com/mozilla-services/cloudops-infra/blob/master/projects/fxa/tf/prod/envs/prod/resources/eventbroker.tf)
+Create a pull request in [webservices-infra](https://github.com/mozilla/webservices-infra) (FxA can help with this if needed):
+- **Stage:** Edit [fxa-legacy/tf/stage/locals.tf](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa-legacy/tf/stage/locals.tf)
+- **Production:** Edit [fxa-legacy/tf/prod/locals.tf](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa-legacy/tf/prod/locals.tf)
 
-Add your `client_id` to `endpoint_topic_config` and webhook URL to `endpoint_subscription_config`. See [example PR](https://github.com/mozilla-services/cloudops-infra/pull/3727).
+Add your client id and, optionally, webhook endpoint URL to `eventbroker_endpoint_subscription_config`. See [example PR](https://github.com/mozilla/webservices-infra/pull/11381/changes#diff-b43f28c225f0d9fb87d66592886881e2bf54189f71e74ffd3e9a6c24c2f75d25).
 
 #### Verify and Handle Events
 
