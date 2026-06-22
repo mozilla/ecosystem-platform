@@ -46,7 +46,7 @@
     "@types/react": "^19.2.14",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "browserslist": {
     "production": [
