@@ -187,7 +187,7 @@ app.post('/webhook', async (req, res) => {
 });
 ```
 
-**Important:** Resource Servers must return 200 even for unknown users. See [event broker documentation](https://github.com/mozilla/fxa/blob/main/packages/fxa-event-broker/README.md) for event formats.
+**Important:** Resource Servers must return 200 even for unknown users. See [Account Events](../../reference/account-events.md) for the full list of webhook events and their payloads.
 
 ### Step 4: Test on Staging
 
