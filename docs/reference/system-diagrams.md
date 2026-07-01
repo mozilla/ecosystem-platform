@@ -65,6 +65,8 @@ Subscription Platform 3.0 Key:
 
 ![](../../static/diagrams/structurizr-1-EventBrokerSystem.png)
 
+See [Account Events](./account-events.md) for the events that flow through this system — both the relying-party webhooks the broker delivers and the raw internal SNS/SQS event stream it consumes.
+
 # A few additional diagrams
 
 There are a few more private diagrams maintained by the operations group about

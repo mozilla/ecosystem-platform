@@ -77,6 +77,7 @@ module.exports = {
                                 'reference/continuous-integration-for-monorepos'
                               ]
                             },
+                            'reference/account-events',
                             'reference/application-logging',
                             'reference/application-tracing',
                             'reference/authentication-schemes',
