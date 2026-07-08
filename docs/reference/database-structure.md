@@ -4,8 +4,8 @@ title: Database Structure
 
 Current as of:
 
-- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `174`
-- [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `32`
+- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `194`
+- [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `38`
 - [Profile db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_profile): `4`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
@@ -100,6 +100,7 @@ erDiagram
         int amount
         smallint version "unsigned"
         enum eligibilityStatus "create,upgrade,downgrade,blocked_iap,invalid"
+        tinyint isFreeTrial
     }
     accounts }|--o{ recoveryPhones: has
     recoveryPhones {
@@ -108,6 +109,21 @@ erDiagram
         bigint createdAt "unsigned"
         bigint lastConfirmed "unsigned"
         json lookupData
+    }
+    accounts ||--o{ passkeys: has
+    passkeys {
+        binary uid PK "FK 16 bytes"
+        varbinary credentialId PK "up to 1023 bytes"
+        blob publicKey
+        int signCount "unsigned"
+        json transports
+        binary aaguid "16 bytes"
+        varchar name
+        bigint createdAt "unsigned"
+        bigint lastUsedAt "unsigned"
+        tinyint backupEligible
+        tinyint backupState
+        tinyint prfEnabled
     }
     dbMetadata {
         varchar name
@@ -125,6 +141,11 @@ erDiagram
     deletedAccounts {
        binary uid PK "16 bytes"
        bigint deletedAt "unsigned"
+       varchar deletionReason
+    }
+    domainBlocklist {
+       varchar domain "Unique Key"
+       bigint createdAt "unsigned"
     }
 ```
 ```mermaid
@@ -163,6 +184,10 @@ erDiagram
         bigint createdAt PK "unsigned"
         tinyint emailTypeId "unsigned"
         varchar diagnosticCode
+    }
+    emailBlocklist {
+        varchar regex "Unique Key"
+        bigint createdAt "unsigned"
     }
 ```
 ```mermaid
@@ -356,6 +381,14 @@ erDiagram
         binary hashedSecretPrevious "32 bytes; CONFIDENTIAL"
         text notes
     }
+    clients ||--o{ wafBypassTokens : has
+    wafBypassTokens {
+        char id PK "36 bytes"
+        varchar name
+        char token "36 bytes; Unique Key"
+        binary clientId FK "8 bytes; nullable"
+        bigint createdAt "unsigned"
+    }
 ```
 ```mermaid
 erDiagram
@@ -396,12 +429,29 @@ erDiagram
         timestamp lastUsedAt
         bigint profileChangedAt
     }
+    accountAuthorizations {
+        binary uid PK "16 bytes"
+        varchar scope PK
+        varchar service PK
+        binary clientId PK "8 bytes"
+        bigint firstAuthorizedTosAt "unsigned"
+        bigint lastAuthorizedTosAt "unsigned"
+    }
 ```
 ```mermaid
 erDiagram
     scopes {
-        varchar scope PK
+        int id PK "unsigned, auto_increment"
+        varchar scope "Unique Key"
         tinyint hasScopedKeys
+    }
+    scopes ||--o{ accountActivity : tracks
+    accountActivity {
+        binary userId PK "16 bytes"
+        binary clientId PK "8 bytes"
+        int scopeId PK "FK unsigned"
+        bigint firstSeenAt "unsigned"
+        bigint lastSeenAt "unsigned"
     }
     tokens {
         binary token PK "32 bytes; CONFIDENTIAL"
