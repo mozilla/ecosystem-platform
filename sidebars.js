@@ -107,7 +107,12 @@ module.exports = {
                               label: '⚙️ GQL API Reference',
                               href: '/gql-api',
                             },
-                           ],
+                            {
+                              type: 'link',
+                              label: '⚙️ Payments API Reference',
+                              href: '/payments-api',
+                            },
+                            ],
           'Explanation':   [
                             'explanation/architectural-decision-records',
                             'explanation/content-server-architecture',
@@ -116,7 +121,7 @@ module.exports = {
                             'explanation/scoped-keys',
                             'explanation/cms-strapi-l10n',
 
-                           ],
+                          ],
         },
         'additional-docs',
     ]

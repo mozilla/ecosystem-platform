@@ -59,6 +59,11 @@ import mdxMermaid from 'mdx-mermaid'
             spec: 'api-swagger.json',
             route: '/api',
           },
+          {
+            // Comes from https://api.payments.firefox.com/swagger.json .  We're not using the URL here due to CORS errors, we pull updates in via a github action
+            spec: 'api-payments.json',
+            route: '/payments-api',
+          },
         ],
         option: {
           sortTagsAlphabetically: true,
