@@ -7217,6 +7217,26 @@ definitions:
         pattern: '#'
         x-format:
           uri: true
+      exclude_dau:
+        type: boolean
+        description: >-
+          When true, tag this access-token creation so it is excluded from the
+          daily
+
+          active users (DAU) signal. The `access_token.created` Glean event
+          still fires,
+
+          with its `exclude_dau` field set to true. Use this when the access
+          token does
+
+          not represent active use of the service — for example, a token created
+          for a
+
+          signed-in user regardless of whether they are using the service.
+          Accepted on
+
+          the `fxa-credentials` and `authorization_code` grants.
+        default: false
     required:
       - client_id
       - code
@@ -8990,6 +9010,26 @@ x-alt-definitions:
         pattern: '#'
         x-format:
           uri: true
+      exclude_dau:
+        type: boolean
+        description: >-
+          When true, tag this access-token creation so it is excluded from the
+          daily
+
+          active users (DAU) signal. The `access_token.created` Glean event
+          still fires,
+
+          with its `exclude_dau` field set to true. Use this when the access
+          token does
+
+          not represent active use of the service — for example, a token created
+          for a
+
+          signed-in user regardless of whether they are using the service.
+          Accepted on
+
+          the `fxa-credentials` and `authorization_code` grants.
+        default: false
     required:
       - client_id
       - code
@@ -9066,6 +9106,26 @@ x-alt-definitions:
         type: string
       access_type:
         $ref: '#/x-alt-definitions/access_type'
+      exclude_dau:
+        type: boolean
+        description: >-
+          When true, tag this access-token creation so it is excluded from the
+          daily
+
+          active users (DAU) signal. The `access_token.created` Glean event
+          still fires,
+
+          with its `exclude_dau` field set to true. Use this when the access
+          token does
+
+          not represent active use of the service — for example, a token created
+          for a
+
+          signed-in user regardless of whether they are using the service.
+          Accepted on
+
+          the `fxa-credentials` and `authorization_code` grants.
+        default: false
       ttl:
         type: number
         x-constraint:
