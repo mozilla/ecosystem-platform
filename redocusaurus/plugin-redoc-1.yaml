@@ -309,6 +309,23 @@ paths:
                             - product_name
                             - priceInfo
                           additionalProperties: false
+                        - type: object
+                          properties:
+                            _subscription_type:
+                              type: string
+                              const: free_access
+                            current_period_end:
+                              type: number
+                              description: >-
+                                Unix timestamp when the current billing period
+                                ends
+                            product_id:
+                              type: string
+                          required:
+                            - _subscription_type
+                            - current_period_end
+                            - product_id
+                          additionalProperties: false
                     description: >-
                       All active subscriptions across web, Google IAP, and Apple
                       IAP
@@ -343,6 +360,29 @@ paths:
       tags:
         - Webhooks
       summary: Handle CMS content validation webhook
+  /webhooks/strapi/free-access-program/access:
+    post:
+      operationId: FreeAccessProgramWebhooksController_postAccess
+      parameters:
+        - name: authorization
+          required: true
+          in: header
+          schema:
+            type: string
+        - name: authorization
+          in: header
+          description: Webhook authorization token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Webhooks
+      summary: >-
+        Refresh the Free Access Program projection cache on a Strapi access
+        change
   /webhooks/fxa:
     post:
       operationId: FxaWebhooksController_postFxaEvent

@@ -745,7 +745,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model202'
+            $ref: '#/definitions/Model204'
           description: Successful
   /recovery_emails:
     get:
@@ -2307,7 +2307,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model203'
+            $ref: '#/definitions/Model205'
           description: Successful
   /mfa/recoveryKey:
     post:
@@ -3625,12 +3625,17 @@ paths:
 
 
         **Request body:** none
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Model154'
       tags:
         - Passkeys
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model156'
+            $ref: '#/definitions/Model157'
           description: Successful
   /passkey/registration/finish:
     post:
@@ -3665,13 +3670,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model160'
+            $ref: '#/definitions/Model161'
       tags:
         - Passkeys
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model161'
+            $ref: '#/definitions/Model162'
           description: Successful
   /passkey/registration/start:
     post:
@@ -3701,7 +3706,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model172'
+            $ref: '#/definitions/Model173'
           description: Successful
   /password/change/finish:
     post:
@@ -3724,7 +3729,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model173'
+            $ref: '#/definitions/Model174'
       tags:
         - Password
       responses:
@@ -3748,7 +3753,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model174'
+            $ref: '#/definitions/Model175'
       tags:
         - Password
       responses:
@@ -3782,7 +3787,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model175'
+            $ref: '#/definitions/Model176'
       tags:
         - Password
       responses:
@@ -3807,13 +3812,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model176'
+            $ref: '#/definitions/Model177'
       tags:
         - Password
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model177'
+            $ref: '#/definitions/Model178'
           description: Successful
         '400':
           description: >-
@@ -3832,13 +3837,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model178'
+            $ref: '#/definitions/Model179'
       tags:
         - Password
       responses:
-        default:
+        '200':
           schema:
-            type: string
+            $ref: '#/definitions/Model180'
           description: Successful
   /recovery_phone/reset_password/confirm:
     post:
@@ -3886,7 +3891,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model179'
+            $ref: '#/definitions/Model181'
       tags:
         - Recovery phone
       responses:
@@ -3923,13 +3928,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model180'
+            $ref: '#/definitions/Model182'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model181'
+            $ref: '#/definitions/Model183'
           description: Successful
   /totp/setup/complete:
     post:
@@ -3946,13 +3951,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model182'
+            $ref: '#/definitions/Model184'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model183'
+            $ref: '#/definitions/Model185'
           description: Successful
   /totp/setup/verify:
     post:
@@ -3969,13 +3974,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model184'
+            $ref: '#/definitions/Model186'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model185'
+            $ref: '#/definitions/Model187'
           description: Successful
   /totp/verify/recoveryCode:
     post:
@@ -3992,13 +3997,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model186'
+            $ref: '#/definitions/Model188'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model187'
+            $ref: '#/definitions/Model189'
           description: Successful
   /mfa/recovery_email/secondary/resend_code:
     post:
@@ -4012,7 +4017,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model188'
+            $ref: '#/definitions/Model190'
       tags:
         - Emails
       responses:
@@ -4037,7 +4042,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model189'
+            $ref: '#/definitions/Model191'
       tags:
         - Emails
       responses:
@@ -4064,13 +4069,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model190'
+            $ref: '#/definitions/Model192'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model191'
+            $ref: '#/definitions/Model193'
           description: Successful
   /mfa/totp/replace/start:
     post:
@@ -4087,13 +4092,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model192'
+            $ref: '#/definitions/Model194'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model193'
+            $ref: '#/definitions/Model195'
           description: Successful
   /mfa/totp/setup/complete:
     post:
@@ -4110,13 +4115,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model194'
+            $ref: '#/definitions/Model196'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model195'
+            $ref: '#/definitions/Model197'
           description: Successful
   /mfa/totp/setup/verify:
     post:
@@ -4133,13 +4138,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model196'
+            $ref: '#/definitions/Model198'
       tags:
         - totp
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model197'
+            $ref: '#/definitions/Model199'
           description: Successful
   /oauth/subscriptions/iap/app-store-notification:
     post:
@@ -4153,7 +4158,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model198'
+            $ref: '#/definitions/Model200'
       tags:
         - Subscriptions
       responses:
@@ -4170,7 +4175,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model199'
+            $ref: '#/definitions/Model201'
       tags:
         - Subscriptions
       responses:
@@ -4215,7 +4220,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model200'
+            $ref: '#/definitions/Model202'
       tags:
         - Subscriptions
       responses:
@@ -4241,7 +4246,7 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model201'
+            $ref: '#/definitions/Model203'
       tags:
         - Subscriptions
       responses:
@@ -4277,7 +4282,7 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model204'
+            $ref: '#/definitions/Model206'
           description: Successful
     patch:
       summary: /passkey/{credentialId}
@@ -4309,13 +4314,13 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: '#/definitions/Model205'
+            $ref: '#/definitions/Model207'
       tags:
         - Passkeys
       responses:
         '200':
           schema:
-            $ref: '#/definitions/Model206'
+            $ref: '#/definitions/Model208'
           description: Successful
 definitions:
   Model1:
@@ -8210,6 +8215,8 @@ definitions:
         pattern: ^[a-zA-Z0-9\-]*$
       keysRequired:
         type: boolean
+      prfSupported:
+        type: boolean
       metricsContext:
         $ref: '#/definitions/metricsContext'
     required:
@@ -8234,15 +8241,20 @@ definitions:
       - hasPassword
   Model154:
     type: object
+    properties:
+      keysRequired:
+        type: boolean
+  Model155:
+    type: object
   allowCredentials:
     type: array
     items:
-      $ref: '#/definitions/Model154'
+      $ref: '#/definitions/Model155'
   userVerification:
     type: string
     enum:
       - required
-  Model155:
+  Model156:
     type: string
     enum:
       - hybrid
@@ -8251,10 +8263,10 @@ definitions:
   hints:
     type: array
     items:
-      $ref: '#/definitions/Model155'
+      $ref: '#/definitions/Model156'
   extensions:
     type: object
-  Model156:
+  Model157:
     type: object
     properties:
       challenge:
@@ -8274,11 +8286,11 @@ definitions:
     required:
       - challenge
       - userVerification
-  Model157:
+  Model158:
     type: string
     enum:
       - public-key
-  Model158:
+  Model159:
     type: object
     properties:
       clientDataJSON:
@@ -8300,7 +8312,7 @@ definitions:
     required:
       - clientDataJSON
       - attestationObject
-  Model159:
+  Model160:
     type: object
     properties:
       id:
@@ -8312,18 +8324,18 @@ definitions:
         maxLength: 1364
         pattern: ^[A-Za-z0-9_-]+$
       type:
-        $ref: '#/definitions/Model157'
-      response:
         $ref: '#/definitions/Model158'
+      response:
+        $ref: '#/definitions/Model159'
     required:
       - id
       - type
       - response
-  Model160:
+  Model161:
     type: object
     properties:
       response:
-        $ref: '#/definitions/Model159'
+        $ref: '#/definitions/Model160'
       challenge:
         type: string
         maxLength: 64
@@ -8331,7 +8343,7 @@ definitions:
     required:
       - response
       - challenge
-  Model161:
+  Model162:
     type: object
     properties:
       credentialId:
@@ -8384,29 +8396,29 @@ definitions:
       - id
       - name
       - displayName
-  Model162:
+  Model163:
     type: string
     enum:
       - public-key
-  Model163:
+  Model164:
     type: object
     properties:
       alg:
         type: number
       type:
-        $ref: '#/definitions/Model162'
+        $ref: '#/definitions/Model163'
     required:
       - alg
       - type
   pubKeyCredParams:
     type: array
     items:
-      $ref: '#/definitions/Model163'
-  Model164:
+      $ref: '#/definitions/Model164'
+  Model165:
     type: string
     enum:
       - public-key
-  Model165:
+  Model166:
     type: string
     enum:
       - ble
@@ -8416,26 +8428,26 @@ definitions:
       - nfc
       - smart-card
       - usb
-  Model166:
+  Model167:
     type: array
     items:
-      $ref: '#/definitions/Model165'
-  Model167:
+      $ref: '#/definitions/Model166'
+  Model168:
     type: object
     properties:
       id:
         type: string
       type:
-        $ref: '#/definitions/Model164'
+        $ref: '#/definitions/Model165'
       transports:
-        $ref: '#/definitions/Model166'
+        $ref: '#/definitions/Model167'
     required:
       - id
       - type
   excludeCredentials:
     type: array
     items:
-      $ref: '#/definitions/Model167'
+      $ref: '#/definitions/Model168'
   authenticatorAttachment:
     type: string
     enum:
@@ -8460,16 +8472,16 @@ definitions:
         $ref: '#/definitions/userVerification'
     required:
       - userVerification
-  Model168:
+  Model169:
     type: string
     enum:
       - hybrid
       - security-key
       - client-device
-  Model169:
+  Model170:
     type: array
     items:
-      $ref: '#/definitions/Model168'
+      $ref: '#/definitions/Model169'
   attestation:
     type: string
     enum:
@@ -8477,7 +8489,7 @@ definitions:
       - enterprise
       - indirect
       - none
-  Model170:
+  Model171:
     type: string
     enum:
       - fido-u2f
@@ -8490,7 +8502,7 @@ definitions:
   attestationFormats:
     type: array
     items:
-      $ref: '#/definitions/Model170'
+      $ref: '#/definitions/Model171'
   eval:
     type: object
     properties:
@@ -8505,7 +8517,7 @@ definitions:
     properties:
       eval:
         $ref: '#/definitions/eval'
-  Model171:
+  Model172:
     type: object
     properties:
       appid:
@@ -8518,7 +8530,7 @@ definitions:
         type: boolean
       prf:
         $ref: '#/definitions/prf'
-  Model172:
+  Model173:
     type: object
     properties:
       rp:
@@ -8536,19 +8548,19 @@ definitions:
       authenticatorSelection:
         $ref: '#/definitions/authenticatorSelection'
       hints:
-        $ref: '#/definitions/Model169'
+        $ref: '#/definitions/Model170'
       attestation:
         $ref: '#/definitions/attestation'
       attestationFormats:
         $ref: '#/definitions/attestationFormats'
       extensions:
-        $ref: '#/definitions/Model171'
+        $ref: '#/definitions/Model172'
     required:
       - rp
       - user
       - challenge
       - pubKeyCredParams
-  Model173:
+  Model174:
     type: object
     properties:
       authPW:
@@ -8593,7 +8605,7 @@ definitions:
     required:
       - authPW
       - sessionToken
-  Model174:
+  Model175:
     type: object
     properties:
       email:
@@ -8611,7 +8623,7 @@ definitions:
     required:
       - email
       - oldAuthPW
-  Model175:
+  Model176:
     type: object
     properties:
       email:
@@ -8631,7 +8643,7 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model176:
+  Model177:
     type: object
     properties:
       code:
@@ -8646,12 +8658,12 @@ definitions:
         type: boolean
     required:
       - code
-  Model177:
+  Model178:
     type: object
     properties:
       accountResetToken:
         type: string
-  Model178:
+  Model179:
     type: object
     properties:
       email:
@@ -8669,14 +8681,32 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - email
-  Model179:
+  Model180:
+    type: object
+    properties:
+      code:
+        type: string
+      emailToHashWith:
+        type: string
+      token:
+        type: string
+      uid:
+        type: string
+      hasPasskey:
+        type: boolean
+    required:
+      - code
+      - emailToHashWith
+      - token
+      - uid
+  Model181:
     type: object
     properties:
       code:
         type: string
         minLength: 6
         maxLength: 8
-  Model180:
+  Model182:
     type: object
     properties:
       code:
@@ -8692,18 +8722,6 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - code
-  Model181:
-    type: object
-    properties:
-      success:
-        type: boolean
-    required:
-      - success
-  Model182:
-    type: object
-    properties:
-      metricsContext:
-        $ref: '#/definitions/metricsContext'
   Model183:
     type: object
     properties:
@@ -8714,15 +8732,8 @@ definitions:
   Model184:
     type: object
     properties:
-      code:
-        type: string
-        description: The TOTP code to check
-        maxLength: 32
-        pattern: ^[0-9]+$
       metricsContext:
         $ref: '#/definitions/metricsContext'
-    required:
-      - code
   Model185:
     type: object
     properties:
@@ -8735,15 +8746,34 @@ definitions:
     properties:
       code:
         type: string
+        description: The TOTP code to check
+        maxLength: 32
+        pattern: ^[0-9]+$
+      metricsContext:
+        $ref: '#/definitions/metricsContext'
+    required:
+      - code
+  Model187:
+    type: object
+    properties:
+      success:
+        type: boolean
+    required:
+      - success
+  Model188:
+    type: object
+    properties:
+      code:
+        type: string
         minLength: 8
         maxLength: 20
         pattern: ^[a-zA-Z0-9]*$
-  Model187:
+  Model189:
     type: object
     properties:
       remaining:
         type: number
-  Model188:
+  Model190:
     type: object
     properties:
       email:
@@ -8754,7 +8784,7 @@ definitions:
           ^(?:[^\u0000-\u001F\u007F\u0080-\u009F\u2028-\u2029\uD800-\uDFFF\uE000-\uF8FF\uFFF9-\uFFFC\uFFFE-\uFFFF])*$
     required:
       - email
-  Model189:
+  Model191:
     type: object
     properties:
       email:
@@ -8771,7 +8801,7 @@ definitions:
     required:
       - email
       - code
-  Model190:
+  Model192:
     type: object
     properties:
       code:
@@ -8781,17 +8811,17 @@ definitions:
         pattern: ^[0-9]+$
     required:
       - code
-  Model191:
+  Model193:
     type: object
     properties:
       success:
         type: boolean
-  Model192:
+  Model194:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model193:
+  Model195:
     type: object
     properties:
       qrCodeUrl:
@@ -8801,19 +8831,19 @@ definitions:
     required:
       - qrCodeUrl
       - secret
-  Model194:
+  Model196:
     type: object
     properties:
       metricsContext:
         $ref: '#/definitions/metricsContext'
-  Model195:
+  Model197:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model196:
+  Model198:
     type: object
     properties:
       code:
@@ -8825,14 +8855,14 @@ definitions:
         $ref: '#/definitions/metricsContext'
     required:
       - code
-  Model197:
+  Model199:
     type: object
     properties:
       success:
         type: boolean
     required:
       - success
-  Model198:
+  Model200:
     type: object
     properties:
       signedPayload:
@@ -8846,21 +8876,21 @@ definitions:
         type: string
     required:
       - data
-  Model199:
+  Model201:
     type: object
     properties:
       message:
         $ref: '#/definitions/message'
     required:
       - message
-  Model200:
+  Model202:
     type: object
     properties:
       originalTransactionId:
         type: string
     required:
       - originalTransactionId
-  Model201:
+  Model203:
     type: object
     properties:
       sku:
@@ -8870,19 +8900,19 @@ definitions:
     required:
       - sku
       - token
-  Model202:
-    type: object
-    properties:
-      success:
-        type: boolean
-  Model203:
-    type: object
-    properties:
-      success:
-        type: boolean
   Model204:
     type: object
+    properties:
+      success:
+        type: boolean
   Model205:
+    type: object
+    properties:
+      success:
+        type: boolean
+  Model206:
+    type: object
+  Model207:
     type: object
     properties:
       name:
@@ -8891,7 +8921,7 @@ definitions:
         maxLength: 255
     required:
       - name
-  Model206:
+  Model208:
     type: object
     properties:
       credentialId:
