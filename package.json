@@ -20,33 +20,33 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.9.2",
-    "@docusaurus/preset-classic": "^3.9.2",
-    "@docusaurus/theme-mermaid": "^3.9.2",
-    "@docusaurus/theme-search-algolia": "^3.9.2",
-    "@graphql-markdown/docusaurus": "^1.33.0",
-    "@graphql-tools/graphql-file-loader": "^8.1.12",
+    "@docusaurus/core": "^3.10.2",
+    "@docusaurus/preset-classic": "^3.10.2",
+    "@docusaurus/theme-mermaid": "^3.10.2",
+    "@docusaurus/theme-search-algolia": "^3.10.2",
+    "@graphql-markdown/docusaurus": "^1.35.0",
+    "@graphql-tools/graphql-file-loader": "^8.1.18",
     "@mdx-js/react": "^3.1.1",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",
-    "graphql": "^16.13.1",
-    "mdx-mermaid": "^2.0.3",
-    "mermaid": "11.13.0",
+    "graphql": "^17.0.2",
+    "mdx-mermaid": "^2.0.4",
+    "mermaid": "11.16.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "redocusaurus": "^2.5.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "redocusaurus": "^2.5.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.105.4"
+    "webpack": "^5.109.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.9.2",
+    "@docusaurus/module-type-aliases": "^3.10.2",
     "@tsconfig/docusaurus": "^2.0.9",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.18",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "browserslist": {
     "production": [
