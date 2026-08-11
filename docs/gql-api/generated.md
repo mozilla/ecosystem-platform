@@ -16,4 +16,4 @@ Use the docs in the sidebar to find out how to use the schema:
 - **Allowed operations**: queries and mutations.
 - **Schema-defined types**: scalars, objects, enums, interfaces, unions, and input objects.
 
-<small><i>Generated on 8/6/2026, 9:00:13 AM.</i></small>
+<small><i>Generated on 8/11/2026, 8:24:23 AM.</i></small>
