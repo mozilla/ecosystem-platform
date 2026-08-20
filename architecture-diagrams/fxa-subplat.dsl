@@ -104,6 +104,11 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
                     description "Stores oauth access/session token info, metric data, and email reminders"
                     technology "Redis"
                 }
+                paymentsNextCache = container "Payments Next Cache" {
+                    tags "Cache,Payments3"
+                    description "Stores CMS queries results, Google and Apple IAP data."
+                    technology "Firestore"
+                }
                 browserIdVerifierApplication = container "Browser ID Verifier Application" {
                     description "Verifies BrowserID assertions"
                     technology "Node and Express"
@@ -158,7 +163,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
                     description "Provides customer settings and account management via GraphQL API"
                     technology "Node and NestJS"
                 }
-                nextPayments = container "SubPlat 3.0 Web App and Server" {
+                nextPayments = container "Payments Next" {
                     tags "Web Browser,Payments3"
                     description "Provides checkout/upgrade payment flows and subscription managaement"
                     technology "TypeScript and NextJS"
@@ -309,6 +314,7 @@ workspace "${ACCOUNT_NAME} / ${PAYMENTS_NAME}" "Services Engineering" {
         graphqlApplication -> oauthDatabase "Uses"
 
         nextPayments -> authServerDatabase "Uses"
+        nextPayments -> paymentsNextCache "Uses"
         nextPayments -> paypal "Integrates Stripe invoicing with"
         nextPayments -> stripe "Uses"
         nextPayments -> hCMS "Fetches product configuration from" "GraphQL API"
