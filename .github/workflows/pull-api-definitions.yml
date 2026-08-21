@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone ecosystem-docs code repository
-        uses: actions/checkout@v3
-
-      - name: Set up npm
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v5
 
       - name: Set up Git
         id: setup
@@ -56,6 +53,12 @@ jobs:
       - name: create pull request
         if: steps.diff.outcome == 'failure'
         run: |
-          gh pr create -B master -H pull-api-definitions --title "New API definitions" --body "Updated APIs detected.  Here are some new docs."
+          # The branch is force-pushed every run, so an already-open PR has
+          # picked up the new commit and `gh pr create` would just error out.
+          if gh pr view pull-api-definitions --json state --jq .state 2>/dev/null | grep -q OPEN; then
+            echo "::notice:: PR already open for pull-api-definitions; the force-push updated it."
+          else
+            gh pr create -B master -H pull-api-definitions --title "New API definitions" --body "Updated APIs detected.  Here are some new docs."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
