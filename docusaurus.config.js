@@ -19,20 +19,6 @@ import mdxMermaid from 'mdx-mermaid'
   },
   themes:['@docusaurus/theme-mermaid'],
 
-  plugins: [
-      [
-          "@graphql-markdown/docusaurus",
-          {
-              baseURL: "gql-api",
-              rootPath: "./docs",
-              schema: "api-gql.gql",
-              loaders: {
-                GraphQLFileLoader: "@graphql-tools/graphql-file-loader"
-              }
-          }
-      ],
-  ],
-
   presets: [
     [
       '@docusaurus/preset-classic',

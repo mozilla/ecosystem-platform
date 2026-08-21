@@ -31,7 +31,6 @@ jobs:
           # Run script to pull docs
           curl https://api.accounts.firefox.com/swagger.json -o api-swagger.json
           curl https://api.payments.firefox.com/swagger.json -o api-payments.json
-          curl https://accounts-static.cdn.mozilla.net/fxa-graphql-api/schema.gql -o api-gql.gql
 
       - name: See if anything changed
         id: diff
@@ -50,9 +49,7 @@ jobs:
         id: commit
         if: steps.diff.outcome == 'failure'
         run: |
-          npm install @graphql-markdown/docusaurus graphql
-          npx docusaurus graphql-to-doc
-          git add api-swagger.json api-payments.json api-gql.gql docs/gql-api
+          git add api-swagger.json api-payments.json
           git commit -m "New API definitions"
           git push origin pull-api-definitions -f
 
