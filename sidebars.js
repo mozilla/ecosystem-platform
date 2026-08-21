@@ -104,11 +104,6 @@ module.exports = {
                             },
                             {
                               type: 'link',
-                              label: '⚙️ GQL API Reference',
-                              href: '/gql-api',
-                            },
-                            {
-                              type: 'link',
                               label: '⚙️ Payments API Reference',
                               href: '/payments-api',
                             },
@@ -139,5 +134,4 @@ module.exports = {
       ]
     }
   ],
-  ...require("./docs/gql-api/sidebar-schema.js"),
 };
