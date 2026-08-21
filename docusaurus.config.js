@@ -1,6 +1,5 @@
 import {github as lightCodeTheme} from 'prism-react-renderer';
 import {dracula as darkCodeTheme}  from 'prism-react-renderer';
-import mdxMermaid from 'mdx-mermaid'
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
@@ -28,7 +27,6 @@ import mdxMermaid from 'mdx-mermaid'
           routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/mozilla/ecosystem-platform/edit/master/',
-          remarkPlugins: [mdxMermaid],
         },
         blog: false,
         theme: {
