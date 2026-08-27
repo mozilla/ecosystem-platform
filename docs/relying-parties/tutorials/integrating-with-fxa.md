@@ -4,7 +4,7 @@ title: Integration with FxA
 sidebar_label: Integration with FxA
 ---
 
-Last updated: `March 18th, 2026`
+Last updated: `August 20th, 2026`
 
 ## Overview
 
@@ -115,6 +115,8 @@ Build the authorization URL with these parameters:
 | `code_challenge_method` | No | Only needed if using PKCE. Only `S256` is supported |
 | `access_type` | Recommended | `online` or `offline` (offline gives refresh tokens) |
 | `action` | Recommended | `email` or `force_auth` |
+| `acr_values` | No | Use `AAL2` to require the user to have completed two-factor authentication. See [step-up authentication](/relying-parties/how-tos/step-up-authentication) |
+| `max_age` | No | Maximum age in seconds of the user's last authentication. Pair with `acr_values` to force a fresh second-factor challenge |
 | `entrypoint` | Recommended | Metrics identifier (coordinate with FxA team) |
 | `utm_campaign` | No | |
 | `utm_source` | No | |
@@ -211,7 +213,7 @@ Before going live:
   - OAuth: `https://oauth.accounts.firefox.com/`
 - [ ] Register production webhook URL
 - [ ] Submitted your service icon
-- [ ] Joined [firefox-accounts-notices][firefox-accounts-notices] mailing list
+- [ ] Joined [mozilla-accounts-notices][mozilla-accounts-notices] mailing list
 
 ## Reference
 
