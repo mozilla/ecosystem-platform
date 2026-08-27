@@ -17,6 +17,7 @@ module.exports = {
                           'relying-parties/how-tos/apple-iap',
                           'relying-parties/how-tos/product-metrics',
                           'relying-parties/how-tos/device-registration',
+                          'relying-parties/how-tos/step-up-authentication',
                          ],
         'Reference': [
                       'relying-parties/reference/glossary',

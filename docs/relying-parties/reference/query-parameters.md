@@ -2,12 +2,35 @@
 title: Query Parameters
 ---
 
-Current as of `Nov 17th, 2022`
+Current as of `August 20th, 2026`
 
 
 Query parameters are used to pass data from the relying party to Mozilla accounts.
 
 ## OAuth parameters
+
+### `acr_values`
+
+Specifies the [Authentication Context Class Reference][acr] values the session must satisfy before
+a grant is issued. Space-separated, per the OIDC specification.
+
+#### Options
+
+- `AAL2` - Require that the user has completed two-factor authentication (authenticator assurance
+  level 2) for this session. If they have not, they are challenged for a second factor before the
+  authorization completes. This is the only value Mozilla accounts recognises; any other value in
+  the list is silently ignored.
+  See the [step-up authentication guide](/relying-parties/how-tos/step-up-authentication) for more info.
+
+#### When to specify
+
+When authenticating a user for OAuth ahead of a sensitive action, where being signed in is not
+sufficient assurance on its own.
+
+Not compatible with `prompt=none`: a session that does not already meet the requirement cannot be
+challenged without interaction, so the request fails with
+`error=unmet_authentication_requirements`. See
+[step-up with `prompt=none`](/relying-parties/how-tos/step-up-authentication#step-up-with-promptnone).
 
 ### `client_id`
 
@@ -16,6 +39,26 @@ Specify the OAuth client_id of the relier being signed in to.
 #### When to specify
 
 When authenticating a user for OAuth.
+
+### `max_age`
+
+The maximum permissible age, in seconds, of the user's most recent authentication event. If the
+session's last authentication is older than this, the user is challenged for a second factor before
+the authorization completes.
+
+Freshness is evaluated with a five-second grace period, so `max_age=0` means "authenticated within
+the last few seconds" rather than "authenticated this instant". Choosing a value is the main
+trade-off in a step-up integration - see
+[Choosing a `max_age`](/relying-parties/how-tos/step-up-authentication#choosing-a-max_age).
+
+#### Options
+
+An integer of `0` or greater. There is no upper bound.
+
+#### When to specify
+
+When authenticating a user for OAuth and the *recency* of their authentication matters, not only
+that they authenticated at some point. Commonly paired with `acr_values=AAL2`.
 
 ### `prompt`
 
@@ -303,3 +346,5 @@ if they perform a reset password.
 #### When to specify
 
 - /settings/emails
+
+[acr]: https://openid.net/specs/openid-connect-core-1_0.html#acrSemantics

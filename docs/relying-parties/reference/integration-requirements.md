@@ -3,11 +3,11 @@ title: Requirements for Integration
 sidebar_label: Integration Requirements
 ---
 
-Last updated: `June 8th, 2023`
+Last updated: `August 27th, 2026`
 
 
 ## Maintain a point of contact 
-We communicate with our relying parties via the [firefox-accounts-notices group](https://groups.google.com/a/mozilla.com/g/firefox-accounts-notices).  You must subscribe to this list.
+We communicate with our relying parties via the [mozilla-accounts-notices group](https://groups.google.com/a/mozilla.com/g/mozilla-accounts-notices).  You must subscribe to this list.
 
 ## Subscribe to and process events
 Mozilla accounts maintains an [event broker which is a webhook delivery system to communicate with relying parties](/relying-parties/tutorials/integration-with-fxa#webhook-events).  You must [register an endpoint to receive events](/relying-parties/tutorials/integration-with-fxa#register-for-webhooks).  See [Account Events](/reference/account-events) for the full list of events and their payloads.  You will receive events you may or may not care about but some events require you to perform actions:
