@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkfirefox_ecosystem_platform||=[]).push([[9647],{7121(e,r,s){s.r(r),s.d(r,{default:()=>i});s(96540);var a=s(34164),t=s(17559),c=s(45500),o=s(22831),u=s(62765),l=s(74848);function i(e){return(0,l.jsx)(c.e3,{className:(0,a.A)(t.G.wrapper.docsPages),children:(0,l.jsx)(u.A,{children:(0,o.v)(e.route.routes)})})}}}]);
