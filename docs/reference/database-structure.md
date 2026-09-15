@@ -125,6 +125,17 @@ erDiagram
         tinyint backupState
         tinyint prfEnabled
     }
+    passkeys ||--o| passkeyWraps: has
+    passkeyWraps {
+        binary uid PK "FK 16 bytes"
+        varbinary credentialId PK "FK up to 1023 bytes"
+        binary pkR "133 bytes"
+        binary prfWrappedSkR "82 bytes; CONFIDENTIAL"
+        binary keyWrapIv "12 bytes"
+        binary hpkeEncapsulatedSecret "133 bytes"
+        binary hpkeSealedKb "48 bytes; CONFIDENTIAL"
+        bigint createdAt "unsigned"
+    }
     dbMetadata {
         varchar name
         varchar value
@@ -359,6 +370,10 @@ erDiagram
 
 ## Database: `fxa_oauth`
 
+`accountAuthorizations_v2` is a shadow of `accountAuthorizations` that replaces
+the `scope` varchar with a `scopeId` foreign key.  v1 remains authoritative
+while the app dual-writes both behind a config flag.
+
 ```mermaid
 erDiagram
     clientDevelopers {
@@ -452,6 +467,15 @@ erDiagram
         int scopeId PK "FK unsigned"
         bigint firstSeenAt "unsigned"
         bigint lastSeenAt "unsigned"
+    }
+    scopes ||--o{ accountAuthorizations_v2 : records
+    accountAuthorizations_v2 {
+        binary uid PK "16 bytes"
+        varchar service PK
+        int scopeId PK "FK unsigned"
+        binary clientId PK "8 bytes"
+        bigint firstAuthorizedTosAt "unsigned"
+        bigint lastAuthorizedTosAt "unsigned"
     }
     tokens {
         binary token PK "32 bytes; CONFIDENTIAL"
