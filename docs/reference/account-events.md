@@ -123,7 +123,15 @@ Example:
 
 ### Delete user
 
-Identifier: `https://schemas.accounts.firefox.com/event/delete-user`. Sent when the account was deleted; the RP MUST delete all records for the user. The payload is an empty object (`{}`).
+Identifier: `https://schemas.accounts.firefox.com/event/delete-user`. Sent when the account was deleted; the RP MUST delete all records for the user.
+
+| Payload field | Type   | Description                                                                                                    |
+| ------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
+| `reason`      | string | Why the account was deleted: `user`, `admin`, `inactivity`, or `unverified`. Omitted for other internal causes. |
+
+`reason` is optional, so the payload may still be an empty object (`{}`). Treat
+an absent `reason` as "deleted, cause not disclosed" — it does not mean the
+deletion was user-initiated.
 
 Example:
 
@@ -135,7 +143,9 @@ Example:
   "iat": 1565720810,
   "jti": "1b3d623a-300a-4ab8-9241-855c35586809",
   "events": {
-    "https://schemas.accounts.firefox.com/event/delete-user": {}
+    "https://schemas.accounts.firefox.com/event/delete-user": {
+      "reason": "user"
+    }
   }
 }
 ```
@@ -315,12 +325,13 @@ A device was removed.
 
 The account was deleted.
 
-| Field            | Type   | Description                               |
-| ---------------- | ------ | ----------------------------------------- |
-| `uid`            | string | Account id.                               |
-| `timestamp`      | number | Event time in milliseconds.               |
-| `ts`             | number | Event time in float seconds.              |
-| `iss`            | string | Issuing FxA domain.                       |
-| `metricsContext` | object | Flow / metrics metadata from the request. |
+| Field            | Type   | Description                                                                                                    |
+| ---------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
+| `uid`            | string | Account id.                                                                                                    |
+| `reason`         | string | Why the account was deleted: `user`, `admin`, `inactivity`, or `unverified`. Omitted for other internal causes. |
+| `timestamp`      | number | Event time in milliseconds.                                                                                    |
+| `ts`             | number | Event time in float seconds.                                                                                   |
+| `iss`            | string | Issuing FxA domain.                                                                                            |
+| `metricsContext` | object | Flow / metrics metadata from the request.                                                                       |
 
 [set]: https://datatracker.ietf.org/doc/html/rfc8417
