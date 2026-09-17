@@ -31,6 +31,7 @@ flowchart TD
   phone1 -.-> failure
   desktop2 --> done(["Sync connected"])
   phone2 --> done
+  done ~~~ fxreq
   classDef page fill:#deebff,stroke:#0060df,stroke-width:1.5px,color:#15141a
   classDef step fill:#f9f9fb,stroke:#8f8f9d,color:#15141a
   classDef legacy fill:#f0f0f4,stroke:#8f8f9d,stroke-dasharray:5 3,color:#5b5b66

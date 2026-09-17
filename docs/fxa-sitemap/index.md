@@ -13,7 +13,7 @@ Every screen in the Mozilla accounts (FxA) web UI, grouped by flow, with how use
 
 ```mermaid
 %%{init: {"flowchart": {"padding": 28}}}%%
-flowchart LR
+flowchart TD
   entry(["Entry modes<br/>Firefox, mobile, relying party,<br/>direct visit, email link"]) --> signin(["Sign in"])
   entry --> signup(["Sign up"])
   signin --> reset(["Reset password"])
