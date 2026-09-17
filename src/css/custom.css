@@ -103,3 +103,59 @@
 [data-theme="dark"] [id^=mermaid] line, [data-theme="dark"] [id^=mermaid] path {
   stroke: #9c9c9c !important;
 }
+/* FxA sitemap live widgets (src/js/fxa-sitemap-live.js) */
+.fxa-drift { border-left: 4px solid var(--ifm-color-emphasis-400); padding: 0.75rem 1rem; margin: 1rem 0 2rem; background: var(--ifm-color-emphasis-100); }
+.fxa-drift-ok { border-left-color: var(--ifm-color-success); }
+.fxa-drift-warn { border-left-color: var(--ifm-color-warning); }
+.fxa-drift-error { border-left-color: var(--ifm-color-emphasis-500); }
+.fxa-drift p:last-child { margin-bottom: 0; }
+.fxa-drift-meta { color: var(--ifm-color-emphasis-600); font-size: 0.85em; }
+
+/* Hover previews */
+.fxa-hoverable { cursor: default; }
+.docusaurus-mermaid-container a g.node { cursor: pointer; }
+article table code.fxa-hoverable { text-decoration: underline dotted var(--ifm-color-primary); text-underline-offset: 3px; }
+article table code.fxa-hoverable:hover { background: var(--ifm-color-primary-lightest); cursor: help; }
+g.node.fxa-hoverable rect, g.node.fxa-hoverable polygon, g.node.fxa-hoverable path { transition: filter 0.15s, stroke-width 0.15s; }
+g.node.fxa-hoverable:hover rect, g.node.fxa-hoverable:hover polygon, g.node.fxa-hoverable:hover path { filter: brightness(0.93); stroke-width: 2px; }
+.fxa-pop { position: fixed; z-index: 1200; width: 460px; max-width: calc(100vw - 16px); background: var(--ifm-background-surface-color); border: 1px solid var(--ifm-color-emphasis-300); border-radius: 8px; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22); display: none; overflow: hidden; }
+.fxa-pop.is-visible { display: block; }
+.fxa-pop-head { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.6rem; font-size: 0.85rem; border-bottom: 1px solid var(--ifm-color-emphasis-200); }
+.fxa-pop-title { font-weight: 600; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fxa-pop-open { white-space: nowrap; }
+.fxa-pop-close { border: 0; background: none; cursor: pointer; font-size: 1.1rem; line-height: 1; padding: 0 0.2rem; color: var(--ifm-color-emphasis-700); }
+.fxa-pop-body { position: relative; height: 600px; background: #fff; }
+.fxa-pop-frame, .fxa-pop-img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: none; }
+.fxa-pop-img { object-fit: contain; object-position: top center; }
+.fxa-pop.is-iframe .fxa-pop-frame, .fxa-pop.is-image .fxa-pop-img { display: block; }
+.fxa-pop.is-loading .fxa-pop-frame, .fxa-pop.is-loading .fxa-pop-img { visibility: hidden; }
+.fxa-pop-loading { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--ifm-color-emphasis-600); font-size: 0.9rem; background: var(--ifm-color-emphasis-100); }
+.fxa-pop.is-loading .fxa-pop-loading { display: flex; }
+@media (max-width: 996px) { .fxa-pop { display: none !important; } }
+
+/* Diagram legend and preview badges */
+.fxa-eye-bg { fill: #fff; stroke: var(--ifm-color-emphasis-400); stroke-width: 1px; }
+.fxa-eye-outline { fill: none; stroke: var(--ifm-color-primary); stroke-width: 1.6px; }
+.fxa-eye-pupil { fill: var(--ifm-color-primary); }
+g.node.fxa-has-preview:hover .fxa-eye-bg { stroke: var(--ifm-color-primary); }
+.fxa-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.82rem; color: var(--ifm-color-emphasis-700); margin: -0.5rem 0 1.5rem; }
+.fxa-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+.fxa-legend-hint { color: var(--ifm-color-emphasis-600); }
+.fxa-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #8f8f9d; background: #f9f9fb; }
+.fxa-swatch-page { background: #deebff; border-color: #0060df; }
+.fxa-swatch-step { background: #f9f9fb; border-color: #8f8f9d; }
+.fxa-swatch-legacy { background: #f0f0f4; border-style: dashed; border-color: #8f8f9d; }
+.fxa-swatch-exit { background: #e3fff3; border-color: #017a40; }
+.fxa-swatch-source { background: #fff4de; border-color: #c45a27; }
+.fxa-swatch-flow { background: #f3e8ff; border-color: #7542e5; border-radius: 7px; }
+.fxa-swatch-mode { background: #f0f0f4; border-color: #5b5b66; }
+/* Mermaid tooltips render white-on-light with this theme; previews replace them */
+.mermaidTooltip { display: none !important; }
+
+/* FxA sitemap tables: give the Purpose column room; routes may wrap */
+article.fxa-sitemap table { display: table; width: 100%; table-layout: fixed; }
+article.fxa-sitemap table th:nth-child(1), article.fxa-sitemap table td:nth-child(1) { width: 33%; }
+article.fxa-sitemap table th:nth-child(2), article.fxa-sitemap table td:nth-child(2) { width: 28%; }
+article.fxa-sitemap table td { overflow-wrap: anywhere; }
+article.fxa-sitemap table td code { white-space: normal; font-size: 0.85em; }
+article.fxa-sitemap details { margin-bottom: 1rem; }

@@ -3,6 +3,23 @@ module.exports = {
     'intro',
     {
       type: 'category',
+      label: 'FxA Sitemap',
+      link: { type: 'doc', id: 'fxa-sitemap/index' },
+      items: [
+        'fxa-sitemap/entry-modes',
+        'fxa-sitemap/flow-signin',
+        'fxa-sitemap/flow-signup',
+        'fxa-sitemap/flow-reset-password',
+        'fxa-sitemap/flow-oauth-relying-party',
+        'fxa-sitemap/flow-third-party-auth',
+        'fxa-sitemap/flow-post-signin-setup',
+        'fxa-sitemap/flow-pairing',
+        'fxa-sitemap/flow-settings',
+        'fxa-sitemap/emails',
+      ],
+    },
+    {
+      type: 'category',
       label: 'For Relying Parties',
       collapsible: false,
       items: [{
