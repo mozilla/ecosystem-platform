@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Tokens | Firefox Ecosystem Platform</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mozilla.github.io/ecosystem-platform/reference/tokens"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Tokens | Firefox Ecosystem Platform"><meta data-rh="true" name="description" content="Last updated: April 17, 2023"><meta data-rh="true" property="og:description" content="Last updated: April 17, 2023"><link data-rh="true" rel="icon" href="/ecosystem-platform/img/firefox-logo.png"><link data-rh="true" rel="canonical" href="https://mozilla.github.io/ecosystem-platform/reference/tokens"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/reference/tokens" hreflang="en"><link data-rh="true" rel="alternate" href="https://mozilla.github.io/ecosystem-platform/reference/tokens" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://RFM5H13DFK-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tokens","item":"https://mozilla.github.io/ecosystem-platform/reference/tokens"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Firefox Ecosystem Platform" href="/ecosystem-platform/opensearch.xml"><link rel="stylesheet" href="/ecosystem-platform/assets/css/styles.7d3c899c.css">
-<script src="/ecosystem-platform/assets/js/runtime~main.23c59817.js" defer="defer"></script>
-<script src="/ecosystem-platform/assets/js/main.d915a3d0.js" defer="defer"></script>
+<script src="/ecosystem-platform/assets/js/runtime~main.cd4939e1.js" defer="defer"></script>
+<script src="/ecosystem-platform/assets/js/main.d19df749.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -102,6 +102,13 @@ has successfully successfully performed 2FA.</li>
 performed on this session (such as &quot;entered password&quot; or &quot;completed email loop&quot; or &quot;provided totp code&quot;).</li>
 </ul>
 <p>On the backend, the <code>verifiedSessionToken</code> strategy enforces AAL2-level interactions for endpoints considered &quot;sensitive&quot; (e.g. modifying email, 2FA settings, etc.). This means if a user has set up 2FA on one device, they will need to enter their TOTP code on another device to &quot;upgrade&quot; that non-AAL2 session before performing sensitive actions.</p>
+<p>This session state is also exposed to relying parties over OAuth. An RP can <em>require</em> it with the
+<code>acr_values=AAL2</code> and <code>max_age</code> authorization parameters, and read the result back from the <code>acr</code>,
+<code>auth_time</code>, and <code>amr</code> claims. See
+<a class="" href="/ecosystem-platform/relying-parties/how-tos/step-up-authentication">step-up authentication</a>.</p>
+<p><code>lastAuthAt()</code> on the session token — the source of <code>auth_time</code> / <code>auth_at</code> — reports
+<code>max(authAt, verifiedAt)</code>, so a second-factor challenge partway through a session advances it. It is
+not the password sign-in time.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="oauth-refresh-tokens">OAuth Refresh Tokens<a href="#oauth-refresh-tokens" class="hash-link" aria-label="Direct link to OAuth Refresh Tokens" title="Direct link to OAuth Refresh Tokens" translate="no">​</a></h3>
 <p>RPs that wish to obtain long-lived permission to access the user&#x27;s account data should request
 an <a href="https://oauth.net/2/grant-types/refresh-token/" target="_blank" rel="noopener noreferrer" class="">OAuth Refresh Token</a> as part of their authorization flow.
@@ -122,6 +129,12 @@ to read the user&#x27;s profile data from the FxA profile server.</p>
 <p>They&#x27;re for signin.</p>
 <p>See the <a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank" rel="noopener noreferrer" class="">OIDC spec</a> and the
 <a href="https://accounts.firefox.com/.well-known/openid-configuration" target="_blank" rel="noopener noreferrer" class="">FxA supported claims</a>.</p>
+<p>Alongside the standard <code>sub</code>, <code>aud</code>, <code>iat</code>, <code>exp</code>, and <code>at_hash</code>, the ID token carries the
+authentication-context claims when the grant has them: <code>acr</code> (string, e.g. <code>AAL2</code>), <code>amr</code> (array of
+method classes, e.g. <code>[&quot;pwd&quot;,&quot;otp&quot;]</code>), <code>auth_time</code> (seconds since Unix epoch), and the
+FxA-specific <code>fxa-aal</code> (number).</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The discovery document&#x27;s <code>claims_supported</code> list does not currently include <code>acr</code>, <code>amr</code>, or
+<code>auth_time</code>, even though they are emitted. Do not feature-detect from it.</p></div></div>
 <p>This token, a JWT, proves that a user&#x27;s been authenticated (in this case,
 with FxA). It can also be used as the <code>id_token_hint</code> query param value in a
 <code>prompt=none</code> flow (<a href="https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/prompt-none.md" target="_blank" rel="noopener noreferrer" class="">additional information</a>).</p>
@@ -230,7 +243,14 @@ a <a href="https://tools.ietf.org/html/draft-ietf-oauth-resource-indicators-08" 
 <li class=""><code>scope</code> - space separated list of scopes associated with the grant.</li>
 <li class=""><code>sub</code> - subject, user id. Normally the FxA user id for the user. If the RP uses <a href="https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/pairwise-pseudonymous-identifiers.md" target="_blank" rel="noopener noreferrer" class="">Pairwise Pseudonymous Identifiers (PPID)</a>, will be an identifier that cannot be correlated to either the real FxA userid, or the PPID given out to other RPs.</li>
 <li class=""><code>fxa-subscriptions</code> - space separated list of subscriptions the user has for the RP. Claim is only present if the user has a subscription with the RP.</li>
+<li class=""><code>acr</code> - the authenticator assurance level reached by the session that produced the grant, as a
+string, e.g. <code>AAL2</code>. Only present if the grant carries an assurance level.</li>
+<li class=""><code>auth_time</code> - the time of the session&#x27;s most recent authentication event, in <em>seconds</em> since Unix
+epoch. Only present if the grant carries an authentication time.</li>
 </ul>
+<p><code>acr</code> and <code>auth_time</code> are the RFC 9470 step-up claims. Note that <code>amr</code> is <strong>not</strong> included in the
+JWT access token — it appears on the ID token and in introspection responses only. See
+<a class="" href="/ecosystem-platform/relying-parties/how-tos/step-up-authentication">step-up authentication</a> for the RP-facing view.</p>
 <p>Internal Mozilla reliers also have access to the following custom claims:</p>
 <ul>
 <li class=""><code>fxa-generation</code>: A number that increases each time the user&#x27;s password is changed.
