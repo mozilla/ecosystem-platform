@@ -461,9 +461,10 @@ paths:
                     Meter slug identifier (lowercase alphanumeric, hyphens,
                     underscores)
                 amount:
-                  type: number
+                  type: integer
                   exclusiveMinimum: 0
-                  description: Usage amount to record (must be positive)
+                  maximum: 9007199254740991
+                  description: Usage amount to record (must be a positive integer)
                 timestamp:
                   description: >-
                     ISO 8601 timestamp with offset; defaults to server time if
