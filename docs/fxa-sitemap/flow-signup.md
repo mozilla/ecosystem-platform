@@ -10,6 +10,7 @@ Creating an account. Entry is always the email-first screen; an unknown email le
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   entry(["Entry modes"]) --> index
   index["Email first<br/>/"] -->|unknown email| signup["Create password, confirm age,<br/>choose what to sync<br/>/signup"]

@@ -135,10 +135,9 @@ let screensPromise = null;
 function fetchScreens() {
   if (!screensPromise) {
     const base = sitemapBase();
-    const url = base ? `${base.replace(/fxa-sitemap$/, '')}fxa-sitemap-data/screens.json` : null;
-    screensPromise = url
-      ? fetch(url).then((r) => (r.ok ? r.json() : {})).catch(() => ({}))
-      : Promise.resolve({});
+    if (!base) return Promise.resolve({}); // not cached: only sitemap pages know the base URL
+    const url = `${base.replace(/fxa-sitemap$/, '')}fxa-sitemap-data/screens.json`;
+    screensPromise = fetch(url).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
   }
   return screensPromise;
 }
@@ -418,9 +417,14 @@ function addBadge(node) {
 }
 
 function addLegend(container, svg) {
-  if (container.dataset.fxaLegend) return;
-  container.dataset.fxaLegend = '1';
+  // Rebuild whenever the roles or badges on the diagram change: badges can
+  // arrive late, once the cross-page screen index has loaded.
   const items = LEGEND.filter(([cls]) => svg.querySelector(`g.node.${cls}`));
+  const signature = items.map(([cls]) => cls).join(',') + (svg.querySelector('.fxa-preview-badge') ? '+badge' : '');
+  if (container.dataset.fxaLegend === signature) return;
+  container.dataset.fxaLegend = signature;
+  const previous = container.nextElementSibling;
+  if (previous && previous.classList.contains('fxa-legend')) previous.remove();
   if (!items.length) return;
   const legend = el('div', { class: 'fxa-legend', 'aria-label': 'Diagram legend' });
   items.forEach(([cls, label]) => {
@@ -530,7 +534,7 @@ function renderDrift(container) {
       list(`${stale.length} listed route(s) no longer exist in code:`, stale);
       const fix = el('p', {}, [
         el('a', { href: '#keeping-this-current', text: 'How to fix this' }),
-        el('span', { text: ': run the check script, paste the rows it prints, describe the screen.' }),
+        el('span', { text: ': add or remove the rows for these routes, following the steps below.' }),
       ]);
       container.appendChild(fix);
       container.appendChild(howItStaysCurrent);
@@ -576,6 +580,8 @@ function hydrate() {
 export function onRouteDidUpdate() {
   hidePopover();
   clearInterval(mermaidPoll);
+  // Everything below is specific to the sitemap pages.
+  if (typeof window === 'undefined' || !sitemapBase()) return;
   const map = hydrate();
   if (!map) return;
   // Mermaid renders asynchronously and re-renders on theme change, so keep

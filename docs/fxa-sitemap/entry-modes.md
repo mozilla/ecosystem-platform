@@ -10,6 +10,7 @@ The same screen behaves differently depending on who sent the user and how the r
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart LR
   fxd["Firefox desktop<br/>menu, preferences, first run"] --> native["OAuth for Firefox<br/>and Thunderbird"]
   fxd -->|before Firefox 134| syncv3["Legacy Firefox Sync"]

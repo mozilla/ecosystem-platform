@@ -10,6 +10,7 @@ Regaining access when the password is forgotten: prove control of the email with
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   signin(["Sign in"]) -->|Forgot password?| reset["Enter email<br/>/reset_password"]
   reset --> confirm["Enter emailed code<br/>/confirm_reset_password"]

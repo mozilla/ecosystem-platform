@@ -10,6 +10,7 @@ Getting a second device onto Sync without retyping the password. Two generations
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   signin(["Sign in or Sign up for Sync"]) --> pair["Connect another device?<br/>/pair"]
   cad["Promo from emails and Settings<br/>/connect_another_device"] --> pair

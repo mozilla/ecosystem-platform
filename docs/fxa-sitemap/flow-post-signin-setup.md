@@ -10,6 +10,7 @@ Screens that interrupt a sign-in or sign-up to finish account setup before the u
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   auth(["Sign in or Sign up"])
   auth -->|RP requires two-step auth| totp["Set up an authenticator app<br/>/inline_totp_setup"] --> recovery["Save backup codes<br/>/inline_recovery_setup"] --> rp

@@ -12,6 +12,7 @@ Every screen in the Mozilla accounts (FxA) web UI, grouped by flow, with how use
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart LR
   entry(["Entry modes<br/>Firefox, mobile, relying party,<br/>direct visit, email link"]) --> signin(["Sign in"])
   entry --> signup(["Sign up"])
@@ -203,15 +204,16 @@ Not listed because the served route is a pattern: `/subscriptions/products/:prod
 
 The banner at the top is the health check. Green: the routes listed here match `mozilla/fxa` `main`. Yellow: the code has changed and this section needs an edit. Gray: the check could not run, usually because GitHub was unreachable or the route files in fxa moved; the list may still be current, it just could not be verified.
 
-When it's yellow:
+When it's yellow, the banner lists the routes that were added or removed in code:
 
-1. From the ecosystem-platform repo, run `yarn fxa-sitemap:check`. It prints each new route with a ready-to-paste row for the All routes table above and for the flow page's Screens table, including the matching Storybook link, and lists removed routes to delete. With a local fxa checkout, `yarn fxa-sitemap:check --fxa ../fxa` also verifies that every arrow between two screens on the maps matches a real navigation in the code.
-2. Paste the rows, pick the flow page the screen belongs to, and write a one-line purpose. If users see the screen as a step in the flow, add a box to that page's map: title on the first line, path on the second.
-3. Run the check again until routes and arrows both report in sync, then preview with `yarn start` and open a pull request.
+1. For a new route, find its component in `packages/fxa-settings/src/components/App/index.tsx` (or `Settings/index.tsx` for a Settings sub-page) and its story in the [published Storybook](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/), where story titles under `Pages/` match the component names.
+2. Add a row to the All routes table above, and a row on the flow page's Screens table with the screen name linked to that story and a one-line purpose. If users see the screen as a step in the flow, add a box to that page's map: title on the first line, path on the second.
+3. For a removed route, delete its rows and any box.
+4. Preview with `yarn start` until the banner is green, then open a pull request.
 
-The steps are mechanical enough to hand to an assistant. From the ecosystem-platform checkout, this prompt works: *"Run `yarn fxa-sitemap:check` and update `docs/fxa-sitemap` until it passes, following the Keeping this current section of the overview. Look up each new screen in `packages/fxa-settings` in the fxa repo to write its purpose."*
+The steps are mechanical enough to hand to an assistant. From the ecosystem-platform checkout, this prompt works: *"The FxA Sitemap banner lists routes out of sync with fxa. Update `docs/fxa-sitemap` following the Keeping this current section of the overview, looking up each new screen in `packages/fxa-settings` in the fxa repo."*
 
-When it stays gray: the paths in `scripts/fxa-sitemap-check.js` and `src/js/fxa-sitemap-live.js` point at two files in fxa, `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` and `packages/fxa-settings/src/components/Settings/index.tsx`. Update them if those files moved.
+When it stays gray: `src/js/fxa-sitemap-live.js` reads two files from fxa, `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` and `packages/fxa-settings/src/components/Settings/index.tsx`. Update the paths if those files moved.
 
 <details>
 <summary>Sources of truth and how the widgets work</summary>

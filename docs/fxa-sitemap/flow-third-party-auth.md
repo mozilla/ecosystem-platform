@@ -10,6 +10,7 @@ Signing in or up with a Google or Apple account. The buttons sit on the email-fi
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   from(["Sign in or Sign up"]) --> start
   start["Google or Apple button on<br/>Email first, Sign in, Sign up<br/>/"] -->|"state = current URL"| provider["accounts.google.com or<br/>appleid.apple.com"]

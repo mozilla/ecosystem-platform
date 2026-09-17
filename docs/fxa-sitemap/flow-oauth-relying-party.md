@@ -10,6 +10,7 @@ A Mozilla product or a native client borrows the sign-in and sign-up screens and
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   rp["Relying party website or app"] -->|"/authorization with client_id, scope,<br/>state, redirect_uri, action"| authz["Validate, then route by action<br/>/authorization"]
   authz -->|action=email or none| index["Email first with RP branding<br/>/oauth"]

@@ -29,9 +29,10 @@ function extractScreens(docsDir) {
       if (!line.startsWith('|')) continue;
       const cells = line.split('|').slice(1, -1).map((c) => c.trim());
       if (cells.length < 3) continue;
-      const screenName = (cells[1] || '').replace(/`/g, '');
       let entry = null;
       const link = STORY_LINK.exec(line);
+      // The screen cell is a Markdown link; keep only its label for the preview title.
+      const screenName = (cells[1] || '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/`/g, '');
       if (link && link[2] !== 'fxa-settings') {
         // Email tables key rows by landing route; their stories preview the
         // email, not the screen, so they must not claim the route.

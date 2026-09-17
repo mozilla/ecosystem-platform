@@ -61,11 +61,6 @@ import {dracula as darkCodeTheme}  from 'prism-react-renderer';
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      mermaid: {
-        // Node padding for flowcharts; the FxA sitemap boxes need room around
-        // their multi-line labels.
-        options: { flowchart: { padding: 28 } },
-      },
       colorMode: {
         defaultMode: "light",
         respectPrefersColorScheme: true,

@@ -10,6 +10,7 @@ An existing user proves who they are. Every entry mode shares these screens; onl
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   entry(["Entry modes"]) --> index
   index["Email first<br/>/"] -->|known email| signin["Enter password<br/>/signin"]

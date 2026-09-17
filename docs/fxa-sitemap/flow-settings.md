@@ -10,6 +10,7 @@ The signed-in account page at `/settings`: one long page of sections, plus a sub
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart TD
   entry["Any Settings URL: bookmark, email link,<br/>RP 'manage account', Firefox menu"] -->|signed out| signin(["Sign in"]) --> settings
   entry -->|signed in| settings["Account page<br/>/settings"]

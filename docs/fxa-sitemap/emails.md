@@ -12,6 +12,7 @@ Templates: `libs/accounts/email-renderer/src/templates/`. Links are built by `li
 ## Map
 
 ```mermaid
+%%{init: {"flowchart": {"padding": 28}}}%%
 flowchart LR
   confirm["Confirmation and sign-in emails"] --> l_signin["Sign-in landings<br/>/complete_signin, /report_signin,<br/>/verify_email (legacy)"]
   pw["Password and recovery emails"] --> l_reset["Reset password landings<br/>/reset_password,<br/>/complete_reset_password (legacy)"]
