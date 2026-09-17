@@ -113,6 +113,15 @@ metadata in two ways:
 
 On the backend, the `verifiedSessionToken` strategy enforces AAL2-level interactions for endpoints considered "sensitive" (e.g. modifying email, 2FA settings, etc.). This means if a user has set up 2FA on one device, they will need to enter their TOTP code on another device to "upgrade" that non-AAL2 session before performing sensitive actions.
 
+This session state is also exposed to relying parties over OAuth. An RP can *require* it with the
+`acr_values=AAL2` and `max_age` authorization parameters, and read the result back from the `acr`,
+`auth_time`, and `amr` claims. See
+[step-up authentication](/relying-parties/how-tos/step-up-authentication).
+
+`lastAuthAt()` on the session token — the source of `auth_time` / `auth_at` — reports
+`max(authAt, verifiedAt)`, so a second-factor challenge partway through a session advances it. It is
+not the password sign-in time.
+
 ### OAuth Refresh Tokens
 
 RPs that wish to obtain long-lived permission to access the user's account data should request
@@ -142,6 +151,16 @@ They're for signin.
 
 See the [OIDC spec](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) and the
 [FxA supported claims](https://accounts.firefox.com/.well-known/openid-configuration).
+
+Alongside the standard `sub`, `aud`, `iat`, `exp`, and `at_hash`, the ID token carries the
+authentication-context claims when the grant has them: `acr` (string, e.g. `AAL2`), `amr` (array of
+method classes, e.g. `["pwd","otp"]`), `auth_time` (seconds since Unix epoch), and the
+FxA-specific `fxa-aal` (number).
+
+:::note
+The discovery document's `claims_supported` list does not currently include `acr`, `amr`, or
+`auth_time`, even though they are emitted. Do not feature-detect from it.
+:::
 
 This token, a JWT, proves that a user's been authenticated (in this case,
 with FxA). It can also be used as the `id_token_hint` query param value in a
@@ -256,6 +275,14 @@ Mozilla accounts largely follows the IETF JWT access token draft spec's
 - `scope` - space separated list of scopes associated with the grant.
 - `sub` - subject, user id. Normally the FxA user id for the user. If the RP uses [Pairwise Pseudonymous Identifiers (PPID)](https://github.com/mozilla/fxa/blob/main/packages/fxa-auth-server/docs/oauth/pairwise-pseudonymous-identifiers.md), will be an identifier that cannot be correlated to either the real FxA userid, or the PPID given out to other RPs.
 - `fxa-subscriptions` - space separated list of subscriptions the user has for the RP. Claim is only present if the user has a subscription with the RP.
+- `acr` - the authenticator assurance level reached by the session that produced the grant, as a
+  string, e.g. `AAL2`. Only present if the grant carries an assurance level.
+- `auth_time` - the time of the session's most recent authentication event, in _seconds_ since Unix
+  epoch. Only present if the grant carries an authentication time.
+
+`acr` and `auth_time` are the RFC 9470 step-up claims. Note that `amr` is **not** included in the
+JWT access token — it appears on the ID token and in introspection responses only. See
+[step-up authentication](/relying-parties/how-tos/step-up-authentication) for the RP-facing view.
 
 Internal Mozilla reliers also have access to the following custom claims:
 

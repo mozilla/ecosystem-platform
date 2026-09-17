@@ -85,6 +85,29 @@ Note that prospective reliers may want to use this service, and WebPush is not w
 ### MFA
 Multi-Factor Authentication, also known as 2FA.
 
+### AAL
+Authenticator Assurance Level. A numeric indicator of how many *distinct types* of authentication
+factor a session has provided. `AAL1` is a password alone; `AAL2` means the user has also completed
+a second factor such as TOTP, a backup authentication code, or a recovery-phone code. Note that an
+email code does not raise a session to AAL2 — it is the same factor type as a password.
+
+### ACR
+Authentication Context Class Reference. The OIDC mechanism a relying party uses to state what
+strength of authentication it requires, via the `acr_values` request parameter, and by which the
+result is reported back in the `acr` claim. Mozilla accounts recognises a single value, `AAL2`.
+[Ref](/relying-parties/how-tos/step-up-authentication)
+
+### AMR
+Authentication Methods References. An array claim listing the classes of method used to authenticate
+the session, for example `["pwd","otp"]`. It reports method *classes*, not specific methods — TOTP,
+backup codes, and recovery-phone codes all appear as `otp`.
+
+### Step-up authentication
+Requiring a user to complete a fresh second-factor challenge before a sensitive action, even though
+they are already signed in. Requested with the `acr_values` and `max_age` parameters and defined by
+[RFC 9470](https://datatracker.ietf.org/doc/html/rfc9470).
+[Ref](/relying-parties/how-tos/step-up-authentication)
+
 ### GDPR
 [General Data Protection Regulation](https://commission.europa.eu/law/law-topic/data-protection/rules-business-and-organisations_en), EU law governing use of personal data across all member states.
 
