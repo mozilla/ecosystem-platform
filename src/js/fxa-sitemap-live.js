@@ -161,7 +161,10 @@ function ensurePopover() {
   popTitle = el('span', { class: 'fxa-pop-title' });
   popOpen = el('a', { class: 'fxa-pop-open', target: '_blank', rel: 'noopener', text: 'Open in Storybook' });
   const close = el('button', { class: 'fxa-pop-close', type: 'button', 'aria-label': 'Close preview', text: '×' });
-  popFrame = el('iframe', { class: 'fxa-pop-frame', title: 'Screen preview (Storybook)' });
+  // Storybook is published on the same mozilla.github.io origin as this site, so
+  // the preview is sandboxed to an opaque origin: scripts run (stories need
+  // them) but the story cannot reach this page, its storage, or cookies.
+  popFrame = el('iframe', { class: 'fxa-pop-frame', title: 'Screen preview (Storybook)', sandbox: 'allow-scripts' });
   popImg = el('img', { class: 'fxa-pop-img', alt: 'Screen preview' });
   popLoading = el('div', { class: 'fxa-pop-loading', text: 'Loading preview…' });
   pop = el('div', { class: 'fxa-pop', role: 'dialog', 'aria-label': 'Screen preview' }, [
