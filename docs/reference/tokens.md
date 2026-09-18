@@ -91,7 +91,7 @@ Types of unverified sessions:
 3. **Server-side heuristics** — based on factors such as whether the account is newly-created or whether we've seen previous verified logins from the same IP address. Logins from RP logins/redirects are allowed to skip entering the code for less friction. The next time that user tries to perform an action in account settings, they'll be required to verify.
 
 :::note For FxA engineers
-To get into the third type (heuristic-based unverified session) locally, use a `@mozilla.com` email address. The `SIGNIN_CONFIRMATION_FORCE_EMAIL_REGEX` env var controls which email addresses are forced into sign-in confirmation with `mustVerify: 0`. To force sign-in confirmation globally (with `mustVerify: 1`, simulating a suspicious request or scoped key request), set `SIGNIN_CONFIRMATION_FORCE_GLOBALLY=true`. See the auth-server `config/index.ts` under `signinConfirmation` for more details.
+Two ways to reach the heuristic (non-Sync non-2FA) unverified session locally. For manual testing, set `SIGNIN_CONFIRMATION_SKIP_FOR_NEW_ACCOUNTS=false` and sign in with any address; the server then reaches the state through its real heuristics. For automated tests, sign in with an `unverifiedsession*@restmail.net` address, which `signinConfirmation.forcedHeuristicEmailAddresses` forces into that state on every environment. The Sync-style state (`mustVerify: 1`, OAuth grants blocked until the code is entered) is forced per email by `forcedSyncEmailAddresses` (`sync*@restmail.net` on every environment) or for every account by `SIGNIN_CONFIRMATION_FORCE_GLOBALLY=true`. See `signinConfirmation` in the auth-server `config/index.ts` for the evaluation order.
 :::
 
 Certain actions on the account can only be performed with a verified session, including:
