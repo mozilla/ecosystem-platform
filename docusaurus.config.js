@@ -17,6 +17,8 @@ import {dracula as darkCodeTheme}  from 'prism-react-renderer';
     mermaid: true
   },
   themes:['@docusaurus/theme-mermaid'],
+  clientModules: [require.resolve('./src/js/fxa-sitemap-live.js')],
+  plugins: [require.resolve('./src/plugins/fxa-sitemap-screens.js')],
 
   presets: [
     [
