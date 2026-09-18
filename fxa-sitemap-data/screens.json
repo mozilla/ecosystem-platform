@@ -1,0 +1,625 @@
+{
+ "oauth": {
+  "storyTitle": "Index",
+  "pkg": "fxa-settings",
+  "id": "pages-index--default",
+  "screenName": "Index",
+  "page": "flow-oauth-relying-party"
+ },
+ "post_verify/service_welcome": {
+  "storyTitle": "ServiceWelcome",
+  "pkg": "fxa-settings",
+  "id": "pages-postverify-servicewelcome--from-signin",
+  "screenName": "ServiceWelcome",
+  "page": "flow-oauth-relying-party"
+ },
+ "oauth/success/:clientId": {
+  "storyTitle": "PairSuccess",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-success--default",
+  "screenName": "PairSuccess",
+  "page": "flow-oauth-relying-party"
+ },
+ "pair": {
+  "storyTitle": "Pair",
+  "pkg": "fxa-settings",
+  "id": "pages-pair--choice-screen",
+  "screenName": "Pair",
+  "page": "flow-pairing"
+ },
+ "connect_another_device": {
+  "storyTitle": "ConnectAnotherDevice",
+  "pkg": "fxa-settings",
+  "id": "pages-connectanotherdevice--can-sign-in-no-success-message",
+  "screenName": "ConnectAnotherDevice",
+  "page": "flow-pairing"
+ },
+ "pair/unsupported": {
+  "storyTitle": "PairUnsupported",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-unsupported--default",
+  "screenName": "PairUnsupported",
+  "page": "flow-pairing"
+ },
+ "pair/authority/scan_qr": {
+  "storyTitle": "Pair2 Authority",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-scanqr--default",
+  "screenName": "Pair2 Authority",
+  "page": "flow-pairing"
+ },
+ "pair/authority/continue_on_mobile": {
+  "storyTitle": "Pair2 Authority",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-scanqr--default",
+  "screenName": "Pair2 Authority",
+  "page": "flow-pairing"
+ },
+ "pair/authority/approve_signin": {
+  "storyTitle": "Pair2 Authority",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-scanqr--default",
+  "screenName": "Pair2 Authority",
+  "page": "flow-pairing"
+ },
+ "pair/authority/sync_success": {
+  "storyTitle": "Pair2 Authority",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-scanqr--default",
+  "screenName": "Pair2 Authority",
+  "page": "flow-pairing"
+ },
+ "pair/authority/timeout_and_cancel": {
+  "storyTitle": "Pair2 Authority errors",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-timeoutandcancel--timed-out",
+  "screenName": "Pair2 Authority errors",
+  "page": "flow-pairing"
+ },
+ "pair/authority/download_firefox": {
+  "storyTitle": "Pair2 Authority errors",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-authority-timeoutandcancel--timed-out",
+  "screenName": "Pair2 Authority errors",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/ready_to_scan": {
+  "storyTitle": "Pair2 Supplicant",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-connectthisdevice--with-device-name",
+  "screenName": "Pair2 Supplicant",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/connect_this_device": {
+  "storyTitle": "Pair2 Supplicant",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-connectthisdevice--with-device-name",
+  "screenName": "Pair2 Supplicant",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/approve_signin": {
+  "storyTitle": "Pair2 Supplicant",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-connectthisdevice--with-device-name",
+  "screenName": "Pair2 Supplicant",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/sync_success": {
+  "storyTitle": "Pair2 Supplicant",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-connectthisdevice--with-device-name",
+  "screenName": "Pair2 Supplicant",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/timeout_and_cancel": {
+  "storyTitle": "Pair2 Supplicant errors",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-timeoutandcancel--timed-out",
+  "screenName": "Pair2 Supplicant errors",
+  "page": "flow-pairing"
+ },
+ "pair/supplicant/download_firefox": {
+  "storyTitle": "Pair2 Supplicant errors",
+  "pkg": "fxa-settings",
+  "id": "pages-pair2-supplicant-timeoutandcancel--timed-out",
+  "screenName": "Pair2 Supplicant errors",
+  "page": "flow-pairing"
+ },
+ "pair/auth/allow": {
+  "storyTitle": "Pair Auth",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-authallow--with-location",
+  "screenName": "Pair Auth",
+  "page": "flow-pairing"
+ },
+ "pair/auth/totp": {
+  "storyTitle": "Pair Auth",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-authallow--with-location",
+  "screenName": "Pair Auth",
+  "page": "flow-pairing"
+ },
+ "pair/auth/wait_for_supp": {
+  "storyTitle": "Pair Auth",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-authallow--with-location",
+  "screenName": "Pair Auth",
+  "page": "flow-pairing"
+ },
+ "pair/auth/complete": {
+  "storyTitle": "Pair Auth",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-authallow--with-location",
+  "screenName": "Pair Auth",
+  "page": "flow-pairing"
+ },
+ "pair/supp": {
+  "storyTitle": "Pair Supp",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-suppallow--with-location",
+  "screenName": "Pair Supp",
+  "page": "flow-pairing"
+ },
+ "pair/supp/allow": {
+  "storyTitle": "Pair Supp",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-suppallow--with-location",
+  "screenName": "Pair Supp",
+  "page": "flow-pairing"
+ },
+ "pair/supp/wait_for_auth": {
+  "storyTitle": "Pair Supp",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-suppallow--with-location",
+  "screenName": "Pair Supp",
+  "page": "flow-pairing"
+ },
+ "pair/supp/complete": {
+  "storyTitle": "PairSuccess",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-success--default",
+  "screenName": "PairSuccess",
+  "page": "flow-pairing"
+ },
+ "pair/success": {
+  "storyTitle": "PairSuccess",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-success--default",
+  "screenName": "PairSuccess",
+  "page": "flow-pairing"
+ },
+ "pair/failure": {
+  "storyTitle": "PairFailure",
+  "pkg": "fxa-settings",
+  "id": "pages-pair-failure--default",
+  "screenName": "PairFailure",
+  "page": "flow-pairing"
+ },
+ "inline_totp_setup": {
+  "storyTitle": "InlineTotpSetup",
+  "pkg": "fxa-settings",
+  "id": "pages-inlinetotpsetup--default",
+  "screenName": "InlineTotpSetup",
+  "page": "flow-post-signin-setup"
+ },
+ "inline_recovery_setup": {
+  "storyTitle": "InlineRecoverySetup",
+  "pkg": "fxa-settings",
+  "id": "pages-inlinerecoverysetup--choice-screen",
+  "screenName": "InlineRecoverySetup",
+  "page": "flow-post-signin-setup"
+ },
+ "inline_recovery_key_setup": {
+  "storyTitle": "InlineRecoveryKeySetup",
+  "pkg": "fxa-settings",
+  "id": "pages-inlinerecoverykeysetup--step-one",
+  "screenName": "InlineRecoveryKeySetup",
+  "page": "flow-post-signin-setup"
+ },
+ "post_verify/set_password": {
+  "storyTitle": "SetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-postverify-setpassword--default",
+  "screenName": "SetPassword",
+  "page": "flow-post-signin-setup"
+ },
+ "post_verify/third_party_auth/set_password": {
+  "storyTitle": "SetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-postverify-setpassword--default",
+  "screenName": "SetPassword",
+  "page": "flow-post-signin-setup"
+ },
+ "reset_password": {
+  "storyTitle": "ResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-resetpassword--default",
+  "screenName": "ResetPassword",
+  "page": "flow-reset-password"
+ },
+ "confirm_reset_password": {
+  "storyTitle": "ConfirmResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-confirmresetpassword--with-resend-success",
+  "screenName": "ConfirmResetPassword",
+  "page": "flow-reset-password"
+ },
+ "confirm_totp_reset_password": {
+  "storyTitle": "ConfirmTotpResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-confirmtotpresetpassword--default",
+  "screenName": "ConfirmTotpResetPassword",
+  "page": "flow-reset-password"
+ },
+ "reset_password_totp_recovery_choice": {
+  "storyTitle": "ResetPasswordRecoveryChoice",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-resetpasswordrecoverychoice--default",
+  "screenName": "ResetPasswordRecoveryChoice",
+  "page": "flow-reset-password"
+ },
+ "confirm_backup_code_reset_password": {
+  "storyTitle": "ConfirmBackupCodeResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-confirmbackupcoderesetpassword--default",
+  "screenName": "ConfirmBackupCodeResetPassword",
+  "page": "flow-reset-password"
+ },
+ "reset_password_recovery_phone": {
+  "storyTitle": "ResetPasswordRecoveryPhone",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-resetpasswordrecoveryphone--basic",
+  "screenName": "ResetPasswordRecoveryPhone",
+  "page": "flow-reset-password"
+ },
+ "account_recovery_confirm_key": {
+  "storyTitle": "AccountRecoveryConfirmKey",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-accountrecoveryconfirmkey--default",
+  "screenName": "AccountRecoveryConfirmKey",
+  "page": "flow-reset-password"
+ },
+ "complete_reset_password": {
+  "storyTitle": "CompleteResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-completeresetpassword--no-sync",
+  "screenName": "CompleteResetPassword",
+  "page": "flow-reset-password"
+ },
+ "account_recovery_reset_password": {
+  "storyTitle": "CompleteResetPassword",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-completeresetpassword--no-sync",
+  "screenName": "CompleteResetPassword",
+  "page": "flow-reset-password"
+ },
+ "reset_password_verified": {
+  "storyTitle": "ResetPasswordConfirmed",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-resetpasswordconfirmed--default",
+  "screenName": "ResetPasswordConfirmed",
+  "page": "flow-reset-password"
+ },
+ "reset_password_with_recovery_key_verified": {
+  "storyTitle": "ResetPasswordWithRecoveryKeyVerified",
+  "pkg": "fxa-settings",
+  "id": "pages-resetpassword-resetpasswordwithrecoverykeyverified--recovery-key-generated",
+  "screenName": "ResetPasswordWithRecoveryKeyVerified",
+  "page": "flow-reset-password"
+ },
+ "settings": {
+  "storyTitle": "PageSettings",
+  "pkg": "fxa-settings",
+  "id": "pages-settings--cold-start",
+  "screenName": "PageSettings",
+  "page": "flow-settings"
+ },
+ "settings/display_name": {
+  "storyTitle": "PageDisplayName",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-displayname--default",
+  "screenName": "PageDisplayName",
+  "page": "flow-settings"
+ },
+ "settings/avatar": {
+  "storyTitle": "PageAvatar",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-avatar--default",
+  "screenName": "PageAvatar",
+  "page": "flow-settings"
+ },
+ "settings/avatar/change": {
+  "storyTitle": "PageAvatar",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-avatar--default",
+  "screenName": "PageAvatar",
+  "page": "flow-settings"
+ },
+ "settings/emails": {
+  "storyTitle": "PageSecondaryEmailAdd",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-secondaryemailadd--default",
+  "screenName": "PageSecondaryEmailAdd",
+  "page": "flow-settings"
+ },
+ "settings/emails/verify": {
+  "storyTitle": "PageSecondaryEmailAdd",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-secondaryemailadd--default",
+  "screenName": "PageSecondaryEmailAdd",
+  "page": "flow-settings"
+ },
+ "settings/change_password": {
+  "storyTitle": "PageChangePassword",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-changepassword--default",
+  "screenName": "PageChangePassword",
+  "page": "flow-settings"
+ },
+ "settings/create_password": {
+  "storyTitle": "PageCreatePassword",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-createpassword--default",
+  "screenName": "PageCreatePassword",
+  "page": "flow-settings"
+ },
+ "settings/passkeys/add": {
+  "storyTitle": "PagePasskeyAdd",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-passkeyadd--ceremony-in-progress",
+  "screenName": "PagePasskeyAdd",
+  "page": "flow-settings"
+ },
+ "settings/account_recovery": {
+  "storyTitle": "PageRecoveryKeyCreate",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-recoverykeycreate--create-key-with-success",
+  "screenName": "PageRecoveryKeyCreate",
+  "page": "flow-settings"
+ },
+ "settings/two_step_authentication": {
+  "storyTitle": "Page2faSetup",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-twostepauthsetup--with-recovery-phone-option",
+  "screenName": "Page2faSetup",
+  "page": "flow-settings"
+ },
+ "settings/two_step_authentication/change": {
+  "storyTitle": "Page2faChange",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-twostepauthchange--default",
+  "screenName": "Page2faChange",
+  "page": "flow-settings"
+ },
+ "settings/two_step_authentication/replace_codes": {
+  "storyTitle": "Page2faReplaceBackupCodes",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-replacebackupcodes--replace-existing-codes",
+  "screenName": "Page2faReplaceBackupCodes",
+  "page": "flow-settings"
+ },
+ "settings/recovery_phone/setup": {
+  "storyTitle": "PageRecoveryPhoneSetup",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-recoveryphonesetup--add-with-success",
+  "screenName": "PageRecoveryPhoneSetup",
+  "page": "flow-settings"
+ },
+ "settings/recovery_phone/remove": {
+  "storyTitle": "PageRecoveryPhoneSetup",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-recoveryphonesetup--add-with-success",
+  "screenName": "PageRecoveryPhoneSetup",
+  "page": "flow-settings"
+ },
+ "settings/recent_activity": {
+  "storyTitle": "PageRecentActivity",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-recentactivity--default",
+  "screenName": "PageRecentActivity",
+  "page": "flow-settings"
+ },
+ "settings/clients": {
+  "storyTitle": "ConnectedServices",
+  "pkg": "fxa-settings",
+  "id": "components-settings-connectedservices--default",
+  "screenName": "ConnectedServices",
+  "page": "flow-settings"
+ },
+ "settings/delete_account": {
+  "storyTitle": "PageDeleteAccount",
+  "pkg": "fxa-settings",
+  "id": "pages-settings-deleteaccount--default",
+  "screenName": "PageDeleteAccount",
+  "page": "flow-settings"
+ },
+ "/": {
+  "storyTitle": "Index",
+  "pkg": "fxa-settings",
+  "id": "pages-index--default",
+  "screenName": "Index",
+  "page": "flow-signin"
+ },
+ "signin": {
+  "storyTitle": "Signin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin--non-cached-account-has-password-settings-or-rp",
+  "screenName": "Signin",
+  "page": "flow-signin"
+ },
+ "oauth/signin": {
+  "storyTitle": "Signin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin--non-cached-account-has-password-settings-or-rp",
+  "screenName": "Signin",
+  "page": "flow-signin"
+ },
+ "force_auth": {
+  "storyTitle": "Signin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin--non-cached-account-has-password-settings-or-rp",
+  "screenName": "Signin",
+  "page": "flow-signin"
+ },
+ "oauth/force_auth": {
+  "storyTitle": "Signin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin--non-cached-account-has-password-settings-or-rp",
+  "screenName": "Signin",
+  "page": "flow-signin"
+ },
+ "signin_passkey_fallback": {
+  "storyTitle": "SigninPasskeyFallback",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinpasskeyfallback--default",
+  "screenName": "SigninPasskeyFallback",
+  "page": "flow-signin"
+ },
+ "signin_passwordless_code": {
+  "storyTitle": "SigninPasswordlessCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinpasswordlesscode--default-signin",
+  "screenName": "SigninPasswordlessCode",
+  "page": "flow-signin"
+ },
+ "oauth/signin_passwordless_code": {
+  "storyTitle": "SigninPasswordlessCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinpasswordlesscode--default-signin",
+  "screenName": "SigninPasswordlessCode",
+  "page": "flow-signin"
+ },
+ "signin_token_code": {
+  "storyTitle": "SigninTokenCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signintokencode--default",
+  "screenName": "SigninTokenCode",
+  "page": "flow-signin"
+ },
+ "signin_totp_code": {
+  "storyTitle": "SigninTotpCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signintotpcode--default",
+  "screenName": "SigninTotpCode",
+  "page": "flow-signin"
+ },
+ "signin_recovery_choice": {
+  "storyTitle": "SigninRecoveryChoice",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinrecoverychoice--default",
+  "screenName": "SigninRecoveryChoice",
+  "page": "flow-signin"
+ },
+ "signin_recovery_code": {
+  "storyTitle": "SigninRecoveryCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinrecoverycode--default",
+  "screenName": "SigninRecoveryCode",
+  "page": "flow-signin"
+ },
+ "signin_recovery_phone": {
+  "storyTitle": "SigninRecoveryPhone",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinrecoveryphone--basic",
+  "screenName": "SigninRecoveryPhone",
+  "page": "flow-signin"
+ },
+ "signin_unblock": {
+  "storyTitle": "SigninUnblock",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinunblock--default",
+  "screenName": "SigninUnblock",
+  "page": "flow-signin"
+ },
+ "signin_bounced": {
+  "storyTitle": "SigninBounced",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinbounced--default",
+  "screenName": "SigninBounced",
+  "page": "flow-signin"
+ },
+ "complete_signin": {
+  "storyTitle": "CompleteSignin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-completesignin--validation-in-progress",
+  "screenName": "CompleteSignin",
+  "page": "flow-signin"
+ },
+ "signin_confirmed": {
+  "storyTitle": "SigninConfirmed",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinconfirmed--default-signed-in",
+  "screenName": "SigninConfirmed",
+  "page": "flow-signin"
+ },
+ "signin_verified": {
+  "storyTitle": "SigninConfirmed",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinconfirmed--default-signed-in",
+  "screenName": "SigninConfirmed",
+  "page": "flow-signin"
+ },
+ "report_signin": {
+  "storyTitle": "ReportSignin",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-reportsignin--default",
+  "screenName": "ReportSignin",
+  "page": "flow-signin"
+ },
+ "signin_reported": {
+  "storyTitle": "SigninReported",
+  "pkg": "fxa-settings",
+  "id": "pages-signin-signinreported--default",
+  "screenName": "SigninReported",
+  "page": "flow-signin"
+ },
+ "signup": {
+  "storyTitle": "Signup",
+  "pkg": "fxa-settings",
+  "id": "pages-signup--default",
+  "screenName": "Signup",
+  "page": "flow-signup"
+ },
+ "oauth/signup": {
+  "storyTitle": "Signup",
+  "pkg": "fxa-settings",
+  "id": "pages-signup--default",
+  "screenName": "Signup",
+  "page": "flow-signup"
+ },
+ "confirm_signup_code": {
+  "storyTitle": "ConfirmSignupCode",
+  "pkg": "fxa-settings",
+  "id": "pages-signup-confirmsignupcode--with-success",
+  "screenName": "ConfirmSignupCode",
+  "page": "flow-signup"
+ },
+ "signup_confirmed_sync": {
+  "storyTitle": "SignupConfirmedSync",
+  "pkg": "fxa-settings",
+  "id": "pages-signup-signupconfirmedsync--desktop",
+  "screenName": "SignupConfirmedSync",
+  "page": "flow-signup"
+ },
+ "signup_confirmed": {
+  "storyTitle": "SignupConfirmed",
+  "pkg": "fxa-settings",
+  "id": "pages-signup-signupconfirmed--default-signed-in",
+  "screenName": "SignupConfirmed",
+  "page": "flow-signup"
+ },
+ "signup_verified": {
+  "storyTitle": "SignupConfirmed",
+  "pkg": "fxa-settings",
+  "id": "pages-signup-signupconfirmed--default-signed-in",
+  "screenName": "SignupConfirmed",
+  "page": "flow-signup"
+ },
+ "primary_email_verified": {
+  "storyTitle": "PrimaryEmailVerified",
+  "pkg": "fxa-settings",
+  "id": "pages-signup-primaryemailverified--basic-signed-in",
+  "screenName": "PrimaryEmailVerified",
+  "page": "flow-signup"
+ }
+}
