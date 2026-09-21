@@ -203,7 +203,13 @@ Not listed because the served route is a pattern: `/subscriptions/products/:prod
 
 The banner at the top compares the routes listed here with `mozilla/fxa` `main` on every visit. Green: in sync. Yellow: a route was added or removed in code, and the banner lists which. Gray: the check could not run.
 
-When it's yellow, add or remove rows for the listed routes: one in the All routes table above, one in the flow page's Screens table with the screen name linked to its Storybook story, and a box on the map if users see the screen as a step. Or hand it to an assistant:
+When it's yellow, add or remove rows for the listed routes:
+
+- one in the All routes table above
+- one in the flow page's Screens table, with the screen name linked to its Storybook story
+- a box on that page's map, if users see the screen as a step
+
+Or hand it to an assistant:
 
 <div className="fxa-wrap">
 
