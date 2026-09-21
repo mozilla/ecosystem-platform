@@ -201,28 +201,23 @@ Not listed because the served route is a pattern: `/subscriptions/products/:prod
 
 ## Keeping this current
 
-The banner at the top is the health check. Green: the routes listed here match `mozilla/fxa` `main`. Yellow: the code has changed and this section needs an edit. Gray: the check could not run, usually because GitHub was unreachable or the route files in fxa moved; the list may still be current, it just could not be verified.
+The banner at the top compares the routes listed here with `mozilla/fxa` `main` on every visit. Green: in sync. Yellow: a route was added or removed in code, and the banner lists which. Gray: the check could not run.
 
-When it's yellow, the banner lists the routes that were added or removed in code:
+When it's yellow, add or remove rows for the listed routes: one in the All routes table above, one in the flow page's Screens table with the screen name linked to its Storybook story, and a box on the map if users see the screen as a step. Or hand it to an assistant:
 
-1. For a new route, find its component in `packages/fxa-settings/src/components/App/index.tsx` (or `Settings/index.tsx` for a Settings sub-page) and its story in the [published Storybook](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/), where story titles under `Pages/` match the component names.
-2. Add a row to the All routes table above, and a row on the flow page's Screens table with the screen name linked to that story and a one-line purpose. If users see the screen as a step in the flow, add a box to that page's map: title on the first line, path on the second.
-3. For a removed route, delete its rows and any box.
-4. Preview with `yarn start` until the banner is green, then open a pull request.
-
-The steps are mechanical enough to hand to an assistant. From the ecosystem-platform checkout, this prompt works:
+<div className="fxa-wrap">
 
 ```text
 The FxA Sitemap banner lists routes out of sync with fxa. Update docs/fxa-sitemap following the Keeping this current section of the overview, looking up each new screen in packages/fxa-settings in the fxa repo.
 ```
 
-When it stays gray: `src/js/fxa-sitemap-live.js` reads two files from fxa, `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` and `packages/fxa-settings/src/components/Settings/index.tsx`. Update the paths if those files moved.
+</div>
 
 <details>
-<summary>Sources of truth and how the widgets work</summary>
+<summary>Where things live</summary>
 
-Routes: `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` lists every served route and `.../react-app/index.js` says which ones React serves; `packages/fxa-settings/src/components/App/index.tsx` and `Settings/index.tsx` hold the React routes. Entry modes: `packages/fxa-settings/src/lib/integrations/integration-factory.ts`. Email links: `libs/accounts/email-renderer/src/renderer/email-link-builder.ts`. Screens: the published Storybook. Functional tests: `packages/functional-tests/tests`, one folder per flow.
+Routes: `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` is the served list; `packages/fxa-settings/src/components/App/index.tsx` and `Settings/index.tsx` map routes to components. Screens: the [published Storybook](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/), where story titles under `Pages/` match component names. Emails: `libs/accounts/email-renderer/src/renderer/email-link-builder.ts`.
 
-Hover previews are derived from the Storybook links in the Screens tables, so a route becomes hoverable everywhere as soon as its row has one. The widgets are plain JavaScript in `src/js/fxa-sitemap-live.js` and read only public URLs on `mozilla.github.io` and `raw.githubusercontent.com`. `src/plugins/fxa-sitemap-screens.js` indexes those links into `static/fxa-sitemap-data/screens.json` at build time so previews work across pages.
+The banner and previews are plain JavaScript in `src/js/fxa-sitemap-live.js`; `src/plugins/fxa-sitemap-screens.js` indexes the Storybook links from every page so previews work across pages. If the banner stays gray, the two fxa file paths in the client module have probably moved.
 
 </details>
