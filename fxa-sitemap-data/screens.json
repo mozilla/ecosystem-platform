@@ -216,6 +216,13 @@
   "screenName": "InlineRecoveryKeySetup",
   "page": "flow-post-signin-setup"
  },
+ "inline_passwordless_sync_setup": {
+  "storyTitle": "InlinePasswordlessSyncSetup",
+  "pkg": "fxa-settings",
+  "id": "pages-inlinepasswordlesssyncsetup--default",
+  "screenName": "InlinePasswordlessSyncSetup",
+  "page": "flow-post-signin-setup"
+ },
  "post_verify/set_password": {
   "storyTitle": "SetPassword",
   "pkg": "fxa-settings",
