@@ -159,3 +159,5 @@ article.fxa-sitemap table th:nth-child(2), article.fxa-sitemap table td:nth-chil
 article.fxa-sitemap table td { overflow-wrap: anywhere; }
 article.fxa-sitemap table td code { white-space: normal; font-size: 0.85em; }
 article.fxa-sitemap details { margin-bottom: 1rem; }
+/* FxA sitemap: wrap long lines in the copyable prompt block */
+.fxa-wrap pre code, .fxa-wrap pre code span { white-space: pre-wrap !important; overflow-wrap: anywhere; }

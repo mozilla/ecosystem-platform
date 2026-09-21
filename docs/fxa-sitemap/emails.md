@@ -18,13 +18,12 @@ flowchart LR
   pw["Password and recovery emails"] --> l_reset["Reset password landings<br/>/reset_password,<br/>/complete_reset_password (legacy)"]
   notices["Security notices: new device, two-step auth,<br/>recovery key, passkeys, email changes, inactivity"] --> l_settings["Settings landings<br/>/settings, /settings/change_password,<br/>/settings/two_step_authentication/replace_codes"]
   sync["Welcome and Sync reminders"] --> l_cad["Connect another device<br/>/connect_another_device"]
-  sub["Subscription account reminders"] --> l_extra["Finish account setup (legacy)<br/>/post_verify/finish_account_setup/set_password"]
+  sub["Subscription account reminders"] --> l_extra["Page removed from fxa, September 2026;<br/>the emails still link to it"]
   codes["One-time code emails"] --> typed["No landing page: the code is typed<br/>on the screen the user is already on"]
   l_signin --> f_signin(["Sign in"])
   l_reset --> f_reset(["Reset password"])
   l_settings --> f_settings(["Settings"])
   l_cad --> f_pair(["Pairing / CAD"])
-  l_extra --> f_extra(["Extra setup steps"])
   classDef page fill:#deebff,stroke:#0060df,stroke-width:1.5px,color:#15141a
   classDef step fill:#f9f9fb,stroke:#8f8f9d,color:#15141a
   classDef legacy fill:#f0f0f4,stroke:#8f8f9d,stroke-dasharray:5 3,color:#5b5b66
@@ -36,12 +35,11 @@ flowchart LR
   class l_signin,l_reset,l_settings,l_cad page
   class l_extra legacy
   class typed step
-  class f_signin,f_reset,f_settings,f_pair,f_extra flow
+  class f_signin,f_reset,f_settings,f_pair flow
   click f_signin href "/ecosystem-platform/fxa-sitemap/flow-signin"
   click f_reset href "/ecosystem-platform/fxa-sitemap/flow-reset-password"
   click f_settings href "/ecosystem-platform/fxa-sitemap/flow-settings"
   click f_pair href "/ecosystem-platform/fxa-sitemap/flow-pairing"
-  click f_extra href "/ecosystem-platform/fxa-sitemap/flow-post-signin-setup"
 ```
 
 ## Emails by landing screen
@@ -63,7 +61,7 @@ flowchart LR
 | `/settings` | [postChangePrimary](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-postchangeprimary--post-change-primary), [postVerifySecondary](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-postverifysecondary--post-verify-secondary), [postRemoveSecondary](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-postremovesecondary--post-remove-secondary) | Primary or secondary email changes. |
 | `/settings` | [inactiveAccountFirstWarning](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-inactiveaccountfirstwarning--inactive-account-first-warning), [inactiveAccountSecondWarning](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-inactiveaccountsecondwarning--inactive-account-second-warning), [inactiveAccountFinalWarning](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-inactiveaccountfinalwarning--inactive-account-final-warning) | Account scheduled for deletion due to inactivity. |
 | `/connect_another_device` | [postVerify](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-postverify--post-verify-desktop-tablet), [cadReminderFirst](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-cadreminderfirst--cad-reminder-default), [cadReminderSecond](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-cadremindersecond--cad-reminder-default) | Welcome after confirmation; nudges to set up a second device. |
-| `/post_verify/finish_account_setup/set_password` | [subscriptionAccountReminderFirst](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/subplat-emails-templates-subscriptionaccountreminderfirst--subscription-account-reminder-first), [subscriptionAccountReminderSecond](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/subplat-emails-templates-subscriptionaccountremindersecond--subscription-account-reminder-second) | Account created by a subscription purchase has no password yet. |
+| none, the page was removed from fxa in September 2026 and the link now leads nowhere useful | [subscriptionAccountReminderFirst](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/subplat-emails-templates-subscriptionaccountreminderfirst--subscription-account-reminder-first), [subscriptionAccountReminderSecond](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/subplat-emails-templates-subscriptionaccountremindersecond--subscription-account-reminder-second) | Account created by a subscription purchase has no password yet. |
 | none, code typed on the current screen | [verifyShortCode](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-verifyshortcode--verify-short-code), [verifyLoginCode](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-verifylogincode--verify-login-code-email), [passwordForgotOtp](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-passwordforgototp--password-forgot-otp), [verifySecondaryCode](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-verifysecondarycode--verify-secondary-code), [verifyAccountChange](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-verifyaccountchange--verify-account-change-email), [passwordlessSigninOtp](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-passwordlesssigninotp--passwordless-signin-otp), [passwordlessSignupOtp](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-passwordlesssignupotp--passwordless-signup-otp) | One-time codes. |
 | none | [adminResetAccounts](https://mozilla.github.io/fxa/storybooks/main/email-renderer/?path=/story/fxa-emails-templates-adminresetaccounts--cad-reminder-default) | Admin-initiated bulk password reset notice. |
 
@@ -76,7 +74,6 @@ flowchart LR
 - `/settings` and its fragments: `email`, `uid`.
 - `/settings/two_step_authentication/replace_codes`: `low_recovery_codes=true`, `email`, `uid`.
 - `/report_signin`: `uid`, `unblockCode`.
-- `/post_verify/finish_account_setup/set_password`: `email`, `product_name`, `token`, `product_id`, `flowId`, `flowBeginTime`, `deviceId`.
 - Every link gets `utm_medium=email`, `utm_campaign`, `utm_content` unless the account opted out of metrics.
 
 </details>
