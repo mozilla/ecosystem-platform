@@ -130,6 +130,7 @@ Every route the content server serves and the page that documents it. The freshn
 | `/inline_totp_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/inline_recovery_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/inline_recovery_key_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
+| `/inline_passwordless_sync_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/post_verify/password/force_password_change` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
 | `/post_verify/newsletters/add_newsletters` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
 | `/post_verify/secondary_email/add_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
