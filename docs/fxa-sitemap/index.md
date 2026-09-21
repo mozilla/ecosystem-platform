@@ -131,7 +131,6 @@ Every route the content server serves and the page that documents it. The freshn
 | `/inline_recovery_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/inline_recovery_key_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/post_verify/password/force_password_change` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
-| `/post_verify/finish_account_setup/set_password` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone, email link |
 | `/post_verify/newsletters/add_newsletters` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
 | `/post_verify/secondary_email/add_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
 | `/post_verify/secondary_email/confirm_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
@@ -211,7 +210,11 @@ When it's yellow, the banner lists the routes that were added or removed in code
 3. For a removed route, delete its rows and any box.
 4. Preview with `yarn start` until the banner is green, then open a pull request.
 
-The steps are mechanical enough to hand to an assistant. From the ecosystem-platform checkout, this prompt works: *"The FxA Sitemap banner lists routes out of sync with fxa. Update `docs/fxa-sitemap` following the Keeping this current section of the overview, looking up each new screen in `packages/fxa-settings` in the fxa repo."*
+The steps are mechanical enough to hand to an assistant. From the ecosystem-platform checkout, this prompt works:
+
+```text
+The FxA Sitemap banner lists routes out of sync with fxa. Update docs/fxa-sitemap following the Keeping this current section of the overview, looking up each new screen in packages/fxa-settings in the fxa repo.
+```
 
 When it stays gray: `src/js/fxa-sitemap-live.js` reads two files from fxa, `packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js` and `packages/fxa-settings/src/components/Settings/index.tsx`. Update the paths if those files moved.
 
