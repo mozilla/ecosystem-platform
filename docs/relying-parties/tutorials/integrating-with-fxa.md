@@ -207,9 +207,9 @@ Verify:
 
 FxA has a process to delete accounts that have not been active for two or more years.  Relying parties might have a different account retention policy.  In order for FxA to bypass active accounts of an RP in the inactive account deletion process, the RP needs to maintain a table of active account `uid`s.  (The `uid` is the main account identifier, and the only column in the table.)  The table will be created in a FxA BigQuery dataset, and the RP can access it using a GCP Service Account.
 
-You can create this table by opening a pull request in [webservices-infra](https://github.com/mozilla/webservices-infra) by adding an entry in the `rp_active_accounts_clients` map for the env ([stage](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa/tf/stage/resources.tf), [prod](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa/tf/prod/resources.tf)).  The key of the entry is the OAuth client id, and the value is one or more service account address.
+You can create this table by opening a pull request in [webservices-infra](https://github.com/mozilla/webservices-infra) to add an entry in the `rp_active_accounts_clients` map for the env ([stage](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa/tf/stage/resources.tf), [prod](https://github.com/mozilla/webservices-infra/blob/HEAD/fxa/tf/prod/resources.tf)).  The key of the entry is your OAuth client id (one of the values you should have received in Step 1 above), and the value is one or more GCP service account address you have access to.
 
-For example, if the OAuth client id is `bfeb828c4b20236a` and the service account is `fxa-bq-active-accounts-updater@my-gcp-project.iam.gserviceaccount.com`:
+For example, if your OAuth client id is `bfeb828c4b20236a` and the service account you will be using to update the table is `fxa-bq-active-accounts-updater@my-gcp-project.iam.gserviceaccount.com`:
 
 ```yaml
   rp_active_accounts_clients = {
