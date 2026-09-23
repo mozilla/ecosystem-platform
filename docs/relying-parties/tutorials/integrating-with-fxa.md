@@ -246,7 +246,8 @@ Mozilla accounts stores minimal identity data:
 | Field | Description |
 |-------|-------------|
 | `uid` | Stable user identifier |
-| `email` | User's email address |
+| `email` | User's primary email address |
+| `additionalEmails` | Verified secondary email addresses; an empty array if there are none |
 | `locale` | Browser locale at account creation |
 | `displayName` | Optional display name |
 | `avatar` | Optional profile image URL |
