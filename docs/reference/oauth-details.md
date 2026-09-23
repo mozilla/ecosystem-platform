@@ -103,6 +103,7 @@ The following short-name scope values are recognized in the FxA ecosystem.
 - `profile`: access the user's profile data.
 - `profile:uid`: access the user's opaque user id.
 - `profile:email`: access the user's email address.
+- `profile:additionalEmails`: access the user's verified secondary email addresses.
 - `profile:locale`: access the user's locale.
 - `profile:avatar`: access the user's avatar picture.
 - `profile:display_name`: access the user's human-readable display name.
