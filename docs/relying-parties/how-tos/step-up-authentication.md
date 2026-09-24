@@ -76,7 +76,7 @@ RP->>UA: Redirect to /authorization w/ acr_values=AAL2&max_age=N
 UA->>FxA: Authorization request
 FxA-->>FxA: Compare session AAL and auth event age
 alt Session already satisfies the request
-  FxA->>UA: Confirm signed-in account; no second factor requested
+  FxA->>UA: Confirm signed-in account. no second factor requested
 else Session is below AAL2, or too old
   FxA->>UA: Prompt for second factor (TOTP / backup code / recovery phone)
   UA->>FxA: Submit second factor
