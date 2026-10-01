@@ -447,11 +447,13 @@ paths:
                   description: >-
                     Stable idempotency key for this usage event; retries with
                     the same id will not double-count
-                userIdentifier:
+                subject:
                   type: string
                   minLength: 1
                   maxLength: 256
-                  description: Unique identifier for the user being metered
+                  description: >-
+                    Subject the usage is attributed to: a user id, device id, or
+                    any other key the relying party meters by
                 slug:
                   type: string
                   minLength: 1
@@ -475,7 +477,7 @@ paths:
                     ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
               required:
                 - id
-                - userIdentifier
+                - subject
                 - slug
                 - amount
               additionalProperties: false
@@ -483,23 +485,37 @@ paths:
         '202':
           description: Usage event accepted for processing
         '400':
-          description: Invalid request body — one or more fields failed validation
+          description: >-
+            Invalid request body — one or more fields failed validation, or the
+            timestamp is outside the accepted range
+        '401':
+          description: Missing, malformed, or unrecognized bearer token
+        '404':
+          description: The meter slug is not configured
+        '500':
+          description: Unexpected error
+        '503':
+          description: >-
+            The event could not be published — retry with the same id, which is
+            safe
       security:
         - bearer: []
       summary: Ingest a usage event
       tags:
         - Metering
-  /v1/metering/usage/{userIdentifier}/{slug}:
+  /v1/metering/usage/{subject}/{slug}:
     get:
       description: >-
         Returns the current usage, limit, and metering window for a specific
-        user and meter slug. Requires a valid metering service credential.
+        subject and meter slug. Requires a valid metering service credential.
       operationId: UsageController_query
       parameters:
-        - name: userIdentifier
+        - name: subject
           required: true
           in: path
-          description: Unique identifier for the user being queried
+          description: >-
+            Subject to query usage for: a user id, device id, or any other key
+            the relying party meters by
           schema:
             type: string
         - name: slug
@@ -510,7 +526,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Current usage data for the requested meter and user
+          description: Current usage data for the requested meter and subject
           content:
             application/json:
               schema:
@@ -553,16 +569,24 @@ paths:
                   - windowEnd
                 additionalProperties: false
         '400':
-          description: Invalid parameters — userIdentifier or slug failed validation
+          description: Invalid parameters — subject or slug failed validation
+        '401':
+          description: Missing, malformed, or unrecognized bearer token
+        '404':
+          description: The meter slug is not configured
+        '500':
+          description: Unexpected error
+        '503':
+          description: Usage data is temporarily unavailable — retry with backoff
       security:
         - bearer: []
-      summary: Query usage data for a user and meter
+      summary: Query usage data for a subject and meter
       tags:
         - Metering
   /v1/metering/usage-grants:
     post:
       description: >-
-        Grants additional usage against a meter for a user, raising the
+        Grants additional usage against a meter for a subject, raising the
         effective limit reported by usage queries. Requires a valid metering
         service credential.
       operationId: UsageGrantsController_create
@@ -574,11 +598,11 @@ paths:
             schema:
               type: object
               properties:
-                userIdentifier:
+                subject:
                   type: string
                   minLength: 1
                   maxLength: 256
-                  description: User identifier the grant applies to
+                  description: Subject the grant applies to
                 slug:
                   type: string
                   minLength: 1
@@ -637,7 +661,7 @@ paths:
                     When the grant stops applying: unending, the end of the
                     meter’s current window, or an explicit expiry
               required:
-                - userIdentifier
+                - subject
                 - slug
                 - amount
                 - lifetime
@@ -653,11 +677,11 @@ paths:
                   id:
                     type: string
                     description: Unique identifier for the grant
-                  userIdentifier:
+                  subject:
                     type: string
                     minLength: 1
                     maxLength: 256
-                    description: Unique identifier for the user being metered
+                    description: Subject the grant was issued to
                   slug:
                     type: string
                     minLength: 1
@@ -696,7 +720,7 @@ paths:
                       query
                 required:
                   - id
-                  - userIdentifier
+                  - subject
                   - slug
                   - amount
                   - grantedBy
@@ -705,28 +729,37 @@ paths:
                   - active
                 additionalProperties: false
         '400':
-          description: Invalid request body — one or more fields failed validation
+          description: >-
+            Invalid request body — one or more fields failed validation, or a
+            currentWindow lifetime was requested on a non-calendar (sliding or
+            session) meter
+        '401':
+          description: Missing, malformed, or unrecognized bearer token
         '404':
           description: The meter slug is not configured
+        '500':
+          description: Unexpected error
       security:
         - bearer: []
-      summary: Grant additional usage to a user
+      summary: Grant additional usage to a subject
       tags:
         - Metering
-  /v1/metering/usage-grants/{userIdentifier}:
+  /v1/metering/usage-grants/{subject}:
     get:
       description: >-
-        Returns all usage grants for a user, optionally filtered by meter slug.
-        Each grant includes an active flag reflecting whether it currently
+        Returns all usage grants for a subject, optionally filtered by meter
+        slug. Each grant includes an active flag reflecting whether it currently
         applies. Requires a valid metering service credential. Metering clients
         are mutually trusted: any authenticated client may read grants created
         by any other client.
       operationId: UsageGrantsController_list
       parameters:
-        - name: userIdentifier
+        - name: subject
           required: true
           in: path
-          description: Unique identifier for the user whose grants are listed
+          description: >-
+            Subject whose grants are listed: a user id, device id, or any other
+            key the relying party meters by
           schema:
             type: string
         - name: slug
@@ -736,7 +769,7 @@ paths:
           schema: {}
       responses:
         '200':
-          description: The user’s usage grants
+          description: The subject’s usage grants
           content:
             application/json:
               schema:
@@ -750,11 +783,11 @@ paths:
                         id:
                           type: string
                           description: Unique identifier for the grant
-                        userIdentifier:
+                        subject:
                           type: string
                           minLength: 1
                           maxLength: 256
-                          description: Unique identifier for the user being metered
+                          description: Subject the grant was issued to
                         slug:
                           type: string
                           minLength: 1
@@ -795,7 +828,7 @@ paths:
                             the query
                       required:
                         - id
-                        - userIdentifier
+                        - subject
                         - slug
                         - amount
                         - grantedBy
@@ -803,15 +836,19 @@ paths:
                         - expiresAt
                         - active
                       additionalProperties: false
-                    description: Grants for the requested user
+                    description: Grants for the requested subject
                 required:
                   - grants
                 additionalProperties: false
         '400':
-          description: Invalid parameters — userIdentifier or slug failed validation
+          description: Invalid parameters — subject or slug failed validation
+        '401':
+          description: Missing, malformed, or unrecognized bearer token
+        '500':
+          description: Unexpected error
       security:
         - bearer: []
-      summary: List a user’s usage grants
+      summary: List a subject’s usage grants
       tags:
         - Metering
   /v1/metering/usage-grants/{grantId}:
@@ -833,8 +870,12 @@ paths:
           description: The grant was deleted
         '400':
           description: Invalid parameters — grantId failed validation
+        '401':
+          description: Missing, malformed, or unrecognized bearer token
         '404':
           description: No grant exists with that id
+        '500':
+          description: Unexpected error
       security:
         - bearer: []
       summary: Delete a usage grant
