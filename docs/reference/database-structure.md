@@ -4,8 +4,8 @@ title: Database Structure
 
 Current as of:
 
-- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `199`
-- [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `39`
+- [FxA db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa): `201`
+- [Oauth db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_oauth): `40`
 - [Profile db patch level](https://github.com/mozilla/fxa/tree/main/packages/db-migrations/databases/fxa_profile): `4`
 
 Below you'll find some ER diagrams of the Mozilla accounts and Subscription
@@ -451,6 +451,7 @@ erDiagram
         binary clientId PK "8 bytes"
         bigint firstAuthorizedTosAt "unsigned"
         bigint lastAuthorizedTosAt "unsigned"
+        bigint deauthorizedAt "unsigned; NULL while active"
     }
 ```
 ```mermaid
