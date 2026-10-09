@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkfirefox_ecosystem_platform||=[]).push([[3192],{13192(e,r,c){c.d(r,{createArchitectureServices:()=>s.S});var s=c(84549);c(80184)}}]);
