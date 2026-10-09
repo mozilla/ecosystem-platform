@@ -8,13 +8,15 @@ import {dracula as darkCodeTheme}  from 'prism-react-renderer';
   url: 'https://mozilla.github.io',
   baseUrl: '/ecosystem-platform/',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/firefox-logo.png',
   organizationName: 'mozilla',
   projectName: 'ecosystem-platform',
   trailingSlash: false,
   markdown: {
-    mermaid: true
+    mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes:['@docusaurus/theme-mermaid'],
   clientModules: [require.resolve('./src/js/fxa-sitemap-live.js')],
