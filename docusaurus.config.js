@@ -65,6 +65,12 @@ import {dracula as darkCodeTheme}  from 'prism-react-renderer';
         defaultMode: "light",
         respectPrefersColorScheme: true,
       },
+      mermaid: {
+        // mermaid 12 switched flowchart, sequence, ER and state diagrams to the
+        // "neo" look by default. Keep the classic rendering the diagrams were
+        // drawn for; delete this to try the new look.
+        options: { look: 'classic' },
+      },
       docs: {
         sidebar: {
           hideable: true,
