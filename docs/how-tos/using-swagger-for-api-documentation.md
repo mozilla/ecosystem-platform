@@ -165,10 +165,6 @@ import ACCOUNT_DOCS from '../../docs/swagger/account-api';
             metricsContext: METRICS_CONTEXT_SCHEMA,
             style: isA.string().allow(['trailhead']).optional(),
             verificationMethod: validators.verificationMethod.optional(),
-            // preVerified is not available in production mode.
-            ...(!(config as any).isProduction && {
-              preVerified: isA.boolean(),
-            }),
           }),
         },
         response: {

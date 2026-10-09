@@ -120,7 +120,7 @@ The auth server has a special config for auto checking all endpoints. To turn th
 
 At the time of writing this isn't currently enabled, but it might be in the future. And if it is, a couple things to note:
 
-- When this is enabled, we should define the 'default' rule! Otherwise calls will fall back to the legacy customs service, and this could result in a spike of blocked requests.
+- When this is enabled, we should define the 'default' rule! Otherwise endpoints without a matching rule are not rate limited at all.
 - It's also important to note that individual endpoints can be configured with the following pattern, `${HTTP_METHOD}_${PATH}` where path is lower case and non alpha numeric characters are converted to underscores.
 - Some endpoints like `/v1/verify` have very high traffic, so specific rules should be added for these endpoints. For example `post__v1_verify : 100 : ip : 1 minute : 1 minute : report` would be a safe rule to add if turning on check all end points.
 - Alternatively we might even consider skipping high traffic endpoints from rate-limiting checks. To do this add the high traffic endpoint to the `RATE_LIMIT__SKIP_ENDPOINTS` config setting.
