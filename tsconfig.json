@@ -15,5 +15,6 @@
       "@site/*": ["./*"]
     },
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["build", "node_modules"]
 }
