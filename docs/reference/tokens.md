@@ -126,6 +126,17 @@ Refresh tokens should only ever be presented to the FxA OAuth server, and should
 talking to other resource servers. Instead, the RP should use the refresh token to generate a short-lived
 [access token](#oauth-access-tokens) and use that to communicate with resource servers.
 
+The `refresh_token` grant only mints access tokens; it never issues a new refresh token, so it cannot
+durably add a scope to the refresh token a client holds. Firefox browser clients that need to add a scope for
+another Mozilla service to an existing refresh token (for example, a Sync user enabling Relay) use a separate grant,
+the [RFC 8693](https://www.rfc-editor.org/rfc/rfc8693.html) token exchange, on the
+[token endpoint](/ecosystem-platform/api#tag/OAuth-Server-API-Overview/operation/postToken). The client sends
+`grant_type=urn:ietf:params:oauth:grant-type:token-exchange`, its current refresh token as `subject_token`,
+`subject_token_type=urn:ietf:params:oauth:token-type:refresh_token`, and only the additional scopes it needs in
+`scope`. No client credentials are sent; the refresh token is already bound to a client. FxA grants the exchange
+only if the user has already authorized that service, returns a new refresh token with the combined scopes, and
+revokes the old one. See the endpoint documentation for details.
+
 ### OAuth Access Tokens
 
 RPs that wish to access resource servers on behalf of the user (say, to read or store user data) need
