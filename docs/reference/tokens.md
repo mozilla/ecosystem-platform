@@ -91,7 +91,7 @@ Types of unverified sessions:
 3. **Server-side heuristics** — based on factors such as whether the account is newly-created or whether we've seen previous verified logins from the same IP address. Logins from RP logins/redirects are allowed to skip entering the code for less friction. The next time that user tries to perform an action in account settings, they'll be required to verify.
 
 :::note For FxA engineers
-To get into the third type (heuristic-based unverified session) locally, use a `@mozilla.com` email address. The `SIGNIN_CONFIRMATION_FORCE_EMAIL_REGEX` env var controls which email addresses are forced into sign-in confirmation with `mustVerify: 0`. To force sign-in confirmation globally (with `mustVerify: 1`, simulating a suspicious request or scoped key request), set `SIGNIN_CONFIRMATION_FORCE_GLOBALLY=true`. See the auth-server `config/index.ts` under `signinConfirmation` for more details.
+Two ways to reach the heuristic (non-Sync non-2FA) unverified session locally. For manual testing, set `SIGNIN_CONFIRMATION_SKIP_FOR_NEW_ACCOUNTS=false` and sign in with any address; the server then reaches the state through its real heuristics. For automated tests, sign in with an `unverifiedsession*@restmail.net` address, which `signinConfirmation.forcedHeuristicEmailAddresses` forces into that state on every environment. The Sync-style state (`mustVerify: 1`, OAuth grants blocked until the code is entered) is forced per email by `forcedSyncEmailAddresses` (`sync*@restmail.net` on every environment) or for every account by `SIGNIN_CONFIRMATION_FORCE_GLOBALLY=true`. See `signinConfirmation` in the auth-server `config/index.ts` for the evaluation order.
 :::
 
 Certain actions on the account can only be performed with a verified session, including:
@@ -134,6 +134,17 @@ Refresh tokens can only be created by authorizing them via a valid `sessionToken
 Refresh tokens should only ever be presented to the FxA OAuth server, and should **not** be used when
 talking to other resource servers. Instead, the RP should use the refresh token to generate a short-lived
 [access token](#oauth-access-tokens) and use that to communicate with resource servers.
+
+The `refresh_token` grant only mints access tokens; it never issues a new refresh token, so it cannot
+durably add a scope to the refresh token a client holds. Firefox browser clients that need to add a scope for
+another Mozilla service to an existing refresh token (for example, a Sync user enabling Relay) use a separate grant,
+the [RFC 8693](https://www.rfc-editor.org/rfc/rfc8693.html) token exchange, on the
+[token endpoint](/ecosystem-platform/api#tag/OAuth-Server-API-Overview/operation/postToken). The client sends
+`grant_type=urn:ietf:params:oauth:grant-type:token-exchange`, its current refresh token as `subject_token`,
+`subject_token_type=urn:ietf:params:oauth:token-type:refresh_token`, and only the additional scopes it needs in
+`scope`. No client credentials are sent; the refresh token is already bound to a client. FxA grants the exchange
+only if the user has already authorized that service, returns a new refresh token with the combined scopes, and
+revokes the old one. See the endpoint documentation for details.
 
 ### OAuth Access Tokens
 
