@@ -3,7 +3,7 @@ title: Requirements for Integration
 sidebar_label: Integration Requirements
 ---
 
-Last updated: `August 27th, 2026`
+Last updated: `October 13th, 2026`
 
 
 ## Maintain a point of contact 
@@ -23,6 +23,20 @@ Please see [this section on rate limits](/relying-parties/reference/using-apis).
 0. [Primary email changed notifications](https://github.com/mozilla/fxa/tree/main/packages/fxa-event-broker#profile-change) should update the contact email stored with the account.
 0. Profile information should not be shared with 3rd parties without explicit consent.
 0. [Destroy any outstanding access tokens and refresh tokens](/api#tag/Oauth/operation/postOauthDestroy) whenever a user signals their session or account should be terminated, e.g., the user signs out of your site, closes their account on your site, or unsubscribes from all functionality.
+
+## Maintain Active Account Tables
+FxA deletes accounts that have been inactive for two years or longer.  To avoid deleting accounts that RPs consider active but FxA does not, FxA needs RPs to maintain active account tables in a BigQuery dataset within FxA's GCP project.
+
+An active accounts table is a single-column table with a list of account UIDs.  The table must be updated regularly.  (Daily is preferred.)  RPs have complete control over their tables; FxA will not edit these tables.
+
+See [Create Active Accounts BigQuery Table](/relying-parties/tutorials/integration-with-fxa#step-5-create-active-accounts-bigquery-table) on how to create a table for an OAuth client.
+
+FxA's inactive-accounts batch job will stop with an error if any RP tables are empty or stale to prevent false negatives.
+
+RPs can update their table however they wish.  Current approaches include:
+
+- [BigQuery Scheduled Queries](https://docs.cloud.google.com/bigquery/docs/scheduling-queries)
+- [load_table_from_json](https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-json) from a Django management command cronjob
 
 ## Self Hosted Login Flow
 If you're hosting your own login page you need to send top-of-funnel metrics to FxA:
