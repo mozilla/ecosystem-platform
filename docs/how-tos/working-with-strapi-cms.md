@@ -285,13 +285,13 @@ After making changes to your local Strapi instance, you need to deploy them thro
 
 1. Create a new PR with your generated files
 2. Merge the PR into the `dev` branch
-3. Changes automatically deploy to: https://legendary-beauty-40336b81b4.strapiapp.com/
+3. Changes automatically deploy to: https://strapi.dev.fxa.nonprod.webservices.mozgcp.net/
 4. Verify permissions are correctly set for your RelyingParty config
 
 ### Stage Deployment
 
 1. Merge the `dev` branch into the `stg` branch
-2. Strapi instance updates automatically at: https://special-dream-8c48be3fee.strapiapp.com
+2. Strapi instance updates automatically at: https://strapi.stage.fxa.nonprod.webservices.mozgcp.net/
 
 ### Production Deployment
 
