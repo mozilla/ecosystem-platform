@@ -10,7 +10,7 @@ Product managers and Relying parties can manage Mozilla Subscriptions with [Stra
 
 ## Getting Started
 
-There are separate Strapi instances for each environment - [stage](https://special-dream-8c48be3fee.strapiapp.com/admin/auth/login) / [production](https://bold-life-f3ef2932ad.strapiapp.com/admin/auth/login).
+There are separate Strapi instances for each environment - [stage](https://strapi.stage.fxa.nonprod.webservices.mozgcp.net/admin/auth/login / [production](https://strapi.prod.fxa.prod.webservices.mozgcp.net/admin/auth/login).
 
 - If you do not have access to Subscription Platform in Strapi, please let us know in the `#subscription-platform` Slack channel.
 
