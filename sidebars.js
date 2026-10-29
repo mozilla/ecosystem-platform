@@ -128,7 +128,6 @@ module.exports = {
                             ],
           'Explanation':   [
                             'explanation/architectural-decision-records',
-                            'explanation/content-server-architecture',
                             'explanation/onepw-protocol',
                             'explanation/pairing-flow-architecture',
                             'explanation/scoped-keys',
