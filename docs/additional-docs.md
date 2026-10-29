@@ -22,4 +22,3 @@ In addition to the ecosystem docs, each package has it's own README.md and some 
 - fxa-profile-server [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/README.md) / [docs/](https://github.com/mozilla/fxa/blob/main/packages/fxa-profile-server/docs)
 - fxa-react [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-react/README.md)
 - fxa-settings [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-settings/README.md)
-- fxa-shared [README](https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/README.md)

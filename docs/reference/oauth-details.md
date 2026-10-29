@@ -150,7 +150,7 @@ The following URL scope values are currently recognized by FxA:
 
 We say that a scope value A _implies_ another scope value B if they are exactly equal, or if A represents a more general capability than B. Similarly, a scope A implies scope value B if there is some scope value in A that implies B. This is the basic operation used to check permissions when processing an OAuth token.
 
-Consumers of OAuth tokens should avoid directly parsing and comparing scopes where possible, and instead use the existing implementation in the `fxa-shared` node module.
+Consumers of OAuth tokens should avoid directly parsing and comparing scopes where possible, and instead use the existing implementation in the `@fxa/accounts/oauth` library (`libs/accounts/oauth`).
 
 For consumers that must implement their own scope checking, the rules for implication can be summarized as:
 

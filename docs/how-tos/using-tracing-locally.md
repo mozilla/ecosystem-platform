@@ -2,7 +2,7 @@
 title: Tracing for Local Development
 ---
 
-Configuring tracing is much the same as any other service. A configuration file can be found in fxa-shared/tracing/config.ts. From there adjusting defaults can be done via environment variables.
+Configuring tracing is much the same as any other service. A configuration file can be found in `libs/shared/otel/src/lib/config.ts`. From there adjusting defaults can be done via environment variables.
 
 ## Configuring Local Development
 Setting the following environment variables which can easily be done by adding them to a .env file in FxA root, and then starting FxA by running `dotenv -- yarn start`. 

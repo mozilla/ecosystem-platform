@@ -249,11 +249,11 @@ You might need to run `yarn start infrastructure` to start services before runni
 From the root directory you may test all or some FxA packages:
 
 ```shell
-# Test only `fxa-shared`
-yarn test fxa-shared
+# Test only `fxa-profile-server`
+yarn test fxa-profile-server
 
-# Test `fxa-shared` and `fxa-auth-server`
-yarn test fxa-shared fxa-auth-server
+# Test `fxa-profile-server` and `fxa-auth-server`
+yarn test fxa-profile-server fxa-auth-server
 
 # Test all packages
 yarn test all
@@ -270,11 +270,11 @@ Make sure the the infrastructure stack has been started and is running: `yarn st
 # Test only `fxa-auth-server`
 nx test-integration fxa-auth-server
 
-# Test `fxa-shared` and `fxa-auth-server`
-nx run-many -t test-integration -p fxa-shared fxa-auth-server
+# Test `fxa-profile-server` and `fxa-auth-server`
+nx run-many -t test-integration -p fxa-profile-server fxa-auth-server
 
-# Test `fxa-shared` and `fxa-auth-server` with 5 parallel workers
-nx run-many -t test-integration -p fxa-shared fxa-auth-server --parallel=5
+# Test `fxa-profile-server` and `fxa-auth-server` with 5 parallel workers
+nx run-many -t test-integration -p fxa-profile-server fxa-auth-server --parallel=5
 
 # Test all packages
 nx run-many -t test-integration

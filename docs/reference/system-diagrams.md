@@ -83,8 +83,8 @@ flowchart LR
 ## Containers: accounts and authentication
 
 The core of Mozilla accounts. The content server is an Express app that serves the React UI and a few
-server-rendered routes; the UI lives in `fxa-settings` and talks to the auth server directly. See the
-[content-server architecture](../explanation/content-server-architecture) page for the client side.
+server-rendered routes; the UI lives in `fxa-settings` and talks to the auth server directly. The
+[FxA Sitemap](../fxa-sitemap/index.md) maps the screens it serves.
 
 ```mermaid
 flowchart LR

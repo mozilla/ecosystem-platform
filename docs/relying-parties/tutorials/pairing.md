@@ -11,6 +11,8 @@ by instead "pairing" with an already-connected device in order to obtain account
 
 Currently, the pairing implementation is limited to a mobile device (Firefox Android and iOS) scanning a QR code displayed on a computer (Firefox Desktop) already connected to a Firefox Account. We hope to expand these capabilities in future.
 
+Two versions of the web flow exist. In the original (v1) flow Firefox Desktop's native code owns the pairing channel and shows the QR code in `about:preferences`. In the v2 flow the Mozilla accounts web page creates the channel and shows the QR code itself, and a QR scanned outside Firefox hands the pairing URL to the Firefox app. Which one a browser gets is decided per deployment and per Firefox version; see [Pairing versions](../../explanation/pairing-flow-architecture.md#pairing-versions).
+
 ## User Flow
 
 Let's assume that the user is already signed-in to their Desktop Firefox profile.
@@ -67,7 +69,8 @@ The implementation, security concerns, and desired security proeperties are desc
 - [Pairing Channel](https://github.com/mozilla/fxa-pairing-channel)
 - [Desktop client implementation](https://searchfox.org/mozilla-central/rev/23c25cd32a1e87095301273937b4ee162f41e860/services/fxaccounts/FxAccountsPairing.jsm) ([UI](https://searchfox.org/mozilla-central/rev/23c25cd32a1e87095301273937b4ee162f41e860/browser/components/preferences/fxaPairDevice.js))
 - [Mobile client implementation](https://github.com/mozilla/application-services/blob/40bef1314d9cf20fdfa8e1c1539a5205c4bdd462/components/fxa-client/src/oauth.rs#L111-L136)
-- [Content server implementation](https://github.com/mozilla/fxa/blob/44bbb161d958f084c1bb39902554f69a2333de90/packages/fxa-content-server/app/scripts/models/pairing/supplicant-state-machine.js)
+- Web implementation in `fxa-settings`: the [supplicant](https://github.com/mozilla/fxa/blob/main/packages/fxa-settings/src/models/integrations/pairing-supplicant-integration.ts) and [authority](https://github.com/mozilla/fxa/blob/main/packages/fxa-settings/src/models/integrations/pairing-authority-integration.ts) integrations, the [pairing channel client](https://github.com/mozilla/fxa/blob/main/packages/fxa-settings/src/lib/channels/pairing-channel.ts), and the pages under [`pages/Pair`](https://github.com/mozilla/fxa/tree/main/packages/fxa-settings/src/pages/Pair) (v1) and [`pages/Pair2`](https://github.com/mozilla/fxa/tree/main/packages/fxa-settings/src/pages/Pair2) (v2)
+- [Testing and debugging pairing on a device](https://github.com/mozilla/fxa/blob/main/docs/pairing/README.md)
 
 ## Possible evolutions
 

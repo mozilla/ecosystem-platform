@@ -28,10 +28,9 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 
 const ROUTE_SOURCES = [
   {
-    label: 'content-server FRONTEND_ROUTES',
-    url: `${RAW_BASE}/packages/fxa-content-server/server/lib/routes/react-app/content-server-routes.js`,
-    // Keep only plain route strings: this drops quoted prose in comments and
-    // regex-style entries such as subscriptions/products/[\\w_]+.
+    label: 'content-server React route groups',
+    url: `${RAW_BASE}/packages/fxa-content-server/server/lib/routes/react-app/index.js`,
+    // Keep only plain route strings: this drops quoted prose in comments.
     parse: (text) =>
       Array.from(text.matchAll(/'([^'\n]+)'/g), (m) => m[1]).filter((r) =>
         /^[A-Za-z0-9_./:-]+$/.test(r)

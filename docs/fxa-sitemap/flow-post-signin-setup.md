@@ -47,6 +47,4 @@ flowchart TD
 | `/post_verify/set_password` | [SetPassword](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-postverify-setpassword--default) | A passwordless or Google/Apple account entering Sync needs a password for encryption keys. |
 | `/post_verify/third_party_auth/set_password` | [SetPassword](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-postverify-setpassword--default) | Alias kept for in-flight links. |
 | `/post_verify/service_welcome` | [ServiceWelcome](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-postverify-servicewelcome--from-signin) | Welcome interstitial naming the relying party. |
-| `/post_verify/password/force_password_change` | force_password_change (legacy) | Mandatory password change. Sign in still hard-navigates here. |
-| `/post_verify/newsletters/add_newsletters` | newsletters (legacy) | Newsletter opt-in. Not reachable from React. |
-| `/post_verify/secondary_email/add_secondary_email`, `/post_verify/secondary_email/confirm_secondary_email`, `/post_verify/secondary_email/verified_secondary_email` | secondary_email (legacy) | Add a secondary email after verification. Settings does this now. |
+| `/post_verify/password/force_password_change` | ForcePasswordChange | Mandatory password change. |

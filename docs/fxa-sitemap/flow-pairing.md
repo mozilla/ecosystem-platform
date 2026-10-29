@@ -63,8 +63,6 @@ flowchart TD
 | `/pair/supp/complete`, `/pair/success` | [PairSuccess](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-pair-success--default) | v1 phone: done. |
 | `/pair/failure` | [PairFailure](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-pair-failure--default) | Pairing failed or was rejected. |
 | `/oauth/success/:clientId` | [PairSuccess](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-pair-success--default) | Terminal screen when the code is delivered without a WebChannel. |
-| `/poc_deep_link`, `/poc_pair_init`, `/poc_pair_start` | proof of concept | Development pages behind the `pocPairingRoutes` flag. |
-| `/post_verify/cad_qr/get_started`, `/post_verify/cad_qr/ready_to_scan`, `/post_verify/cad_qr/scan_code`, `/post_verify/cad_qr/connected` | cad_qr (legacy) | Earlier QR flow, replaced by v2. |
 
 ## Notes
 

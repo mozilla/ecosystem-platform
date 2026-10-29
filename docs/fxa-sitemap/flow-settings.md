@@ -51,7 +51,6 @@ flowchart TD
 | `/settings/recent_activity` | [PageRecentActivity](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-settings-recentactivity--default) | Security event history. |
 | `/settings/clients` | [ConnectedServices](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/components-settings-connectedservices--default) | Redirects to the Connected services section of `/settings`: devices and services with access. |
 | `/settings/delete_account` | [PageDeleteAccount](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-settings-deleteaccount--default) | Delete the account. |
-| `/security_events`, `/secondary_email_verified` | legacy | Older screens replaced by Recent activity and Settings. |
 
 ## Notes
 
