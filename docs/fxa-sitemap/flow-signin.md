@@ -67,9 +67,8 @@ flowchart TD
 | `/signin_confirmed`, `/signin_verified` | [SigninConfirmed](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signin-signinconfirmed--default-signed-in) | Signed-in confirmation kept for old links. The current flow continues to `/pair` instead. |
 | `/report_signin` | [ReportSignin](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signin-reportsignin--default) | Landing for the "this wasn't me" email link. |
 | `/signin_reported` | [SigninReported](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signin-signinreported--default) | Report confirmation. |
-| `/post_verify/password/force_password_change` | force_password_change (legacy) | Mandatory password change after a security event. |
-| `/signin_permissions` | permissions (legacy) | Consent screen for untrusted relying parties. Not reachable from React. |
-| `/confirm_signin`, `/confirm` | confirm (legacy) | Link-based "check your email" screens, replaced by code entry. |
+| `/post_verify/password/force_password_change` | ForcePasswordChange | Mandatory password change after a security event. |
+| `/signin_permissions` | Permissions | Consent screen for untrusted relying parties. |
 
 ## Notes
 

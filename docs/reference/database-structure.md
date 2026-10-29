@@ -370,9 +370,10 @@ erDiagram
 
 ## Database: `fxa_oauth`
 
-`accountAuthorizations_v2` is a shadow of `accountAuthorizations` that replaces
-the `scope` varchar with a `scopeId` foreign key.  v1 remains authoritative
-while the app dual-writes both behind a config flag.
+`accountAuthorizations_v2` is an unused shadow of `accountAuthorizations` that
+replaces the `scope` varchar with a `scopeId` foreign key.  The migration to it
+was abandoned: the app neither reads nor writes the table, and it stays only
+until a follow-up migration drops it.
 
 ```mermaid
 erDiagram

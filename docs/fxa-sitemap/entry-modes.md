@@ -132,7 +132,6 @@ Bound on the integration data models in `models/integrations/data/data.ts`.
 | Passwordless sign-in and sign-up (`/signin_passwordless_code`) | `featureFlags.passwordlessEnabled` or `force_passwordless=true`, plus browser support, and not Sync |
 | Passkeys (`/signin_passkey_fallback`, `/settings/passkeys/add`) | `featureFlags.passkeysEnabled` and related flags |
 | Pairing v2 (`/pair/authority/*`, `/pair/supplicant/*`) | content-server `showReactApp.pair2Routes` |
-| Proof-of-concept pairing (`/poc_*`) | `showReactApp.pocPairingRoutes`; slated for removal |
 | WebChannel example (`/web_channel_example`) | `showReactApp.webChannelExampleRoutes` and `?showReactApp=true`; development only |
 
 </details>

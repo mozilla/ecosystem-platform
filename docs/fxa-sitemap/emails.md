@@ -81,7 +81,7 @@ flowchart LR
 <details>
 <summary>Known oddities</summary>
 
-- `/verify_primary_email` and `/verify_secondary_email` are still derived in auth-server config, but no current email links to them.
+- `/verify_primary_email` is still derived in auth-server config, but no current email links to it.
 - `/settings/account_recovery` has a link builder in the legacy mailer, but no current template renders it.
 - `verifyShortCode` and `verifyLoginCode` carry their link only in an `X-Link` mail header, not in the body.
 

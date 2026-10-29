@@ -95,9 +95,7 @@ Every route the content server serves and the page that documents it. The freshn
 | `/signin_verified` | [Sign in](./flow-signin.md) | |
 | `/report_signin` | [Sign in](./flow-signin.md) | Email link |
 | `/signin_reported` | [Sign in](./flow-signin.md) | |
-| `/signin_permissions` | [OAuth relying party](./flow-oauth-relying-party.md) | Legacy Backbone |
-| `/confirm_signin` | [Sign in](./flow-signin.md) | Legacy Backbone |
-| `/confirm` | [Sign in](./flow-signin.md) | Legacy Backbone |
+| `/signin_permissions` | [OAuth relying party](./flow-oauth-relying-party.md) | |
 | `/signup` | [Sign up](./flow-signup.md) | |
 | `/oauth/signup` | [Sign up](./flow-signup.md) | |
 | `/confirm_signup_code` | [Sign up](./flow-signup.md) | |
@@ -105,13 +103,8 @@ Every route the content server serves and the page that documents it. The freshn
 | `/signup_verified` | [Sign up](./flow-signup.md) | |
 | `/signup_confirmed_sync` | [Sign up](./flow-signup.md) | |
 | `/primary_email_verified` | [Sign up](./flow-signup.md) | |
-| `/signup_permissions` | [OAuth relying party](./flow-oauth-relying-party.md) | Legacy Backbone |
-| `/verify_email` | [Sign up](./flow-signup.md) | Legacy Backbone, email link |
-| `/verify_primary_email` | [Sign up](./flow-signup.md) | Legacy Backbone |
-| `/verify_secondary_email` | [Settings](./flow-settings.md) | Legacy Backbone |
-| `/secondary_email_verified` | [Settings](./flow-settings.md) | Legacy Backbone |
-| `/choose_what_to_sync` | [Sign up](./flow-signup.md) | Legacy Backbone |
-| `/would_you_like_to_sync` | [Sign up](./flow-signup.md) | Legacy Backbone |
+| `/verify_email` | [Sign up](./flow-signup.md) | Email link; redirects to `/confirm_signup_code` |
+| `/verify_primary_email` | [Sign up](./flow-signup.md) | Redirects to `/settings` |
 | `/reset_password` | [Reset password](./flow-reset-password.md) | |
 | `/confirm_reset_password` | [Reset password](./flow-reset-password.md) | |
 | `/confirm_totp_reset_password` | [Reset password](./flow-reset-password.md) | |
@@ -131,11 +124,7 @@ Every route the content server serves and the page that documents it. The freshn
 | `/inline_recovery_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/inline_recovery_key_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/inline_passwordless_sync_setup` | [Extra setup steps](./flow-post-signin-setup.md) | |
-| `/post_verify/password/force_password_change` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
-| `/post_verify/newsletters/add_newsletters` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
-| `/post_verify/secondary_email/add_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
-| `/post_verify/secondary_email/confirm_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
-| `/post_verify/secondary_email/verified_secondary_email` | [Extra setup steps](./flow-post-signin-setup.md) | Legacy Backbone |
+| `/post_verify/password/force_password_change` | [Extra setup steps](./flow-post-signin-setup.md) | |
 | `/connect_another_device` | [Pairing / CAD](./flow-pairing.md) | Email link |
 | `/pair` | [Pairing / CAD](./flow-pairing.md) | |
 | `/pair/unsupported` | [Pairing / CAD](./flow-pairing.md) | |
@@ -162,13 +151,6 @@ Every route the content server serves and the page that documents it. The freshn
 | `/pair/supplicant/timeout_and_cancel` | [Pairing / CAD](./flow-pairing.md) | v2 |
 | `/pair/supplicant/download_firefox` | [Pairing / CAD](./flow-pairing.md) | v2 |
 | `/oauth/success/:clientId` | [Pairing / CAD](./flow-pairing.md) | |
-| `/post_verify/cad_qr/get_started` | [Pairing / CAD](./flow-pairing.md) | Legacy Backbone |
-| `/post_verify/cad_qr/ready_to_scan` | [Pairing / CAD](./flow-pairing.md) | Legacy Backbone |
-| `/post_verify/cad_qr/scan_code` | [Pairing / CAD](./flow-pairing.md) | Legacy Backbone |
-| `/post_verify/cad_qr/connected` | [Pairing / CAD](./flow-pairing.md) | Legacy Backbone |
-| `/poc_deep_link` | [Pairing / CAD](./flow-pairing.md) | Proof of concept |
-| `/poc_pair_init` | [Pairing / CAD](./flow-pairing.md) | Proof of concept |
-| `/poc_pair_start` | [Pairing / CAD](./flow-pairing.md) | Proof of concept |
 | `/settings` | [Settings](./flow-settings.md) | |
 | `/settings/display_name` | [Settings](./flow-settings.md) | |
 | `/settings/avatar` | [Settings](./flow-settings.md) | |
@@ -187,16 +169,13 @@ Every route the content server serves and the page that documents it. The freshn
 | `/settings/recent_activity` | [Settings](./flow-settings.md) | |
 | `/settings/clients` | [Settings](./flow-settings.md) | |
 | `/settings/delete_account` | [Settings](./flow-settings.md) | |
-| `/security_events` | [Settings](./flow-settings.md) | Legacy Backbone |
-| `/subscriptions` | [OAuth relying party](./flow-oauth-relying-party.md) | Legacy redirect to Subscription Platform |
+| `/subscriptions` | [OAuth relying party](./flow-oauth-relying-party.md) | Redirect to Subscription Platform |
 | `/clear` | [Entry modes](./entry-modes.md) | Utility |
 | `/cookies_disabled` | [Entry modes](./entry-modes.md) | Utility |
 | `/web_channel_example` | [Entry modes](./entry-modes.md) | Development only |
 | `/update_firefox` | [Entry modes](./entry-modes.md) | Server-rendered |
 | `/download_firefox` | [Entry modes](./entry-modes.md) | Server redirect |
 | `/.well-known/change-password` | [Settings](./flow-settings.md) | Server redirect |
-
-Not listed because the served route is a pattern: `/subscriptions/products/:productId`, a legacy redirect to the Subscription Platform.
 
 </details>
 

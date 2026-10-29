@@ -33,21 +33,15 @@ For event specific properties, we have a `event.reason` string metric to capture
 
 ### Auth server
 
-0. Update the YAML in `packages/fxa-shared/metrics/glean/fxa-backend-metrics.yaml`.
+0. Update the YAML in `libs/shared/metrics/glean/src/registry/fxa-backend-metrics.yaml`.
 0. Run `yarn glean-generate` from `packages/fxa-auth-server`.
 0. Update `gleanMetrics` in `packages/fxa-auth-server/lib/metrics/glean/index.ts` to add the event.  Ensure that you call the `record*` method on the new event by adding another case in the big switch statement in `createEventFn`.
 
-### Content server
-
-0. Update the YAML in `packages/fxa-shared/metrics/glean/fxa-ui-metrics.yaml`.
-0. Run `yarn glean-generate` from `packages/fxa-content-server`.
-0. Update `GleanMetrics` in `packages/fxa-content-server/app/scripts/lib/glean/index.ts` so its API exposes a function for the event.  Also ensure that you add the new event to the switch statement in `recordEventMetric`.
-
 ### Settings
 
-0. Update the YAML in `packages/fxa-shared/metrics/glean/fxa-ui-metrics.yaml`.
-0. Run `yarn glean-generate && yarn build` from `packages/fxa-shared`.
-0. Add the event to `eventsMap` in `packages/fxa-shared/metrics/glean/web/index.ts`.
+0. Update the YAML in `libs/shared/metrics/glean/src/registry/fxa-ui-metrics.yaml`.
+0. Run `yarn glean-generate` from `packages/fxa-settings`.
+0. Add the event to `eventsMap` in `packages/fxa-settings/src/lib/glean/web/index.ts`.
 0. Update `recordEventMetric` in `packages/fxa-settings/src/lib/glean/index.ts` to include the new event in the switch statement.
 
 ## ...view the Glean pings while debugging?
@@ -73,11 +67,6 @@ Grep for `glean-server-event` in `auth-out.log`.
 0. Emit the new event in code like `request.emitMetricsEvent('foo.bar')`.
 0. Wherever you emit it, add test cases to cover that the event is correctly logged.
 0. Be aware that flow events are only emitted if you have a `metricsContext`. If there’s one in the payload for the current route, you’re all good. If not, the code will try to read one from Redis for you. But a previous call to `request.stashMetricsContext` or `request.propagateMetricsContext` will need to have been made with the token that your request is authenticated by. Maybe that’s done already, maybe it isn’t, you’ll need to trace the request flow and grep the code.
-
-### Content server
-0. On the front-end, make sure your view has mixed in `FlowEventsMixin`.
-0. view and engage events will be emitted automatically when you add the mixin, for other events you need to call `this.logFlowEvent` from your view.
-0. Add test coverage for the new event to your view unit tests.
 
 ## ...create a new email event?
 You don’t need to do this, it’s all set up to work automatically.

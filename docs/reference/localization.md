@@ -4,6 +4,10 @@ title: Localization
 
 Current as of `November 6, 2023`
 
+:::warning Gettext is on its way out
+The Backbone client that consumed the gettext `.po` catalogues was deleted in October 2026 ([mozilla/fxa#21585](https://github.com/mozilla/fxa/pull/21585)). The content server now only localizes a handful of server-rendered pages that way, and the `.po` pipeline described below is slated for removal. Add every new string with [Fluent](#with-fluent); treat the gettext sections as a description of what remains, not of how to do things.
+:::
+
 Translations for Mozilla accounts and Subscription Platform are located in the [fxa-content-server-l10n repo][#l10n-repo]. This includes translations for UI and emails, but does not include [legal documents](#terms-of-service-and-privacy-policy-are-handled-differently). 
 
 # Process overview
@@ -195,7 +199,7 @@ The latest strings from [fxa-content-server-l10n repo][#download-l10n-script] ar
         - The [l10n-create-json grunt task][#l10n-create-json-grunt-task] copies all translated `.po` files from the fxa-content-server-l10n repo and runs the [grunt po2json task][#grunt-po2json-task], once for each of the 2 `.po` files for each locale, resulting in 2 `.json` files for each locale.
         - A copy of the compiled JavaScript bundles is created for each locale.
         - Static JavaScript resources are deployed to a 3rd party CDN (Amazon) and [Subresouce Integrity (SRI)][#sri] is used to ensure the resources are not modified on the CDN. Each JavaScript bundle (per locale) has its own SRI hash.
-    - In other localized packages (fxa-auth-server, fxa-payments, fxa-react, fxa-settings, fxa-shared):
+    - In other localized packages (fxa-auth-server, fxa-payments, fxa-react, fxa-settings):
         - Individual source `en.ftl` files for the default 'en' locale are merged into a package-level `.ftl` file (`merge-ftl` grunt task) to ensure local builds have access to the latest FTL strings.
         - l10n bundles are created for use by Fluent's `<LocalizationProvider>` with [bundle.sh][#l10n-bundle-script]. 
 
@@ -252,4 +256,4 @@ Packages that use Tailwind for styling can use [Tailwind's logical properties](h
 [#pontoon-fxa-repo]: https://pontoon.mozilla.org/projects/mozilla-accounts/
 [#settings-connected-services]: https://accounts.firefox.com/settings/clients
 [#sri]: https://developer.mozilla.org/docs/Web/Security/Subresource_Integrity
-[#supported-languages]: https://github.com/mozilla/fxa/blob/main/packages/fxa-shared/l10n/supportedLanguages.json
+[#supported-languages]: https://github.com/mozilla/fxa/blob/main/libs/shared/l10n/src/lib/supported-languages.json

@@ -40,15 +40,13 @@ The Node debugger can also be attached to a running test process. Mozilla accoun
 The `--inspect` argument is used in the examples below, but `--inspect-brk` can also be used to pause the process as soon as it starts.
 :::
 
-### Mocha tests (e.g. `fxa-shared`)
+### Mocha tests (e.g. `fxa-content-server`)
 
-For Mocha, pass the `--timeout 0` option, otherwise the test will fail if you step through it and exceed the default timeout (currently 2 seconds on `fxa-shared`):
+For Mocha, pass the `--timeout 0` option, otherwise the test will fail if you step through it and exceed the default timeout (2 seconds):
 
 ```shell
 node --inspect ./node_modules/.bin/mocha --timeout 0 path/to/file
 ```
-
-In `fxa-shared`, this incantation works for some directories, but not yet others.
 
 ### Jest tests (e.g. `fxa-payments-server`)
 

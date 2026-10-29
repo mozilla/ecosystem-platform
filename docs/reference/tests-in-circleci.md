@@ -48,7 +48,6 @@ Some packages do not use `build-module` - these each use customized jobs:
 
 - [`fxa-content-server`](#fxa-content-server)
   - [`build-and-deploy-content-server`](#build-and-deploy-content-server)
-- [`fxa-shared`](#fxa-shared)
 - [`js-client`](#js-client)
 - [`fxa-oauth-server`](#fxa-oauth-server)
 
@@ -115,10 +114,6 @@ So, we split those tasks into the `build-and-deploy-content-server` job, which i
 This is done by running [`.circleci/install-content-server.sh`](#circleci-install-content-serversh), followed by [`.circleci/build.sh fxa-content-server`](#circleci-buildsh) and [`.circleci/deploy.sh fxa-content-server`](#circleci-deploysh).
 
 (Unlike other modules, the `test.sh` script is not run here, since the `fxa-content-server` job already took care of it.)
-
-### fxa-shared
-
-Custom task for fxa-shared package. It runs lint and test directly on the CircleCI host node - rather than building a Docker container for running tests.
 
 ### docs
 

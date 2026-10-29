@@ -53,10 +53,7 @@ flowchart TD
 | `/signup_confirmed`, `/signup_verified` | [SignupConfirmed](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signup-signupconfirmed--default-signed-in) | Generic confirmation. |
 | `/primary_email_verified` | [PrimaryEmailVerified](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signup-primaryemailverified--basic-signed-in) | Confirmation after a verification link. |
 | `/signin_passwordless_code` | [SigninPasswordlessCode](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-signin-signinpasswordlesscode--default-signin) | Passwordless sign-up: the account is created on code entry. |
-| `/verify_email`, `/verify_primary_email` | complete_sign_up (legacy) | Link-based verification. Current emails send codes. |
-| `/choose_what_to_sync` | choose_what_to_sync (legacy) | Standalone Sync checklist, now inline on sign-up. |
-| `/would_you_like_to_sync` | would_you_like_to_sync (legacy) | Post-verification Sync offer. Not reachable from React. |
-| `/signup_permissions` | permissions (legacy) | Consent screen for untrusted relying parties. Not reachable from React. |
+| `/verify_email`, `/verify_primary_email` | redirect | Old email-link landings. `/verify_email` redirects to `/confirm_signup_code` and `/verify_primary_email` to `/settings`, keeping the query string. Current emails send codes. |
 
 ## Notes
 

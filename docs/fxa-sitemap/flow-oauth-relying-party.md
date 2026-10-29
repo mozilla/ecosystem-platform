@@ -24,7 +24,7 @@ flowchart TD
   code -->|web relying party| redirect["Redirect to redirect_uri<br/>with code and state"]
   code -->|Firefox, Thunderbird| wc["WebChannel message<br/>fxaccounts:oauth_login"]
   code -->|mobile scoped keys| success["Signed in<br/>/oauth/success/:clientId"]
-  signin -->|untrusted RP, legacy| perms["Permissions<br/>/signin_permissions"]
+  signin -->|untrusted RP| perms["Permissions<br/>/signin_permissions"]
   classDef page fill:#deebff,stroke:#0060df,stroke-width:1.5px,color:#15141a
   classDef step fill:#f9f9fb,stroke:#8f8f9d,color:#15141a
   classDef legacy fill:#f0f0f4,stroke:#8f8f9d,stroke-dasharray:5 3,color:#5b5b66
@@ -37,7 +37,7 @@ flowchart TD
   class index page
   class signin,signup,extra flow
   class code,redirect,wc exit
-  class perms legacy
+  class perms page
   click signin href "/ecosystem-platform/fxa-sitemap/flow-signin"
   click signup href "/ecosystem-platform/fxa-sitemap/flow-signup"
   click extra href "/ecosystem-platform/fxa-sitemap/flow-post-signin-setup"
@@ -52,8 +52,8 @@ flowchart TD
 | `/oauth/signin`, `/oauth/signup`, `/oauth/force_auth` | see [Sign in](./flow-signin.md), [Sign up](./flow-signup.md) | The regular screens with relying-party branding. |
 | `/post_verify/service_welcome` | [ServiceWelcome](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-postverify-servicewelcome--from-signin) | Welcome interstitial for a new account. |
 | `/oauth/success/:clientId` | [PairSuccess](https://mozilla.github.io/fxa/storybooks/main/fxa-settings/?path=/story/pages-pair-success--default) | Terminal screen for clients that receive the code without a redirect. |
-| `/signin_permissions`, `/signup_permissions` | permissions (legacy) | Scope consent for untrusted relying parties. Not reachable from React. |
-| `/subscriptions` | redirect (legacy) | Redirects to the Subscription Platform. |
+| `/signin_permissions` | Permissions | Scope consent for untrusted relying parties. |
+| `/subscriptions` | SubscriptionsRedirect | Redirects to the Subscription Platform. |
 
 ## Notes
 

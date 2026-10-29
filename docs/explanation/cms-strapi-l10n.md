@@ -16,7 +16,7 @@ The Mozilla Accounts localization system enables dynamic, localized user experie
 
 1. **Strapi CMS**: Headless CMS for managing relying party configurations
 2. **fxa-auth-server** (`cms.ts`): API layer handling CMS requests and webhook processing
-3. **fxa-shared** (`relying-party-configuration-manager.ts`): Configuration management with caching
+3. **@fxa/shared/cms** (`relying-party-configuration.manager.ts`): Configuration management with caching
 4. **fxa-settings** (`getCmsInfo`): Frontend integration for localized content
 5. **GitHub**: Version control and FTL file storage
 6. **Pontoon**: Mozilla's localization platform
