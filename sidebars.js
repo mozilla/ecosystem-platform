@@ -35,6 +35,7 @@ module.exports = {
                           'relying-parties/how-tos/product-metrics',
                           'relying-parties/how-tos/device-registration',
                           'relying-parties/how-tos/step-up-authentication',
+                          'relying-parties/how-tos/firefox-browser-services',
                          ],
         'Reference': [
                       'relying-parties/reference/glossary',
