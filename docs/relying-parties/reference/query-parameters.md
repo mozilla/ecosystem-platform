@@ -144,15 +144,19 @@ Universal
 
 ### `service`
 
-Specify which non-OAuth service a user is signing in to.
+Specify which Firefox service a user is signing in to.
 
 #### Options
 
 - `sync`
+- `relay`
+- `smartwindow`
+- `monitor`
+- `vpn`
 
 #### When to specify
 
-Only available if `context` equals `fx_desktop_v3` or `fx_ios_v1`
+Only sent by Firefox. With the Firefox client ID, Firefox can send `service` instead of `scope`, and FxA grants that service's scopes. If Firefox doesn't send `service`, FxA treats the sign-in as Sync. Older Firefox flows that set `context` to `fx_desktop_v3` or `fx_ios_v1` send `service=sync`. See [Integrating a Service with Firefox](../how-tos/firefox-browser-services.md).
 
 ### `setting`
 
