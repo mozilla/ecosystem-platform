@@ -55,7 +55,6 @@ Used to get the browser's currently signed in user as well as browser capabiliti
 - `capabilities` - A list of capabilities supported by the browser. See [capabilities](#capabilities).
 - `signedInUser` - the user currently signed into Sync on the browser. See [signedInUser](#signedInUser).
 
-
 #### fxaccounts:loaded
 
 Sent on startup. Sent after the first screen is visible. No data is sent. No response is expected.
@@ -240,6 +239,7 @@ See [`engines` capability in Fenix & WebExtensions](./webchannels-in-fenix-webex
 #### signedInUser
 
 - `email` - User's email address
+- `hasSyncKey` - Does the browser hold the Sync key? FxA does not pair from this browser when the value is `false`. Older versions of Firefox do not send it.
 - `sessionToken` - The current session token that can be used to interact with FxA's auth server.
 - `uid` - The user identifier.
 - `verified` - Is the user verified?
@@ -289,7 +289,6 @@ Responses to FxA use the `WebChannelMessageToContent` custom event, which is han
 4. fxaccounts:login
 5. fxaccounts:email_verified (if supported)
 
-
 ## OAuth WebChannels
 
 OAuth WebChannels is an extension of the FxA WebChannel Desktop Flow.
@@ -298,8 +297,8 @@ of OAuth in the background. Some behaviours in the OAuth flow are different.
 
 This flow currently supports the following messages:
 
--   `fxaccounts:fxa_status`
--   `fxaccounts:oauth_login`
+- `fxaccounts:fxa_status`
+- `fxaccounts:oauth_login`
 
 The `fxaccounts:fxa_status` message in the OAuth flow supports specifying a custom list of Sync engines that the app supports.
 See [engines](#engines) for details of engine capabilities.
@@ -322,7 +321,6 @@ sequenceDiagram
   webext-->>glue: Port message
   glue-->>fxa: WebChannelMessageToContent JS Event
 ```
-
 
 ```mermaid
 sequenceDiagram
@@ -368,9 +366,12 @@ Sent when a user successfully authenticates via a WebChannel OAuth flow.
   "redirect": "urn:ietf:wg:oauth:2.0:oob:oauth-redirect-webchannel",
   "action": "signin",
   "declinedSyncEngines": ["history"],
-  "offeredSyncEngines": ["history"]
+  "offeredSyncEngines": ["history"],
+  "services": { "sync": {} }
 }
 ```
+
+- `services` - The service that the flow started with, for example `{ "sync": {} }` or `{ "relay": {} }`. For Sync, the value is always `{}`, because Firefox keeps its own list of Sync engines.
 
 ##### support
 
