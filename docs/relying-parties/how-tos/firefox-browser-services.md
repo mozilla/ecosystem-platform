@@ -6,11 +6,17 @@ sidebar_label: Integrating a Service with Firefox
 
 # Integrating a service with Firefox
 
-This guide is for teams whose service runs inside Firefox and signs users in with their Mozilla account, such as VPN, Relay, Smart Window, and Monitor. It covers how Firefox signs users in to your service, how a user's authorization carries across your clients, and what to ask the FxA team for.
+This guide is for teams whose service runs inside Firefox and signs users in with their Mozilla account, such as VPN, Relay, Smart Window, and Monitor. It covers what you build in Firefox, how a user's authorization carries across your clients, and what to ask the FxA team for.
 
 :::tip Talk to us early
 Reach out to the FxA team in [#fxa](https://mozilla.slack.com/archives/C4D36CAJW) before you start. Several steps below need changes on our side, and some flows need a decision from your team first.
 :::
+
+## What Firefox provides and what you build
+
+Firefox already knows how to sign a user in to their Mozilla account, store the resulting refresh token, and mint access tokens from it. It exposes this through its accounts module (`fxAccounts` on Desktop, the application-services account manager on mobile). None of this knows about your service.
+
+**You write the integration code in Firefox** that calls those APIs with your service name, decides when to call them, and handles the results. Everything below that says "your integration" means this code, which your team adds to Firefox.
 
 ## Key terms
 
@@ -23,29 +29,32 @@ Reach out to the FxA team in [#fxa](https://mozilla.slack.com/archives/C4D36CAJW
 These are two separate sign-ins:
 
 - **Website sign-in**, which your project may or may not have, uses your own client ID and redirects back to your website. It doesn't sign the user in to Firefox, and your website can't tell Firefox it happened.
-- **Firefox sign-in** uses the Firefox client ID with `service=<name>`. FxA talks to Firefox directly over web channel messages, and Firefox gets its own refresh token. Signing a user in to the browser, or authorizing your service in it, always goes through this path.
+- **Firefox sign-in** uses the Firefox client ID with `service=<name>`. FxA talks to Firefox directly, and Firefox gets its own refresh token carrying every scope your service needs, including its canonical scope. Signing a user in to the browser, or authorizing your service in it, always goes through this path.
 
 ## Do you need an account-creation API?
 
 :::important
-If your service has its own account system, you need an API Firefox can call to create a user's account in your service.
+If your service has its own account system, you need an API your integration can call to create a user's account in your service.
 :::
 
-A user who starts in Firefox may be signed out of Firefox, or signed in without an account in your service yet. In both cases Firefox signs them in first with the Firefox client ID, then calls your API with a Firefox access token carrying your canonical scope to create their account. Sending the user to your website to create an account instead means several round trips, and your website can't tell Firefox when it's done.
+A user who starts in Firefox may be signed out of Firefox entirely, or signed in to Firefox but for services other than yours. In both cases your integration first has Firefox sign them in or authorize your service, then calls your API with a Firefox access token carrying your canonical scope to create their account. Sending the user to your website to create an account instead means several round trips, and your website can't tell Firefox when it's done.
 
 Relay does this today, and Monitor will. Services without their own account system, such as VPN and Smart Window, don't need it.
 
-If you don't have this API yet and your project has its own account system, a good first milestone is users who are already signed in to Firefox and already use your service on another platform, such as your website or desktop app. They already have an account, so Firefox can reach them through the [refresh token exchange](#the-refresh-token-exchange) alone. Later milestones that add signed-out users, or users new to your service, need the API.
+If you don't have this API yet and your project has its own account system, a good first milestone is users who are already signed in to Firefox and already use your service on another platform, such as your website or desktop app. They already have an account, so your integration can reach them through the [refresh token exchange](#the-refresh-token-exchange) alone. Later milestones that add signed-out users, or users new to your service, need the API.
 
-## How Firefox signs users in to your service
+## How to integrate your service with Firefox
 
-Firefox sends `service=<name>` on the authorization URL instead of `scope`. Firefox tells FxA which scopes each service needs in the `fxa_status` web channel message, as `capabilities.services[<service>].scope`, and FxA grants them. This supports signing in to several services in one flow, where FxA can offer optional services without the browser knowing about them ahead of time. See [ADR 0049](https://github.com/mozilla/fxa/blob/main/docs/adr/0049-service-driven-scope-resolution.md) and its addendum.
+At a high level:
 
-- **Read the granted scopes back.** FxA returns the scopes it granted as `scope` in the `fxaccounts:oauth_login` web channel message. They can differ from what was asked for, so don't assume them from `service`.
-- **Re-authentication is the exception.** When Firefox re-authenticates a signed-in user, for example after a password change, it sends `scope` with all the scopes it currently needs instead of `service`.
-- **Non-Firefox clients**, such as your website, keep sending `scope` as usual.
+1. **Register your service with FxA.** FxA needs your `service=<name>` value, your canonical scope, and the other scopes your service uses. See [What to ask the FxA team for](#what-to-ask-the-fxa-team-for).
+2. **Have Firefox sign in or authorize with your service name.** Your integration opens the FxA sign-in flow through Firefox's accounts APIs, passing `service=<name>` rather than a list of scopes. FxA resolves the service to its scopes and grants them, which lets FxA offer optional services in one flow without the browser knowing about them ahead of time ([ADR 0049](https://github.com/mozilla/fxa/blob/main/docs/adr/0049-service-driven-scope-resolution.md)). Your website and other non-Firefox clients keep sending `scope` as usual.
+3. **Request access tokens for your scopes.** Once Firefox holds a refresh token with your scopes, your integration asks the accounts API for an access token for your canonical scope and uses it with your backend.
+4. **Call your account-creation API** if your service has its own account system and the user doesn't have an account yet.
 
-Every Firefox flow also requests `profile`, or `profile:uid` where only the user ID is needed. The browser needs the user's display name, avatar, and email to show them as signed in.
+Every Firefox sign-in also requests `profile`, or `profile:uid` where only the user ID is needed, because the browser shows the user's display name, avatar, and email as signed in. Your integration doesn't need to request it.
+
+The two flows below cover the details for a user who is already signed in to Firefox and one who isn't.
 
 ## Sharing authorization across your clients
 
@@ -63,7 +72,9 @@ A service with no canonical scope, one that only uses scopes like `profile` that
 
 ## The refresh token exchange
 
-When a user who is already signed in to Firefox needs your service, Firefox asks FxA to add your canonical scope to its existing refresh token. FxA grants it without asking the user if they already authorized your service on any client. Otherwise FxA returns `403`, and Firefox sends the user to FxA to authorize your service. See the [token endpoint](/ecosystem-platform/api#tag/OAuth-Server-API-Overview/operation/postToken) for the request and response, and [ADR 0048](https://github.com/mozilla/fxa/blob/main/docs/adr/0048-refresh-tokens-and-account-level-authorization.md) for the design.
+When a user who is already signed in to Firefox needs your service, your integration asks Firefox's accounts API for an access token with your scopes. If the refresh token Firefox holds doesn't have them yet, Firefox asks FxA to add them to that refresh token through a token exchange. FxA grants it without asking the user if they already authorized your service on any client. Otherwise FxA returns `403`, and your integration sends the user to FxA to authorize your service.
+
+The exchange works the same way for any scope your service needs. The authorization check is keyed on your canonical scope, which is why every client in your project must request it. See the [token endpoint](/ecosystem-platform/api#tag/OAuth-Server-API-Overview/operation/postToken) for the request and response, and [ADR 0048](https://github.com/mozilla/fxa/blob/main/docs/adr/0048-refresh-tokens-and-account-level-authorization.md) for the design.
 
 :::note Session tokens
 Firefox Desktop currently gets its access tokens from its session token instead of a refresh token. That path is being phased out, so it isn't documented here. Build your integration on the refresh-token flow.
@@ -71,22 +82,21 @@ Firefox Desktop currently gets its access tokens from its session token instead 
 
 ### Flow for a user signed in to Firefox
 
-1. **Wait for a user action that needs your service,** such as clicking your toolbar icon. Don't attempt the exchange just because the user signed in to a different service. FxA doesn't currently have an endpoint to check authorization ahead of the exchange; we can build one if a service needs it.
-2. **If Firefox's refresh token already has your canonical scope,** Firefox mints an access token for it directly.
-3. **Otherwise, Firefox attempts the token exchange** with your canonical scope.
-   - **Success:** Firefox uses the new refresh token to mint access tokens for your service.
-   - **`403`:** the user hasn't authorized your service. Show your "Get started" or "Try it" UI. On click, Firefox opens FxA with `service=<name>`. A signed-in user sees a quick, one-click authorization screen with no password.
-4. **If your service has its own account system** and the user doesn't have an account yet, Firefox calls your account-creation API.
+1. **Wait for a user action that needs your service,** such as clicking your toolbar icon. Don't attempt the exchange just because the user signed in to a different service.
 
-Don't use the list of attached clients (`fxAccounts.listAttachedOAuthClients()`) to decide whether the user authorized your service. It only shows which refresh tokens exist. The exchange checks the user's authorization, so the exchange is the check.
+   FxA doesn't currently have an endpoint that tells Firefox whether the user has authorized your service without attempting the exchange. The list of attached clients (`fxAccounts.listAttachedOAuthClients()`) is not a substitute: it only shows which refresh tokens exist, not what the user authorized, so it misses users who authorized your service on your website and lists clients the user never consciously chose. If you need to know ahead of a user action, it's the only option today; use it knowing those limits, and tell us, since we can build a proper endpoint if a service needs one.
+
+2. **Request an access token for your scopes** from Firefox's accounts API. If the refresh token already has them, Firefox mints the access token directly. Otherwise Firefox attempts the token exchange.
+   - **Success:** Firefox stores the new refresh token and returns an access token for your service.
+   - **`403`:** the user hasn't authorized your service. Show your "Get started" or "Try it" UI. On click, your integration opens FxA with `service=<name>`. A signed-in user sees a quick, one-click authorization screen with no password.
+3. **If your service has its own account system** and the user doesn't have an account yet, call your account-creation API with the access token.
 
 ### Flow for a user signed out of Firefox
 
 1. **Wait for a user action that needs your service.**
-2. **Firefox opens FxA with the Firefox client ID and `service=<name>`.** The user signs in or signs up.
-3. **FxA grants your service's scopes and records the authorization.**
-4. **Firefox reads the result** from the `fxaccounts:oauth_login` web channel message and stores its new refresh token.
-5. **If your service has its own account system,** Firefox calls your account-creation API.
+2. **Open the FxA sign-in flow with `service=<name>`** through Firefox's accounts API. The user signs in or signs up, and Firefox stores a refresh token with your service's scopes. FxA records the authorization.
+3. **Request an access token for your canonical scope** from Firefox's accounts API.
+4. **If your service has its own account system,** call your account-creation API with that token.
 
 ## What to ask the FxA team for
 
@@ -108,7 +118,7 @@ Also decide:
 
 ## Plan for traffic
 
-Expect more traffic to your API, and to FxA's token and introspection endpoints, once Firefox starts calling your service. Decide how often Firefox calls your API, and cache results where you can, such as introspection results per access token. Follow the caching patterns Firefox already uses for similar calls.
+Expect more traffic to your API, and to FxA's token and introspection endpoints, once Firefox starts calling your service. Decide how often your integration calls your API, and cache results where you can, such as introspection results per access token. Follow the caching patterns Firefox already uses for similar calls.
 
 ## Related docs
 
