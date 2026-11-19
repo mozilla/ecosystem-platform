@@ -22,9 +22,10 @@ Run `yarn start firefox`, which will open an instance of Firefox. It is configur
 3. Scroll down to `About Firefox` and tap on it
 4. Tap 5 consecutive times on Firefox Browser to enable the debug menu
 5. Go back
-6. Tap on the `Custom Firefox Account` server just below "Turn on Sync"
-7. Enter value: `https://accounts.stage.mozaws.net` and tap OK
-8. Reopen the browser
+6. Scroll to the top of the page and click on "Sync Debug"
+7. Tap on the `Custom Mozilla Account server` just below "Sync Debug"
+8. Enter value: `https://accounts.stage.mozaws.net` and tap OK
+9. Reopen the browser
 
 ### Stage environment setup on iOS:
 1. Launch Firefox browser
@@ -32,11 +33,11 @@ Run `yarn start firefox`, which will open an instance of Firefox. It is configur
 3. Tap on Hamburger menu in the browser
 4. Tap on `Settings`
 5. Scroll down to the `About` section and tap 5 consecutive times on the Firefox version (e.g Firefox Daylight 101.1) to enable the debug menu
-6. Scroll up to the `Firefox Account` section and tap on `Advanced Sync Settings`. (If you are signed into an account, disconnect first.)
-7. Switch the `Use stage servers` to ON.
-8. Restart the browser.
+6. Scroll up to the `Firefox Account` section and tap on `Advanced Sync Settings` (If you are signed into an account, disconnect first)
+7. Switch the `Use stage servers` to ON
+8. Restart the browser
 
-> **Note:** On mobile when switching between Stage and Prod viceversa, it’s recommended to uninstall and reinstall the browser.
+> **Note:** On mobile when switching between Stage and Prod vice versa, it’s recommended to uninstall and reinstall the browser.
 
 ### Stage environment setup on desktop browser:
 1. Launch Firefox browser.
