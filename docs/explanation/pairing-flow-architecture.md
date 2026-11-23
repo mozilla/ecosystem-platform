@@ -296,6 +296,8 @@ The supplicant checks the `state` against the one it requested, then hands the c
 
 Either side can cancel with `pair:auth:cancel` or `pair:supp:cancel`; the other lands on its `timeout_and_cancel` screen with the reason, instead of waiting for the channel to time out.
 
+Each v2 page that waits for the other device (`scan_qr`, `continue_on_mobile`, `connect_this_device` and both `approve_signin` pages) has its own timer. On `scan_qr`, the timer starts when the QR code appears. After a page waits for `pairing.qr_timeout_minutes` (env `PAIRING_QR_TIMEOUT_MINUTES`, default five minutes), it closes the channel and moves to its `timeout_and_cancel` screen. Neither device can tell an expired channel from a closed one, so this timer is the only signal of a real timeout.
+
 ## Intended Security Properties
 
 The security-related design goals of this system are as follows:
